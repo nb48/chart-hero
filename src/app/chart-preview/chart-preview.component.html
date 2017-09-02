@@ -1,8 +1,14 @@
 <div class="ch-chart-preview">
     <div class="ch-chart-preview-controls">
-        <button md-raised-button color="primary" (click)="audioStore.play()">Play</button>
-        <button md-raised-button color="primary" (click)="audioStore.stop()">Stop</button>
+        <button md-raised-button color="primary" (click)="start()">Play</button>
+        <button md-raised-button color="primary" (click)="stop()">Stop</button>
     </div>
     <div class="ch-chart-preview-display">
+        <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" x2="100%" [attr.y1]="viewWindow.zeroPosition + '%'" [attr.y2]="viewWindow.zeroPosition + '%'" stroke="white" stroke-width="3"></line>
+            <ng-container *ngFor="let beat of beats">
+                <line *ngIf="beat.visible" x1="0" x2="100%" [attr.y1]="beat.position + '%'" [attr.y2]="beat.position + '%'" stroke="white" stroke-width="2"></line>
+            </ng-container>
+        </svg>
     </div>
 </div>

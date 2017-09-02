@@ -2,5 +2,56 @@
 .ch-tap-input {
     width: 100%;
     height: 100%;
-    background-color: orange;
+    display: grid;
+    grid-template-rows: 2em 3em 6em 1em 1fr 2em;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.ch-tap-input p {
+    margin-left: 1em;
+    color: #FFFFFF;
+}
+
+.ch-tap-input-controls {
+    grid-row: 2;
+    grid-column: 2;
+    margin-left: 1em;
+}
+
+.ch-tap-input-save {
+    grid-row: 2;
+    grid-column: 4;
+    margin-right: 1em;
+}
+
+.ch-tap-input-save button {
+    float: right;
+}
+
+.ch-tap-input-box {
+    grid-row: 3;
+    grid-column: 2 / 5;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.ch-tap-input-box input {
+    width: 100%;
+    max-width: 100%;
+}
+
+.ch-tap-input-times {
+    grid-row: 5;
+    grid-column: 2 / 5;
+    display: flex;
+    align-items: left;
+    flex-wrap: wrap;
+    max-height: 100%;
+    align-content: flex-start;
+}
+
+.ch-tap-input-times div {
+    flex: 14%;
+    max-width: 14%;
+    height: 2em;
 }

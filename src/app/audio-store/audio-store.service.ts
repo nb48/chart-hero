@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class AudioStoreService {
 
   private _file: File;
   private _audio: HTMLAudioElement;
-  private _currentTimeSubject: ReplaySubject<number>;
+  private _frameEvent: BehaviorSubject<number>;
   private _currentTime: number;
   private _frame: number;
 
   constructor() {
-    this._currentTimeSubject = new ReplaySubject<number>();
+    this._frameEvent = new BehaviorSubject<number>(0);
     this._currentTime = 0;
   }
 
@@ -26,8 +26,12 @@ export class AudioStoreService {
     this._audio.load();
   }
 
-  get currentTime(): Observable<number> {
-    return this._currentTimeSubject.asObservable();
+  get frameEvent(): Observable<number> {
+    return this._frameEvent.asObservable();
+  }
+
+  get currentTime(): number {
+    return this._audio.currentTime;
   }
 
   get duration(): number {
@@ -49,11 +53,12 @@ export class AudioStoreService {
     this._currentTime = currentTime;
     window.clearInterval(this._frame);
     this._frame = undefined;
+    this._frameEvent.next(0);
   }
 
   private frame(): void {
     if (this._audio.currentTime) {
-      this._currentTimeSubject.next(this._audio.currentTime);
+      this._frameEvent.next(this._audio.currentTime);
     }
     if (this._audio.ended) {
       this.stop(0);

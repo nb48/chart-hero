@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AudioStoreService } from '../audio-store/audio-store.service';
+import { ChartStoreService, Chart } from '../chart-store/chart-store.service';
 
 interface Beat {
   time: number;
@@ -24,25 +25,8 @@ interface ViewWindow {
   zeroPosition: number;
 }
 
-const earliest: number = 2.8;
-const latest: number = -0.4;
-
-const chart: ChartNote[] = [{
-  time: 0.647,
-  color: 'green'
-}, {
-  time: 1.047,
-  color: 'red'
-}, {
-  time: 1.447,
-  color: 'yellow'
-}, {
-  time: 1.847,
-  color: 'blue'
-}, {
-  time: 2.247,
-  color: 'orange'
-}];
+const earliest: number = 1.4;
+const latest: number = -0.2;
 
 const buildNote = (color: string, y: number): Note => {
   let x = undefined;
@@ -85,17 +69,20 @@ export class ChartPreviewComponent implements OnInit {
     zeroPosition: earliest / (earliest - latest) * 100
   };
 
+  chart: Chart;
+
   beats: Beat[];
 
   notes: Note[];
 
-  constructor(public audioStore: AudioStoreService) {
-    this.beats = this.buildBeats(0);
-    this.notes = this.buildNotes(0);
+  constructor(private audioStore: AudioStoreService, private chartStore: ChartStoreService) {
   }
 
   ngOnInit() {
-    this.audioStore.currentTime.subscribe((currentTime: number) => {
+    this.chart = this.chartStore.chart;
+    this.beats = this.buildBeats(0);
+    this.notes = this.buildNotes(0);
+    this.audioStore.frameEvent.subscribe((currentTime: number) => {
       this.beats = this.buildBeats(currentTime);
       this.notes = this.buildNotes(currentTime);
     });
@@ -133,9 +120,9 @@ export class ChartPreviewComponent implements OnInit {
     const earliest = currentTime + this.viewWindow.earliest;
     const latest = currentTime + this.viewWindow.latest;
     let notes = [];
-    let visibleIndex = chart.findIndex((note) => note.time > latest); 
+    let visibleIndex = this.chart.notes.findIndex((note) => note.time > latest); 
     while (true) {
-      const note = chart[visibleIndex];
+      const note = this.chart.notes[visibleIndex];
       if (!note || note.time > earliest) {
         break;
       }

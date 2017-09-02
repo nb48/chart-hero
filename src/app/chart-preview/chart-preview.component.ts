@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AudioStoreService } from '../audio-store/audio-store.service';
+
 @Component({
   selector: 'app-chart-preview',
   templateUrl: './chart-preview.component.html',
@@ -7,9 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChartPreviewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private audioStore: AudioStoreService) {
+  }
 
   ngOnInit() {
   }
-
 }

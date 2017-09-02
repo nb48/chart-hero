@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AudioStoreService } from '../audio-store/audio-store.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -7,14 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  audioFile: any;
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private audioStore: AudioStoreService) {
   }
 
-  newAudioFile(file: any) {
-    this.audioFile = file.target.files[0];
+  ngOnInit() {
   }
 }

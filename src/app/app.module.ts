@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { MdButtonModule, MdListModule, MdSidenavModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
+import { AudioStoreService } from './audio-store/audio-store.service';
 import { ChartEditorComponent } from './chart-editor/chart-editor.component';
 import { ChartPreviewComponent } from './chart-preview/chart-preview.component';
 import { HomeComponent } from './home/home.component';
@@ -26,7 +27,9 @@ import { TapInputComponent } from './tap-input/tap-input.component';
     MdListModule,
     MdSidenavModule
   ],
-  providers: [],
+  providers: [
+    AudioStoreService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

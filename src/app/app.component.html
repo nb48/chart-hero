@@ -5,19 +5,19 @@
   <div class="ch-app-sidebar">
     <md-list>
       <md-list-item>
-        <button md-button (click)="mode = 'home'">Overview</button>
+        <button md-button (click)="mode = 'home'" [color]="mode === 'home' ? 'basic' : 'accent'">Overview</button>
       </md-list-item>
       <md-list-item>
-        <button md-button (click)="mode = 'metadata'">Metadata</button>
+        <button md-button (click)="mode = 'metadata'" [color]="mode === 'metadata' ? 'basic' : 'accent'">Metadata</button>
       </md-list-item>
       <md-list-item>
-        <button md-button (click)="mode = 'tap-input'">Tap Input</button>
+        <button md-button (click)="mode = 'tap-input'" [color]="mode === 'tap-input' ? 'basic' : 'accent'">Tap Input</button>
       </md-list-item>
       <md-list-item>
-        <button md-button (click)="mode = 'chart-editor'">Chart Editor</button>
+        <button md-button (click)="mode = 'chart-editor'" [color]="mode === 'chart-editor' ? 'basic' : 'accent'">Chart Editor</button>
       </md-list-item>
       <md-list-item>
-        <button md-button (click)="mode = 'chart-preview'">Chart Preview</button>
+        <button md-button (click)="mode = 'chart-preview'" [color]="mode === 'chart-preview' ? 'basic' : 'accent'">Chart Preview</button>
       </md-list-item>
     </md-list>
   </div>

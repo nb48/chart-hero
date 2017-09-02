@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  audioFile: any;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  newAudioFile(file: any) {
+    this.audioFile = file.target.files[0];
+  }
 }

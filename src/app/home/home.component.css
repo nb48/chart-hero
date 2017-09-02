@@ -1,6 +1,11 @@
 
 .ch-home {
-    width: 100%;
-    height: 100%;
-    background-color: green;
+    width: 1fr;
+    height: 1fr;
+    margin: 2em;
 }
+
+.ch-home-audio-select label {
+    margin-left: 1em;
+}
+

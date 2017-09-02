@@ -9,7 +9,7 @@ import { AudioStoreService } from '../audio-store/audio-store.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private audioStore: AudioStoreService) {
+  constructor(public audioStore: AudioStoreService) {
   }
 
   ngOnInit() {

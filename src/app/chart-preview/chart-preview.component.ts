@@ -4,7 +4,6 @@ import { AudioStoreService } from '../audio-store/audio-store.service';
 
 interface Beat {
   time: number;
-  visible: boolean;
   position: number;
 }
 
@@ -13,34 +12,6 @@ interface ViewWindow {
   latest: number;
   zeroPosition: number;
 }
-
-const buildBeats = (start: number, duration: number, bpm: number, offset: number): Beat[] => {
-  let beats = [];
-  let time = start + offset;
-  while (time < duration) {
-    time += 60 / bpm;
-    beats.push({
-      time: time,
-      visible: false,
-      position: undefined
-    });
-  }
-  return beats;
-};
-
-const updateBeats = (beats: Beat[], currentTime: number, viewWindow: ViewWindow): void => {
-  const earliest = currentTime + viewWindow.earliest;
-  const latest = currentTime + viewWindow.latest;
-  beats.forEach((beat) => {
-    if (beat.time < earliest && beat.time > latest) {
-      beat.visible = true;
-      beat.position = (earliest - beat.time) / (earliest - latest) * 100;
-    } else {
-      beat.visible = false;
-      beat.position = undefined;
-    }
-  });
-};
 
 const earliest = 2.8;
 const latest = -0.4;
@@ -63,20 +34,39 @@ export class ChartPreviewComponent implements OnInit {
   beats: Beat[];
 
   constructor(public audioStore: AudioStoreService) {
+    this.beats = this.buildBeats(0);
   }
 
   ngOnInit() {
     this.audioStore.currentTime.subscribe((currentTime: number) => {
-      updateBeats(this.beats, currentTime, this.viewWindow);
+      this.beats = this.buildBeats(currentTime)
     });
   }
 
-  start() {
-    this.beats = buildBeats(this.viewWindow.latest, this.audioStore.duration, this.bpm, this.offset);
+  start(): void {
     this.audioStore.start();
   }
 
-  stop() {
+  stop(): void {
     this.audioStore.stop();
+    this.beats = this.buildBeats(0);
+  }
+
+  private buildBeats(currentTime: number): Beat[] {
+    let beats = [];
+    let time = this.viewWindow.latest + this.offset;
+    const earliest = currentTime + this.viewWindow.earliest;
+    const latest = currentTime + this.viewWindow.latest;
+    while (time < earliest) {
+      time += 60 / this.bpm;
+      if (time < latest) {
+        continue;
+      }
+      beats.push({
+        time: time,
+        position: (earliest - time) / (earliest - latest) * 100
+      });
+    }
+    return beats;
   }
 }

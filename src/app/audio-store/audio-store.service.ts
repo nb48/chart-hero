@@ -34,7 +34,7 @@ export class AudioStoreService {
 
   start(): void {
     this._audio.play();
-    this._frame = window.setInterval(() => this.frame(), 10);
+    this._frame = window.setInterval(() => this.frame(), 16);
   }
 
   stop(): void {

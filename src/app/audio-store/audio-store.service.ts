@@ -6,11 +6,13 @@ export class AudioStoreService {
 
   private _file: File;
   private _audio: HTMLAudioElement;
-  private _currentTime: ReplaySubject<number>;
+  private _currentTimeSubject: ReplaySubject<number>;
+  private _currentTime: number;
   private _frame: number;
 
   constructor() {
-    this._currentTime = new ReplaySubject<number>();
+    this._currentTimeSubject = new ReplaySubject<number>();
+    this._currentTime = 0;
   }
 
   get name(): string {
@@ -25,30 +27,36 @@ export class AudioStoreService {
   }
 
   get currentTime(): Observable<number> {
-    return this._currentTime.asObservable();
+    return this._currentTimeSubject.asObservable();
   }
 
   get duration(): number {
     return this._audio.duration;
   }
 
-  start(): void {
-    this._audio.play();
-    this._frame = window.setInterval(() => this.frame(), 16);
+  play(): void {
+    if (this._audio.paused) {
+      this._audio.play();
+      (this._audio as any).fastSeek(this._currentTime);
+      this._frame = window.setInterval(() => this.frame(), 16);
+    } else {
+      this.stop(this._audio.currentTime);
+    }
   }
 
-  stop(): void {
+  stop(currentTime: number): void {
     this._audio.pause();
+    this._currentTime = currentTime;
     window.clearInterval(this._frame);
     this._frame = undefined;
   }
 
   private frame(): void {
     if (this._audio.currentTime) {
-      this._currentTime.next(this._audio.currentTime);
+      this._currentTimeSubject.next(this._audio.currentTime);
     }
     if (this._audio.ended) {
-      this.stop();
+      this.stop(0);
     }
   }
 }

@@ -43,12 +43,12 @@ export class ChartPreviewComponent implements OnInit {
     });
   }
 
-  start(): void {
-    this.audioStore.start();
+  play(): void {
+    this.audioStore.play();
   }
 
   stop(): void {
-    this.audioStore.stop();
+    this.audioStore.stop(0);
     this.beats = this.buildBeats(0);
   }
 

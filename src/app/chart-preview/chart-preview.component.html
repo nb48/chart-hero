@@ -1,7 +1,11 @@
 <div class="ch-chart-preview">
     <div class="ch-chart-preview-controls">
-        <button md-raised-button color="primary" (click)="start()">Play</button>
-        <button md-raised-button color="primary" (click)="stop()">Stop</button>
+        <button md-icon-button color="primary" (click)="play()">
+            <i class="fa fa-play fa-2x" aria-hidden="true" aria-label="Play"></i>
+        </button>
+        <button md-icon-button color="primary" (click)="stop()">
+            <i class="fa fa-stop fa-2x" aria-hidden="true" aria-label="Stop"></i>
+        </button>
     </div>
     <div class="ch-chart-preview-display">
         <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg">

@@ -5,10 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "build": "ng build --prod --base-href \"https://nb48.github.io/chart-hero/\"",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {

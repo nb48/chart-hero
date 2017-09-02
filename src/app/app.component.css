@@ -5,8 +5,8 @@
     display: grid;
     grid-template-areas: "none header"
                          "sidebar content";
-    grid-template-rows: 10% 90%;
-    grid-template-columns: 15% 85%;
+    grid-template-rows: 8em 1fr; 
+    grid-template-columns: 12em 1fr;
 }
 
 .ch-app-header {

@@ -1,13 +1,29 @@
 import { TestBed, async } from '@angular/core/testing';
+import { MdButtonModule, MdListModule, MdSidenavModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
+import { ChartEditorComponent } from './chart-editor/chart-editor.component';
+import { ChartPreviewComponent } from './chart-preview/chart-preview.component';
+import { HomeComponent } from './home/home.component';
+import { MetadataComponent } from './metadata/metadata.component';
+import { TapInputComponent } from './tap-input/tap-input.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        ChartEditorComponent,
+        ChartPreviewComponent,
+        HomeComponent,
+        MetadataComponent,
+        TapInputComponent
       ],
+      imports: [
+        MdButtonModule,
+        MdListModule,
+        MdSidenavModule
+      ]
     }).compileComponents();
   }));
 

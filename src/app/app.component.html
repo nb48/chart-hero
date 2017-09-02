@@ -1,16 +1,31 @@
 <div class="ch-app mat-typography">
   <div class="ch-app-header">
-      <h1 class="mat-display-4">Chart Hero</h1>
+    <h1 class="mat-display-4">Chart Hero</h1>
   </div>
   <div class="ch-app-sidebar">
     <md-list>
-      <md-list-item><button md-button>Overview</button></md-list-item>
-      <md-list-item><button md-button>Metadata</button></md-list-item>
-      <md-list-item><button md-button>Tap Input</button></md-list-item>
-      <md-list-item><button md-button>Chart Editor</button></md-list-item>
-      <md-list-item><button md-button>Chart Preview</button></md-list-item>
+      <md-list-item>
+        <button md-button (click)="mode = 'home'">Overview</button>
+      </md-list-item>
+      <md-list-item>
+        <button md-button (click)="mode = 'metadata'">Metadata</button>
+      </md-list-item>
+      <md-list-item>
+        <button md-button (click)="mode = 'tap-input'">Tap Input</button>
+      </md-list-item>
+      <md-list-item>
+        <button md-button (click)="mode = 'chart-editor'">Chart Editor</button>
+      </md-list-item>
+      <md-list-item>
+        <button md-button (click)="mode = 'chart-preview'">Chart Preview</button>
+      </md-list-item>
     </md-list>
   </div>
   <div class="ch-app-content">
+    <app-home *ngIf="mode === 'home'"></app-home>
+    <app-metadata *ngIf="mode === 'metadata'"></app-metadata>
+    <app-tap-input *ngIf="mode === 'tap-input'"></app-tap-input>
+    <app-chart-editor *ngIf="mode === 'chart-editor'"></app-chart-editor>
+    <app-chart-preview *ngIf="mode === 'chart-preview'"></app-chart-preview>
   </div>
 </div>

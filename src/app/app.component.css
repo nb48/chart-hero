@@ -1,0 +1,32 @@
+
+.ch-app {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-areas: "none header"
+                         "sidebar content";
+    grid-template-rows: 10% 90%;
+    grid-template-columns: 15% 85%;
+}
+
+.ch-app-header {
+    grid-area: header;
+}
+
+.ch-app-header h1 {
+    color: #FFFFFF;
+}
+
+.ch-app-sidebar {
+    grid-area: sidebar;
+    margin-top: 5%;
+}
+
+.ch-app-sidebar button {
+    width: 100%;
+    text-align: left;
+}
+
+.ch-app-content {
+    grid-area: content;
+}

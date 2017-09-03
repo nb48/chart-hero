@@ -8,6 +8,7 @@ import { AudioStoreService } from './audio-store/audio-store.service';
 import { ChartEditorComponent } from './chart-editor/chart-editor.component';
 import { ChartPreviewComponent } from './chart-preview/chart-preview.component';
 import { ChartStoreService } from './chart-store/chart-store.service';
+import { ConfigStoreService } from './config-store/config-store.service';
 import { HomeComponent } from './home/home.component';
 import { MetadataComponent } from './metadata/metadata.component';
 import { TapInputComponent } from './tap-input/tap-input.component';
@@ -30,7 +31,8 @@ import { TapInputComponent } from './tap-input/tap-input.component';
   ],
   providers: [
     AudioStoreService,
-    ChartStoreService
+    ChartStoreService,
+    ConfigStoreService
   ],
   bootstrap: [AppComponent]
 })

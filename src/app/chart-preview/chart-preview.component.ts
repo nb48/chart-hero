@@ -1,22 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AudioStoreService } from '../audio-store/audio-store.service';
-import { ChartStoreService, Chart } from '../chart-store/chart-store.service';
+import { ChartStoreService, Chart, Note } from '../chart-store/chart-store.service';
+import { ConfigStoreService } from '../config-store/config-store.service';
 
 interface Beat {
   time: number;
   position: number;
-}
-
-interface ChartNote {
-  time: number;
-  color: string;
-}
-
-interface Note {
-  x: number;
-  y: number;
-  color: string;
 }
 
 interface ViewWindow {
@@ -28,32 +18,6 @@ interface ViewWindow {
 const earliest: number = 1.4;
 const latest: number = -0.2;
 
-const buildNote = (color: string, y: number): Note => {
-  let x = undefined;
-  switch (color) {
-    case 'green':
-      x = 10;
-      break;
-    case 'red':
-      x = 30;
-      break;
-    case 'yellow':
-      x = 50;
-      break;
-    case 'blue':
-      x = 70;
-      break;
-    case 'orange':
-      x = 90;
-      break;
-  }
-  return {
-    x: x,
-    y: y,
-    color: color
-  }
-}
-
 @Component({
   selector: 'app-chart-preview',
   templateUrl: './chart-preview.component.html',
@@ -61,13 +25,9 @@ const buildNote = (color: string, y: number): Note => {
 })
 export class ChartPreviewComponent implements OnInit {
 
-  bpm: number = 150;
-  offset: number = 0.247;
-  viewWindow: ViewWindow = {
-    earliest: earliest,
-    latest: latest,
-    zeroPosition: earliest / (earliest - latest) * 100
-  };
+  earliest: number = 1.4;;
+  latest: number = -0.2;
+  zeroPosition: number = earliest / (earliest - latest) * 100;
 
   chart: Chart;
 
@@ -75,7 +35,7 @@ export class ChartPreviewComponent implements OnInit {
 
   notes: Note[];
 
-  constructor(private audioStore: AudioStoreService, private chartStore: ChartStoreService) {
+  constructor(private audioStore: AudioStoreService, private chartStore: ChartStoreService, private configStore: ConfigStoreService) {
   }
 
   ngOnInit() {
@@ -100,11 +60,11 @@ export class ChartPreviewComponent implements OnInit {
 
   private buildBeats(currentTime: number): Beat[] {
     let beats = [];
-    let time = this.viewWindow.latest + this.offset;
-    const earliest = currentTime + this.viewWindow.earliest;
-    const latest = currentTime + this.viewWindow.latest;
+    let time = this.latest + this.configStore.offset;
+    const earliest = currentTime + this.earliest;
+    const latest = currentTime + this.latest;
     while (time < earliest) {
-      time += 60 / this.bpm;
+      time += 60 / this.configStore.bpm;
       if (time < latest) {
         continue;
       }
@@ -117,17 +77,17 @@ export class ChartPreviewComponent implements OnInit {
   }
 
   private buildNotes(currentTime: number): Note[] {
-    const earliest = currentTime + this.viewWindow.earliest;
-    const latest = currentTime + this.viewWindow.latest;
+    const earliest = currentTime + this.earliest;
+    const latest = currentTime + this.latest;
     let notes = [];
-    let visibleIndex = this.chart.notes.findIndex((note) => note.time > latest); 
+    let visibleIndex = this.chart.notes.findIndex((note) => note.time > latest);
     while (true) {
       const note = this.chart.notes[visibleIndex];
       if (!note || note.time > earliest) {
         break;
       }
       const y = (earliest - note.time) / (earliest - latest) * 100;
-      notes.push(buildNote(note.color, y));
+      notes.push(this.chartStore.buildNote(note.color, y));
       visibleIndex += 1;
     }
     return notes;

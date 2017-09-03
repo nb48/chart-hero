@@ -1,5 +1,14 @@
 
 .ch-chart-upload {
-    width: 100%;
-    height: 100%;
+    width: 1fr;
+    height: 1fr;
+    margin: 2em;
+}
+
+.ch-chart-upload-chart-select label {
+    margin-left: 1em;
+}
+
+.ch-chart-upload button {
+    margin-bottom: 1em;
 }

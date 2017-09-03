@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AudioStoreService } from './audio-store/audio-store.service';
 import { AudioUploadComponent } from './audio-upload/audio-upload.component';
 import { ChartEditorComponent } from './chart-editor/chart-editor.component';
+import { ChartLoaderService } from './chart-loader/chart-loader.service';
 import { ChartPreviewComponent } from './chart-preview/chart-preview.component';
 import { ChartStoreService } from './chart-store/chart-store.service';
 import { ChartUploadComponent } from './chart-upload/chart-upload.component';
@@ -40,6 +41,7 @@ import { ViewNoteComponent } from './view-chart/view-note/view-note.component';
   ],
   providers: [
     AudioStoreService,
+    ChartLoaderService,
     ChartStoreService
   ],
   bootstrap: [AppComponent]

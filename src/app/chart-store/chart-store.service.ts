@@ -18,10 +18,13 @@ export interface ChartNote {
   color: NoteColor[];
 }
 
+const NEW_NOTES_PER_BEAT = 4;
+
 @Injectable()
 export class ChartStoreService {
 
   private _chart: Chart;
+  private _nextId: number;
 
   constructor() {
   }
@@ -40,7 +43,20 @@ export class ChartStoreService {
         time: time,
         color: [NoteColor.Green]
       });
+      this._nextId = index
     });
+    this._nextId += 1;
+  }
+
+  addNote(currentNote: ChartNote, bpm: number): ChartNote {
+    let newId = this._nextId;
+    this._nextId += 1;
+    this.chart.notes.set(newId, {
+      id: newId,
+      time: this.lastNote().time + (60 / (bpm * NEW_NOTES_PER_BEAT)),
+      color: [NoteColor.Green]
+    });
+    return this._chart.notes.get(newId);
   }
 
   lastNote(): ChartNote {

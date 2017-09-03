@@ -63,6 +63,11 @@ export class ChartEditorComponent {
     this.buildView();
   }
 
+  addNote() {
+    this.currentNote = this.chartStore.addNote(this.currentNote, this.configStore.bpm);
+    this.buildView();
+  }
+
   flipColor(color: NoteColor) {
     this.chartStore.flipColor(this.currentNote.id, color);
     this.buildView();

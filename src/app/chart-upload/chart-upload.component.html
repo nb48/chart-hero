@@ -1,12 +1,12 @@
 <div class="ch-chart-upload">
     <md-list>
         <md-list-item class="ch-chart-upload-chart-select">
-            <input [hidden]='true' #inputChart type="file" (change)="upload($event.target.files[0])" />
+            <input [hidden]='true' #inputChart type="file" (change)="chartLoader.loadChart($event.target.files[0])" />
             <button md-raised-button color="primary" (click)="inputChart.click()">Select chart file</button>
-            <label *ngIf="fileName" class="body-1">{{fileName}}</label>
+            <label class="body-1">{{chartLoader.fileName}}</label>
         </md-list-item>
         <md-list-item>
-            <p>{{result}}</p>
+            <p>{{chartLoader.result}}</p>
         </md-list-item>
     </md-list>
 </div>

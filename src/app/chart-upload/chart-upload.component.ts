@@ -9,15 +9,6 @@ import { ChartLoaderService } from './../chart-loader/chart-loader.service';
 })
 export class ChartUploadComponent {
 
-  result: string = '';
-  fileName: string;
-
-  constructor(private chartLoader: ChartLoaderService) {
+  constructor(public chartLoader: ChartLoaderService) {
   }
-
-  upload(file: File) {
-    this.fileName = file.name;
-    this.result = 'Success!';
-  }
-
 }

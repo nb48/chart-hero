@@ -18,6 +18,10 @@
     grid-column: 1;
 }
 
+.ch-chart-editor-controls input {
+    margin-left: 1em;
+}
+
 .ch-chart-editor-display > svg {
     width: 100%;
 }

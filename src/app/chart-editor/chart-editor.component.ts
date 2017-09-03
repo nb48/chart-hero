@@ -12,6 +12,8 @@ import { beatTimeGenerator } from '../util/util';
   styleUrls: ['./chart-editor.component.css']
 })
 export class ChartEditorComponent {
+  @ViewChild('bpmInput') bpmInput: ElementRef;
+  @ViewChild('offsetInput') offsetInput: ElementRef;
   @ViewChild('timeInput') timeInput: ElementRef;
 
   beats: ViewBeat[];
@@ -19,12 +21,12 @@ export class ChartEditorComponent {
   totalHeight: number;
   currentNote: ChartNote;
 
-  constructor(private chartStore: ChartStoreService, private configStore: ConfigStoreService) {
+  constructor(private chartStore: ChartStoreService, public configStore: ConfigStoreService) {
     this.selectNote(this.chartStore.lastNote().id);
   }
 
   keyEvent(key: KeyboardEvent) {
-    if (key.target === this.timeInput.nativeElement) {
+    if ([this.bpmInput.nativeElement, this.offsetInput.nativeElement, this.timeInput.nativeElement].indexOf(key.target) !== -1) {
       return;
     }
     switch (key.key) {

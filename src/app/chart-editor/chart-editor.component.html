@@ -5,11 +5,23 @@
                 <h2>Config</h2>
             </md-list-item>
             <md-list-item>
-                 <button md-raised-button color="primary" (click)="addNote()">Add Note</button>
+                <button md-raised-button color="primary" (click)="addNote()">Add Note</button>
             </md-list-item>
-                <md-list-item>
-                    <p>&nbsp;</p>
-                </md-list-item>
+            <md-list-item>
+                <md-form-field (change)="buildView()">
+                    <label>Beats per minute (bpm):</label>
+                    <input mdInput #bpmInput type="number" [(ngModel)]="configStore.bpm" placeholder="BPM">
+                </md-form-field>
+            </md-list-item>
+            <md-list-item>
+                <md-form-field (change)="buildView()">
+                    <label>Beat offset (from zero):</label>
+                    <input mdInput #offsetInput type="number" [(ngModel)]="configStore.offset" placeholder="Offset">
+                </md-form-field>
+            </md-list-item>
+            <md-list-item>
+                <p>&nbsp;</p>
+            </md-list-item>
             <md-list-item>
                 <h2>Keybindings</h2>
             </md-list-item>

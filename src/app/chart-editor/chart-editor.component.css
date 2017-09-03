@@ -13,6 +13,11 @@
     overflow: auto;
 }
 
+.ch-chart-editor-controls {
+    grid-row: 2;
+    grid-column: 1;
+}
+
 .ch-chart-editor-display > svg {
     width: 100%;
 }

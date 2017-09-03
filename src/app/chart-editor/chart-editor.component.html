@@ -1,4 +1,38 @@
 <div class="ch-chart-editor" (window:keydown)="keyEvent($event)">
+    <div class="ch-chart-editor-controls">
+        <md-list>
+            <md-list-item>
+                <h2>Keybindings</h2>
+            </md-list-item>
+            <md-list-item>
+                <p>'Up Arrow' - Next Note</p>
+            </md-list-item>
+            <md-list-item>
+                <p>'Down Arrow' - Previous Note</p>
+            </md-list-item>
+            <md-list-item>
+                <p>'Left Arrow' - Move Left</p>
+            </md-list-item>
+            <md-list-item>
+                <p>'Right Arrow' - Move Right</p>
+            </md-list-item>
+            <md-list-item>
+                <p>'1' - Toggle Green</p>
+            </md-list-item>
+            <md-list-item>
+                <p>'2' - Toggle Red</p>
+            </md-list-item>
+            <md-list-item>
+                <p>'3' - Toggle Yellow</p>
+            </md-list-item>
+            <md-list-item>
+                <p>'4' - Toggle Blue</p>
+            </md-list-item>
+            <md-list-item>
+                <p>'5' - Toggle Orange</p>
+            </md-list-item>
+        </md-list>
+    </div>
     <div class="ch-chart-editor-display">
         <svg transform="scale(1, -1)" version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" [style.height]="totalHeight + '%'">
             <svg:g app-view-beat *ngFor="let beat of beats" [beat]="beat" />

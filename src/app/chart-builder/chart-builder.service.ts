@@ -41,7 +41,7 @@ export class ChartBuilderService {
     const noteStrings = [].concat(...this.chartStore.sortedNotes()
       .map((note) => {
         const time = note.time * 1000 / (60000 / (this.chartStore.bpm * 192));
-        const timeString = `${time}`.split('.')[0].slice(0, 4);
+        const timeString = `${time}`.split('.')[0];
         if (note.color.length === 0) {
           return [noteString(timeString, 7)]
         }

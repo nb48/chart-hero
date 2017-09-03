@@ -16,3 +16,16 @@
 .ch-chart-editor-display > svg {
     width: 100%;
 }
+
+.ch-chart-editor-current-note {
+    grid-row: 2;
+    grid-column: 3;
+}
+
+.ch-chart-editor-current-note span {
+    margin-left: 1em;
+}
+
+.ch-chart-editor-current-note input {
+    margin-left: 1em;
+}

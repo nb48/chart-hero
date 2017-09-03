@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { MdButtonModule, MdListModule, MdSidenavModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MdButtonModule, MdRadioModule, MdListModule, MdSidenavModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { AudioStoreService } from './audio-store/audio-store.service';
@@ -29,9 +30,12 @@ import { ViewNoteComponent } from './view-chart/view-note/view-note.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     MdButtonModule,
+    MdRadioModule,
     MdListModule,
-    MdSidenavModule
+    MdSidenavModule,
+    ReactiveFormsModule
   ],
   providers: [
     AudioStoreService,

@@ -1,1 +1,8 @@
-<svg:circle r="1em" [attr.cx]="note.x + '%'" [attr.cy]="note.y + '%'" [attr.fill]="note.color"></circle>
+<ng-container *ngIf="note.open">
+    <svg:line x1="0" x2="100%" stroke="purple" stroke-width="9" [attr.y1]="note.y + '%'" [attr.y2]="note.y + '%'"></svg:line>
+    <svg:line *ngIf="selected" x1="0" x2="100%" stroke="white" stroke-width="3" [attr.y1]="note.y + '%'" [attr.y2]="note.y + '%'"></svg:line>
+</ng-container>
+<ng-container *ngIf="!note.open">
+    <svg:circle r="1em" [attr.cx]="note.x + '%'" [attr.cy]="note.y + '%'" [attr.fill]="note.fill"></svg:circle>
+    <svg:circle *ngIf="selected" r="0.75em" fill="none" stroke="white" stroke-width="3" [attr.cx]="note.x + '%'" [attr.cy]="note.y + '%'"></svg:circle>
+</ng-container>

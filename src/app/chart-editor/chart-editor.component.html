@@ -1,8 +1,25 @@
-<div class="ch-chart-editor">
+<div class="ch-chart-editor" (window:keydown)="keyEvent($event)">
     <div class="ch-chart-editor-display">
         <svg transform="scale(1, -1)" version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" [style.height]="totalHeight + '%'">
-            <svg:g app-view-beat *ngFor="let beat of beats" [beat]="beat"/>
-            <svg:g app-view-note *ngFor="let note of notes" [note]="note"/>
+            <svg:g app-view-beat *ngFor="let beat of beats" [beat]="beat" />
+            <svg:g app-view-note *ngFor="let note of notes" [note]="note" [selected]="note.id === currentNote.id" (click)="selectNote(note.id)"
+            />
         </svg>
+    </div>
+    <div class="ch-chart-editor-current-note">
+        <md-list>
+            <md-list-item>
+                <h2>Current Note</h2>
+            </md-list-item>
+            <md-list-item>
+                <p>Id:<span>{{currentNote.id}}</span></p>
+            </md-list-item>
+            <md-list-item>
+                <md-form-field (change)="buildView()">
+                    <label>Time:</label>
+                    <input mdInput #timeInput type="number" [(ngModel)]="currentNote.time" placeholder="Time">
+                </md-form-field>
+            </md-list-item>
+        </md-list>
     </div>
 </div>

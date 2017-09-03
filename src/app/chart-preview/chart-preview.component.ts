@@ -61,8 +61,8 @@ export class ChartPreviewComponent implements OnInit {
       position: (latest - time) / (latest - earliest) * 100
     }));
 
-    this.notes = Array.from(this.chart.notes.values())
+    this.notes = [].concat(...Array.from(this.chart.notes.values())
       .filter((note) => note.time > earliest && note.time < latest)
-      .map((note) => buildNote(note.color, (latest - note.time) / (latest - earliest) * 100));
+      .map((note) => buildNote(note.id, (latest - note.time) / (latest - earliest) * 100, note.color)));
   }
 }

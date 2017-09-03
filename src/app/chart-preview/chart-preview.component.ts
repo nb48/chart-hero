@@ -5,6 +5,7 @@ import { ChartStoreService, Chart } from '../chart-store/chart-store.service';
 import { ConfigStoreService } from '../config-store/config-store.service';
 import { ViewBeat } from '../view-chart/view-beat/view-beat.component';
 import { ViewNote, buildNote } from '../view-chart/view-note/view-note.component';
+import { beatTimeGenerator } from '../util/util';
 
 interface ViewWindow {
   earliest: number;
@@ -22,8 +23,8 @@ const latest: number = -0.2;
 })
 export class ChartPreviewComponent implements OnInit {
 
-  earliest: number = 1.4;;
-  latest: number = -0.2;
+  timeBefore: number = 1.4;;
+  timeAfter: number = -0.2;
   zeroPosition: number = earliest / (earliest - latest) * 100;
 
   chart: Chart;
@@ -36,11 +37,9 @@ export class ChartPreviewComponent implements OnInit {
 
   ngOnInit() {
     this.chart = this.chartStore.chart;
-    this.beats = this.buildBeats(0);
-    this.notes = this.buildNotes(0);
+    this.buildView(0);
     this.audioStore.frameEvent.subscribe((currentTime: number) => {
-      this.beats = this.buildBeats(currentTime);
-      this.notes = this.buildNotes(currentTime);
+      this.buildView(currentTime);
     });
   }
 
@@ -50,42 +49,20 @@ export class ChartPreviewComponent implements OnInit {
 
   stop(): void {
     this.audioStore.stop(0);
-    this.beats = this.buildBeats(0);
-    this.notes = this.buildNotes(0);
+    this.buildView(0);
   }
 
-  private buildBeats(currentTime: number): ViewBeat[] {
-    let beats = [];
-    let time = this.latest + this.configStore.offset;
-    const earliest = currentTime + this.earliest;
-    const latest = currentTime + this.latest;
-    while (time < earliest) {
-      time += 60 / this.configStore.bpm;
-      if (time < latest) {
-        continue;
-      }
-      beats.push({
-        time: time,
-        position: (earliest - time) / (earliest - latest) * 100
-      });
-    }
-    return beats;
-  }
+  private buildView(currentTime: number): void {
+    const latest = currentTime + this.timeBefore;
+    const earliest = currentTime + this.timeAfter;
+    const increment = 60 / this.configStore.bpm;
 
-  private buildNotes(currentTime: number): ViewNote[] {
-    const earliest = currentTime + this.earliest;
-    const latest = currentTime + this.latest;
-    let notes = [];
-    let visibleIndex = this.chart.notes.findIndex((note) => note.time > latest);
-    while (true) {
-      const note = this.chart.notes[visibleIndex];
-      if (!note || note.time > earliest) {
-        break;
-      }
-      const y = (earliest - note.time) / (earliest - latest) * 100;
-      notes.push(buildNote(note.color, y));
-      visibleIndex += 1;
-    }
-    return notes;
+    this.beats = Array.from(beatTimeGenerator(this.timeAfter + this.configStore.offset - increment, earliest, latest, increment)).map((time) => ({
+      position: (latest - time) / (latest - earliest) * 100
+    }));
+
+    this.notes = Array.from(this.chart.notes.values())
+      .filter((note) => note.time > earliest && note.time < latest)
+      .map((note) => buildNote(note.color, (latest - note.time) / (latest - earliest) * 100));
   }
 }

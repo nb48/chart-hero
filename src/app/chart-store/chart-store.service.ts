@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 
 export interface Chart {
-  notes: ChartNote[];
+  notes: Map<number, ChartNote>;
 }
 
 export interface ChartNote {
+  id: number;
   time: number;
   color: string;
 }
@@ -23,10 +24,19 @@ export class ChartStoreService {
 
   newChart(times: number[]) {
     this._chart = {
-      notes: times.map((time) => ({
+      notes: new Map<number, ChartNote>()
+    }
+    times.forEach((time, index) => {
+      this._chart.notes.set(index, {
+        id: index,
         time: time,
         color: 'green'
-      }))
-    };
+      });
+    });
+  }
+
+  lastNote(): ChartNote {
+    return Array.from(this._chart.notes.values())
+      .reduce((accumulator, currentValue) => accumulator.time > currentValue.time ? accumulator : currentValue);
   }
 }

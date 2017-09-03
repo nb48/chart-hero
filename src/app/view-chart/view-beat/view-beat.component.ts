@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 
 export interface ViewBeat {
   position: number;
-  color: string;
 }
 
 @Component({

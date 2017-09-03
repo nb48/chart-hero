@@ -78,6 +78,16 @@ export class ChartEditorComponent {
     this.buildView();
   }
 
+  deleteNote() {
+    const noteIdToDelete = this.currentNote.id;
+    this.selectNote(this.chartStore.previousNote(this.currentNote.id).id);
+    if (this.currentNote.id === noteIdToDelete) {
+      this.selectNote(this.chartStore.nextNote(this.currentNote.id).id);
+    }
+    this.chartStore.deleteNote(noteIdToDelete);
+    this.buildView();
+  }
+
   buildView(): void {
     let latest = this.chartStore.lastNote().time;
     let increment = 60 / this.configStore.bpm;

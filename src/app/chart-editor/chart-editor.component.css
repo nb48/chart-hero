@@ -27,6 +27,11 @@
     grid-column: 3;
 }
 
+.ch-chart-editor-current-note button {
+    margin-left: 1em;
+    margin-bottom: 1em;
+}
+
 .ch-chart-editor-current-note span {
     margin-left: 1em;
 }

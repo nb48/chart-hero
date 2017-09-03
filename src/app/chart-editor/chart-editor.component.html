@@ -44,6 +44,7 @@
         <md-list>
             <md-list-item>
                 <h2>Current Note</h2>
+                <button md-raised-button color="warn" (click)="deleteNote()">Delete</button>
             </md-list-item>
             <md-list-item>
                 <p>Id:<span>{{currentNote.id}}</span></p>

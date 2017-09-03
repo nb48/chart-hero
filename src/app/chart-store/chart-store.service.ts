@@ -112,6 +112,10 @@ export class ChartStoreService {
     });
   }
 
+  deleteNote(id: number): void {
+    this._chart.notes.delete(id);
+  }
+
   private sortedNotes(): ChartNote[] {
     return Array.from(this._chart.notes.values())
       .sort((a, b) => a.time - b.time);

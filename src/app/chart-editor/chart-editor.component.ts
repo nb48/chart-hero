@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 
 import { ChartStoreService, Chart, ChartNote, NoteColor } from '../chart-store/chart-store.service';
-import { ConfigStoreService } from '../config-store/config-store.service';
 import { ViewBeat } from '../view-chart/view-beat/view-beat.component';
 import { ViewNote, buildNote } from '../view-chart/view-note/view-note.component';
 import { beatTimeGenerator } from '../util/util';
@@ -21,7 +20,7 @@ export class ChartEditorComponent {
   totalHeight: number;
   currentNote: ChartNote;
 
-  constructor(private chartStore: ChartStoreService, public configStore: ConfigStoreService) {
+  constructor(private chartStore: ChartStoreService) {
     this.selectNote(this.chartStore.lastNote().id);
   }
 
@@ -66,7 +65,7 @@ export class ChartEditorComponent {
   }
 
   addNote() {
-    this.currentNote = this.chartStore.addNote(this.currentNote, this.configStore.bpm);
+    this.currentNote = this.chartStore.addNote(this.currentNote);
     this.buildView();
   }
 
@@ -92,14 +91,14 @@ export class ChartEditorComponent {
       this.selectNote(this.chartStore.nextNote(this.currentNote.id).id);
     }
     this.chartStore.deleteNote(noteIdToDelete);
-    this.buildView();
+    this.selectNote(this.currentNote.id);
   }
 
   buildView(): void {
     let latest = this.chartStore.lastNote().time;
-    let increment = 60 / this.configStore.bpm;
+    let increment = 60 / this.chartStore.bpm;
 
-    const beatTimes = Array.from(beatTimeGenerator(this.configStore.offset, 0, latest + increment, increment));
+    const beatTimes = Array.from(beatTimeGenerator(this.chartStore.offset, 0, latest + increment, increment));
     this.beats = beatTimes.map((time, index) => ({
       position: 100 / (beatTimes.length + 1) * (index + 1)
     }))

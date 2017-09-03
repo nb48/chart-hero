@@ -1,9 +1,0 @@
-<div class="ch-home">
-    <md-list>
-        <md-list-item class="ch-home-audio-select">
-            <input [hidden]='true' #inputAudio type="file" (change)="audioStore.file = $event.target.files[0]"/>
-            <button md-raised-button color="primary" (click)="inputAudio.click()">Select audio file</button>
-            <label *ngIf="audioStore.name" class="body-1">{{audioStore.name}}</label>
-        </md-list-item>
-    </md-list>
-</div>

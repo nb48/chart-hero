@@ -24,13 +24,42 @@ const NEW_NOTES_PER_BEAT = 4;
 export class ChartStoreService {
 
   private _chart: Chart;
+  private _bpm: number;
+  private _offset: number;
   private _nextId: number;
 
   constructor() {
+    this._chart = {
+      notes: new Map<number, ChartNote>()
+    }
+    this._chart.notes.set(0, {
+      id: 0,
+      time: 0,
+      color: [NoteColor.Green]
+    });
+    this._bpm = 60;
+    this._offset = 0;
+    this._nextId = 1;
   }
 
   get chart(): Chart {
     return this._chart;
+  }
+
+  get bpm(): number {
+    return this._bpm;
+  }
+
+  set bpm(bpm: number) {
+    this._bpm = bpm;
+  }
+
+  get offset(): number {
+    return this._offset;
+  }
+
+  set offset(offset: number) {
+    this._offset = offset;
   }
 
   newChart(times: number[]) {
@@ -48,12 +77,12 @@ export class ChartStoreService {
     this._nextId += 1;
   }
 
-  addNote(currentNote: ChartNote, bpm: number): ChartNote {
+  addNote(currentNote: ChartNote): ChartNote {
     let newId = this._nextId;
     this._nextId += 1;
     this.chart.notes.set(newId, {
       id: newId,
-      time: this.lastNote().time + (60 / (bpm * NEW_NOTES_PER_BEAT)),
+      time: this.lastNote().time + (60 / (this._bpm * NEW_NOTES_PER_BEAT)),
       color: [NoteColor.Green]
     });
     return this._chart.notes.get(newId);
@@ -129,6 +158,9 @@ export class ChartStoreService {
   }
 
   deleteNote(id: number): void {
+    if (this._chart.notes.size === 1) {
+      return;
+    }
     this._chart.notes.delete(id);
   }
 

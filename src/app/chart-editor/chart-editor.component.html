@@ -10,13 +10,13 @@
             <md-list-item>
                 <md-form-field (change)="buildView()">
                     <label>Beats per minute (bpm):</label>
-                    <input mdInput #bpmInput type="number" [(ngModel)]="configStore.bpm" placeholder="BPM">
+                    <input mdInput #bpmInput type="number" [(ngModel)]="chartStore.bpm" placeholder="BPM">
                 </md-form-field>
             </md-list-item>
             <md-list-item>
                 <md-form-field (change)="buildView()">
                     <label>Beat offset (from zero):</label>
-                    <input mdInput #offsetInput type="number" [(ngModel)]="configStore.offset" placeholder="Offset">
+                    <input mdInput #offsetInput type="number" [(ngModel)]="chartStore.offset" placeholder="Offset">
                 </md-form-field>
             </md-list-item>
             <md-list-item>

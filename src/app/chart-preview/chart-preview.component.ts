@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { AudioStoreService } from '../audio-store/audio-store.service';
 import { ChartStoreService, Chart } from '../chart-store/chart-store.service';
-import { ConfigStoreService } from '../config-store/config-store.service';
 import { ViewBeat } from '../view-chart/view-beat/view-beat.component';
 import { ViewNote, buildNote } from '../view-chart/view-note/view-note.component';
 import { beatTimeGenerator } from '../util/util';
@@ -32,7 +31,7 @@ export class ChartPreviewComponent implements OnInit {
   beats: ViewBeat[];
   notes: ViewNote[];
 
-  constructor(private audioStore: AudioStoreService, private chartStore: ChartStoreService, private configStore: ConfigStoreService) {
+  constructor(private audioStore: AudioStoreService, private chartStore: ChartStoreService) {
   }
 
   ngOnInit() {
@@ -55,9 +54,9 @@ export class ChartPreviewComponent implements OnInit {
   private buildView(currentTime: number): void {
     const latest = currentTime + this.timeBefore;
     const earliest = currentTime + this.timeAfter;
-    const increment = 60 / this.configStore.bpm;
+    const increment = 60 / this.chartStore.bpm;
 
-    this.beats = Array.from(beatTimeGenerator(this.timeAfter + this.configStore.offset - increment, earliest, latest, increment)).map((time) => ({
+    this.beats = Array.from(beatTimeGenerator(this.timeAfter + this.chartStore.offset - increment, earliest, latest, increment)).map((time) => ({
       position: (latest - time) / (latest - earliest) * 100
     }));
 

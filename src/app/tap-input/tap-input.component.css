@@ -4,7 +4,7 @@
     height: 100%;
     display: grid;
     grid-template-rows: 2em 3em 6em 1em 1fr 2em;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .ch-tap-input p {
@@ -20,17 +20,22 @@
 
 .ch-tap-input-save {
     grid-row: 2;
-    grid-column: 4;
+    grid-column: 3;
     margin-right: 1em;
 }
+ 
+.ch-tap-input-save p {
+    text-align: right;
+}  
 
 .ch-tap-input-save button {
-    float: right;
-}
+    float: right; 
+     margin-top: 0.5em;  
+} 
 
 .ch-tap-input-box {
     grid-row: 3;
-    grid-column: 2 / 5;
+    grid-column: 2 / 4;
     margin-left: 1em;
     margin-right: 1em;
 }
@@ -42,7 +47,7 @@
 
 .ch-tap-input-times {
     grid-row: 5;
-    grid-column: 2 / 5;
+    grid-column: 2 / 4;
     display: flex;
     align-items: left;
     flex-wrap: wrap;

@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 @Injectable()
 export class AudioStoreService {
 
+  private _audioUploaded: boolean;
   private _file: File;
   private _audio: HTMLAudioElement;
   private _frameEvent: BehaviorSubject<number>;
@@ -11,8 +12,13 @@ export class AudioStoreService {
   private _frame: number;
 
   constructor() {
+    this._audioUploaded = false;
     this._frameEvent = new BehaviorSubject<number>(0);
     this._currentTime = 0;
+  }
+
+  get audioUploaded(): boolean {
+    return this._audioUploaded;
   }
 
   get name(): string {
@@ -24,6 +30,7 @@ export class AudioStoreService {
     this._audio = new Audio();
     this._audio.src = URL.createObjectURL(this._file);
     this._audio.load();
+    this._audioUploaded = true;
   }
 
   get frameEvent(): Observable<number> {

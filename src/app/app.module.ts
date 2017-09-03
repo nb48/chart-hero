@@ -7,6 +7,7 @@ import { MdButtonModule, MdRadioModule, MdListModule, MdSidenavModule } from '@a
 import { AppComponent } from './app.component';
 import { AudioStoreService } from './audio-store/audio-store.service';
 import { AudioUploadComponent } from './audio-upload/audio-upload.component';
+import { ChartBuilderService } from './chart-builder/chart-builder.service';
 import { ChartEditorComponent } from './chart-editor/chart-editor.component';
 import { ChartLoaderService } from './chart-loader/chart-loader.service';
 import { ChartPreviewComponent } from './chart-preview/chart-preview.component';
@@ -41,6 +42,7 @@ import { ViewNoteComponent } from './view-chart/view-note/view-note.component';
   ],
   providers: [
     AudioStoreService,
+    ChartBuilderService,
     ChartLoaderService,
     ChartStoreService
   ],

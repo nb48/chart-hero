@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AudioStoreService } from '../audio-store/audio-store.service';
+import { ChartBuilderService } from './../chart-builder/chart-builder.service';
 import { ChartStoreService, Chart } from '../chart-store/chart-store.service';
 import { ViewBeat } from '../view-chart/view-beat/view-beat.component';
 import { ViewNote, buildNote } from '../view-chart/view-note/view-note.component';
@@ -31,7 +32,7 @@ export class ChartPreviewComponent implements OnInit {
   beats: ViewBeat[];
   notes: ViewNote[];
 
-  constructor(private audioStore: AudioStoreService, private chartStore: ChartStoreService) {
+  constructor(private audioStore: AudioStoreService, private chartStore: ChartStoreService, private chartBuilder: ChartBuilderService) {
   }
 
   ngOnInit() {
@@ -49,6 +50,12 @@ export class ChartPreviewComponent implements OnInit {
   stop(): void {
     this.audioStore.stop(0);
     this.buildView(0);
+  }
+
+  downloadChart(): void {
+    let chart = new File([this.chartBuilder.buildChartString()], 'notes.chart', { type: 'text/chart' });
+    let url = window.URL.createObjectURL(chart);
+    window.open(url);
   }
 
   private buildView(currentTime: number): void {

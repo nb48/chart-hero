@@ -22,3 +22,8 @@
     width: 100%;
     height: 100%;
 }
+
+.ch-chart-preview-download {
+    grid-row: 4;
+    grid-column: 3;
+}

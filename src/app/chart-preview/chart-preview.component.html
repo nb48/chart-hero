@@ -15,4 +15,7 @@
             <svg:g app-view-note *ngFor="let note of notes" [note]="note"/>
         </svg>
     </div>
+    <div class="ch-chart-preview-download">
+        <button md-raised-button color="primary" (click)="downloadChart()">Download Chart</button>
+    </div>
 </div>

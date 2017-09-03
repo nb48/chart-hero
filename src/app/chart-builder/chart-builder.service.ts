@@ -22,9 +22,9 @@ export class ChartBuilderService {
   }
 
   private buildSong(): string {
-    return songString('Name', 'Tower Of Heaven')
-         + songString('Artist', 'Feint')
-         + songString('Charter', 'DujekR')
+    return songString('Name', 'Chart Hero Name')
+         + songString('Artist', 'Chart Hero Artist')
+         + songString('Charter', 'Chart Hero Charter')
          + songString('Resolution', '192')
   }
 

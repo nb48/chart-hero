@@ -14,7 +14,7 @@
         <h2>Chart:</h2>
       </md-list-item>
       <md-list-item>
-        <button md-button [disabled]="!audioStore.audioUploaded" (click)="mode = 'chart-upload'" [color]="mode === 'chart-upload' ? 'basic' : 'accent'">Chart Upload</button>
+        <button md-button [disabled]="true" (click)="mode = 'chart-upload'" [color]="mode === 'chart-upload' ? 'basic' : 'accent'">Chart Upload</button>
       </md-list-item>
       <md-list-item>
         <button md-button [disabled]="!audioStore.audioUploaded" (click)="mode = 'tap-input'" [color]="mode === 'tap-input' ? 'basic' : 'accent'">Tap Input</button>

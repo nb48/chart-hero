@@ -7,8 +7,8 @@ export class ConfigStoreService {
   _offset: number;
 
   constructor() {
-    this._bpm = 150;
-    this._offset = 0.247;
+    this._bpm = 60;
+    this._offset = 0;
   }
 
   get bpm(): number {

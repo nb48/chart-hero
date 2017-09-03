@@ -9,12 +9,6 @@ export interface ChartNote {
   color: string;
 }
 
-export interface Note {
-  x: number;
-  y: number;
-  color: string;
-}
-
 @Injectable()
 export class ChartStoreService {
 
@@ -34,32 +28,5 @@ export class ChartStoreService {
         color: 'green'
       }))
     };
-  }
-
-
-  buildNote(color: string, y: number): Note {
-    let x = undefined;
-    switch (color) {
-      case 'green':
-        x = 10;
-        break;
-      case 'red':
-        x = 30;
-        break;
-      case 'yellow':
-        x = 50;
-        break;
-      case 'blue':
-        x = 70;
-        break;
-      case 'orange':
-        x = 90;
-        break;
-    }
-    return {
-      x: x,
-      y: y,
-      color: color
-    }
   }
 }

@@ -1,18 +1,9 @@
 import { Component } from '@angular/core';
 
-import { ChartStoreService, Chart } from './../chart-store/chart-store.service';
-import { ConfigStoreService } from './../config-store/config-store.service';
-
-interface Beat {
-  time: number;
-  position: number;
-}
-
-interface Note {
-  x: number;
-  y: number;
-  color: string;
-}
+import { ChartStoreService, Chart } from '../chart-store/chart-store.service';
+import { ConfigStoreService } from '../config-store/config-store.service';
+import { ViewBeat } from '../view-chart/view-beat/view-beat.component';
+import { ViewNote, buildNote } from '../view-chart/view-note/view-note.component';
 
 @Component({
   selector: 'app-chart-editor',
@@ -22,8 +13,8 @@ interface Note {
 export class ChartEditorComponent {
 
   chart: Chart;
-  beats: Beat[];
-  notes: Note[];
+  beats: ViewBeat[];
+  notes: ViewNote[];
   totalHeight: number;
   totalTime: number;
 
@@ -34,7 +25,7 @@ export class ChartEditorComponent {
     this.notes = this.buildNotes();
   }
 
-  private buildBeats(): Beat[] {
+  private buildBeats(): ViewBeat[] {
     let beats = [];
     let latest = this.chart.notes[this.chart.notes.length - 1].time;
     let increment = 60 / this.configStore.bpm;
@@ -53,11 +44,11 @@ export class ChartEditorComponent {
     return beats;
   }
 
-  private buildNotes(): Note[] {
+  private buildNotes(): ViewNote[] {
     let notes = [];
     return this.chart.notes.map((note) => {
       let y = (note.time + (60 / this.configStore.bpm)) / this.totalTime * 100;
-      return this.chartStore.buildNote(note.color, y);
+      return buildNote(note.color, y);
     });
   }
 }

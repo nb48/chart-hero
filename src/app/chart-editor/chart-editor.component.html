@@ -1,9 +1,8 @@
 <div class="ch-chart-editor">
     <div class="ch-chart-editor-display">
         <svg transform="scale(1, -1)" version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" [style.height]="totalHeight + '%'">
-            <line *ngFor="let beat of beats" x1="0" x2="100%" [attr.y1]="beat.position + '%'" [attr.y2]="beat.position + '%'" stroke="white"
-                stroke-width="2"></line>
-            <circle *ngFor="let note of notes" r="1em" [attr.cx]="note.x + '%'" [attr.cy]="note.y + '%'" [attr.fill]="note.color"></circle>
+            <svg:g app-view-beat *ngFor="let beat of beats" [beat]="beat"/>
+            <svg:g app-view-note *ngFor="let note of notes" [note]="note"/>
         </svg>
     </div>
 </div>

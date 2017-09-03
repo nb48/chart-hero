@@ -12,6 +12,8 @@ import { ConfigStoreService } from './config-store/config-store.service';
 import { HomeComponent } from './home/home.component';
 import { MetadataComponent } from './metadata/metadata.component';
 import { TapInputComponent } from './tap-input/tap-input.component';
+import { ViewBeatComponent } from './view-chart/view-beat/view-beat.component';
+import { ViewNoteComponent } from './view-chart/view-note/view-note.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { TapInputComponent } from './tap-input/tap-input.component';
     ChartPreviewComponent,
     HomeComponent,
     MetadataComponent,
-    TapInputComponent
+    TapInputComponent,
+    ViewBeatComponent,
+    ViewNoteComponent
   ],
   imports: [
     BrowserModule,

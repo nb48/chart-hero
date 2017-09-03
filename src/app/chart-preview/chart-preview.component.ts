@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AudioStoreService } from '../audio-store/audio-store.service';
-import { ChartStoreService, Chart, Note } from '../chart-store/chart-store.service';
+import { ChartStoreService, Chart } from '../chart-store/chart-store.service';
 import { ConfigStoreService } from '../config-store/config-store.service';
-
-interface Beat {
-  time: number;
-  position: number;
-}
+import { ViewBeat } from '../view-chart/view-beat/view-beat.component';
+import { ViewNote, buildNote } from '../view-chart/view-note/view-note.component';
 
 interface ViewWindow {
   earliest: number;
@@ -31,9 +28,8 @@ export class ChartPreviewComponent implements OnInit {
 
   chart: Chart;
 
-  beats: Beat[];
-
-  notes: Note[];
+  beats: ViewBeat[];
+  notes: ViewNote[];
 
   constructor(private audioStore: AudioStoreService, private chartStore: ChartStoreService, private configStore: ConfigStoreService) {
   }
@@ -58,7 +54,7 @@ export class ChartPreviewComponent implements OnInit {
     this.notes = this.buildNotes(0);
   }
 
-  private buildBeats(currentTime: number): Beat[] {
+  private buildBeats(currentTime: number): ViewBeat[] {
     let beats = [];
     let time = this.latest + this.configStore.offset;
     const earliest = currentTime + this.earliest;
@@ -76,7 +72,7 @@ export class ChartPreviewComponent implements OnInit {
     return beats;
   }
 
-  private buildNotes(currentTime: number): Note[] {
+  private buildNotes(currentTime: number): ViewNote[] {
     const earliest = currentTime + this.earliest;
     const latest = currentTime + this.latest;
     let notes = [];
@@ -87,7 +83,7 @@ export class ChartPreviewComponent implements OnInit {
         break;
       }
       const y = (earliest - note.time) / (earliest - latest) * 100;
-      notes.push(this.chartStore.buildNote(note.color, y));
+      notes.push(buildNote(note.color, y));
       visibleIndex += 1;
     }
     return notes;

@@ -20,7 +20,7 @@ export class ChartEditorComponent {
   totalHeight: number;
   currentNote: ChartNote;
 
-  constructor(private chartStore: ChartStoreService) {
+  constructor(public chartStore: ChartStoreService) {
     this.selectNote(this.chartStore.lastNote().id);
   }
 

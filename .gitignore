@@ -1,7 +1,6 @@
-
 *.swp
-
+.vscode
 node_modules
-
 dist
+
 

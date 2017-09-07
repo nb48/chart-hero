@@ -18,6 +18,16 @@ module.exports = {
     module: {
         rules: [{
             test: /\.ts$/,
+            enforce: 'pre',
+            loader: 'tslint-loader',
+            options: {
+                configFile: helpers.root('src', 'tslint.json'),
+                formatter: 'grouped',
+                formattersDirectory: helpers.root('node_modules', 'custom-tslint-formatters', 'formatters'),
+                tsConfigFile: helpers.root('src', 'tsconfig.json')
+            }
+        }, {
+            test: /\.ts$/,
             loaders: [{
                 loader: 'awesome-typescript-loader',
                 options: {

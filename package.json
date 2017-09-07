@@ -7,7 +7,8 @@
   "author": "Nathan Blades <nathan.john.blades@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --config config/webpack.dev.js --inline --progress --port 8080",
+    "start": "webpack-dev-server --config config/webpack.dev.js --inline --progress --port 9000",
+    "test": "karma start config/karma.conf.js",
     "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail"
   },
   "dependencies": {
@@ -18,6 +19,7 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "@types/jasmine": "^2.0.0",
     "@types/node": "^8.0.0",
     "angular2-template-loader": "^0.6.0",
     "awesome-typescript-loader": "^3.0.0",
@@ -27,6 +29,14 @@
     "file-loader": "^0.11.0",
     "html-loader": "^0.5.0",
     "html-webpack-plugin": "^2.0.0",
+    "jasmine-core": "^2.8.0",
+    "karma": "^1.0.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.0.0",
+    "karma-sourcemap-loader": "^0.3.0",
+    "karma-spec-reporter": "^0.0.31",
+    "karma-webpack": "^2.0.0",
+    "null-loader": "^0.1.0",
     "raw-loader": "^0.5.0",
     "rimraf": "^2.0.0",
     "rxjs": "^5.0.0",

@@ -1,0 +1,10 @@
+{
+  "name": "chart-hero",
+  "version": "1.0.0",
+  "description": "A chart editor for clone hero.",
+  "main": "src/main.ts",
+  "repository": "git@github.com:nb48/chart-hero.git",
+  "author": "Nathan Blades <nathan.john.blades@gmail.com>",
+  "license": "MIT",
+  "private": true
+}

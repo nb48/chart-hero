@@ -1,10 +1,40 @@
 {
+  "private": true,
   "name": "chart-hero",
   "version": "1.0.0",
   "description": "A chart editor for clone hero.",
-  "main": "src/main.ts",
   "repository": "git@github.com:nb48/chart-hero.git",
   "author": "Nathan Blades <nathan.john.blades@gmail.com>",
   "license": "MIT",
-  "private": true
+  "scripts": {
+    "start": "webpack-dev-server --config config/webpack.dev.js --inline --progress --port 8080",
+    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail"
+  },
+  "dependencies": {
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
+    "@angular/core": "^4.0.0",
+    "@angular/http": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/router": "^4.0.0",
+    "@types/node": "^8.0.0",
+    "angular2-template-loader": "^0.6.0",
+    "awesome-typescript-loader": "^3.0.0",
+    "core-js": "^2.0.0",
+    "css-loader": "^0.28.0",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.0",
+    "html-loader": "^0.5.0",
+    "html-webpack-plugin": "^2.0.0",
+    "raw-loader": "^0.5.0",
+    "rimraf": "^2.0.0",
+    "rxjs": "^5.0.0",
+    "style-loader": "^0.18.0",
+    "typescript": "^2.0.0",
+    "webpack": "^3.0.0",
+    "webpack-dev-server": "^2.0.0",
+    "webpack-merge": "^4.0.0",
+    "zone.js": "^0.8.0"
+  }
 }

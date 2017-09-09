@@ -34,7 +34,7 @@ describe('Service: FileStoreService', () => {
 
 class MockAudioPlayerService {
 
-    $url: string;
+    private $url: string;
 
     set audio(url: string) {
         this.$url = url;

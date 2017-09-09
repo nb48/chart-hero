@@ -38,7 +38,7 @@ export class AudioPlayerService {
         this.$audio = new Audio();
         this.$audio.src = url;
         this.$audio.load();
-        this.$currentTime = '0m0s';
+        this.$currentTime = showTime(0);
         this.$playing = false;
     }
 
@@ -47,7 +47,7 @@ export class AudioPlayerService {
     }
 
     set currentTime(currentTime: string) {
-        this.$currentTime = currentTime;
+        this.$currentTime = showTime(readTime(currentTime));
     }
 
     get playing(): boolean {
@@ -57,7 +57,9 @@ export class AudioPlayerService {
     play() {
         this.$playing = true;
         this.$audio.play();
-        (this.$audio as any).fastSeek(readTime(this.$currentTime));
+        if ((this.$audio as any).fastSeek) {
+            (this.$audio as any).fastSeek(readTime(this.$currentTime));
+        }
         this.$frame = window.setInterval(() => this.frame(), 16);
     }
 

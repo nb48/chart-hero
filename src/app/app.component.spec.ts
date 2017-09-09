@@ -38,9 +38,6 @@ describe('Component: AppComponent', () => {
                 FileStoreService,
             ],
         });
-    });
-
-    beforeEach(() => {
         fixture = TestBed.createComponent(AppComponent);
     });
 

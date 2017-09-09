@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AudioPlayerService } from './../audio-player/audio-player.service';
+import { AudioPlayerService } from '../audio-player/audio-player.service';
 import { FileStoreService } from './file-store.service';
 
 const testFile = new File([''], 'testFileName');

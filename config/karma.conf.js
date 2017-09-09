@@ -7,6 +7,9 @@ module.exports = function (config) {
         files: [{
             pattern: './karma-test-shim.js',
             watched: false
+        }, {
+            pattern: '../node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css',
+            watched: false
         }],
         preprocessors: {
             './karma-test-shim.js': ['webpack', 'sourcemap']

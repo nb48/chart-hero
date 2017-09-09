@@ -24,9 +24,9 @@ import { AppComponent } from './app.component';
         ReactiveFormsModule,
     ],
     declarations: [
-        AppComponent,
         AudioPlayerControlsComponent,
         FileSelectComponent,
+        AppComponent,
     ],
     providers: [
         AudioPlayerService,

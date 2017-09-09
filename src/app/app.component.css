@@ -4,12 +4,16 @@
     width: 100vw;
     height: 100vh;
     grid-template-areas: ". . file-select"
-                         ". . ."
+                         "audio-player-controls . ."
                          ". . .";
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 20% 2fr 1fr;
+    grid-template-rows: 4.25em 4.25em 1fr;
 }
 
 .app app-file-select {
     grid-area: file-select;
+}
+
+.app app-audio-player-controls {
+    grid-area: audio-player-controls;
 }

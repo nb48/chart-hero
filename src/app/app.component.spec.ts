@@ -15,4 +15,3 @@ describe('Component: App', () => {
         expect(fixture.componentInstance instanceof AppComponent).toBe(true, 'should create AppComponent');
     });
 });
-

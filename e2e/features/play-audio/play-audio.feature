@@ -68,3 +68,12 @@ Feature: Play Audio
         And I wait for '6' seconds
         Then the audio should not be playing
         And I should see an enabled current time input with value '0m0s'
+
+    Scenario: User skips to the end of the song
+        When I open the app
+        And I select an audio file
+        And I type '0m4s' into the current time input
+        And I click on the play button
+        Then the audio should be playing
+        And I wait for '2' seconds
+        Then the audio should not be playing

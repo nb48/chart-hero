@@ -11,7 +11,7 @@ Feature: Play Audio
         And I select an audio file
         Then I should see an enabled play button
         And I should see an enabled stop button
-        And I should see an enabled current time input with value '0m0s'
+        And I should see an enabled current time input with value '0' m '0' s
 
     Scenario: User plays the audio
         When I open the app
@@ -23,23 +23,23 @@ Feature: Play Audio
         When I open the app
         And I select an audio file
         And I click on the play button
-        When I wait for '2' seconds
-        And I click on the play button
+        And I wait for '2' seconds
+        And I click on the pause button
         Then the audio should not be playing
-        And I should see an enabled current time input with value '0m2s'
+        And I should see an enabled current time input with value '0' m '2' s
 
     Scenario: User pauses the audio and then plays again
         When I open the app
         And I select an audio file
         And I click on the play button
-        When I wait for '2' seconds
+        And I wait for '2' seconds
+        And I click on the pause button
         And I click on the play button
-        When I click on the play button
         Then the audio should be playing
         And I wait for '2' seconds
-        And I click on the play button
+        And I click on the pause button
         Then the audio should not be playing
-        And I should see an enabled current time input with value '0m4s'
+        And I should see an enabled current time input with value '0' m '4' s
 
     Scenario: User stops the audio while playing
         When I open the app
@@ -48,18 +48,17 @@ Feature: Play Audio
         And I wait for '2' seconds
         And I click on the stop button
         Then the audio should not be playing
-        And I should see an enabled current time input with value '0m0s'
-
+        And I should see an enabled current time input with value '0' m '0' s
 
     Scenario: User stops the audio while paused
         When I open the app
         And I select an audio file
         And I click on the play button
         And I wait for '2' seconds
-        And I click on the play button
+        And I click on the pause button
         And I click on the stop button
         Then the audio should not be playing
-        And I should see an enabled current time input with value '0m0s'
+        And I should see an enabled current time input with value '0' m '0' s
 
     Scenario: User lets the audio finish
         When I open the app
@@ -67,7 +66,7 @@ Feature: Play Audio
         And I click on the play button
         And I wait for '6' seconds
         Then the audio should not be playing
-        And I should see an enabled current time input with value '0m0s'
+        And I should see an enabled current time input with value '0' m '0' s
 
     Scenario: User skips to the end of the song
         When I open the app
@@ -75,5 +74,5 @@ Feature: Play Audio
         And I type '0m4s' into the current time input
         And I click on the play button
         Then the audio should be playing
-        And I wait for '2' seconds
+        When I wait for '2' seconds
         Then the audio should not be playing

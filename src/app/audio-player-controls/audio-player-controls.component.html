@@ -1,11 +1,11 @@
 <div class="audio-player-controls">
-    <button *ngIf="!audioPlayer.playing" [disabled]="!audioPlayer.loaded" (click)="audioPlayer.play()" md-icon-button color="primary">
+    <button class="play" *ngIf="!audioPlayer.playing" [disabled]="!audioPlayer.loaded" (click)="audioPlayer.play()" md-icon-button color="primary">
         <i class="fa fa-play fa-2x" aria-hidden="true" aria-label="Play"></i>
     </button>
-    <button *ngIf="audioPlayer.playing" [disabled]="!audioPlayer.loaded" (click)="audioPlayer.pause()" md-icon-button color="primary">
-            <i class="fa fa-pause fa-2x" aria-hidden="true" aria-label="Pause"></i>
-        </button>
-    <button [disabled]="!audioPlayer.loaded" (click)="audioPlayer.stop()" md-icon-button color="primary">
+    <button class="pause" *ngIf="audioPlayer.playing" [disabled]="!audioPlayer.loaded" (click)="audioPlayer.pause()" md-icon-button color="primary">
+        <i class="fa fa-pause fa-2x" aria-hidden="true" aria-label="Pause"></i>
+    </button>
+    <button class="stop" [disabled]="!audioPlayer.loaded" (click)="audioPlayer.stop()" md-icon-button color="primary">
         <i class="fa fa-stop fa-2x" aria-hidden="true" aria-label="Stop"></i>
     </button>
     <md-form-field>

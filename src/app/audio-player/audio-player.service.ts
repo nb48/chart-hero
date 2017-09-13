@@ -1,11 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 
 const readTime = (time: string): number => {
     try {
         const minutes = time.split('m')[0];
         const seconds = time.split('m')[1].split('s')[0];
-        return parseInt(minutes, 10) * 60 + parseInt(seconds, 10);
-    } catch {
+        const result = parseInt(minutes, 10) * 60 + parseInt(seconds, 10);
+        if (isNaN(result)) {
+            throw new Error();
+        }
+        return result;
+    } catch (error) {
         return 0;
     }
 };
@@ -25,7 +29,7 @@ export class AudioPlayerService {
     private $playing: boolean;
     private $frame: number;
 
-    constructor() {
+    constructor(private zone: NgZone) {
         this.$loaded = false;
     }
 
@@ -47,7 +51,7 @@ export class AudioPlayerService {
     }
 
     set currentTime(currentTime: string) {
-        this.$currentTime = showTime(readTime(currentTime));
+        this.$currentTime = currentTime;
     }
 
     get playing(): boolean {
@@ -57,20 +61,22 @@ export class AudioPlayerService {
     play() {
         this.$playing = true;
         this.$audio.play();
-        if ((this.$audio as any).fastSeek) {
-            (this.$audio as any).fastSeek(readTime(this.$currentTime));
-        }
-        this.$frame = window.setInterval(() => this.frame(), 16);
+        this.$audio.currentTime = readTime(this.$currentTime);
+        this.zone.runOutsideAngular(() => {
+            this.$frame = window.setInterval(() => this.frame(), 16);
+        });
     }
 
-    pause() {
+    pause() {       
         this.$playing = false;
         this.$audio.pause();
         this.$currentTime = showTime(this.$audio.currentTime);
-        window.clearInterval(this.$frame);
+        this.zone.runOutsideAngular(() => {
+            window.clearInterval(this.$frame);
+        });
     }
 
-    stop() {
+    stop() {      
         this.$playing = false;
         this.$audio.pause();
         this.$currentTime = showTime(0);
@@ -78,9 +84,11 @@ export class AudioPlayerService {
     }
 
     private frame() {
-        this.$currentTime = showTime(this.$audio.currentTime);
-        if (this.$audio.ended) {
-            this.stop();
-        }
+        this.zone.run(() => {
+            this.$currentTime = showTime(this.$audio.currentTime);
+            if (this.$audio.ended) {
+                this.stop();
+            }
+        });
     }
 }

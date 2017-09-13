@@ -36,12 +36,6 @@ describe('Service: AudioPlayerService', () => {
         expect(service.playing).toEqual(false);
     });
 
-    it('AudioPlayer should update current time after setting current time', () => {
-        service.audio = testFileUrl;
-        service.currentTime = '1m23s';
-        expect(service.currentTime).toEqual('1m23.00s');
-    });
-
     it('AudioPlayer should play after calling play', () => {
         service.audio = testFileUrl;
         service.play();

@@ -13,6 +13,8 @@ export class ExporterComponent {
     }
 
     exportChart() {
-        console.log('Export!');
+        const chart = new File([this.exporter.chart], 'notes.chart', { type: 'text/chart' });
+        const url = window.URL.createObjectURL(chart);
+        window.open(url);
     }
 }

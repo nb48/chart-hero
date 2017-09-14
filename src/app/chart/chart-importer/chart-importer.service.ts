@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Chart } from '../chart';
 import { ChartStoreService } from '../chart-store/chart-store.service';
 
-const loadChart = (chart: string): Chart => {
+const importChart = (chart: string): Chart => {
     return {
         metadata: new Map<string, string>(),
         events: [],
@@ -17,6 +17,6 @@ export class ChartImporterService {
     }
 
     set chart(chart: string) {
-        this.store.chart = loadChart(chart);
+        this.store.chart = importChart(chart);
     }
 }

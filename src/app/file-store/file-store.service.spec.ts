@@ -4,7 +4,7 @@ import { AudioPlayerService } from '../audio-player/audio-player.service';
 import { ChartLoaderService } from '../chart/chart-loader/chart-loader.service';
 import { FileStoreService } from './file-store.service';
 
-const testFile = new File([''], 'testFileName');
+const testFile = new File(['testFileString'], 'testFileName');
 
 describe('Service: FileStoreService', () => {
 
@@ -38,11 +38,13 @@ describe('Service: FileStoreService', () => {
         expect(service.chartFileName).toEqual('testFileName');
     });
 
-    it('FileStore should pass object url to chart loader after setting chart file', () => {
+    it('FileStore should pass chart string to chart loader after setting chart file', (done) => {
         service.chartFile = testFile;
-        const exampleUrl = URL.createObjectURL(testFile);
-        const chartLoader = TestBed.get(ChartLoaderService);
-        expect((chartLoader as any).url.length).toEqual(exampleUrl.length);
+        setTimeout(() => {
+            const chartLoader = TestBed.get(ChartLoaderService);
+            expect((chartLoader as any).chart).toEqual('testFileString');
+            done();
+        });
     });
 });
 
@@ -61,13 +63,13 @@ class MockAudioPlayerService {
 
 class MockChartLoaderService {
 
-    private $url: string;
+    private $chart: string;
 
-    set chart(url: string) {
-        this.$url = url;
+    set chart(chart: string) {
+        this.$chart = chart;
     }
 
-    get url(): string {
-        return this.$url;
+    get chart(): string {
+        return this.$chart;
     }
 }

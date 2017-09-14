@@ -27,6 +27,10 @@ export class FileStoreService {
 
     set chartFile(file: File) {
         this.$chartFileName = file.name;
-        this.chartLoader.chart = URL.createObjectURL(file);
+        const reader = new FileReader();
+        reader.onload = () => {
+            this.chartLoader.chart = reader.result;
+        };
+        reader.readAsText(file);
     }
 }

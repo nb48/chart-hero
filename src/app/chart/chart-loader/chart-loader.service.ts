@@ -8,7 +8,7 @@ export class ChartLoaderService {
     constructor(private store: ChartStoreService) {
     }
 
-    set chart(url: string) {
-        console.log('Chart URL:', url);
+    set chart(chart: string) {
+        console.log('Chart:', chart);
     }
 }

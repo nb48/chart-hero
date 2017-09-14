@@ -7,7 +7,7 @@
                          "audio-player-controls . ."
                          ". . .";
     grid-template-columns: 20% 2fr 1fr;
-    grid-template-rows: 4.25em 4.25em 1fr;
+    grid-template-rows: 8.25em 4.25em 1fr;
 }
 
 .app app-file-select {

@@ -4,6 +4,12 @@
     height: 100%;
 }
 
-.file-select .audio-input label {
+.file-select .audio-input button,
+.file-select .chart-input button {
+    width: 11em;
+}
+
+.file-select .audio-input label,
+.file-select .chart-input label {
     margin-left: 1em;
 }

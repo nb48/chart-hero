@@ -31,8 +31,18 @@ describe('Component: FileSelectComponent', () => {
         expect(label.nativeElement.textContent).toEqual('testAudioFile');
     });
 
-    it('FileSelect should display clickable file input button', () => {
+    it('FileSelect should display clickable audio file input button', () => {
         const button = fixture.debugElement.query(By.css('.audio-input button'));
+        button.nativeElement.click();
+    });
+
+    it('FileSelect should display chart file name', () => {
+        const label = fixture.debugElement.query(By.css('.chart-input label'));
+        expect(label.nativeElement.textContent).toEqual('testChartFile');
+    });
+
+    it('FileSelect should display clickable chart file input button', () => {
+        const button = fixture.debugElement.query(By.css('.chart-input button'));
         button.nativeElement.click();
     });
 });
@@ -40,4 +50,5 @@ describe('Component: FileSelectComponent', () => {
 class MockFileStoreService {
 
     audioFileName = 'testAudioFile';
+    chartFileName = 'testChartFile';
 }

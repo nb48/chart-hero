@@ -4,8 +4,9 @@ export interface Chart {
     events: ChartEvent[];
 }
 
+export type ChartEventType = 'note' | 'time-signature-change' | 'bpm-change';
 export interface ChartEvent {
-    type: string;
+    type: ChartEventType;
     time: number;
     event: Note | TimeSignatureChange | BPMChange;
 }

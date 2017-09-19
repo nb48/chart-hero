@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 
-import { Chart, TimeSignatureChange, Note } from '../chart';
-import { BPMChange, convertTimeToMidiTime, formatMidiTime } from '../midi-time-conversion';
+import { Chart, BPMChange, TimeSignatureChange, Note } from '../chart';
 import { ChartStoreService } from '../chart-store/chart-store.service';
+import { MidiTimeConverterService } from '../midi-time-converter/midi-time-converter.service';
 
 @Injectable()
 export class ChartExporterService {
 
     private $chart: Chart;
-    private $bpmChanges: BPMChange[];
 
-    constructor(private store: ChartStoreService) {
+    constructor(
+        private midiTimeConverter: MidiTimeConverterService,
+        private store: ChartStoreService) {
     }
 
     get chart(): string {
@@ -23,16 +24,15 @@ export class ChartExporterService {
     }
 
     private calculateBPMChanges(): void {
-        this.$bpmChanges = [];
+        this.midiTimeConverter.clearBPMChanges();
         this.$chart.events
             .filter(event => event.type === 'bpm-change')
             .sort((a, b) => a.time - b.time)
             .forEach((event) => {
-                this.$bpmChanges.push({
-                    time: event.time,
-                    midiTime: convertTimeToMidiTime(event.time, this.$bpmChanges),
-                    bpm: (event.event as any).bpm,
-                });
+                this.midiTimeConverter.addBPMChange(
+                    event.time,
+                    this.midiTimeConverter.calculateMidiTime(event.time),
+                    (event.event as any).bpm);
             });
     }
 
@@ -49,7 +49,9 @@ export class ChartExporterService {
                 return ['time-signature-change', 'bpm-change'].indexOf(event.type) !== -1;
             })
             .map((event) => {
-                const time = formatMidiTime(convertTimeToMidiTime(event.time, this.$bpmChanges));
+                const time = this.midiTimeConverter.formatMidiTime(
+                    this.midiTimeConverter.calculateMidiTime(event.time),
+                );
                 if (event.type === 'time-signature-change') {
                     const timeSignature = (event.event as TimeSignatureChange).timeSignature;
                     return `    ${time} = TS ${timeSignature}\n`;
@@ -87,7 +89,9 @@ export class ChartExporterService {
                     color = 4;
                     break;
                 }
-                const time = formatMidiTime(convertTimeToMidiTime(event.time, this.$bpmChanges));
+                const time = this.midiTimeConverter.formatMidiTime(
+                    this.midiTimeConverter.calculateMidiTime(event.time),
+                );
                 return `    ${time} = N ${color} 0\n`;
             });
         return expertSingle.join('');

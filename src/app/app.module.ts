@@ -14,6 +14,7 @@ import { ChartStoreService } from './chart/chart-store/chart-store.service';
 import { ExporterComponent } from './exporter/exporter.component';
 import { FileSelectComponent } from './file-select/file-select.component';
 import { FileStoreService } from './file-store/file-store.service';
+import { MidiTimeConverterService } from './chart/midi-time-converter/midi-time-converter.service';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -39,6 +40,7 @@ import { AppComponent } from './app.component';
         ChartImporterService,
         ChartStoreService,
         FileStoreService,
+        MidiTimeConverterService,
     ],
     bootstrap: [AppComponent],
 })

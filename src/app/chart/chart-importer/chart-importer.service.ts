@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { Chart, ChartEvent, ChartEventType, NoteColor } from '../chart';
-import { BPMChange, convertMidiTimeToTime } from '../midi-time-conversion';
 import { ChartStoreService } from '../chart-store/chart-store.service';
+import { MidiTimeConverterService } from '../midi-time-converter/midi-time-converter.service';
 
 @Injectable()
 export class ChartImporterService {
@@ -10,16 +10,16 @@ export class ChartImporterService {
     private $chart: string;
     private $metadata: Map<string, string>;
     private $events: ChartEvent[];
-    private $bpmChanges: BPMChange[];
 
-    constructor(private store: ChartStoreService) {
+    constructor(
+        private midiTimeConverter: MidiTimeConverterService,
+        private store: ChartStoreService) {
     }
 
     set chart(chart: string) {
         this.$chart = chart;
         this.$metadata = new Map<string, string>();
         this.$events = [];
-        this.$bpmChanges = [];
         this.importMetadata();
         this.importSyncTrack();
         this.importEvents();
@@ -37,9 +37,10 @@ export class ChartImporterService {
     }
 
     private importSyncTrack(): void {
+        this.midiTimeConverter.clearBPMChanges();
         this.findSection('[SyncTrack]').forEach(([midiTime, content]) => {
             const [chartType, value] = content.split(' ');
-            const time = convertMidiTimeToTime(parseInt(midiTime, 10), this.$bpmChanges);
+            const time = this.midiTimeConverter.calculateTime(parseInt(midiTime, 10));
             let type: ChartEventType;
             let event;
             if (chartType === 'TS') {
@@ -52,11 +53,8 @@ export class ChartImporterService {
                 event = {
                     bpm: parseInt(value, 10) / 1000,
                 };
-                this.$bpmChanges.push({
-                    time,
-                    midiTime: parseInt(midiTime, 10),
-                    bpm: parseInt(value, 10) / 1000,
-                });
+                this.midiTimeConverter.addBPMChange(
+                    time, parseInt(midiTime, 10), parseInt(value, 10) / 1000);
             } else {
                 console.warn('Unsupported [SyncTrack]', midiTime, content);
             }
@@ -73,7 +71,7 @@ export class ChartImporterService {
     private importExpertSingle(): void {
         this.findSection('[ExpertSingle]').forEach(([midiTime, content]) => {
             const [type, value, length] = content.split(' ');
-            const time = convertMidiTimeToTime(parseInt(midiTime, 10), this.$bpmChanges);
+            const time = this.midiTimeConverter.calculateTime(parseInt(midiTime, 10));
             let color: NoteColor;
             switch (value) {
             case '0':

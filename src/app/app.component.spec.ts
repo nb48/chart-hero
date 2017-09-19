@@ -11,6 +11,7 @@ import { AudioPlayerService } from './audio-player/audio-player.service';
 import { ChartExporterService } from './chart/chart-exporter/chart-exporter.service';
 import { ChartImporterService } from './chart/chart-importer/chart-importer.service';
 import { ChartStoreService } from './chart/chart-store/chart-store.service';
+import { MidiTimeConverterService } from './chart/midi-time-converter/midi-time-converter.service';
 import { ExporterComponent } from './exporter/exporter.component';
 import { FileSelectComponent } from './file-select/file-select.component';
 import { FileStoreService } from './file-store/file-store.service';
@@ -44,6 +45,7 @@ describe('Component: AppComponent', () => {
                 ChartImporterService,
                 ChartStoreService,
                 FileStoreService,
+                MidiTimeConverterService,
             ],
         });
         fixture = TestBed.createComponent(AppComponent);

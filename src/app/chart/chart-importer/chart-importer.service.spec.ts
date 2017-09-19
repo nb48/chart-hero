@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { Chart, TEST_CHART_FILE, TEST_CHART_OBJECT } from '../chart';
 import { ChartStoreService } from '../chart-store/chart-store.service';
 import { ChartImporterService } from './chart-importer.service';
+import { MidiTimeConverterService } from '../midi-time-converter/midi-time-converter.service';
 
 describe('Service: ChartImporterService', () => {
 
@@ -14,6 +15,7 @@ describe('Service: ChartImporterService', () => {
             providers: [
                 ChartImporterService,
                 ChartStoreService,
+                MidiTimeConverterService,
             ],
         });
         importer = TestBed.get(ChartImporterService);

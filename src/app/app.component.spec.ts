@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AudioPlayerControlsComponent }
 from './audio-player-controls/audio-player-controls.component';
 import { AudioPlayerService } from './audio-player/audio-player.service';
+import { ChartDisplayComponent } from './chart-display/chart-display.component';
 import { ChartExporterService } from './chart/chart-exporter/chart-exporter.service';
 import { ChartImporterService } from './chart/chart-importer/chart-importer.service';
 import { ChartStoreService } from './chart/chart-store/chart-store.service';
@@ -35,6 +36,7 @@ describe('Component: AppComponent', () => {
             ],
             declarations: [
                 AudioPlayerControlsComponent,
+                ChartDisplayComponent,
                 ExporterComponent,
                 FileSelectComponent,
                 AppComponent,

@@ -11,6 +11,8 @@ import { AudioPlayerService } from './audio-player/audio-player.service';
 import { ChartDisplayComponent } from './chart-display/chart-display.component';
 import { ChartDisplayBeatComponent } from
     './chart-display/chart-display-beat/chart-display-beat.component';
+import { ChartDisplayNoteComponent } from
+    './chart-display/chart-display-note/chart-display-note.component';
 import { ChartExporterService } from './chart/chart-exporter/chart-exporter.service';
 import { ChartImporterService } from './chart/chart-importer/chart-importer.service';
 import { ChartStoreService } from './chart/chart-store/chart-store.service';
@@ -40,6 +42,7 @@ describe('Component: AppComponent', () => {
                 AudioPlayerControlsComponent,
                 ChartDisplayComponent,
                 ChartDisplayBeatComponent,
+                ChartDisplayNoteComponent,
                 ExporterComponent,
                 FileSelectComponent,
                 AppComponent,

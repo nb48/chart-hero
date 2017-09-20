@@ -2,6 +2,16 @@ import { Component } from '@angular/core';
 
 import { AudioPlayerService } from '../audio-player/audio-player.service';
 import { ChartStoreService } from '../chart/chart-store/chart-store.service';
+import { Note } from '../chart/chart';
+
+interface DisplayBeat {
+    position: number;
+}
+
+interface DisplayNote {
+    position: number;
+    color: string;
+}
 
 const timeBefore = 1.4;
 const timeAfter = -0.2;
@@ -38,9 +48,8 @@ const calculatePosition = (time: number, currentTime: number): number => {
 export class ChartDisplayComponent {
 
     zeroPosition = zeroPosition();
-    beats: {
-        position: number;
-    }[];
+    beats: DisplayBeat[];
+    notes: DisplayNote[];
 
     constructor(private audioPlayer: AudioPlayerService, private chartStore: ChartStoreService) {
         this.buildView(0);
@@ -59,6 +68,24 @@ export class ChartDisplayComponent {
             .filter(time => timeIsInView(time, currentTime))
             .map(time => ({
                 position: calculatePosition(time, currentTime),
+            }));
+        this.notes = [].concat(...this.chartStore.chart.events
+            .filter(event => event.type === 'note')
+            .filter(event => timeIsInView(event.time, currentTime))
+            .map((event): DisplayNote[] => {
+                const position = calculatePosition(event.time, currentTime);
+                const note = (event.event as Note);
+                if (note.color.length === 0) {
+                    return [{
+                        position,
+                        color: 'open',
+                    }];
+                } else {
+                    return note.color.map(color => ({
+                        position,
+                        color,
+                    }));
+                }
             }));
     }
 }

@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { EventEmitter, Injectable, NgZone } from '@angular/core';
 
 const readTime = (time: string): number => {
     try {
@@ -28,9 +28,11 @@ export class AudioPlayerService {
     private $currentTime: string;
     private $playing: boolean;
     private $frame: number;
+    private $frameEvent: EventEmitter<number>;
 
     constructor(private zone: NgZone) {
         this.$loaded = false;
+        this.$frameEvent = new EventEmitter<number>();
     }
 
     get loaded(): boolean {
@@ -74,18 +76,27 @@ export class AudioPlayerService {
         this.zone.runOutsideAngular(() => {
             window.clearInterval(this.$frame);
         });
+        this.$frameEvent.emit(this.$audio.currentTime);
     }
 
     stop() {      
         this.$playing = false;
         this.$audio.pause();
         this.$currentTime = showTime(0);
-        window.clearInterval(this.$frame);
+        this.zone.runOutsideAngular(() => {
+            window.clearInterval(this.$frame);
+        });
+        this.$frameEvent.emit(0);
+    }
+
+    get frameEvent(): EventEmitter<number> {
+        return this.$frameEvent;
     }
 
     private frame() {
         this.zone.run(() => {
             this.$currentTime = showTime(this.$audio.currentTime);
+            this.$frameEvent.emit(this.$audio.currentTime);
             if (this.$audio.ended) {
                 this.stop();
             }

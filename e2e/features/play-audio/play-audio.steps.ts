@@ -2,31 +2,14 @@ import { binding, then, when } from 'cucumber-tsflow';
 import * as path from 'path';
 import { browser, ExpectedConditions as EC, ElementFinder, Key, promise } from 'protractor';
 import { PlayAudioPage as Page } from './play-audio.page';
-import { expect } from '../../helpers';
-
-const checkElementDisplayed = async (element: ElementFinder) => {
-    await expect(element.isDisplayed()).to.eventually.be.true;
-};
-
-const checkElementNotPresent = async (element: ElementFinder) => {
-    await expect(element.isPresent()).to.eventually.be.false;
-};
-
-const checkElementDisabled = async (element: ElementFinder) => {
-    await checkElementDisplayed(element);
-    await expect(element.getAttribute('disabled')).to.eventually.equal('true');
-};
-
-const checkElementEnabled = async (element: ElementFinder) => {
-    await checkElementDisplayed(element);
-    await expect(element.getAttribute('disabled')).to.eventually.equal(null);
-};
-
-const clickElement = async (element: ElementFinder) => {
-    await checkElementEnabled(element);
-    await browser.wait(EC.elementToBeClickable(element));
-    await element.click();
-};
+import {
+    checkElementDisabled,
+    checkElementDisplayed,
+    checkElementEnabled,
+    checkElementNotPresent,
+    clickElement,
+    expect,
+} from '../../helpers';
 
 @binding()
 class PlayAudioSteps {

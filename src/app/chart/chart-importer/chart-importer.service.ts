@@ -77,6 +77,10 @@ export class ChartImporterService {
     private importExpertSingle(): void {
         this.findSection('[ExpertSingle]').forEach(([midiTime, content]) => {
             const [type, value, length] = content.split(' ');
+            if (type !== 'N') {
+                console.warn('Unsupported [ExpertSingle]', midiTime, content);
+                return;
+            }
             const time = this.midiTimeConverter.calculateTime(parseInt(midiTime, 10));
             let color: NoteColor[];
             switch (value) {

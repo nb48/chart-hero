@@ -91,6 +91,9 @@ export class ChartExporterService {
                 case 'orange':
                     color = 4;
                     break;
+                case undefined:
+                    color = 7;
+                    break;
                 }
                 const time = this.midiTimeConverter.formatMidiTime(
                     this.midiTimeConverter.calculateMidiTime(event.time),

@@ -47,6 +47,7 @@ export const TEST_CHART_FILE = `[Song]
     600 = N 2 0
     800 = N 3 0
     1000 = N 4 0
+    1200 = N 7 0
 }`;
 
 export const TEST_CHART_OBJECT = (): Chart => ({
@@ -100,6 +101,12 @@ export const TEST_CHART_OBJECT = (): Chart => ({
         type: 'note',
         event: {
             color: ['orange'],
+        },
+    }, {
+        time: 5.9,
+        type: 'note',
+        event: {
+            color: [],
         },
     }],
 });

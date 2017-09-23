@@ -21,9 +21,16 @@ export class ChartImporterService {
         this.$metadata = new Map<string, string>();
         this.$events = [];
         this.importMetadata();
+        this.midiTimeConverter.setup(this.$metadata);
         this.importSyncTrack();
         this.importEvents();
         this.importExpertSingle();
+        const offset = this.$metadata.has('Offset')
+            ? parseFloat(this.$metadata.get('Offset'))
+            : 0;
+        this.$events.forEach((event) => {
+            event.time += offset;
+        });
         this.store.chart = {
             metadata: this.$metadata,
             events: this.$events,
@@ -37,7 +44,6 @@ export class ChartImporterService {
     }
 
     private importSyncTrack(): void {
-        this.midiTimeConverter.clearBPMChanges();
         this.findSection('[SyncTrack]').forEach(([midiTime, content]) => {
             const [chartType, value] = content.split(' ');
             const time = this.midiTimeConverter.calculateTime(parseInt(midiTime, 10));
@@ -72,32 +78,34 @@ export class ChartImporterService {
         this.findSection('[ExpertSingle]').forEach(([midiTime, content]) => {
             const [type, value, length] = content.split(' ');
             const time = this.midiTimeConverter.calculateTime(parseInt(midiTime, 10));
-            let color: NoteColor;
+            let color: NoteColor[];
             switch (value) {
             case '0':
-                color = 'green';
+                color = ['green'];
                 break;
             case '1':
-                color = 'red';
+                color = ['red'];
                 break;
             case '2':
-                color = 'yellow';
+                color = ['yellow'];
                 break;
             case '3':
-                color = 'blue';
+                color = ['blue'];
                 break;
             case '4':
-                color = 'orange';
+                color = ['orange'];
+                break;
+            case '7':
+                color = [];
                 break;
             default:
                 console.warn('Unsupported [ExpertSingle]', midiTime, content);
+                return;
             }
             this.$events.push({
                 time,
                 type: 'note',
-                event: {
-                    color: [color],
-                },
+                event: { color },
             });
         });
     }

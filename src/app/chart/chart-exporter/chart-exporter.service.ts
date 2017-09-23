@@ -16,6 +16,10 @@ export class ChartExporterService {
 
     get chart(): string {
         this.$chart = this.store.chart;
+        this.$chart.events.forEach((event) => {
+            event.time -= this.store.offset;
+        });
+        this.midiTimeConverter.setup(this.$chart.metadata);
         this.calculateBPMChanges();
         return `[Song]\n{\n${this.exportSong()}}\n`
              + `[SyncTrack]\n{\n${this.exportSyncTrack()}}\n`
@@ -24,7 +28,6 @@ export class ChartExporterService {
     }
 
     private calculateBPMChanges(): void {
-        this.midiTimeConverter.clearBPMChanges();
         this.$chart.events
             .filter(event => event.type === 'bpm-change')
             .sort((a, b) => a.time - b.time)

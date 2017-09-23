@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
-import { BPMChange, Chart } from '../chart';
+import { BPMChange, Chart, ChartEvent } from '../chart';
 
 const DEFAULT_CHART: Chart = {
     metadata: new Map<string, string>(),
@@ -56,20 +56,26 @@ export class ChartStoreService {
         return this.$newChart;
     }
 
+    get offset(): number {
+        return this.$chart.metadata.has('Offset')
+            ? parseFloat(this.$chart.metadata.get('Offset'))
+            : 0;
+    }
+    
     private buildBeats(): void {
         const bpmChanges = this.$chart.events
             .filter(e => e.type === 'bpm-change')
             .sort((a, b) => a.time - b.time);
         this.$beats = [];
         let currentIncrement = 0;
-        let currentTime = 0;
+        let currentTime = 0 - this.offset;
         bpmChanges.forEach((change) => {
             while (currentTime < change.time) {
                 this.$beats.push(currentTime);
                 currentTime += currentIncrement;
             }
             currentTime = change.time;
-            currentIncrement = 60 / (change.event as BPMChange).bpm;            
+            currentIncrement = 60 / (change.event as BPMChange).bpm;
         });
         const endOfSong = 200;
         while (currentTime < endOfSong) {

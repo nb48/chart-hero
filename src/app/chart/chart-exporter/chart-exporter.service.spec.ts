@@ -23,7 +23,7 @@ describe('Service: ChartExporterService', () => {
     });
 
     it('ChartExporter should export chart correctly', () => {
-        store.chart = TEST_CHART_OBJECT;
+        store.chart = TEST_CHART_OBJECT();
         expect(exporter.chart).toEqual(TEST_CHART_FILE);
     });
 });

@@ -24,7 +24,7 @@ describe('Service: ChartImporterService', () => {
 
     it('ChartImporter should import chart correctly', () => {
         importer.chart = TEST_CHART_FILE;
-        expect(store.chart.metadata.size).toEqual(TEST_CHART_OBJECT.metadata.size);
-        expect(store.chart.events).toEqual(TEST_CHART_OBJECT.events);
+        expect(store.chart.metadata.size).toEqual(TEST_CHART_OBJECT().metadata.size);
+        expect(store.chart.events).toEqual(TEST_CHART_OBJECT().events);
     });
 });

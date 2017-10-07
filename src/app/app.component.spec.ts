@@ -14,8 +14,11 @@ import { ChartDisplayBeatComponent } from
 import { ChartDisplayNoteComponent } from
     './chart-display/chart-display-note/chart-display-note.component';
 import { ChartExporterService } from './chart/chart-exporter/chart-exporter.service';
+import { ChartFileExporterService } from './chart-file/chart-file-exporter.service';
+import { ChartFileImporterService } from './chart-file/chart-file-importer.service';
 import { ChartImporterService } from './chart/chart-importer/chart-importer.service';
 import { ChartStoreService } from './chart/chart-store/chart-store.service';
+import { ChartStoreService2 } from './chart-store/chart-store.service';
 import { MidiTimeConverterService } from './chart/midi-time-converter/midi-time-converter.service';
 import { ExporterComponent } from './exporter/exporter.component';
 import { FileSelectComponent } from './file-select/file-select.component';
@@ -50,8 +53,11 @@ describe('Component: AppComponent', () => {
             providers: [
                 AudioPlayerService,
                 ChartExporterService,
+                ChartFileExporterService,
+                ChartFileImporterService,
                 ChartImporterService,
                 ChartStoreService,
+                ChartStoreService2,
                 FileStoreService,
                 MidiTimeConverterService,
             ],

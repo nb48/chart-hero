@@ -2,10 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MdButtonModule, MdListModule } from '@angular/material';
 import { By } from '@angular/platform-browser';
 
-import { ChartExporterService } from '../chart/chart-exporter/chart-exporter.service';
+import { ChartFileExporterService } from '../chart-file/chart-file-exporter.service';
 import { ExporterComponent } from './exporter.component';
 
-describe('Component: FileSelectComponent', () => {
+describe('Component: ExporterComponent', () => {
 
     let fixture: ComponentFixture<ExporterComponent>;
 
@@ -19,7 +19,7 @@ describe('Component: FileSelectComponent', () => {
                 ExporterComponent,
             ],
             providers: [
-                { provide: ChartExporterService, useClass: MockChartExporterService },
+                { provide: ChartFileExporterService, useClass: MockChartFileExporterService },
             ],
         });
         fixture = TestBed.createComponent(ExporterComponent);
@@ -32,5 +32,5 @@ describe('Component: FileSelectComponent', () => {
     });
 });
 
-class MockChartExporterService {
+class MockChartFileExporterService {
 }

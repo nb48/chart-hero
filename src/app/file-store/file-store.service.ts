@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { AudioPlayerService } from '../audio-player/audio-player.service';
-import { ChartImporterService } from '../chart/chart-importer/chart-importer.service';
+import { ChartFileImporterService } from '../chart-file/chart-file-importer.service';
 
 @Injectable()
 export class FileStoreService {
@@ -11,7 +11,7 @@ export class FileStoreService {
 
     constructor(
         private audioPlayer: AudioPlayerService,
-        private chartImporter: ChartImporterService) {
+        private chartFileImporter: ChartFileImporterService) {
     }
 
     get audioFileName(): string {
@@ -31,7 +31,7 @@ export class FileStoreService {
         this.$chartFileName = file.name;
         const reader = new FileReader();
         reader.onload = () => {
-            this.chartImporter.chart = reader.result;
+            this.chartFileImporter.import(reader.result);
         };
         reader.readAsText(file);
     }

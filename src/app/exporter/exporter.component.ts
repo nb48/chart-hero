@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ChartExporterService } from './../chart/chart-exporter/chart-exporter.service';
+import { ChartFileExporterService } from './../chart-file/chart-file-exporter.service';
 
 @Component({
     selector: 'app-exporter',
@@ -9,11 +9,12 @@ import { ChartExporterService } from './../chart/chart-exporter/chart-exporter.s
 })
 export class ExporterComponent {
 
-    constructor(public exporter: ChartExporterService) {
+    constructor(public chartFileExporter: ChartFileExporterService) {
     }
 
     exportChart() {
-        const chart = new File([this.exporter.chart], 'notes.chart', { type: 'text/chart' });
+        const chartString = this.chartFileExporter.export();
+        const chart = new File([chartString], 'notes.chart', { type: 'text/chart' });
         const url = window.URL.createObjectURL(chart);
         window.open(url);
     }

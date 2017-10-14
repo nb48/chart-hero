@@ -70,6 +70,15 @@ describe('Service: ChartStoreMidiTimeService', () => {
         };
 
         testCase(1, [], 100, []);
+        testCase(2, [bpmChange(0, 60)], 100, [syncTrack(0, 60)]);
+        testCase(3, [bpmChange(0, 60), bpmChange(1, 30)], 100,
+                 [syncTrack(0, 60), syncTrack(100, 30)]);
+        testCase(4, [bpmChange(0, 60), bpmChange(0.5, 30)], 200,
+                 [syncTrack(0, 60), syncTrack(100, 30)]);
+        testCase(5, [bpmChange(0, 120), bpmChange(0.5, 30)], 100,
+                 [syncTrack(0, 120), syncTrack(100, 30)]);
+        testCase(6, [bpmChange(0, 60), bpmChange(1, 30), bpmChange(3, 120)], 100,
+                 [syncTrack(0, 60), syncTrack(100, 30), syncTrack(200, 120)]);
     });
 
     describe('ChartStoreMidiTimeService should calculate time correctly', () => {
@@ -115,5 +124,14 @@ describe('Service: ChartStoreMidiTimeService', () => {
         };
 
         testCase(1, 0, 100, [], 0);
+        testCase(2, 0, 100, [bpmChange(0, 60)], 0);
+        testCase(3, 1, 100, [bpmChange(0, 60)], 100);
+        testCase(4, 0.5, 100, [bpmChange(0, 120)], 100);
+        testCase(5, 0.5, 200, [bpmChange(0, 60)], 100);
+        testCase(6, 3, 100, [bpmChange(0, 60), bpmChange(1, 30)], 200);
+        testCase(7, 4, 100, [bpmChange(0, 60), bpmChange(1, 30), bpmChange(3, 60)], 300);
+        testCase(8, 1, 100, [bpmChange(0, 60), bpmChange(1, 30)], 100);
+        testCase(9, 0.5, 100, [bpmChange(0, 60), bpmChange(1, 30)], 50);
+        testCase(10, 2, 100, [bpmChange(0, 60), bpmChange(1, 30), bpmChange(3, 60)], 150);
     });
 });

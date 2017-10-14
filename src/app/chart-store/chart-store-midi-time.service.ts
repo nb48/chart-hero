@@ -3,30 +3,12 @@ import { Injectable } from '@angular/core';
 import { ChartFileSyncTrack } from '../chart-file/chart-file';
 import { ChartStoreBPMChangeEvent, ChartStoreEventType } from './chart-store';
 
-export interface BPMChange {
-    time: number;
-    midiTime: number;
-    bpm: number;
-}
-
-const defaultBPMChange: BPMChange = {
-    time: 0,
-    midiTime: 0,
-    bpm: 1,
-};
-
 const conversionFactor = (bpm: number, resolution: number): number => {
     return bpm * resolution / 60;
 };
 
 @Injectable()
 export class ChartStoreMidiTimeService {
-
-    private $bpmChanges: BPMChange[];
-
-    constructor() {
-        this.$bpmChanges = [];
-    }
 
     calculateBPMChanges(syncTrack: ChartFileSyncTrack[], resolution: number)
         : ChartStoreBPMChangeEvent[] {
@@ -37,9 +19,13 @@ export class ChartStoreMidiTimeService {
         }));
     }
 
-    calculateSyncTrack(bpmChangeEvents: ChartStoreBPMChangeEvent[], resolution: number)
+    calculateSyncTrack(bpmChanges: ChartStoreBPMChangeEvent[], resolution: number)
         : ChartFileSyncTrack[] {
-        return [];
+        return bpmChanges.map(bc => ({
+            type: 'B',
+            midiTime: this.calculateMidiTime(bc.time, resolution, bpmChanges),
+            value: bc.bpm * 1000,
+        }));
     }
 
     calculateTime(midiTime: number, resolution: number, syncTrack: ChartFileSyncTrack[]): number {
@@ -60,23 +46,18 @@ export class ChartStoreMidiTimeService {
 
     calculateMidiTime(time: number, resolution: number, bpmChanges: ChartStoreBPMChangeEvent[])
         : number {
-        return 0;
+        const earlierChanges = bpmChanges.filter(bc => bc.time < time);
+        if (earlierChanges.length > 1) {
+            const latestChange = earlierChanges.pop();
+            const bpm = latestChange.bpm;
+            const midiTimeUntilLatestChange =
+                this.calculateMidiTime(latestChange.time, resolution, earlierChanges);
+            const midiTimeAfterLatestChange =
+                (time - latestChange.time) * conversionFactor(bpm, resolution);
+            return midiTimeUntilLatestChange + midiTimeAfterLatestChange;
+        } else {
+            const bpm: number = earlierChanges.length === 1 ? earlierChanges[0].bpm : 1;
+            return time * conversionFactor(bpm, resolution);
+        }
     }
-
-    // calculateMidiTime(time: number, resolution: number): number {
-    //     const lastChange = this.findLastBPMChange(time, 'time');
-    //     const timeSinceLastBPMChange = time - lastChange.time;
-    //     const midiTimeSinceLastBPMChange = timeSinceLastBPMChange *
-    //         conversionFactor(lastChange.bpm, resolution);
-    //     return lastChange.midiTime + midiTimeSinceLastBPMChange;
-    // }
-
-    // private findLastBPMChange(time: number, type: string): BPMChange {
-    //     if (this.$bpmChanges.length === 0) {
-    //         return defaultBPMChange;
-    //     }
-    //     const nextChangeIndex = this.$bpmChanges.findIndex(change => change[type] > time);
-    //     const lastChangeIndex = nextChangeIndex === -1 ? 0 : nextChangeIndex - 1;
-    //     return this.$bpmChanges[lastChangeIndex];
-    // }
 }

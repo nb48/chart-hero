@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { ChartFileSyncTrack } from '../chart-file/chart-file';
-import { ChartStoreBPMChangeEvent, ChartStoreEventType } from './chart-store';
+import { ChartStoreEventBPMChange, ChartStoreEventType } from './chart-store';
 
 const conversionFactor = (bpm: number, resolution: number): number => {
     return bpm * resolution / 60;
@@ -11,7 +11,7 @@ const conversionFactor = (bpm: number, resolution: number): number => {
 export class ChartStoreMidiTimeService {
 
     calculateBPMChanges(syncTrack: ChartFileSyncTrack[], resolution: number)
-        : ChartStoreBPMChangeEvent[] {
+        : ChartStoreEventBPMChange[] {
         return syncTrack.map(st => ({
             event: ChartStoreEventType.BPMChange as ChartStoreEventType.BPMChange,
             time: this.calculateTime(st.midiTime, resolution, syncTrack),
@@ -19,7 +19,7 @@ export class ChartStoreMidiTimeService {
         }));
     }
 
-    calculateSyncTrack(bpmChanges: ChartStoreBPMChangeEvent[], resolution: number)
+    calculateSyncTrack(bpmChanges: ChartStoreEventBPMChange[], resolution: number)
         : ChartFileSyncTrack[] {
         return bpmChanges.map(bc => ({
             type: 'B',
@@ -44,7 +44,7 @@ export class ChartStoreMidiTimeService {
         }
     }
 
-    calculateMidiTime(time: number, resolution: number, bpmChanges: ChartStoreBPMChangeEvent[])
+    calculateMidiTime(time: number, resolution: number, bpmChanges: ChartStoreEventBPMChange[])
         : number {
         const earlierChanges = bpmChanges.filter(bc => bc.time < time);
         if (earlierChanges.length > 1) {

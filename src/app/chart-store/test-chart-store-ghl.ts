@@ -31,30 +31,35 @@ export const TEST_GHL_FILE: ChartFile = {
     track: [{
         midiTime: 200,
         type: 'N',
-        note: 0,
+        note: 3,
         length: 0,
     }, {
         midiTime: 400,
         type: 'N',
-        note: 1,
+        note: 4,
         length: 0,
     }, {
         midiTime: 600,
         type: 'N',
-        note: 2,
+        note: 8,
         length: 0,
     }, {
         midiTime: 800,
         type: 'N',
-        note: 3,
+        note: 0,
         length: 0,
     }, {
         midiTime: 1000,
         type: 'N',
-        note: 4,
+        note: 1,
         length: 0,
     }, {
         midiTime: 1200,
+        type: 'N',
+        note: 2,
+        length: 0,
+    }, {
+        midiTime: 1400,
         type: 'N',
         note: 7,
         length: 0,
@@ -89,26 +94,30 @@ export const TEST_GHL_STORE: ChartStore = {
     }, {
         event: ChartStoreEventType.Note,
         time: 0.9,
-        type: [ChartStoreNoteType.FBGreen],
+        type: [ChartStoreNoteType.GHLBlack1],
     }, {
         event: ChartStoreEventType.Note,
         time: 1.9,
-        type: [ChartStoreNoteType.FBRed],
+        type: [ChartStoreNoteType.GHLBlack2],
     }, {
         event: ChartStoreEventType.Note,
         time: 2.9,
-        type: [ChartStoreNoteType.FBYellow],
+        type: [ChartStoreNoteType.GHLBlack3],
     }, {
         event: ChartStoreEventType.Note,
         time: 3.9,
-        type: [ChartStoreNoteType.FBBlue],
+        type: [ChartStoreNoteType.GHLWhite1],
     }, {
         event: ChartStoreEventType.Note,
         time: 4.9,
-        type: [ChartStoreNoteType.FBOrange],
+        type: [ChartStoreNoteType.GHLWhite2],
     }, {
         event: ChartStoreEventType.Note,
         time: 5.9,
-        type: [ChartStoreNoteType.FBOpen],
+        type: [ChartStoreNoteType.GHLWhite3],
+    }, {
+        event: ChartStoreEventType.Note,
+        time: 6.9,
+        type: [ChartStoreNoteType.GHLOpen],
     }],
 };

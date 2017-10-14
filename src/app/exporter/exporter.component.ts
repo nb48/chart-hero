@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ChartFileExporterService } from './../chart-file/chart-file-exporter.service';
+import { ChartFileExporterService } from '../chart-file/chart-file-exporter.service';
 
 @Component({
     selector: 'app-exporter',

@@ -39,10 +39,11 @@ export interface ChartStoreNoteEvent {
 }
 
 export enum ChartStoreNoteType {
-    FBGreen,
-    FBRed,
-    FBYellow,
-    FBBlue,
-    FBOrange,
-    FBOpen,
+    GHLOpen,
+    GHLBlack1,
+    GHLBlack2,
+    GHLBlack3,
+    GHLWhite1,
+    GHLWhite2,
+    GHLWhite3,
 }

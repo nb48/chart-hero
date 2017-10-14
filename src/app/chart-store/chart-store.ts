@@ -1,7 +1,9 @@
+import { ChartFileEvent, ChartFileSyncTrack, ChartFileTrack } from './../chart-file/chart-file';
 
 export interface ChartStore {
     metadata: ChartStoreMetadata[];
     events: ChartStoreEvent[];
+    unsupported: ChartStoreUnsupportedEvent[];
 }
 
 export interface ChartStoreMetadata {
@@ -10,32 +12,25 @@ export interface ChartStoreMetadata {
 }
 
 export type ChartStoreEvent =
-    ChartStoreBPMChangeEvent |
-    ChartStoreTimeSignatureChangeEvent |
-    ChartStoreNoteEvent;
+    ChartStoreEventBPMChange |
+    ChartStoreEventNote;
 
 export enum ChartStoreEventType {
     BPMChange,
-    TimeSignatureChange,
     Note,
 }
 
-export interface ChartStoreBPMChangeEvent {
+export interface ChartStoreEventBPMChange {
     event: ChartStoreEventType.BPMChange;
     time: number;
     bpm: number;
 }
 
-export interface ChartStoreTimeSignatureChangeEvent {
-    event: ChartStoreEventType.TimeSignatureChange;
-    time: number;
-    timeSignature: number;
-}
-
-export interface ChartStoreNoteEvent {
+export interface ChartStoreEventNote {
     event: ChartStoreEventType.Note;
     time: number;
     type: ChartStoreNoteType[];
+    length: number;
 }
 
 export enum ChartStoreNoteType {
@@ -46,4 +41,30 @@ export enum ChartStoreNoteType {
     GHLWhite1,
     GHLWhite2,
     GHLWhite3,
+}
+
+export type ChartStoreUnsupportedEvent =
+    ChartStoreUnsupportedEventSyncTrack |
+    ChartStoreUnsupportedEventEvent |
+    ChartStoreUnsupportedEventTrack;
+
+export enum ChartStoreUnsupportedEventType {
+    SyncTrack,
+    Event,
+    Track,
+}
+
+export interface ChartStoreUnsupportedEventSyncTrack {
+    event: ChartStoreUnsupportedEventType.SyncTrack;
+    original: ChartFileSyncTrack;
+}
+
+export interface ChartStoreUnsupportedEventEvent {
+    event: ChartStoreUnsupportedEventType.Event;
+    original: ChartFileEvent;
+}
+
+export interface ChartStoreUnsupportedEventTrack {
+    event: ChartStoreUnsupportedEventType.Track;
+    original: ChartFileTrack;
 }

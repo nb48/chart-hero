@@ -18,9 +18,9 @@ describe('Service: ChartStoreGHLConverterService', () => {
         service = TestBed.get(ChartStoreGHLConverterService);
     });
 
-    // it('ChartStoreGHLConverterService should import chart correctly', () => {
-    //     expect(service.import(TEST_GHL_FILE)).toEqual(TEST_GHL_STORE);
-    // });
+    it('ChartStoreGHLConverterService should import chart correctly', () => {
+        expect(service.import(TEST_GHL_FILE)).toEqual(TEST_GHL_STORE);
+    });
 
     // it('ChartStoreGHLConverterService should export chart correctly', () => {
     //     expect(service.export(TEST_GHL_STORE)).toEqual(TEST_GHL_FILE);

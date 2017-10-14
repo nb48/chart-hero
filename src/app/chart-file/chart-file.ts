@@ -14,7 +14,8 @@ export interface ChartFileMetadata {
 export interface ChartFileSyncTrack {
     midiTime: number;
     type: string;
-    value: number;
+    value?: number;
+    text?: string;
 }
 
 export interface ChartFileEvent {

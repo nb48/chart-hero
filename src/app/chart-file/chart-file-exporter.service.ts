@@ -40,8 +40,11 @@ export class ChartFileExporterService {
     }
 
     private exportSyncTrack(syncTrack: ChartFileSyncTrack[]): string {
-        return syncTrack.map(({ midiTime, type, value }) => {
-            return `    ${midiTime} = ${type} ${value}\n`;
+        return syncTrack.map(({ midiTime, type, value, text }) => {
+            if (type === 'B') {
+                return `    ${midiTime} = ${type} ${value}\n`;
+            }
+            return `    ${midiTime} = ${type} ${text}\n`;
         }).join('');
     }
 
@@ -53,10 +56,10 @@ export class ChartFileExporterService {
 
     private exportTrack(track: ChartFileTrack[]): string {
         return track.map(({ midiTime, type, note, length, text }) => {
-            if (type === 'E') {
-                return `    ${midiTime} = ${type} ${text}\n`;
+            if (type === 'N') {
+                return `    ${midiTime} = ${type} ${note} ${length}\n`;
             }
-            return `    ${midiTime} = ${type} ${note} ${length}\n`;
+            return `    ${midiTime} = ${type} ${text}\n`;                
         }).join('');
     }
 }

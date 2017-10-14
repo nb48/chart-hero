@@ -1,8 +1,40 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
 import { ChartFile } from '../chart-file/chart-file';
-import { ChartStore } from './chart-store';
+import {
+    ChartStore,
+    ChartStoreEventBPMChange,
+    ChartStoreEventNote,
+    ChartStoreEventType,
+    ChartStoreMetadata,
+    ChartStoreNoteType,
+    ChartStoreUnsupportedEventEvent,
+    ChartStoreUnsupportedEventSyncTrack,
+    ChartStoreUnsupportedEventTrack,
+    ChartStoreUnsupportedEventType,
+} from './chart-store';
 import { ChartStoreMidiTimeService } from './chart-store-midi-time.service';
+
+const supportedNotes = [0, 1, 2, 3, 4, 7, 8];
+
+const noteType = (note: number): ChartStoreNoteType => {
+    switch (note) {
+    case 7:
+        return ChartStoreNoteType.GHLOpen;
+    case 3:
+        return ChartStoreNoteType.GHLBlack1;
+    case 4:
+        return ChartStoreNoteType.GHLBlack2;
+    case 8:
+        return ChartStoreNoteType.GHLBlack3;
+    case 0:
+        return ChartStoreNoteType.GHLWhite1;
+    case 1:
+        return ChartStoreNoteType.GHLWhite2;
+    case 2:
+        return ChartStoreNoteType.GHLWhite3;
+    }
+};
 
 @Injectable()
 export class ChartStoreGHLConverterService {
@@ -10,10 +42,19 @@ export class ChartStoreGHLConverterService {
     constructor(private midiTimeService: ChartStoreMidiTimeService) {
     }
 
-    import(chartFile: ChartFile): ChartStore {
+    import(cf: ChartFile): ChartStore {
+        const events = [
+            ...this.importBPMChanges(cf),
+            ...this.importNotes(cf),
+        ].sort((a, b) => a.time - b.time);
         return {
-            metadata: [],
-            events: [],
+            events,
+            metadata: cf.metadata as ChartStoreMetadata[],
+            unsupported: [
+                ...this.importUnsupportedSyncTrack(cf),
+                ...this.importUnsupportedEvent(cf),
+                ...this.importUnsupportedTrack(cf),
+            ],
         };
     }
 
@@ -24,5 +65,75 @@ export class ChartStoreGHLConverterService {
             events: [],
             track: [],
         };
+    }
+
+    private importBPMChanges(cf: ChartFile): ChartStoreEventBPMChange[] {
+        const bpmChanges = cf.syncTrack.filter(st => st.type === 'B');
+        const resolution = this.getResolution(cf);
+        const offset = this.getOffset(cf);
+        return bpmChanges.map((st) => {
+            const time = this.midiTimeService.calculateTime(st.midiTime, resolution, bpmChanges);
+            return {
+                event: ChartStoreEventType.BPMChange as ChartStoreEventType.BPMChange,
+                time: time + offset,
+                bpm: st.value / 1000,
+            };
+        });
+    }
+
+    private importNotes(cf: ChartFile): ChartStoreEventNote[] {
+        const bpmChanges = cf.syncTrack.filter(st => st.type === 'B');
+        const resolution = this.getResolution(cf);
+        const offset = this.getOffset(cf);
+        return cf.track
+            .filter(t => t.type === 'N' && supportedNotes.indexOf(t.note) !== -1)
+            .map((t) => {
+                const time = this.midiTimeService.calculateTime(t.midiTime, resolution, bpmChanges);
+                return {
+                    event: ChartStoreEventType.Note as ChartStoreEventType.Note,
+                    time: time + offset,
+                    type: [noteType(t.note)],
+                    length: t.length,
+                };
+            });
+    }
+
+    private importUnsupportedSyncTrack(cf: ChartFile): ChartStoreUnsupportedEventSyncTrack[] {
+        return cf.syncTrack
+            .filter(st => st.type !== 'B')
+            .map(original => ({
+                original,
+                event: ChartStoreUnsupportedEventType.SyncTrack as
+                    ChartStoreUnsupportedEventType.SyncTrack,
+            }));
+    }
+
+    private importUnsupportedEvent(cf: ChartFile): ChartStoreUnsupportedEventEvent[] {
+        return cf.events
+            .map(original => ({
+                original,
+                event: ChartStoreUnsupportedEventType.Event as
+                    ChartStoreUnsupportedEventType.Event,
+            }));
+    }
+
+    private importUnsupportedTrack(cf: ChartFile): ChartStoreUnsupportedEventTrack[] {
+        return cf.track
+            .filter(t => t.type !== 'N' || supportedNotes.indexOf(t.note) === -1)        
+            .map(original => ({
+                original,
+                event: ChartStoreUnsupportedEventType.Track as
+                    ChartStoreUnsupportedEventType.Track,
+            }));
+    }
+
+    private getResolution(cf: ChartFile): number {
+        const resolution = cf.metadata.find(m => m.name === 'Resolution');
+        return resolution ? parseInt(resolution.value, 10) : 192;        
+    }
+    
+    private getOffset(cf: ChartFile): number {
+        const offset = cf.metadata.find(m => m.name === 'Offset');
+        return offset ? parseFloat(offset.value) : 0;        
     }
 }

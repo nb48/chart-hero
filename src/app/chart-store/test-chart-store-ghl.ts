@@ -1,5 +1,10 @@
 import { ChartFile } from '../chart-file/chart-file';
-import { ChartStore, ChartStoreEventType, ChartStoreNoteType } from './chart-store';
+import {
+    ChartStore,
+    ChartStoreEventType,
+    ChartStoreNoteType,
+    ChartStoreUnsupportedEventType,
+} from './chart-store';
 
 export const TEST_GHL_FILE: ChartFile = {
     metadata: [{
@@ -20,19 +25,27 @@ export const TEST_GHL_FILE: ChartFile = {
     }],
     syncTrack: [{
         midiTime: 0,
-        type: 'TS',
-        value: 4,
-    }, {
-        midiTime: 0,
         type: 'B',
         value: 60000,
+    }, {
+        midiTime: 700,
+        type: 'B',
+        value: 30000,
+    }, {
+        midiTime: 0,
+        type: 'UNSUPPORTED',
+        text: 'UNSUPPORTED',
     }],
-    events: [],
+    events: [{
+        midiTime: 0,
+        type: 'UNSUPPORTED',
+        text: 'UNSUPPORTED',
+    }],
     track: [{
         midiTime: 200,
         type: 'N',
         note: 3,
-        length: 0,
+        length: 152,
     }, {
         midiTime: 400,
         type: 'N',
@@ -63,6 +76,10 @@ export const TEST_GHL_FILE: ChartFile = {
         type: 'N',
         note: 7,
         length: 0,
+    }, {
+        midiTime: 0,
+        type: 'UNSUPPORTED',
+        text: 'UNSUPPORTED',
     }],
 };
 
@@ -84,40 +101,69 @@ export const TEST_GHL_STORE: ChartStore = {
         value: '-0.1',
     }],
     events: [{
-        event: ChartStoreEventType.BPMChange,
+        event: ChartStoreEventType.BPMChange as ChartStoreEventType.BPMChange,
         time: -0.1,
         bpm: 60,
     }, {
-        event: ChartStoreEventType.TimeSignatureChange,
-        time: -0.1,
-        timeSignature: 4,
-    }, {
-        event: ChartStoreEventType.Note,
+        event: ChartStoreEventType.Note as ChartStoreEventType.Note,
         time: 0.9,
         type: [ChartStoreNoteType.GHLBlack1],
+        length: 152,
     }, {
-        event: ChartStoreEventType.Note,
+        event: ChartStoreEventType.Note as ChartStoreEventType.Note,
         time: 1.9,
         type: [ChartStoreNoteType.GHLBlack2],
+        length: 0,
     }, {
-        event: ChartStoreEventType.Note,
+        event: ChartStoreEventType.Note as ChartStoreEventType.Note,
         time: 2.9,
         type: [ChartStoreNoteType.GHLBlack3],
+        length: 0,
     }, {
-        event: ChartStoreEventType.Note,
-        time: 3.9,
+        event: ChartStoreEventType.BPMChange as ChartStoreEventType.BPMChange,
+        time: 3.4,
+        bpm: 30,
+    }, {
+        event: ChartStoreEventType.Note as ChartStoreEventType.Note,
+        time: 4.4,
         type: [ChartStoreNoteType.GHLWhite1],
+        length: 0,
     }, {
-        event: ChartStoreEventType.Note,
-        time: 4.9,
+        event: ChartStoreEventType.Note as ChartStoreEventType.Note,
+        time: 6.4,
         type: [ChartStoreNoteType.GHLWhite2],
+        length: 0,
     }, {
-        event: ChartStoreEventType.Note,
-        time: 5.9,
+        event: ChartStoreEventType.Note as ChartStoreEventType.Note,
+        time: 8.4,
         type: [ChartStoreNoteType.GHLWhite3],
+        length: 0,
     }, {
-        event: ChartStoreEventType.Note,
-        time: 6.9,
+        event: ChartStoreEventType.Note as ChartStoreEventType.Note,
+        time: 10.4,
         type: [ChartStoreNoteType.GHLOpen],
+        length: 0,
+    }],
+    unsupported: [{
+        event: ChartStoreUnsupportedEventType.SyncTrack as ChartStoreUnsupportedEventType.SyncTrack,
+        original: {
+            midiTime: 0,
+            type: 'UNSUPPORTED',
+            text: 'UNSUPPORTED',
+        },
+    }, {
+        event: ChartStoreUnsupportedEventType.Event as ChartStoreUnsupportedEventType.Event,
+        original: {
+            midiTime: 0,
+            type: 'UNSUPPORTED',
+            text: 'UNSUPPORTED',
+        },
+    }, {
+        event: ChartStoreUnsupportedEventType.Track as ChartStoreUnsupportedEventType.Track,
+        original: {
+            midiTime: 0,
+            type: 'UNSUPPORTED',
+            text: 'UNSUPPORTED',
+        },
     }],
 };

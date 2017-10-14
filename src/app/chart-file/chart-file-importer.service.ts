@@ -45,11 +45,19 @@ export class ChartFileImporterService {
 
     private importSyncTrack(file: string): ChartFileSyncTrack[] {
         return this.findSection('[SyncTrack]', file).map(([midiTime, content]) => {
-            const [type, value] = content.split(' ');
+            const i = content.indexOf(' ');
+            const [type, text] = [content.slice(0, i), content.slice(i + 1)];
+            if (type === 'B') {
+                return {
+                    type,
+                    midiTime: parseInt(midiTime, 10),
+                    value: parseInt(text, 10),
+                };
+            }
             return {
+                text,
                 type,
                 midiTime: parseInt(midiTime, 10),
-                value: parseInt(value, 10),
             };
         });
     }
@@ -67,19 +75,21 @@ export class ChartFileImporterService {
 
     private importTrack(file: string): ChartFileTrack[] {
         return this.findSection('[ExpertGHLGuitar]', file).map(([midiTime, content]) => {
-            const [type, value, length] = content.split(' ');
-            if (type === 'E') {
+            const i = content.indexOf(' ');
+            const [type, text] = [content.slice(0, i), content.slice(i + 1)];
+            if (type === 'N') {
+                const [value, length] = text.split(' ');
                 return {
                     type,
                     midiTime: parseInt(midiTime, 10),
-                    text: value,
+                    note: parseInt(value, 10),
+                    length: parseInt(length, 10),
                 };
             }
             return {
+                text,
                 type,
                 midiTime: parseInt(midiTime, 10),
-                note: parseInt(value, 10),
-                length: parseInt(length, 10),
             };
         });
     }

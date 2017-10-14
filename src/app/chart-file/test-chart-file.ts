@@ -10,11 +10,12 @@ export const TEST_FILE = `[Song]
 }
 [SyncTrack]
 {
-    0 = TS 4
     0 = B 60000
+    0 = UNSUPPORTED UNSUPPORTED
 }
 [Events]
 {
+    0 = UNSUPPORTED UNSUPPORTED
 }
 [ExpertGHLGuitar]
 {
@@ -24,6 +25,7 @@ export const TEST_FILE = `[Song]
     800 = N 3 0
     1000 = N 4 0
     1200 = N 7 0
+    0 = UNSUPPORTED UNSUPPORTED
 }`;
 
 export const TEST_CHART: ChartFile = {
@@ -45,14 +47,18 @@ export const TEST_CHART: ChartFile = {
     }],
     syncTrack: [{
         midiTime: 0,
-        type: 'TS',
-        value: 4,
-    }, {
-        midiTime: 0,
         type: 'B',
         value: 60000,
+    }, {
+        midiTime: 0,
+        type: 'UNSUPPORTED',
+        text: 'UNSUPPORTED',
     }],
-    events: [],
+    events: [{
+        midiTime: 0,
+        type: 'UNSUPPORTED',
+        text: 'UNSUPPORTED',
+    }],
     track: [{
         midiTime: 200,
         type: 'N',
@@ -83,5 +89,9 @@ export const TEST_CHART: ChartFile = {
         type: 'N',
         note: 7,
         length: 0,
+    }, {
+        midiTime: 0,
+        type: 'UNSUPPORTED',
+        text: 'UNSUPPORTED',
     }],
 };

@@ -32,12 +32,12 @@ export const TEST_GHL_FILE: ChartFile = {
         type: 'B',
         value: 30000,
     }, {
-        midiTime: 0,
+        midiTime: 9999,
         type: 'UNSUPPORTED',
         text: 'UNSUPPORTED',
     }],
     events: [{
-        midiTime: 0,
+        midiTime: 9999,
         type: 'UNSUPPORTED',
         text: 'UNSUPPORTED',
     }],
@@ -77,7 +77,7 @@ export const TEST_GHL_FILE: ChartFile = {
         note: 7,
         length: 0,
     }, {
-        midiTime: 0,
+        midiTime: 9999,
         type: 'UNSUPPORTED',
         text: 'UNSUPPORTED',
     }],
@@ -147,21 +147,21 @@ export const TEST_GHL_STORE: ChartStore = {
     unsupported: [{
         event: ChartStoreUnsupportedEventType.SyncTrack as ChartStoreUnsupportedEventType.SyncTrack,
         original: {
-            midiTime: 0,
+            midiTime: 9999,
             type: 'UNSUPPORTED',
             text: 'UNSUPPORTED',
         },
     }, {
         event: ChartStoreUnsupportedEventType.Event as ChartStoreUnsupportedEventType.Event,
         original: {
-            midiTime: 0,
+            midiTime: 9999,
             type: 'UNSUPPORTED',
             text: 'UNSUPPORTED',
         },
     }, {
         event: ChartStoreUnsupportedEventType.Track as ChartStoreUnsupportedEventType.Track,
         original: {
-            midiTime: 0,
+            midiTime: 9999,
             type: 'UNSUPPORTED',
             text: 'UNSUPPORTED',
         },

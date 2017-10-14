@@ -18,7 +18,7 @@ describe('Service: ChartStoreGHLExporterService', () => {
         service = TestBed.get(ChartStoreGHLExporterService);
     });
 
-    // it('ChartStoreGHLExporterService should export chart correctly', () => {
-    //     expect(service.export(TEST_GHL_STORE)).toEqual(TEST_GHL_FILE);
-    // });
+    it('ChartStoreGHLExporterService should export chart correctly', () => {
+        expect(service.export(TEST_GHL_STORE)).toEqual(TEST_GHL_FILE);
+    });
 });

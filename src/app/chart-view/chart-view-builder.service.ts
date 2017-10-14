@@ -16,7 +16,7 @@ export class ChartViewBuilderService {
     constructor() {
     }
 
-    buildView(cs: ChartStore): ChartView {
+    buildView(cs: ChartStore, time: number): ChartView {
         return {
             zeroPosition: zeroPosition(),
         };

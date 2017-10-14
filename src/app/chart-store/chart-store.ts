@@ -51,5 +51,5 @@ export enum ChartStoreUnsupportedEventType {
 
 export interface ChartStoreUnsupportedEvent {
     event: ChartStoreUnsupportedEventType;
-    original: ChartFileSyncTrack;
+    original: ChartFileSyncTrack | ChartFileEvent | ChartFileTrack;
 }

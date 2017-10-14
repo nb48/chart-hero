@@ -65,11 +65,11 @@ export class ChartStoreGHLImporterService {
     }
 
     private importBPMChanges(cf: ChartFile): ChartStoreEventBPMChange[] {
-        const bpmChanges = cf.syncTrack.filter(st => st.type === 'B');
+        const syncTrack = cf.syncTrack.filter(st => st.type === 'B');
         const resolution = this.getResolution(cf);
         const offset = this.getOffset(cf);
-        return bpmChanges.map((st) => {
-            const time = this.midiTimeService.calculateTime(st.midiTime, resolution, bpmChanges);
+        return syncTrack.map((st) => {
+            const time = this.midiTimeService.calculateTime(st.midiTime, resolution, syncTrack);
             return {
                 event: ChartStoreEventType.BPMChange as ChartStoreEventType.BPMChange,
                 time: time + offset,
@@ -79,16 +79,16 @@ export class ChartStoreGHLImporterService {
     }
 
     private importNotes(cf: ChartFile): ChartStoreEventNote[] {
-        const bpmChanges = cf.syncTrack.filter(st => st.type === 'B');
+        const syncTrack = cf.syncTrack.filter(st => st.type === 'B');
         const resolution = this.getResolution(cf);
         const offset = this.getOffset(cf);
         return cf.track
             .filter(t => t.type === 'N' && supportedNotes.indexOf(t.note) !== -1)
             .map((t) => {
-                const time = this.midiTimeService.calculateTime(t.midiTime, resolution, bpmChanges);
+                const time = this.midiTimeService.calculateTime(t.midiTime, resolution, syncTrack);
                 const length = t.length !== 0
                     ? this.midiTimeService.calculateTime
-                        (t.midiTime + t.length, resolution, bpmChanges) - time
+                        (t.midiTime + t.length, resolution, syncTrack) - time
                     : 0;
                 return {
                     length,

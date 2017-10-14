@@ -107,13 +107,13 @@ export class ChartStoreGHLExporterService {
 
     private exportUnsupportedEvents(cs: ChartStore): ChartFileEvent[] {
         return cs.unsupported
-            .filter(u => u.event === ChartStoreUnsupportedEventType.SyncTrack)
+            .filter(u => u.event === ChartStoreUnsupportedEventType.Event)
             .map(u => u.original as ChartFileEvent);
     }
 
     private exportUnsupportedTrack(cs: ChartStore): ChartFileTrack[] {
         return cs.unsupported
-            .filter(u => u.event === ChartStoreUnsupportedEventType.SyncTrack)
+            .filter(u => u.event === ChartStoreUnsupportedEventType.Track)
             .map(u => u.original as ChartFileTrack);
     }
 

@@ -8,9 +8,7 @@ import {
     ChartStoreEventType,
     ChartStoreMetadata,
     ChartStoreNoteType,
-    ChartStoreUnsupportedEventEvent,
-    ChartStoreUnsupportedEventSyncTrack,
-    ChartStoreUnsupportedEventTrack,
+    ChartStoreUnsupportedEvent,
     ChartStoreUnsupportedEventType,
 } from './chart-store';
 import { ChartStoreMidiTimeService } from './chart-store-midi-time.service';
@@ -101,7 +99,7 @@ export class ChartStoreGHLImporterService {
             });
     }
 
-    private importUnsupportedSyncTrack(cf: ChartFile): ChartStoreUnsupportedEventSyncTrack[] {
+    private importUnsupportedSyncTrack(cf: ChartFile): ChartStoreUnsupportedEvent[] {
         return cf.syncTrack
             .filter(st => st.type !== 'B')
             .map(original => ({
@@ -111,7 +109,7 @@ export class ChartStoreGHLImporterService {
             }));
     }
 
-    private importUnsupportedEvents(cf: ChartFile): ChartStoreUnsupportedEventEvent[] {
+    private importUnsupportedEvents(cf: ChartFile): ChartStoreUnsupportedEvent[] {
         return cf.events
             .map(original => ({
                 original,
@@ -120,7 +118,7 @@ export class ChartStoreGHLImporterService {
             }));
     }
 
-    private importUnsupportedTrack(cf: ChartFile): ChartStoreUnsupportedEventTrack[] {
+    private importUnsupportedTrack(cf: ChartFile): ChartStoreUnsupportedEvent[] {
         return cf.track
             .filter(t => t.type !== 'N' || supportedNotes.indexOf(t.note) === -1)        
             .map(original => ({

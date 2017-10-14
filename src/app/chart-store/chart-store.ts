@@ -43,28 +43,13 @@ export enum ChartStoreNoteType {
     GHLWhite3,
 }
 
-export type ChartStoreUnsupportedEvent =
-    ChartStoreUnsupportedEventSyncTrack |
-    ChartStoreUnsupportedEventEvent |
-    ChartStoreUnsupportedEventTrack;
-
 export enum ChartStoreUnsupportedEventType {
     SyncTrack,
     Event,
     Track,
 }
 
-export interface ChartStoreUnsupportedEventSyncTrack {
-    event: ChartStoreUnsupportedEventType.SyncTrack;
+export interface ChartStoreUnsupportedEvent {
+    event: ChartStoreUnsupportedEventType;
     original: ChartFileSyncTrack;
-}
-
-export interface ChartStoreUnsupportedEventEvent {
-    event: ChartStoreUnsupportedEventType.Event;
-    original: ChartFileEvent;
-}
-
-export interface ChartStoreUnsupportedEventTrack {
-    event: ChartStoreUnsupportedEventType.Track;
-    original: ChartFileTrack;
 }

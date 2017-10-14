@@ -1,13 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
-import {
-    ChartFile,
-    ChartFileMetadata,
-    ChartFileSyncTrack,
-    ChartFileEvent,
-    ChartFileTrack,
-    defaultChartFile,
-} from '../chart-file/chart-file';
+import { ChartFile, defaultChartFile } from '../chart-file/chart-file';
 import { ChartFileExporterService } from '../chart-file/chart-file-exporter.service';
 import { ChartFileImporterService } from '../chart-file/chart-file-importer.service';
 import { ChartStoreGHLExporterService } from './chart-store-ghl-exporter.service';
@@ -17,7 +11,8 @@ import { ChartStore } from './chart-store';
 @Injectable()
 export class ChartStoreService {
 
-    private chartEmitter: EventEmitter<ChartFile>;
+    private chartFileEmitter: EventEmitter<ChartFile>;
+    private chartStoreSubject: Subject<ChartStore>;
     private currentChart: ChartStore;
 
     constructor(
@@ -26,21 +21,22 @@ export class ChartStoreService {
         private ghlImporter: ChartStoreGHLImporterService,
         private ghlExporter: ChartStoreGHLExporterService,
     ) {
-        this.chartEmitter = new EventEmitter<ChartFile>();
-        fileExporter.chartFile = this.chartEmitter;
+        this.chartFileEmitter = new EventEmitter<ChartFile>();
+        this.chartStoreSubject = new Subject<ChartStore>();
+        fileExporter.chartFile = this.chartFileEmitter;
         this.import(defaultChartFile());
-        this.export();
         fileImporter.chartFile.subscribe((chartFile: ChartFile) => {
             this.import(chartFile);
-            this.export();
         });
+    }
+
+    get chart(): Observable<ChartStore> {
+        return this.chartStoreSubject.asObservable();
     }
 
     private import(chartFile: ChartFile) {
         this.currentChart = this.ghlImporter.import(chartFile);
-    }
-
-    private export() {
-        this.chartEmitter.emit(this.ghlExporter.export(this.currentChart));
+        this.chartStoreSubject.next(this.currentChart);
+        this.chartFileEmitter.emit(this.ghlExporter.export(this.currentChart));
     }
 }

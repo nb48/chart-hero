@@ -88,12 +88,6 @@ describe('Component: AudioPlayerControlsComponent', () => {
         const target = 'ng-reflect-model="testTime"';
         expect(currentTimeElement().nativeElement.outerHTML).toContain(target);
     });
-
-    it('AudioPlayerControls should display read only current time when audio is playing', () => {
-        setupTest(new MockAudioPlayerService(true, '', true));
-        const target = 'readonly=""';
-        expect(currentTimeElement().nativeElement.outerHTML).toContain(target);
-    });
 });
 
 class MockAudioPlayerService {

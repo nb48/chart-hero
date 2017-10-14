@@ -1,0 +1,12 @@
+
+.editor-chart-view {
+    width: 100%;
+    height: 100%;
+}
+
+.editor-chart-view > svg {
+    width: 99%;
+    height: 95.5%;
+    margin-top: 2%;
+    margin-left: 1%;
+}

@@ -4,9 +4,9 @@
     width: 100vw;
     height: 100vh;
     grid-template-areas: ". . file-select"
-                         "audio-player-controls chart-display ."
-                         ". chart-display ."
-                         ". chart-display exporter";
+                         "audio-player-controls editor ."
+                         ". editor ."
+                         ". editor exporter";
     grid-template-columns: 20% 2fr 1fr;
     grid-template-rows: 8.25em 4.25em 1fr 4.25em;
 }
@@ -19,8 +19,8 @@
     grid-area: audio-player-controls;
 }
 
-.app app-chart-display {
-    grid-area: chart-display;
+.app app-editor {
+    grid-area: editor;
 }
 
 .app app-exporter {

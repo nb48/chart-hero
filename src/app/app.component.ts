@@ -9,6 +9,6 @@ import { ChartStoreService } from './chart-store/chart-store.service';
 })
 export class AppComponent {
 
-    constructor(private chartStoreService: ChartStoreService) {
+    constructor() {
     }
 }

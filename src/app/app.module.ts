@@ -7,8 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AudioPlayerControlsComponent }
 from './audio-player-controls/audio-player-controls.component';
+import { EditorComponent } from './editor/editor.component';
 import { ExporterComponent } from './exporter/exporter.component';
 import { FileSelectComponent } from './file-select/file-select.component';
+import { EditorChartViewComponent } from './editor/editor-chart-view/editor-chart-view.component';
 import { AppComponent } from './app.component';
 
 import { AudioPlayerService } from './audio-player/audio-player.service';
@@ -18,6 +20,8 @@ import { ChartStoreGHLExporterService } from './chart-store/chart-store-ghl-expo
 import { ChartStoreGHLImporterService } from './chart-store/chart-store-ghl-importer.service';
 import { ChartStoreMidiTimeService } from './chart-store/chart-store-midi-time.service';
 import { ChartStoreService } from './chart-store/chart-store.service';
+import { ChartViewBuilderService } from './chart-view/chart-view-builder.service';
+import { ChartViewService } from './chart-view/chart-view.service';
 import { FileStoreService } from './file-store/file-store.service';
 
 @NgModule({
@@ -33,6 +37,8 @@ import { FileStoreService } from './file-store/file-store.service';
     ],
     declarations: [
         AudioPlayerControlsComponent,
+        EditorComponent,
+        EditorChartViewComponent,
         ExporterComponent,
         FileSelectComponent,
         AppComponent,
@@ -45,6 +51,8 @@ import { FileStoreService } from './file-store/file-store.service';
         ChartStoreGHLImporterService,
         ChartStoreMidiTimeService,
         ChartStoreService,
+        ChartViewBuilderService,
+        ChartViewService,
         FileStoreService,
     ],
     bootstrap: [AppComponent],

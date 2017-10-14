@@ -10,7 +10,8 @@ import {
 } from '../chart-file/chart-file';
 import { ChartFileExporterService } from '../chart-file/chart-file-exporter.service';
 import { ChartFileImporterService } from '../chart-file/chart-file-importer.service';
-import { ChartStoreGHLConverterService } from './chart-store-ghl-converter.service';
+import { ChartStoreGHLExporterService } from './chart-store-ghl-exporter.service';
+import { ChartStoreGHLImporterService } from './chart-store-ghl-importer.service';
 import { ChartStore } from './chart-store';
 
 @Injectable()
@@ -22,7 +23,8 @@ export class ChartStoreService {
     constructor(
         private fileImporter: ChartFileImporterService,
         private fileExporter: ChartFileExporterService,
-        private ghlConverter: ChartStoreGHLConverterService,
+        private ghlImporter: ChartStoreGHLImporterService,
+        private ghlExporter: ChartStoreGHLExporterService,
     ) {
         this.chartEmitter = new EventEmitter<ChartFile>();
         fileExporter.chartFile = this.chartEmitter;
@@ -35,10 +37,10 @@ export class ChartStoreService {
     }
 
     private import(chartFile: ChartFile) {
-        this.currentChart = this.ghlConverter.import(chartFile);
+        this.currentChart = this.ghlImporter.import(chartFile);
     }
 
     private export() {
-        this.chartEmitter.emit(this.ghlConverter.export(this.currentChart));
+        this.chartEmitter.emit(this.ghlExporter.export(this.currentChart));
     }
 }

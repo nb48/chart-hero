@@ -14,7 +14,8 @@ import { AppComponent } from './app.component';
 import { AudioPlayerService } from './audio-player/audio-player.service';
 import { ChartFileExporterService } from './chart-file/chart-file-exporter.service';
 import { ChartFileImporterService } from './chart-file/chart-file-importer.service';
-import { ChartStoreGHLConverterService } from './chart-store/chart-store-ghl-converter.service';
+import { ChartStoreGHLExporterService } from './chart-store/chart-store-ghl-exporter.service';
+import { ChartStoreGHLImporterService } from './chart-store/chart-store-ghl-importer.service';
 import { ChartStoreMidiTimeService } from './chart-store/chart-store-midi-time.service';
 import { ChartStoreService } from './chart-store/chart-store.service';
 import { FileStoreService } from './file-store/file-store.service';
@@ -40,7 +41,8 @@ import { FileStoreService } from './file-store/file-store.service';
         AudioPlayerService,
         ChartFileExporterService,
         ChartFileImporterService,
-        ChartStoreGHLConverterService,
+        ChartStoreGHLExporterService,
+        ChartStoreGHLImporterService,
         ChartStoreMidiTimeService,
         ChartStoreService,
         FileStoreService,

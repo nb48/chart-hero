@@ -37,22 +37,21 @@ const noteType = (note: number): ChartStoreNoteType => {
 };
 
 @Injectable()
-export class ChartStoreGHLConverterService {
+export class ChartStoreGHLImporterService {
 
     constructor(private midiTimeService: ChartStoreMidiTimeService) {
     }
 
     import(cf: ChartFile): ChartStore {
-        const events = [
-            ...this.importBPMChanges(cf),
-            ...this.importNotes(cf),
-        ].sort((a, b) => a.time - b.time);
         return {
-            events,
             metadata: cf.metadata as ChartStoreMetadata[],
+            events: [
+                ...this.importBPMChanges(cf),
+                ...this.importNotes(cf),
+            ],
             unsupported: [
                 ...this.importUnsupportedSyncTrack(cf),
-                ...this.importUnsupportedEvent(cf),
+                ...this.importUnsupportedEvents(cf),
                 ...this.importUnsupportedTrack(cf),
             ],
         };
@@ -112,7 +111,7 @@ export class ChartStoreGHLConverterService {
             }));
     }
 
-    private importUnsupportedEvent(cf: ChartFile): ChartStoreUnsupportedEventEvent[] {
+    private importUnsupportedEvents(cf: ChartFile): ChartStoreUnsupportedEventEvent[] {
         return cf.events
             .map(original => ({
                 original,

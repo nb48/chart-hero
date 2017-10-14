@@ -105,6 +105,10 @@ export const TEST_GHL_STORE: ChartStore = {
         time: -0.1,
         bpm: 60,
     }, {
+        event: ChartStoreEventType.BPMChange as ChartStoreEventType.BPMChange,
+        time: 3.4,
+        bpm: 30,
+    }, {
         event: ChartStoreEventType.Note as ChartStoreEventType.Note,
         time: 0.9,
         type: [ChartStoreNoteType.GHLBlack1],
@@ -119,10 +123,6 @@ export const TEST_GHL_STORE: ChartStore = {
         time: 2.9,
         type: [ChartStoreNoteType.GHLBlack3],
         length: 1,
-    }, {
-        event: ChartStoreEventType.BPMChange as ChartStoreEventType.BPMChange,
-        time: 3.4,
-        bpm: 30,
     }, {
         event: ChartStoreEventType.Note as ChartStoreEventType.Note,
         time: 4.4,

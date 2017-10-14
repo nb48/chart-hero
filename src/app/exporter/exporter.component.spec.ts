@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MdButtonModule, MdListModule } from '@angular/material';
+import { MatButtonModule, MatListModule } from '@angular/material';
 import { By } from '@angular/platform-browser';
 
 import { ChartFileExporterService } from '../chart-file/chart-file-exporter.service';
@@ -12,8 +12,8 @@ describe('Component: ExporterComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                MdButtonModule,
-                MdListModule,
+                MatButtonModule,
+                MatListModule,
             ],
             declarations: [
                 ExporterComponent,

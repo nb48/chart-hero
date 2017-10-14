@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MdButtonModule, MdFormFieldModule, MdInputModule, MdListModule }
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatListModule }
 from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,10 +25,10 @@ import { FileStoreService } from './file-store/file-store.service';
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
-        MdButtonModule,
-        MdFormFieldModule,
-        MdInputModule,
-        MdListModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatListModule,
         ReactiveFormsModule,
     ],
     declarations: [

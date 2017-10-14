@@ -1,14 +1,14 @@
 <div class="file-select">
-    <md-list>
-        <md-list-item class="audio-input">
+    <mat-list>
+        <mat-list-item class="audio-input">
             <input [hidden]='true' #audioInput type="file" (change)="store.audioFile = $event.target.files[0]" />
-            <button md-raised-button color="primary" (click)="audioInput.click()">Select audio file</button>
+            <button mat-raised-button color="primary" (click)="audioInput.click()">Select audio file</button>
             <label *ngIf="store.audioFileName" class="body-1">{{store.audioFileName}}</label>
-        </md-list-item>
-        <md-list-item class="chart-input">
+        </mat-list-item>
+        <mat-list-item class="chart-input">
             <input [hidden]='true' #chartInput type="file" (change)="store.chartFile = $event.target.files[0]" />
-            <button md-raised-button color="primary" (click)="chartInput.click()">Select chart file</button>
+            <button mat-raised-button color="primary" (click)="chartInput.click()">Select chart file</button>
             <label *ngIf="store.chartFileName" class="body-1">{{store.chartFileName}}</label>
-        </md-list-item>
-    </md-list>
+        </mat-list-item>
+    </mat-list>
 </div>

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MdButtonModule, MdListModule } from '@angular/material';
+import { MatButtonModule, MatListModule } from '@angular/material';
 import { By } from '@angular/platform-browser';
 
 import { FileSelectComponent } from './file-select.component';
@@ -12,8 +12,8 @@ describe('Component: FileSelectComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                MdButtonModule,
-                MdListModule,
+                MatButtonModule,
+                MatListModule,
             ],
             declarations: [
                 FileSelectComponent,

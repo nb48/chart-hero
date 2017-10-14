@@ -6,7 +6,7 @@
     justify-content: flex-end;
 }
 
-.audio-player-controls md-form-field {
+.audio-player-controls mat-form-field {
     margin-left: 2%;
     margin-top: 0.2em;
     width: 7em;

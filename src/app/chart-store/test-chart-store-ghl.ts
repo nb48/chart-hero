@@ -45,17 +45,17 @@ export const TEST_GHL_FILE: ChartFile = {
         midiTime: 200,
         type: 'N',
         note: 3,
-        length: 152,
+        length: 0,
     }, {
         midiTime: 400,
         type: 'N',
         note: 4,
-        length: 0,
+        length: 150,
     }, {
         midiTime: 600,
         type: 'N',
         note: 8,
-        length: 0,
+        length: 150,
     }, {
         midiTime: 800,
         type: 'N',
@@ -108,17 +108,17 @@ export const TEST_GHL_STORE: ChartStore = {
         event: ChartStoreEventType.Note as ChartStoreEventType.Note,
         time: 0.9,
         type: [ChartStoreNoteType.GHLBlack1],
-        length: 152,
+        length: 0,
     }, {
         event: ChartStoreEventType.Note as ChartStoreEventType.Note,
         time: 1.9,
         type: [ChartStoreNoteType.GHLBlack2],
-        length: 0,
+        length: 0.75,
     }, {
         event: ChartStoreEventType.Note as ChartStoreEventType.Note,
         time: 2.9,
         type: [ChartStoreNoteType.GHLBlack3],
-        length: 0,
+        length: 1,
     }, {
         event: ChartStoreEventType.BPMChange as ChartStoreEventType.BPMChange,
         time: 3.4,

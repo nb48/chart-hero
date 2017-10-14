@@ -89,11 +89,15 @@ export class ChartStoreGHLConverterService {
             .filter(t => t.type === 'N' && supportedNotes.indexOf(t.note) !== -1)
             .map((t) => {
                 const time = this.midiTimeService.calculateTime(t.midiTime, resolution, bpmChanges);
+                const length = t.length !== 0
+                    ? this.midiTimeService.calculateTime
+                        (t.midiTime + t.length, resolution, bpmChanges) - time
+                    : 0;
                 return {
+                    length,
                     event: ChartStoreEventType.Note as ChartStoreEventType.Note,
                     time: time + offset,
                     type: [noteType(t.note)],
-                    length: t.length,
                 };
             });
     }

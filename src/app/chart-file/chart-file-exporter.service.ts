@@ -8,6 +8,10 @@ import {
     ChartFileTrack,
 } from './chart-file';
 
+const formatMidiTime = (midiTime: number): string => {
+    return ('' + midiTime).split('.')[0];
+};
+
 @Injectable()
 export class ChartFileExporterService {
 
@@ -42,24 +46,24 @@ export class ChartFileExporterService {
     private exportSyncTrack(syncTrack: ChartFileSyncTrack[]): string {
         return syncTrack.map(({ midiTime, type, value, text }) => {
             if (type === 'B') {
-                return `    ${midiTime} = ${type} ${value}\n`;
+                return `    ${formatMidiTime(midiTime)} = ${type} ${value}\n`;
             }
-            return `    ${midiTime} = ${type} ${text}\n`;
+            return `    ${formatMidiTime(midiTime)} = ${type} ${text}\n`;
         }).join('');
     }
 
     private exportEvents(events: ChartFileEvent[]): string {
         return events.map(({ midiTime, type, text }) => {
-            return `    ${midiTime} = ${type} ${text}\n`;
+            return `    ${formatMidiTime(midiTime)} = ${type} ${text}\n`;
         }).join('');
     }
 
     private exportTrack(track: ChartFileTrack[]): string {
         return track.map(({ midiTime, type, note, length, text }) => {
             if (type === 'N') {
-                return `    ${midiTime} = ${type} ${note} ${length}\n`;
+                return `    ${formatMidiTime(midiTime)} = ${type} ${note} ${length}\n`;
             }
-            return `    ${midiTime} = ${type} ${text}\n`;                
+            return `    ${formatMidiTime(midiTime)} = ${type} ${text}\n`;                
         }).join('');
     }
 }

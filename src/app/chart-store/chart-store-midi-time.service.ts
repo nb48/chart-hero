@@ -10,6 +10,18 @@ const conversionFactor = (bpm: number, resolution: number): number => {
 @Injectable()
 export class ChartStoreMidiTimeService {
 
+    private timeCache: Map<number, number>;
+    private midiTimeCache: Map<number, number>;
+
+    constructor() {
+        this.clearCache();
+    }
+
+    clearCache(): void {
+        this.timeCache = new Map<number, number>();
+        this.midiTimeCache = new Map<number, number>();
+    }
+
     calculateBPMChanges(syncTrack: ChartFileSyncTrack[], resolution: number)
         : ChartStoreEventBPMChange[] {
         return syncTrack.map(st => ({
@@ -33,8 +45,14 @@ export class ChartStoreMidiTimeService {
         if (earlierChanges.length > 1) {
             const latestChange = earlierChanges.pop();
             const bpm = latestChange.value / 1000;
-            const timeUntilLatestChange =
-                this.calculateTime(latestChange.midiTime, resolution, earlierChanges);
+            let timeUntilLatestChange;
+            if (this.timeCache.has(latestChange.midiTime)) {
+                timeUntilLatestChange = this.timeCache.get(latestChange.midiTime);
+            } else {
+                timeUntilLatestChange =
+                    this.calculateTime(latestChange.midiTime, resolution, earlierChanges);
+                this.timeCache.set(latestChange.midiTime, timeUntilLatestChange);
+            }
             const timeAfterLatestChange =
                 (midiTime - latestChange.midiTime) / conversionFactor(bpm, resolution);
             return timeUntilLatestChange + timeAfterLatestChange;            
@@ -50,8 +68,14 @@ export class ChartStoreMidiTimeService {
         if (earlierChanges.length > 1) {
             const latestChange = earlierChanges.pop();
             const bpm = latestChange.bpm;
-            const midiTimeUntilLatestChange =
-                this.calculateMidiTime(latestChange.time, resolution, earlierChanges);
+            let midiTimeUntilLatestChange;
+            if (this.midiTimeCache.has(latestChange.time)) {
+                midiTimeUntilLatestChange = this.midiTimeCache.get(latestChange.time);
+            } else {
+                midiTimeUntilLatestChange =
+                    this.calculateMidiTime(latestChange.time, resolution, earlierChanges);
+                this.midiTimeCache.set(latestChange.time, midiTimeUntilLatestChange);
+            }
             const midiTimeAfterLatestChange =
                 (time - latestChange.time) * conversionFactor(bpm, resolution);
             return midiTimeUntilLatestChange + midiTimeAfterLatestChange;

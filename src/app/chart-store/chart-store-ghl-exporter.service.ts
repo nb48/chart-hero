@@ -44,6 +44,7 @@ export class ChartStoreGHLExporterService {
     }
 
     export(cs: ChartStore): ChartFile {
+        this.midiTimeService.clearCache();
         return {
             metadata: cs.metadata as ChartFileMetadata[],
             syncTrack: [

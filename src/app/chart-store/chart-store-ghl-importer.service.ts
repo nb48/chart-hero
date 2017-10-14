@@ -41,6 +41,7 @@ export class ChartStoreGHLImporterService {
     }
 
     import(cf: ChartFile): ChartStore {
+        this.midiTimeService.clearCache();
         return {
             metadata: cf.metadata as ChartStoreMetadata[],
             events: [
@@ -52,15 +53,6 @@ export class ChartStoreGHLImporterService {
                 ...this.importUnsupportedEvents(cf),
                 ...this.importUnsupportedTrack(cf),
             ],
-        };
-    }
-
-    export(chartStore: ChartStore): ChartFile {
-        return {
-            metadata: [],
-            syncTrack: [],
-            events: [],
-            track: [],
         };
     }
 

@@ -11,6 +11,10 @@ import { EditorComponent } from './editor/editor.component';
 import { ExporterComponent } from './exporter/exporter.component';
 import { FileSelectComponent } from './file-select/file-select.component';
 import { EditorChartViewComponent } from './editor/editor-chart-view/editor-chart-view.component';
+import { EditorChartViewBeatComponent }
+from './editor/editor-chart-view/editor-chart-view-beat/editor-chart-view-beat.component';
+import { EditorChartViewNoteComponent }
+from './editor/editor-chart-view/editor-chart-view-note/editor-chart-view-note.component';
 import { AppComponent } from './app.component';
 
 import { AudioPlayerService } from './audio-player/audio-player.service';
@@ -39,6 +43,8 @@ import { FileStoreService } from './file-store/file-store.service';
         AudioPlayerControlsComponent,
         EditorComponent,
         EditorChartViewComponent,
+        EditorChartViewBeatComponent,
+        EditorChartViewNoteComponent,
         ExporterComponent,
         FileSelectComponent,
         AppComponent,

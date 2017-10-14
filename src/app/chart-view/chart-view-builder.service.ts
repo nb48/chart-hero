@@ -19,6 +19,8 @@ export class ChartViewBuilderService {
     buildView(cs: ChartStore, time: number): ChartView {
         return {
             zeroPosition: zeroPosition(),
+            beats: [],
+            notes: [],
         };
     }
 }

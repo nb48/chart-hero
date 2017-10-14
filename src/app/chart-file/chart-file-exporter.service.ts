@@ -30,7 +30,7 @@ export class ChartFileExporterService {
         return `[Song]\n{\n${this.exportMetadata(chart.metadata)}}\n`
         + `[SyncTrack]\n{\n${this.exportSyncTrack(chart.syncTrack)}}\n`
         + `[Events]\n{\n${this.exportEvents(chart.events)}}\n`
-        + `[ExpertSingle]\n{\n${this.exportTrack(chart.track)}}`;
+        + `[ExpertGHLGuitar]\n{\n${this.exportTrack(chart.track)}}`;
     }
 
     private exportMetadata(metadata: ChartFileMetadata[]): string {

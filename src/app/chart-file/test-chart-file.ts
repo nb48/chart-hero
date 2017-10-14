@@ -16,7 +16,7 @@ export const TEST_FILE = `[Song]
 [Events]
 {
 }
-[ExpertSingle]
+[ExpertGHLGuitar]
 {
     200 = N 0 0
     400 = N 1 0

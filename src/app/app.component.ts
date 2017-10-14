@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ChartStoreService2 } from './chart-store/chart-store.service';
+import { ChartStoreService } from './chart-store/chart-store.service';
 
 @Component({
     selector: 'app',
@@ -9,6 +9,6 @@ import { ChartStoreService2 } from './chart-store/chart-store.service';
 })
 export class AppComponent {
 
-    constructor(private chartStoreService: ChartStoreService2) {
+    constructor(private chartStoreService: ChartStoreService) {
     }
 }

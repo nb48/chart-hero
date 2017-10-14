@@ -1,8 +1,0 @@
-<ng-container *ngIf="color === 'open'">
-    <svg:line x1="0" x2="100%" stroke="purple" stroke-width="9" [attr.y1]="position + '%'" [attr.y2]="position + '%'"></svg:line>
-    <svg:line *ngIf="selected" x1="0" x2="100%" stroke="white" stroke-width="3" [attr.y1]="position + '%'" [attr.y2]="position + '%'"></svg:line>
-</ng-container>
-<ng-container *ngIf="color !== 'open'">
-    <svg:circle r="1.5em" [attr.cx]="xPositions[color] + '%'" [attr.cy]="position + '%'" [attr.fill]="color"></svg:circle>
-    <svg:circle *ngIf="selected" r="1em" fill="none" stroke="white" stroke-width="3" [attr.cx]="xPositions[color] + '%'" [attr.cy]="position + '%'"></svg:circle>
-</ng-container>

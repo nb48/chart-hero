@@ -66,7 +66,7 @@ export class ChartFileImporterService {
     }
 
     private importTrack(file: string): ChartFileTrack[] {
-        return this.findSection('[ExpertSingle]', file).map(([midiTime, content]) => {
+        return this.findSection('[ExpertGHLGuitar]', file).map(([midiTime, content]) => {
             const [type, value, length] = content.split(' ');
             if (type === 'E') {
                 return {

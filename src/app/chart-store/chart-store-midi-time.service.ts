@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { ChartStoreMetadata } from './chart-store';
+
 export interface BPMChange {
     time: number;
     midiTime: number;
@@ -17,7 +19,7 @@ const conversionFactor = (bpm: number, resolution: number): number => {
 };
 
 @Injectable()
-export class MidiTimeConverterService {
+export class ChartStoreMidiTimeService {
 
     private $bpmChanges: BPMChange[];
     private $resolution: number;
@@ -27,11 +29,10 @@ export class MidiTimeConverterService {
         this.$resolution = 192;
     }
 
-    setup(metadata: Map<string, string>): void {
+    setup(metadata: ChartStoreMetadata[]): void {
         this.$bpmChanges = [];
-        this.$resolution = metadata.has('Resolution')
-            ? parseInt(metadata.get('Resolution'), 10)
-            : 192;
+        const resolution = metadata.find(({ name, value }) => name === 'Resolution');
+        this.$resolution = resolution ? parseInt(resolution.value, 10) : 192;
     }
 
     addBPMChange(time: number, midiTime: number, bpm: number): void {

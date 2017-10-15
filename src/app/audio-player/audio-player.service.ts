@@ -65,7 +65,7 @@ export class AudioPlayerService {
         this.$playing = true;
         this.$audio.play();
         this.$audio.currentTime = readTime(this.$currentTime);
-        this.$frame = Observable.interval(2).subscribe((n) => {
+        this.$frame = Observable.interval(16.7).subscribe((n) => {
             this.frame();
         });
     }

@@ -30,7 +30,7 @@ export class ChartViewService {
             this.updateView(time);
         });
         this.renderView();
-        Observable.interval(16).subscribe((n) => {
+        Observable.interval(16.7).subscribe((n) => {
             this.renderView();
         });
     }

@@ -37,7 +37,7 @@ export class ChartStoreViewBuilderService {
             .sort((a, b) => a.time - b.time)
             .forEach((e) => {
                 while (timeCounter < e.time) {
-                    beatTimes.push({ time: timeCounter });
+                    beatTimes.push({ id: beatTimes.length + 1, time: timeCounter });
                     timeCounter += currentIncrement;
                 }
                 currentIncrement = 60 / e.bpm;
@@ -47,7 +47,7 @@ export class ChartStoreViewBuilderService {
             .sort((a, b) => b.time - a.time)[0];
         const lastTime = lastNote ? lastNote.time + currentIncrement : 0;
         while (timeCounter < lastTime) {
-            beatTimes.push({ time: timeCounter });
+            beatTimes.push({ id: beatTimes.length + 1, time: timeCounter });
             timeCounter += currentIncrement;
         }
         return beatTimes;
@@ -69,7 +69,7 @@ export class ChartStoreViewBuilderService {
             note.type, ChartStoreNoteType.GHLBlack2, ChartStoreNoteType.GHLWhite2);
         const ghlLane3 = this.buildGHLColor(
             note.type, ChartStoreNoteType.GHLBlack3, ChartStoreNoteType.GHLWhite3);
-        return { time, open, ghlLane1, ghlLane2, ghlLane3 };
+        return { time, open, ghlLane1, ghlLane2, ghlLane3, id: note.id };
     }
 
     private buildGHLColor(

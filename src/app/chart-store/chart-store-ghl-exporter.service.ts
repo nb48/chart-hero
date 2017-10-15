@@ -131,6 +131,7 @@ export class ChartStoreGHLExporterService {
             .filter(e => e.event === ChartStoreEventType.BPMChange)
             .map(e => e as ChartStoreEventBPMChange)
             .map(e => ({
+                id: e.id,
                 event: e.event as ChartStoreEventType.BPMChange,
                 time: e.time - offset,
                 bpm: e.bpm,

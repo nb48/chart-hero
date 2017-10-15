@@ -5,10 +5,12 @@ export interface ChartStoreView {
 }
 
 export interface ChartStoreViewBeat {
+    id: number;
     time: number;
 }
 
 export interface ChartStoreViewNote {
+    id: number;
     time: number;
     open: boolean;
     ghlLane1: ChartStoreViewNoteGHLColor;

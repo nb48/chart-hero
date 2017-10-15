@@ -41,6 +41,7 @@ export class ChartViewBuilderService {
         return csv.beats
             .filter(b => this.timeInView(b.time, currentTime))
             .map(b => ({
+                id: b.id,
                 y: this.calculateYPos(b.time, currentTime),
             }));
     }
@@ -52,7 +53,7 @@ export class ChartViewBuilderService {
                 const y = this.calculateYPos(note.time, currentTime);
                 if (note.open) {
                     const type = ChartViewNoteType.Open;
-                    return [{ type, y }] as ChartViewNoteOpen[];
+                    return [{ type, y, id: note.id + 1 }] as ChartViewNoteOpen[];
                 } else {
                     return this.splitNote(note, y);
                 }
@@ -66,17 +67,17 @@ export class ChartViewBuilderService {
         if (note.ghlLane1 !== ChartStoreViewNoteGHLColor.None) {
             const x = 25;
             const color = this.buildGHLNoteColor(note.ghlLane1);
-            notes.push({ type, x, y, color });
+            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
         }
         if (note.ghlLane2 !== ChartStoreViewNoteGHLColor.None) {
             const x = 50;
             const color = this.buildGHLNoteColor(note.ghlLane2);
-            notes.push({ type, x, y, color });
+            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
         }
         if (note.ghlLane3 !== ChartStoreViewNoteGHLColor.None) {
             const x = 75;
             const color = this.buildGHLNoteColor(note.ghlLane3);
-            notes.push({ type, x, y, color });
+            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
         }
         return notes;
     }

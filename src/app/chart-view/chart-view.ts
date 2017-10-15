@@ -6,6 +6,7 @@ export interface ChartView {
 }
 
 export interface ChartViewBeat {
+    id: number;
     y: number;
 }
 
@@ -18,11 +19,13 @@ export enum ChartViewNoteType {
 }
 
 export interface ChartViewNoteOpen {
+    id: number;
     type: ChartViewNoteType.Open;
     y: number;
 }
 
 export interface ChartViewNoteGHL {
+    id: number;
     type: ChartViewNoteType.GHL;
     x: number;
     y: number;

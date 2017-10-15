@@ -22,24 +22,6 @@ export class ChartStoreMidiTimeService {
         this.midiTimeCache = new Map<number, number>();
     }
 
-    calculateBPMChanges(syncTrack: ChartFileSyncTrack[], resolution: number)
-        : ChartStoreEventBPMChange[] {
-        return syncTrack.map(st => ({
-            event: ChartStoreEventType.BPMChange as ChartStoreEventType.BPMChange,
-            time: this.calculateTime(st.midiTime, resolution, syncTrack),
-            bpm: st.value / 1000,
-        }));
-    }
-
-    calculateSyncTrack(bpmChanges: ChartStoreEventBPMChange[], resolution: number)
-        : ChartFileSyncTrack[] {
-        return bpmChanges.map(bc => ({
-            type: 'B',
-            midiTime: this.calculateMidiTime(bc.time, resolution, bpmChanges),
-            value: bc.bpm * 1000,
-        }));
-    }
-
     calculateTime(midiTime: number, resolution: number, syncTrack: ChartFileSyncTrack[]): number {
         if (this.timeCache.has(midiTime)) {
             return this.timeCache.get(midiTime);

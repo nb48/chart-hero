@@ -14,6 +14,7 @@ const bpmChange = (time: number, bpm: number): ChartStoreEventBPMChange => ({
     time,
     bpm,
     event: ChartStoreEventType.BPMChange,
+    id: 1,
 });
 
 describe('Service: ChartStoreMidiTimeService', () => {
@@ -81,57 +82,5 @@ describe('Service: ChartStoreMidiTimeService', () => {
         testCase(8, 1, 100, [bpmChange(0, 60), bpmChange(1, 30)], 100);
         testCase(9, 0.5, 100, [bpmChange(0, 60), bpmChange(1, 30)], 50);
         testCase(10, 2, 100, [bpmChange(0, 60), bpmChange(1, 30), bpmChange(3, 60)], 150);
-    });
-
-    describe('ChartStoreMidiTimeService should calculate BPM change events correctly', () => {
-
-        const testCase = (
-            id: number,
-            syncTrack: ChartFileSyncTrack[],
-            resolution: number,
-            expectedBPMChanges: ChartStoreEventBPMChange[],
-        ): void => {
-            it(`Test case ${id}`, () => {
-                const bpmChanges = service.calculateBPMChanges(syncTrack, resolution);
-                expect(bpmChanges).toEqual(expectedBPMChanges);
-            });
-        };
-
-        testCase(1, [], 100, []);
-        testCase(2, [syncTrack(0, 60)], 100, [bpmChange(0, 60)]);
-        testCase(3, [syncTrack(0, 60), syncTrack(100, 30)], 100,
-                 [bpmChange(0, 60), bpmChange(1, 30)]);
-        testCase(4, [syncTrack(0, 60), syncTrack(100, 30)], 200,
-                 [bpmChange(0, 60), bpmChange(0.5, 30)]);
-        testCase(5, [syncTrack(0, 120), syncTrack(100, 30)], 100,
-                 [bpmChange(0, 120), bpmChange(0.5, 30)]);
-        testCase(6, [syncTrack(0, 60), syncTrack(100, 30), syncTrack(200, 120)], 100,
-                 [bpmChange(0, 60), bpmChange(1, 30), bpmChange(3, 120)]);
-    });
-
-    describe('ChartStoreMidiTimeService should calculate sync track correctly', () => {
-
-        const testCase = (
-            id: number,
-            bpmChanges: ChartStoreEventBPMChange[],
-            resolution: number,
-            expectedSyncTrack: ChartFileSyncTrack[],
-        ): void => {
-            it(`Test case ${id}`, () => {
-                const syncTrack = service.calculateSyncTrack(bpmChanges, resolution);
-                expect(syncTrack).toEqual(expectedSyncTrack);
-            });
-        };
-
-        testCase(1, [], 100, []);
-        testCase(2, [bpmChange(0, 60)], 100, [syncTrack(0, 60)]);
-        testCase(3, [bpmChange(0, 60), bpmChange(1, 30)], 100,
-                 [syncTrack(0, 60), syncTrack(100, 30)]);
-        testCase(4, [bpmChange(0, 60), bpmChange(0.5, 30)], 200,
-                 [syncTrack(0, 60), syncTrack(100, 30)]);
-        testCase(5, [bpmChange(0, 120), bpmChange(0.5, 30)], 100,
-                 [syncTrack(0, 120), syncTrack(100, 30)]);
-        testCase(6, [bpmChange(0, 60), bpmChange(1, 30), bpmChange(3, 120)], 100,
-                 [syncTrack(0, 60), syncTrack(100, 30), syncTrack(200, 120)]);
     });
 });

@@ -21,12 +21,14 @@ export enum ChartStoreEventType {
 }
 
 export interface ChartStoreEventBPMChange {
+    id: number;
     event: ChartStoreEventType.BPMChange;
     time: number;
     bpm: number;
 }
 
 export interface ChartStoreEventNote {
+    id: number;
     event: ChartStoreEventType.Note;
     time: number;
     type: ChartStoreNoteType[];

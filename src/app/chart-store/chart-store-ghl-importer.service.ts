@@ -40,13 +40,18 @@ const noteType = (notes: number[]): ChartStoreNoteType[] => {
     });
 };
 
+const idIncrement = 10;
+
 @Injectable()
 export class ChartStoreGHLImporterService {
+
+    nextId: number;
 
     constructor(private midiTimeService: ChartStoreMidiTimeService) {
     }
 
     import(cf: ChartFile): ChartStore {
+        this.nextId = 10;
         this.midiTimeService.clearCache();
         return {
             metadata: cf.metadata as ChartStoreMetadata[],
@@ -68,7 +73,10 @@ export class ChartStoreGHLImporterService {
         const offset = this.getOffset(cf);
         return syncTrack.map((st) => {
             const time = this.midiTimeService.calculateTime(st.midiTime, resolution, syncTrack);
+            const id = this.nextId;
+            this.nextId += idIncrement;
             return {
+                id,
                 event: ChartStoreEventType.BPMChange as ChartStoreEventType.BPMChange,
                 time: time + offset,
                 bpm: st.value / 1000,
@@ -90,7 +98,10 @@ export class ChartStoreGHLImporterService {
                         (midiTime + notes[0].length, resolution, syncTrack) - time
                     : 0;
                 const type: ChartStoreNoteType[] = [];
+                const id = this.nextId;
+                this.nextId += idIncrement;
                 return {
+                    id,
                     length,
                     event: ChartStoreEventType.Note as ChartStoreEventType.Note,
                     time: time + offset,

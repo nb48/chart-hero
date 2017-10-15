@@ -6,7 +6,7 @@ export interface ChartView {
 }
 
 export interface ChartViewBeat {
-    position: number;
+    y: number;
 }
 
 export interface ChartViewNote {
@@ -26,13 +26,13 @@ export const defaultChartView = (): ChartView => {
     return {
         zeroPosition: 87.5,
         beats: [{
-            position: 67.5,
+            y: 67.5,
         }, {
-            position: 47.5,
+            y: 47.5,
         }, {
-            position: 27.5,
+            y: 27.5,
         }, {
-            position: 7.5,
+            y: 7.5,
         }],
         notes: [{
             x: 25,

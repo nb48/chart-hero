@@ -1,3 +1,4 @@
+import { ChartStoreEventBPMChange } from './../chart-store/chart-store';
 import { Injectable } from '@angular/core';
 
 import {
@@ -13,8 +14,8 @@ import {
     ChartViewNoteColor,
 } from './chart-view';
 
-const timeBefore = 1.4;
-const timeAfter = -0.2;
+const timeBefore = 1.05;
+const timeAfter = -0.5;
 
 const zeroPosition = (): number => {
     return timeBefore / (timeBefore - timeAfter) * 100;
@@ -34,14 +35,36 @@ export class ChartViewBuilderService {
         };
     }
 
-    private buildBeats(cs: ChartStore, time:number): ChartViewBeat[] {
-        return [];
+    private buildBeats(cs: ChartStore, currentTime:number): ChartViewBeat[] {
+        const beatTimes: number[] = [];
+        let timeCounter = 0;
+        let currentIncrement = 1;
+        cs.events
+            .filter(e => e.event === ChartStoreEventType.BPMChange)
+            .map(e => e as ChartStoreEventBPMChange)
+            .sort((a, b) => a.time - b.time)
+            .forEach((e) => {
+                while (timeCounter < e.time) {
+                    beatTimes.push(timeCounter);
+                    timeCounter += currentIncrement;
+                }
+                currentIncrement = 60 / e.bpm;
+            });
+        while (timeCounter < currentTime + timeBefore) {
+            beatTimes.push(timeCounter);
+            timeCounter += currentIncrement;
+        }
+        return beatTimes
+            .filter(t => t > (currentTime + timeAfter) && t < (currentTime + timeBefore))
+            .map(t => ({
+                y: this.calculateYPos(t, currentTime),
+            }));
     }
 
     private buildNotes(cs: ChartStore, time: number): ChartViewNote[] {
         return cs.events
-            .filter(e => e.time > (time + timeAfter) && e.time < (time + timeBefore))
             .filter(e => e.event === ChartStoreEventType.Note)
+            .filter(e => e.time > (time + timeAfter) && e.time < (time + timeBefore))
             .map(e => this.buildNote(e as ChartStoreEventNote, time));
     }
 
@@ -50,22 +73,22 @@ export class ChartViewBuilderService {
         const open = note.type.length === 0;
         if (open) {
             return {
-                y: this.calculateYPos(note, time),
+                y: this.calculateYPos(note.time, time),
                 open: true,
             };
         }
         return {
             x: this.calculateXPos(note),
-            y: this.calculateYPos(note, time),
+            y: this.calculateYPos(note.time, time),
             open: false,
             color: this.buildColor(note),
         };
     }
 
-    private calculateYPos(note: ChartStoreEventNote, time: number): number {
-        const bottom = time + timeAfter;
-        const top = time + timeBefore;
-        return (1 - (note.time - bottom) / (top - bottom)) * 100;
+    private calculateYPos(eventTime: number, currentTime: number): number {
+        const bottom = currentTime + timeAfter;
+        const top = currentTime + timeBefore;
+        return (1 - (eventTime - bottom) / (top - bottom)) * 100;
     }
 
     private calculateXPos(note: ChartStoreEventNote): number {

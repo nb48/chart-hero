@@ -1,3 +1,4 @@
 <div class="editor">
-    <app-chart-view [view]="view | async"></app-chart-view>
+    <app-chart-view [view]="chartView.view | async"></app-chart-view>
+    <app-scrollbar *ngIf="!audioPlayer.playing"></app-scrollbar>
 </div>

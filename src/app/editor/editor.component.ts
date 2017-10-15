@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { AudioPlayerService } from '../audio-player/audio-player.service';
 import { ChartViewService } from '../chart-view/chart-view.service';
 import { ChartView } from '../chart-view/chart-view';
 
@@ -11,9 +12,6 @@ import { ChartView } from '../chart-view/chart-view';
 })
 export class EditorComponent {
 
-    view: Observable<ChartView>;
-
-    constructor(private chartView: ChartViewService) {
-        this.view = this.chartView.view;
+    constructor(public audioPlayer: AudioPlayerService, public chartView: ChartViewService) {
     }
 }

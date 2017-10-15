@@ -1,12 +1,19 @@
 
 .editor {
+    display: grid;
     width: 99%;
     height: 95.5%;
     margin-top: 2%;
     margin-left: 1%;
+    grid-template-areas: "chart-view . scrollbar";
+    grid-template-columns: 19fr 0.5em 1em;
+    grid-template-rows: 95.5%;
 }
 
-.editor app-editor-chart-view {
-    width: 100%;
-    height: 100%;
+.editor app-chart-view {
+    grid-area: chart-view;
+}
+
+.editor app-scrollbar {
+    grid-area: scrollbar;
 }

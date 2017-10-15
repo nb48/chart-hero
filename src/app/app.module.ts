@@ -5,6 +5,7 @@ from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AppComponent } from './app.component';
 import { AudioPlayerControlsComponent }
 from './audio-player-controls/audio-player-controls.component';
 import { ChartViewComponent } from './editor/chart-view/chart-view.component';
@@ -19,7 +20,7 @@ from './editor/chart-view/chart-view-note/chart-view-note-open/chart-view-note-o
 import { EditorComponent } from './editor/editor.component';
 import { ExporterComponent } from './exporter/exporter.component';
 import { FileSelectComponent } from './file-select/file-select.component';
-import { AppComponent } from './app.component';
+import { ScrollbarComponent } from './editor/scrollbar/scrollbar.component';
 
 import { AudioPlayerService } from './audio-player/audio-player.service';
 import { ChartFileExporterService } from './chart-file/chart-file-exporter.service';
@@ -45,6 +46,7 @@ import { FileStoreService } from './file-store/file-store.service';
         ReactiveFormsModule,
     ],
     declarations: [
+        AppComponent,
         AudioPlayerControlsComponent,
         ChartViewComponent,
         ChartViewBeatComponent,
@@ -54,7 +56,7 @@ import { FileStoreService } from './file-store/file-store.service';
         EditorComponent,
         ExporterComponent,
         FileSelectComponent,
-        AppComponent,
+        ScrollbarComponent,
     ],
     providers: [
         AudioPlayerService,

@@ -35,7 +35,7 @@ export class EditorChartViewNoteComponent {
     }
 
     get blackNotePath(): string {
-        return `M ${this.xPos + 1.8} ${this.yPos - 3.5}
+        return `M ${this.xPos + 1.8} ${this.yPos - 7.75}
                 l 2.8 4.7
                 s 1.3 3 -1.82 3.22
                 l -5.4 0
@@ -46,7 +46,7 @@ export class EditorChartViewNoteComponent {
     }
 
     get whiteNotePath(): string {
-        return `M ${this.xPos + 1.8} ${this.yPos + 3.5}
+        return `M ${this.xPos + 1.8} ${this.yPos - 0.9}
             l 2.8 -4.7
             s 1.3 -3 -1.82 -3.22
             l -5.4 0
@@ -58,7 +58,7 @@ export class EditorChartViewNoteComponent {
 
     get halfBlackNotePath(): string {
         return `
-            M ${this.xPos} ${this.yPos}
+            M ${this.xPos} ${this.yPos - 4}
             ${this.roundedCorner(-4.5, 4)}
             ${this.roundedCorner(4.5, 4)}
             Z
@@ -67,7 +67,7 @@ export class EditorChartViewNoteComponent {
 
     get halfWhiteNotePath(): string {
         return `
-            M ${this.xPos} ${this.yPos}
+            M ${this.xPos} ${this.yPos - 4}
             ${this.roundedCorner(-4.5, -4)}
             ${this.roundedCorner(4.5, -4)}
             Z

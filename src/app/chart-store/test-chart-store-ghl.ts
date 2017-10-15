@@ -77,6 +77,36 @@ export const TEST_GHL_FILE: ChartFile = {
         note: 7,
         length: 0,
     }, {
+        midiTime: 1600,
+        type: 'N',
+        note: 3,
+        length: 0,
+    }, {
+        midiTime: 1600,
+        type: 'N',
+        note: 0,
+        length: 0,
+    }, {
+        midiTime: 1800,
+        type: 'N',
+        note: 0,
+        length: 100,
+    }, {
+        midiTime: 1800,
+        type: 'N',
+        note: 1,
+        length: 50,
+    }, {
+        midiTime: 2000,
+        type: 'N',
+        note: 2,
+        length: 100,
+    }, {
+        midiTime: 2000,
+        type: 'N',
+        note: 7,
+        length: 100,
+    }, {
         midiTime: 9998,
         type: 'N',
         note: 9,
@@ -146,8 +176,33 @@ export const TEST_GHL_STORE: ChartStore = {
     }, {
         event: ChartStoreEventType.Note as ChartStoreEventType.Note,
         time: 10.4,
-        type: [ChartStoreNoteType.GHLBlack1],
+        type: [],
         length: 0,
+    }, {
+        event: ChartStoreEventType.Note as ChartStoreEventType.Note,
+        time: 12.4,
+        type: [ChartStoreNoteType.GHLBlack1, ChartStoreNoteType.GHLWhite1],
+        length: 0,
+    }, {
+        event: ChartStoreEventType.Note as ChartStoreEventType.Note,
+        time: 14.4,
+        type: [ChartStoreNoteType.GHLWhite1],
+        length: 1,
+    }, {
+        event: ChartStoreEventType.Note as ChartStoreEventType.Note,
+        time: 14.4,
+        type: [ChartStoreNoteType.GHLWhite2],
+        length: 0.5,
+    }, {
+        event: ChartStoreEventType.Note as ChartStoreEventType.Note,
+        time: 16.4,
+        type: [ChartStoreNoteType.GHLWhite3],
+        length: 1,
+    }, {
+        event: ChartStoreEventType.Note as ChartStoreEventType.Note,
+        time: 16.4,
+        type: [],
+        length: 1,
     }],
     unsupported: [{
         event: ChartStoreUnsupportedEventType.SyncTrack as ChartStoreUnsupportedEventType.SyncTrack,

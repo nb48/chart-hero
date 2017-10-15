@@ -78,7 +78,7 @@ export class ChartStoreGHLExporterService {
         const resolution = this.getResolution(cs);
         const offset = this.getOffset(cs);
         const bpmChanges = this.removeBPMChangeOffset(cs, offset);
-        return cs.events
+        return [].concat.apply([], cs.events
             .filter(e => e.event === ChartStoreEventType.Note)
             .map(e => e as ChartStoreEventNote)
             .map((n) => {
@@ -89,13 +89,23 @@ export class ChartStoreGHLExporterService {
                     ? this.midiTimeService.calculateMidiTime
                         (time + n.length, resolution, bpmChanges) - midiTime
                     : 0;
-                return {
-                    length,
-                    midiTime,
-                    type: 'N',
-                    note: noteValue(n.type[0]),
-                };
-            });
+                if (n.type.length === 0) {
+                    return [{
+                        length,
+                        midiTime,
+                        type: 'N',
+                        note: 7,
+                    }];
+                }
+                return n.type.map((type) => {
+                    return {
+                        length,
+                        midiTime,
+                        type: 'N',
+                        note: noteValue(type),
+                    };
+                });
+            }));
     }
 
     private exportUnsupportedSyncTrack(cs: ChartStore): ChartFileSyncTrack[] {

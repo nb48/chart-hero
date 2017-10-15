@@ -1,6 +1,9 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
-import { ChartFile } from '../chart-file/chart-file';
+import {
+    ChartFile,
+    ChartFileTrack,
+} from '../chart-file/chart-file';
 import {
     ChartStore,
     ChartStoreEventBPMChange,
@@ -15,23 +18,26 @@ import { ChartStoreMidiTimeService } from './chart-store-midi-time.service';
 
 const supportedNotes = [0, 1, 2, 3, 4, 7, 8];
 
-const noteType = (note: number): ChartStoreNoteType => {
-    switch (note) {
-    case 7:
-        return ChartStoreNoteType.GHLBlack1;
-    case 3:
-        return ChartStoreNoteType.GHLBlack1;
-    case 4:
-        return ChartStoreNoteType.GHLBlack2;
-    case 8:
-        return ChartStoreNoteType.GHLBlack3;
-    case 0:
-        return ChartStoreNoteType.GHLWhite1;
-    case 1:
-        return ChartStoreNoteType.GHLWhite2;
-    case 2:
-        return ChartStoreNoteType.GHLWhite3;
+const noteType = (notes: number[]): ChartStoreNoteType[] => {
+    if (notes[0] === 7) {
+        return [];
     }
+    return notes.map((note) => {
+        switch (note) {
+        case 3:
+            return ChartStoreNoteType.GHLBlack1;
+        case 4:
+            return ChartStoreNoteType.GHLBlack2;
+        case 8:
+            return ChartStoreNoteType.GHLBlack3;
+        case 0:
+            return ChartStoreNoteType.GHLWhite1;
+        case 1:
+            return ChartStoreNoteType.GHLWhite2;
+        case 2:
+            return ChartStoreNoteType.GHLWhite3;
+        }
+    });
 };
 
 @Injectable()
@@ -74,21 +80,45 @@ export class ChartStoreGHLImporterService {
         const syncTrack = cf.syncTrack.filter(st => st.type === 'B');
         const resolution = this.getResolution(cf);
         const offset = this.getOffset(cf);
-        return cf.track
-            .filter(t => t.type === 'N' && supportedNotes.indexOf(t.note) !== -1)
-            .map((t) => {
-                const time = this.midiTimeService.calculateTime(t.midiTime, resolution, syncTrack);
-                const length = t.length !== 0
+        const groupedNotes = this.groupNotes(cf);
+        return this.groupNotes(cf)
+            .map((notes: ChartFileTrack[]) => {
+                const midiTime = notes[0].midiTime;
+                const time = this.midiTimeService.calculateTime(midiTime, resolution, syncTrack);
+                const length = notes[0].length !== 0
                     ? this.midiTimeService.calculateTime
-                        (t.midiTime + t.length, resolution, syncTrack) - time
+                        (midiTime + notes[0].length, resolution, syncTrack) - time
                     : 0;
+                const type: ChartStoreNoteType[] = [];
                 return {
                     length,
                     event: ChartStoreEventType.Note as ChartStoreEventType.Note,
                     time: time + offset,
-                    type: [noteType(t.note)],
+                    type: noteType(notes.map(n => n.note)),
                 };
             });
+    }
+
+    private groupNotes(cf: ChartFile): ChartFileTrack[][] {
+        const times = new Map<number, ChartFileTrack[]>();
+        cf.track
+            .filter(t => t.type === 'N' && supportedNotes.indexOf(t.note) !== -1)
+            .forEach((note) => {
+                if (times.has(note.midiTime)) {
+                    times.get(note.midiTime).push(note);
+                } else {
+                    times.set(note.midiTime, [note]);
+                }
+            });
+        return [].concat.apply([], Array.from(times.values())
+            .map((notes: ChartFileTrack[]) => {
+                if (notes.every(note => note.length === notes[0].length) &&
+                    notes.every(note => note.note !== 7)) {
+                    return [notes];
+                } else {
+                    return notes.map(note => [note]);
+                }
+            }));
     }
 
     private importUnsupportedSyncTrack(cf: ChartFile): ChartStoreUnsupportedEvent[] {

@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable, NgZone } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 
 const readTime = (time: string): number => {
     try {
@@ -27,7 +28,7 @@ export class AudioPlayerService {
     private $audio: HTMLAudioElement;
     private $currentTime: string;
     private $playing: boolean;
-    private $frame: number;
+    private $frame: Subscription;
     private $frameEvent: EventEmitter<number>;
 
     constructor(private zone: NgZone) {
@@ -64,8 +65,8 @@ export class AudioPlayerService {
         this.$playing = true;
         this.$audio.play();
         this.$audio.currentTime = readTime(this.$currentTime);
-        this.zone.runOutsideAngular(() => {
-            this.$frame = window.setInterval(() => this.frame(), 16);
+        this.$frame = Observable.interval(16).subscribe((n) => {
+            this.frame();
         });
     }
 
@@ -73,9 +74,7 @@ export class AudioPlayerService {
         this.$playing = false;
         this.$audio.pause();
         this.$currentTime = showTime(this.$audio.currentTime);
-        this.zone.runOutsideAngular(() => {
-            window.clearInterval(this.$frame);
-        });
+        this.$frame.unsubscribe();
         this.$frameEvent.emit(this.$audio.currentTime);
     }
 
@@ -83,9 +82,7 @@ export class AudioPlayerService {
         this.$playing = false;
         this.$audio.pause();
         this.$currentTime = showTime(0);
-        this.zone.runOutsideAngular(() => {
-            window.clearInterval(this.$frame);
-        });
+        this.$frame.unsubscribe();
         this.$frameEvent.emit(0);
     }
 
@@ -94,12 +91,10 @@ export class AudioPlayerService {
     }
 
     private frame() {
-        this.zone.run(() => {
-            this.$currentTime = showTime(this.$audio.currentTime);
-            this.$frameEvent.emit(this.$audio.currentTime);
-            if (this.$audio.ended) {
-                this.stop();
-            }
-        });
+        this.$currentTime = showTime(this.$audio.currentTime);
+        this.$frameEvent.emit(this.$audio.currentTime);
+        if (this.$audio.ended) {
+            this.stop();
+        }
     }
 }

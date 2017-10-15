@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ChartView, ChartViewBeat, ChartViewNote } from '../../chart-view/chart-view';
@@ -7,6 +7,7 @@ import { ChartView, ChartViewBeat, ChartViewNote } from '../../chart-view/chart-
     selector: 'app-chart-view',
     templateUrl: './chart-view.component.html',
     styleUrls: ['./chart-view.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartViewComponent {
     @Input() view: ChartView;

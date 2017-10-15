@@ -1,41 +1,28 @@
 import { Component, Input } from '@angular/core';
 
-import { ChartViewNote, ChartViewNoteColor } from '../../../chart-view/chart-view';
+import { ChartViewNoteGHL, ChartViewNoteGHLColor } from '../../../../chart-view/chart-view';
 
 @Component({
-    selector: '[app-editor-chart-view-note]',
-    templateUrl: './editor-chart-view-note.component.html',
-    styleUrls: ['./editor-chart-view-note.component.css'],
+    selector: '[app-chart-view-note-ghl]',
+    templateUrl: './chart-view-note-ghl.component.html',
 })
-export class EditorChartViewNoteComponent {
-    @Input() note: ChartViewNote;
+export class ChartViewNoteGHLComponent {
+    @Input() note: ChartViewNoteGHL;
 
-    get open(): boolean {
-        return this.note.open;
+    get black(): boolean {
+        return this.note.color === ChartViewNoteGHLColor.Black;
     }
 
-    get xPos(): number {
-        return this.note.x;
+    get white(): boolean {
+        return this.note.color === ChartViewNoteGHLColor.White;
     }
 
-    get yPos(): number {
-        return this.note.y;
-    }
-
-    get blackNote(): boolean {
-        return this.note.color === ChartViewNoteColor.Black;
-    }
-    
-    get whiteNote(): boolean {
-        return this.note.color === ChartViewNoteColor.White;
-    }
-
-    get blackWhiteNote(): boolean {
-        return this.note.color === ChartViewNoteColor.BlackWhite;
+    get chord(): boolean {
+        return this.note.color === ChartViewNoteGHLColor.Chord;
     }
 
     get blackNotePath(): string {
-        return `M ${this.xPos + 1.8} ${this.yPos - 7.75}
+        return `M ${this.note.x + 1.8} ${this.note.y - 7.75}
                 l 2.8 4.7
                 s 1.3 3 -1.82 3.22
                 l -5.4 0
@@ -46,7 +33,7 @@ export class EditorChartViewNoteComponent {
     }
 
     get whiteNotePath(): string {
-        return `M ${this.xPos + 1.8} ${this.yPos - 0.9}
+        return `M ${this.note.x + 1.8} ${this.note.y - 0.9}
             l 2.8 -4.7
             s 1.3 -3 -1.82 -3.22
             l -5.4 0
@@ -58,7 +45,7 @@ export class EditorChartViewNoteComponent {
 
     get halfBlackNotePath(): string {
         return `
-            M ${this.xPos} ${this.yPos - 4}
+            M ${this.note.x} ${this.note.y - 4}
             ${this.roundedCorner(-4.5, 4)}
             ${this.roundedCorner(4.5, 4)}
             Z
@@ -67,7 +54,7 @@ export class EditorChartViewNoteComponent {
 
     get halfWhiteNotePath(): string {
         return `
-            M ${this.xPos} ${this.yPos - 4}
+            M ${this.note.x} ${this.note.y - 4}
             ${this.roundedCorner(-4.5, -4)}
             ${this.roundedCorner(4.5, -4)}
             Z

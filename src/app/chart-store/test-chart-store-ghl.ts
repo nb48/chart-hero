@@ -146,7 +146,7 @@ export const TEST_GHL_STORE: ChartStore = {
     }, {
         event: ChartStoreEventType.Note as ChartStoreEventType.Note,
         time: 10.4,
-        type: [ChartStoreNoteType.GHLOpen],
+        type: [ChartStoreNoteType.GHLBlack1],
         length: 0,
     }],
     unsupported: [{

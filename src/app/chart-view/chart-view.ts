@@ -9,17 +9,30 @@ export interface ChartViewBeat {
     y: number;
 }
 
-export interface ChartViewNote {
-    x?: number;
-    y: number;
-    open: boolean;
-    color?: ChartViewNoteColor;
+export type ChartViewNote =
+    ChartViewNoteOpen | ChartViewNoteGHL;
+
+export enum ChartViewNoteType {
+    Open,
+    GHL,
 }
 
-export enum ChartViewNoteColor {
+export interface ChartViewNoteOpen {
+    type: ChartViewNoteType.Open;
+    y: number;
+}
+
+export interface ChartViewNoteGHL {
+    type: ChartViewNoteType.GHL;
+    x: number;
+    y: number;
+    color: ChartViewNoteGHLColor;
+}
+
+export enum ChartViewNoteGHLColor {
     Black,
     White,
-    BlackWhite,
+    Chord,
 }
 
 export const defaultChartView = (): ChartView => {
@@ -35,20 +48,20 @@ export const defaultChartView = (): ChartView => {
             y: 7.5,
         }],
         notes: [{
+            type: ChartViewNoteType.GHL,
             x: 25,
             y: 67.5,
-            open: false,
-            color: ChartViewNoteColor.Black,
+            color: ChartViewNoteGHLColor.Black,
         }, {
+            type: ChartViewNoteType.GHL,
             x: 50,
             y: 47.5,
-            open: false,
-            color: ChartViewNoteColor.White,
+            color: ChartViewNoteGHLColor.White,
         }, {
+            type: ChartViewNoteType.GHL,
             x: 75,
             y: 27.5,
-            open: false,
-            color: ChartViewNoteColor.BlackWhite,
+            color: ChartViewNoteGHLColor.Chord,
         }],
     };
 };

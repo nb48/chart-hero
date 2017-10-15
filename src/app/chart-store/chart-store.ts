@@ -34,7 +34,6 @@ export interface ChartStoreEventNote {
 }
 
 export enum ChartStoreNoteType {
-    GHLOpen,
     GHLBlack1,
     GHLBlack2,
     GHLBlack3,

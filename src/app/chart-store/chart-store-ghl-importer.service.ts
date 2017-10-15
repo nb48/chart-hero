@@ -18,7 +18,7 @@ const supportedNotes = [0, 1, 2, 3, 4, 7, 8];
 const noteType = (note: number): ChartStoreNoteType => {
     switch (note) {
     case 7:
-        return ChartStoreNoteType.GHLOpen;
+        return ChartStoreNoteType.GHLBlack1;
     case 3:
         return ChartStoreNoteType.GHLBlack1;
     case 4:

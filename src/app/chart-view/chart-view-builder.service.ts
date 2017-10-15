@@ -1,21 +1,23 @@
-import { ChartStoreEventBPMChange } from './../chart-store/chart-store';
 import { Injectable } from '@angular/core';
 
 import {
-    ChartStore,
-    ChartStoreEventNote,
-    ChartStoreEventType,
-    ChartStoreNoteType,
-} from '../chart-store/chart-store';
+    ChartStoreView,
+    ChartStoreViewNote,
+    ChartStoreViewNoteGHLColor,
+} from '../chart-store/chart-store-view';
 import {
     ChartView,
     ChartViewBeat,
     ChartViewNote,
-    ChartViewNoteColor,
+    ChartViewNoteGHL,
+    ChartViewNoteGHLColor,
+    ChartViewNoteOpen,
+    ChartViewNoteType,
 } from './chart-view';
 
-const timeBefore = 1.05;
-const timeAfter = -0.5;
+const speed = 1;
+const timeBefore = (1 / speed) * 1.25;
+const timeAfter = (1 / speed) * -0.5;
 
 const zeroPosition = (): number => {
     return timeBefore / (timeBefore - timeAfter) * 100;
@@ -27,62 +29,60 @@ export class ChartViewBuilderService {
     constructor() {
     }
 
-    buildView(cs: ChartStore, time: number): ChartView {
+    buildView(csv: ChartStoreView, currentTime: number): ChartView {
         return {
             zeroPosition: zeroPosition(),
-            beats: this.buildBeats(cs, time),
-            notes: this.buildNotes(cs, time),
+            beats: this.buildBeats(csv, currentTime),
+            notes: this.buildNotes(csv, currentTime),
         };
     }
 
-    private buildBeats(cs: ChartStore, currentTime:number): ChartViewBeat[] {
-        const beatTimes: number[] = [];
-        let timeCounter = 0;
-        let currentIncrement = 1;
-        cs.events
-            .filter(e => e.event === ChartStoreEventType.BPMChange)
-            .map(e => e as ChartStoreEventBPMChange)
-            .sort((a, b) => a.time - b.time)
-            .forEach((e) => {
-                while (timeCounter < e.time) {
-                    beatTimes.push(timeCounter);
-                    timeCounter += currentIncrement;
-                }
-                currentIncrement = 60 / e.bpm;
-            });
-        while (timeCounter < currentTime + timeBefore) {
-            beatTimes.push(timeCounter);
-            timeCounter += currentIncrement;
-        }
-        return beatTimes
-            .filter(t => t > (currentTime + timeAfter) && t < (currentTime + timeBefore))
-            .map(t => ({
-                y: this.calculateYPos(t, currentTime),
+    private buildBeats(csv: ChartStoreView, currentTime:number): ChartViewBeat[] {
+        return csv.beats
+            .filter(b => this.timeInView(b.time, currentTime))
+            .map(b => ({
+                y: this.calculateYPos(b.time, currentTime),
             }));
     }
 
-    private buildNotes(cs: ChartStore, time: number): ChartViewNote[] {
-        return cs.events
-            .filter(e => e.event === ChartStoreEventType.Note)
-            .filter(e => e.time > (time + timeAfter) && e.time < (time + timeBefore))
-            .map(e => this.buildNote(e as ChartStoreEventNote, time));
+    private buildNotes(csv: ChartStoreView, currentTime: number): ChartViewNote[] {
+        return [].concat.apply([], csv.notes
+            .filter(n => this.timeInView(n.time, currentTime))
+            .map((note): ChartViewNote[] => {
+                const y = this.calculateYPos(note.time, currentTime);
+                if (note.open) {
+                    const type = ChartViewNoteType.Open;
+                    return [{ type, y }] as ChartViewNoteOpen[];
+                } else {
+                    return this.splitNote(note, y);
+                }
+            }))
+            .sort((a: ChartViewNote, b: ChartViewNote) => a.y - b.y);
     }
 
-    private buildNote(note: ChartStoreEventNote, time: number): ChartViewNote {
-
-        const open = note.type.length === 0;
-        if (open) {
-            return {
-                y: this.calculateYPos(note.time, time),
-                open: true,
-            };
+    private splitNote(note: ChartStoreViewNote, y: number): ChartViewNote[] {
+        const type = ChartViewNoteType.GHL;
+        const notes: ChartViewNoteGHL[] = [];
+        if (note.ghlLane1 !== ChartStoreViewNoteGHLColor.None) {
+            const x = 25;
+            const color = this.buildGHLNoteColor(note.ghlLane1);
+            notes.push({ type, x, y, color });
         }
-        return {
-            x: this.calculateXPos(note),
-            y: this.calculateYPos(note.time, time),
-            open: false,
-            color: this.buildColor(note),
-        };
+        if (note.ghlLane2 !== ChartStoreViewNoteGHLColor.None) {
+            const x = 50;
+            const color = this.buildGHLNoteColor(note.ghlLane2);
+            notes.push({ type, x, y, color });
+        }
+        if (note.ghlLane3 !== ChartStoreViewNoteGHLColor.None) {
+            const x = 75;
+            const color = this.buildGHLNoteColor(note.ghlLane3);
+            notes.push({ type, x, y, color });
+        }
+        return notes;
+    }
+
+    private timeInView(eventTime: number, currentTime: number): boolean {
+        return eventTime > (currentTime + timeAfter) && eventTime < (currentTime + timeBefore);  
     }
 
     private calculateYPos(eventTime: number, currentTime: number): number {
@@ -91,34 +91,14 @@ export class ChartViewBuilderService {
         return (1 - (eventTime - bottom) / (top - bottom)) * 100;
     }
 
-    private calculateXPos(note: ChartStoreEventNote): number {
-        switch (note.type[0]) {
-        case ChartStoreNoteType.GHLBlack1:
-        case ChartStoreNoteType.GHLWhite1:
-            return 25;
-        case ChartStoreNoteType.GHLBlack2:
-        case ChartStoreNoteType.GHLWhite2:
-            return 50;
-        case ChartStoreNoteType.GHLBlack3:
-        case ChartStoreNoteType.GHLWhite3:
-            return 75;
-        }
-    }
-
-    private buildColor(note: ChartStoreEventNote): ChartViewNoteColor {
-        switch (note.type[0]) {
-        case ChartStoreNoteType.GHLBlack1:
-            return ChartViewNoteColor.Black;
-        case ChartStoreNoteType.GHLBlack2:
-            return ChartViewNoteColor.Black;
-        case ChartStoreNoteType.GHLBlack3:
-            return ChartViewNoteColor.Black;
-        case ChartStoreNoteType.GHLWhite1:
-            return ChartViewNoteColor.White;
-        case ChartStoreNoteType.GHLWhite2:
-            return ChartViewNoteColor.White;
-        case ChartStoreNoteType.GHLWhite3:
-            return ChartViewNoteColor.White;
+    private buildGHLNoteColor(color: ChartStoreViewNoteGHLColor): ChartViewNoteGHLColor {
+        switch (color) {
+        case ChartStoreViewNoteGHLColor.Black:
+            return ChartViewNoteGHLColor.Black;
+        case ChartStoreViewNoteGHLColor.White:
+            return ChartViewNoteGHLColor.White;
+        case ChartStoreViewNoteGHLColor.Chord:
+            return ChartViewNoteGHLColor.Chord;
         }
     }
 }

@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { AudioPlayerService } from '../audio-player/audio-player.service';
 import { ChartStoreService } from '../chart-store/chart-store.service';
-import { ChartStore } from '../chart-store/chart-store';
+import { ChartStoreView } from '../chart-store/chart-store-view';
 import { ChartViewBuilderService } from './chart-view-builder.service';
 import { ChartView, defaultChartView } from './chart-view';
 
@@ -11,7 +11,7 @@ import { ChartView, defaultChartView } from './chart-view';
 export class ChartViewService {
 
     private chartViewSubject: BehaviorSubject<ChartView>;
-    private currentChart: ChartStore;
+    private currentChart: ChartStoreView;
 
     constructor(
         private audioPlayer: AudioPlayerService,

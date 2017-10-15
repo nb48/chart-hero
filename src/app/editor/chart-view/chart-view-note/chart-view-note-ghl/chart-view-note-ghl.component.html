@@ -1,13 +1,10 @@
-<ng-container *ngIf="open">
-    <svg:line [attr.y1]="yPos" [attr.y2]="yPos" x1="0" x2="100" stroke="purple" stroke-width="2"></svg:line>
-</ng-container>
-<ng-container *ngIf="!note.open && blackNote">
+<ng-container *ngIf="black">
     <svg:path [attr.d]="blackNotePath" fill="black"></svg:path>
 </ng-container>
-<ng-container *ngIf="!note.open && whiteNote">
+<ng-container *ngIf="white">
     <svg:path [attr.d]="whiteNotePath" fill="white"></svg:path>
 </ng-container>
-<ng-container *ngIf="!note.open && blackWhiteNote">
+<ng-container *ngIf="chord">
     <svg:path [attr.d]="halfBlackNotePath" fill="black"></svg:path>
     <svg:path [attr.d]="halfWhiteNotePath" fill="white"></svg:path>
 </ng-container>

@@ -20,8 +20,6 @@ import { ChartStoreMidiTimeService } from './chart-store-midi-time.service';
 
 const noteValue = (note: ChartStoreNoteType): number => {
     switch (note) {
-    case ChartStoreNoteType.GHLOpen:
-        return 7;
     case ChartStoreNoteType.GHLBlack1:
         return 3;
     case ChartStoreNoteType.GHLBlack2:

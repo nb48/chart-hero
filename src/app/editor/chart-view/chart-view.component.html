@@ -1,5 +1,5 @@
 <div class="chart-view">
-    <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" shape-rendering="geometricPrecision">
         <line x1="0" x2="100" [attr.y1]="view.zeroPosition" [attr.y2]="view.zeroPosition" stroke="white" stroke-width="1.5"></line>
         <svg:g app-chart-view-beat *ngFor="let beat of view.beats" [beat]="beat"/>
         <svg:g app-chart-view-note *ngFor="let note of view.notes" [note]="note"/>

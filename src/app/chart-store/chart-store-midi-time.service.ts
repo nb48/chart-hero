@@ -41,47 +41,49 @@ export class ChartStoreMidiTimeService {
     }
 
     calculateTime(midiTime: number, resolution: number, syncTrack: ChartFileSyncTrack[]): number {
+        if (this.timeCache.has(midiTime)) {
+            return this.timeCache.get(midiTime);
+        }
         const earlierChanges = syncTrack.filter(st => st.midiTime < midiTime);
         if (earlierChanges.length > 1) {
             const latestChange = earlierChanges.pop();
             const bpm = latestChange.value / 1000;
-            let timeUntilLatestChange;
-            if (this.timeCache.has(latestChange.midiTime)) {
-                timeUntilLatestChange = this.timeCache.get(latestChange.midiTime);
-            } else {
-                timeUntilLatestChange =
+            const timeUntilLatestChange =
                     this.calculateTime(latestChange.midiTime, resolution, earlierChanges);
-                this.timeCache.set(latestChange.midiTime, timeUntilLatestChange);
-            }
             const timeAfterLatestChange =
                 (midiTime - latestChange.midiTime) / conversionFactor(bpm, resolution);
-            return timeUntilLatestChange + timeAfterLatestChange;            
+            const result = timeUntilLatestChange + timeAfterLatestChange;
+            this.timeCache.set(midiTime, result);
+            return result;
         } else {
             const bpm: number = earlierChanges.length === 1 ? earlierChanges[0].value / 1000 : 1;
-            return midiTime / conversionFactor(bpm, resolution);
+            const result = midiTime / conversionFactor(bpm, resolution);
+            this.timeCache.set(midiTime, result);
+            return result;
         }
     }
 
     calculateMidiTime(time: number, resolution: number, bpmChanges: ChartStoreEventBPMChange[])
         : number {
+        if (this.midiTimeCache.has(time)) {
+            return this.midiTimeCache.get(time);
+        }
         const earlierChanges = bpmChanges.filter(bc => bc.time < time);
         if (earlierChanges.length > 1) {
             const latestChange = earlierChanges.pop();
             const bpm = latestChange.bpm;
-            let midiTimeUntilLatestChange;
-            if (this.midiTimeCache.has(latestChange.time)) {
-                midiTimeUntilLatestChange = this.midiTimeCache.get(latestChange.time);
-            } else {
-                midiTimeUntilLatestChange =
+            const midiTimeUntilLatestChange =
                     this.calculateMidiTime(latestChange.time, resolution, earlierChanges);
-                this.midiTimeCache.set(latestChange.time, midiTimeUntilLatestChange);
-            }
             const midiTimeAfterLatestChange =
                 (time - latestChange.time) * conversionFactor(bpm, resolution);
-            return midiTimeUntilLatestChange + midiTimeAfterLatestChange;
+            const result = midiTimeUntilLatestChange + midiTimeAfterLatestChange;
+            this.midiTimeCache.set(time, result);
+            return result;
         } else {
             const bpm: number = earlierChanges.length === 1 ? earlierChanges[0].bpm : 1;
-            return time * conversionFactor(bpm, resolution);
+            const result = time * conversionFactor(bpm, resolution);
+            this.midiTimeCache.set(time, result);
+            return result;
         }
     }
 }

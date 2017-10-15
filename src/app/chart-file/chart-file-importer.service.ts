@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { Observable, ReplaySubject } from 'rxjs';
 
 import {
     ChartFile,
@@ -11,18 +12,18 @@ import {
 @Injectable()
 export class ChartFileImporterService {
 
-    private $chartFile: EventEmitter<ChartFile>;
+    private chartFileSubject: ReplaySubject<ChartFile>;
 
     constructor() {
-        this.$chartFile = new EventEmitter<ChartFile>();
+        this.chartFileSubject = new ReplaySubject<ChartFile>();
     }
 
-    get chartFile(): EventEmitter<ChartFile> {
-        return this.$chartFile;
+    get chartFile(): Observable<ChartFile> {
+        return this.chartFileSubject.asObservable();
     }
 
     import(file: string): void {
-        this.$chartFile.emit(this.importFile(file));
+        this.chartFileSubject.next(this.importFile(file));
     }
 
     private importFile(file: string): ChartFile {

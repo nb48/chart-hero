@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 
-import { ChartFile, defaultChartFile } from '../chart-file/chart-file';
+import { ChartFile } from '../chart-file/chart-file';
 import { ChartFileExporterService } from '../chart-file/chart-file-exporter.service';
 import { ChartFileImporterService } from '../chart-file/chart-file-importer.service';
 import { ChartStoreGHLExporterService } from './chart-store-ghl-exporter.service';
@@ -14,7 +14,7 @@ import { ChartStoreView } from './chart-store-view';
 export class ChartStoreService {
 
     private chartFileEmitter: EventEmitter<ChartFile>;
-    private chartStoreViewSubject: Subject<ChartStoreView>;
+    private chartStoreViewSubject: ReplaySubject<ChartStoreView>;
     private currentChart: ChartStore;
 
     constructor(
@@ -25,9 +25,8 @@ export class ChartStoreService {
         private viewBuilder: ChartStoreViewBuilderService,
     ) {
         this.chartFileEmitter = new EventEmitter<ChartFile>();
-        this.chartStoreViewSubject = new Subject<ChartStoreView>();
+        this.chartStoreViewSubject = new ReplaySubject<ChartStoreView>();
         fileExporter.chartFile = this.chartFileEmitter;
-        this.import(defaultChartFile());
         fileImporter.chartFile.subscribe((chartFile: ChartFile) => {
             this.import(chartFile);
         });

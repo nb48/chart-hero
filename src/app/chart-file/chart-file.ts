@@ -31,10 +31,3 @@ export interface ChartFileTrack {
     length?: number;
     text?: string;
 }
-
-export const defaultChartFile = (): ChartFile => ({
-    metadata: [],
-    syncTrack: [],
-    events: [],
-    track: [],    
-});

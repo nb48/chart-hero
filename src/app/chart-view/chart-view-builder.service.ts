@@ -16,8 +16,8 @@ import {
 } from './chart-view';
 
 const speed = 1;
-const timeBefore = (1 / speed) * 1.25;
-const timeAfter = (1 / speed) * -0.5;
+const timeBefore = (1 / speed) * 1.2;
+const timeAfter = (1 / speed) * -0.3;
 
 const zeroPosition = (): number => {
     return timeBefore / (timeBefore - timeAfter) * 100;

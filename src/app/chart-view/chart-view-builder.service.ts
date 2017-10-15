@@ -46,38 +46,39 @@ export class ChartViewBuilderService {
     }
 
     private buildNote(note: ChartStoreEventNote, time: number): ChartViewNote {
-        const bottom = time + timeAfter;
-        const top = time + timeBefore;
-        const position = (1 - (note.time - bottom) / (top - bottom)) * 100;
+
         const open = note.type.length === 0;
         if (open) {
             return {
-                open,
-                position,
+                y: this.calculateYPos(note, time),
+                open: true,
             };
         }
         return {
-            open,
-            position,
-            lane: this.buildLane(note),
+            x: this.calculateXPos(note),
+            y: this.calculateYPos(note, time),
+            open: false,
             color: this.buildColor(note),
         };
     }
 
-    private buildLane(note: ChartStoreEventNote): number {
+    private calculateYPos(note: ChartStoreEventNote, time: number): number {
+        const bottom = time + timeAfter;
+        const top = time + timeBefore;
+        return (1 - (note.time - bottom) / (top - bottom)) * 100;
+    }
+
+    private calculateXPos(note: ChartStoreEventNote): number {
         switch (note.type[0]) {
         case ChartStoreNoteType.GHLBlack1:
-            return 1;
-        case ChartStoreNoteType.GHLBlack2:
-            return 2;
-        case ChartStoreNoteType.GHLBlack3:
-            return 3;
         case ChartStoreNoteType.GHLWhite1:
-            return 1;
+            return 25;
+        case ChartStoreNoteType.GHLBlack2:
         case ChartStoreNoteType.GHLWhite2:
-            return 2;
+            return 50;
+        case ChartStoreNoteType.GHLBlack3:
         case ChartStoreNoteType.GHLWhite3:
-            return 3;
+            return 75;
         }
     }
 

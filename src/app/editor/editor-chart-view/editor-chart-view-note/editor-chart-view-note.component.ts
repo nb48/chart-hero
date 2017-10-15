@@ -15,18 +15,11 @@ export class EditorChartViewNoteComponent {
     }
 
     get xPos(): number {
-        switch (this.note.lane) {
-        case 1:
-            return 25;
-        case 2:
-            return 50;
-        case 3:
-            return 75;
-        }
+        return this.note.x;
     }
 
     get yPos(): number {
-        return this.note.position;
+        return this.note.y;
     }
 
     get blackNote(): boolean {
@@ -63,16 +56,6 @@ export class EditorChartViewNoteComponent {
             Z`;
     }
 
-    private roundedCorner(x: number, y: number): string {
-        return `
-            l ${x} 0
-            l 0 ${0.5 * y}
-            s 0 ${0.5 * y} ${-0.7 * x} ${0.5 * y}
-            l ${-0.3 * x} 0
-            l 0 ${-y}
-        `;     
-    }
-
     get halfBlackNotePath(): string {
         return `
             M ${this.xPos} ${this.yPos}
@@ -89,5 +72,15 @@ export class EditorChartViewNoteComponent {
             ${this.roundedCorner(4.5, -4)}
             Z
         `;
+    }
+
+    private roundedCorner(x: number, y: number): string {
+        return `
+            l ${x} 0
+            l 0 ${0.5 * y}
+            s 0 ${0.5 * y} ${-0.7 * x} ${0.5 * y}
+            l ${-0.3 * x} 0
+            l 0 ${-y}
+        `;     
     }
 }

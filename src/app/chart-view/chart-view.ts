@@ -10,9 +10,9 @@ export interface ChartViewBeat {
 }
 
 export interface ChartViewNote {
-    position: number;
+    x?: number;
+    y: number;
     open: boolean;
-    lane?: number;
     color?: ChartViewNoteColor;
 }
 
@@ -35,19 +35,19 @@ export const defaultChartView = (): ChartView => {
             position: 7.5,
         }],
         notes: [{
-            position: 67.5,
+            x: 25,
+            y: 67.5,
             open: false,
-            lane: 1,
             color: ChartViewNoteColor.Black,
         }, {
-            position: 47.5,
+            x: 50,
+            y: 47.5,
             open: false,
-            lane: 2,
             color: ChartViewNoteColor.White,
         }, {
-            position: 27.5,
+            x: 75,
+            y: 27.5,
             open: false,
-            lane: 3,
             color: ChartViewNoteColor.BlackWhite,
         }],
     };

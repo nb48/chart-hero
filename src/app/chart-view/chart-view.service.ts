@@ -12,12 +12,15 @@ export class ChartViewService {
 
     private chartViewSubject: ReplaySubject<ChartView>;
     private currentChart: ChartStoreView;
+    private currentView: ChartView;
+    private renderedCurrentView: boolean;
 
     constructor(
         private audioPlayer: AudioPlayerService,
         private chartStore: ChartStoreService,
         private builder: ChartViewBuilderService,
     ) {
+        this.renderedCurrentView = true;
         this.chartViewSubject = new ReplaySubject<ChartView>();
         this.chartStore.chart.subscribe((chart) => {
             this.currentChart = chart;
@@ -26,6 +29,10 @@ export class ChartViewService {
         this.audioPlayer.frameEvent.subscribe((time: number) => {
             this.updateView(time);
         });
+        this.renderView();
+        Observable.interval(16).subscribe((n) => {
+            this.renderView();
+        });
     }
 
     get view(): Observable<ChartView> {
@@ -33,6 +40,14 @@ export class ChartViewService {
     }
 
     private updateView(time: number): void {
-        this.chartViewSubject.next(this.builder.buildView(this.currentChart, time));
+        this.currentView = this.builder.buildView(this.currentChart, time);
+        this.renderedCurrentView = false;
+    }
+
+    private renderView(): void {
+        if (!this.renderedCurrentView) {
+            this.renderedCurrentView = true;
+            this.chartViewSubject.next(this.currentView);            
+        }
     }
 }

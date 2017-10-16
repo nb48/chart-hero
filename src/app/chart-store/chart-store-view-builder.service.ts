@@ -22,9 +22,16 @@ export class ChartStoreViewBuilderService {
 
     buildView(cs: ChartStore): ChartStoreView {
         return {
+            duration: this.buildDuration(cs),
             beats: this.buildBeats(cs),
             notes: this.buildNotes(cs),
         };
+    }
+
+    private buildDuration(cs: ChartStore): number {
+        const lastEvent = cs.events
+            .sort((a, b) => b.time - a.time)[0];
+        return lastEvent ? lastEvent.time : 1;
     }
 
     private buildBeats(cs: ChartStore): ChartStoreViewBeat[] {

@@ -1,2 +1,8 @@
 <div class="scrollbar">
+    <svg (click)="clickScrollbar($event)" version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+        preserveAspectRatio="none" shape-rendering="geometricPrecision">
+        <rect [matTooltip]="audioPlayer.currentTime" [matTooltipPosition]="'right'" [matTooltipClass]="'scrollbar-tooltip'" (mousedown)="clickHandle($event)"
+            (window:mousemove)="moveHandle($event)" (window:mouseup)="releaseHandle($event)" x="0" [attr.y]="y" width="100" [attr.height]="height"
+            fill="white"></rect>
+    </svg>
 </div>

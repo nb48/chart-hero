@@ -31,7 +31,9 @@ export class ChartViewBuilderService {
 
     buildView(csv: ChartStoreView, currentTime: number): ChartView {
         return {
+            currentTime,
             zeroPosition: zeroPosition(),
+            duration: csv.duration,
             beats: this.buildBeats(csv, currentTime),
             notes: this.buildNotes(csv, currentTime),
         };

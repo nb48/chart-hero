@@ -9,6 +9,6 @@
         <i class="fa fa-stop fa-2x" aria-hidden="true" aria-label="Stop"></i>
     </button>
     <mat-form-field>
-        <input [(ngModel)]="audioPlayer.currentTime" [readOnly]="audioPlayer.playing" [disabled]="!audioPlayer.loaded" matInput type="text">
+        <input [ngModel]="audioPlayer.currentTime" (ngModelChange)="audioPlayer.inputTime($event)" [readOnly]="audioPlayer.playing" matInput type="text">
     </mat-form-field>
 </div>

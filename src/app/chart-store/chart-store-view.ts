@@ -1,5 +1,6 @@
 
 export interface ChartStoreView {
+    duration: number;
     beats: ChartStoreViewBeat[];
     notes: ChartStoreViewNote[];
 }

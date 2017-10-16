@@ -1,6 +1,8 @@
 
 export interface ChartView {
     zeroPosition: number;
+    duration: number;
+    currentTime: number;
     beats: ChartViewBeat[];
     notes: ChartViewNote[];
 }

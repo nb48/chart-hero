@@ -5,7 +5,7 @@ const readTime = (time: string): number => {
     try {
         const minutes = time.split('m')[0];
         const seconds = time.split('m')[1].split('s')[0];
-        const result = parseInt(minutes, 10) * 60 + parseInt(seconds, 10);
+        const result = parseInt(minutes, 10) * 60 + parseFloat(seconds);
         if (isNaN(result)) {
             throw new Error();
         }
@@ -13,12 +13,6 @@ const readTime = (time: string): number => {
     } catch (error) {
         return 0;
     }
-};
-
-const showTime = (time: number): string => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time - (minutes * 60);
-    return `${minutes}m${seconds.toFixed(2)}s`;
 };
 
 @Injectable()
@@ -34,6 +28,7 @@ export class AudioPlayerService {
     constructor(private zone: NgZone) {
         this.$loaded = false;
         this.$frameEvent = new EventEmitter<number>();
+        this.$currentTime = this.showTime(0);
     }
 
     get loaded(): boolean {
@@ -45,7 +40,6 @@ export class AudioPlayerService {
         this.$audio = new Audio();
         this.$audio.src = url;
         this.$audio.load();
-        this.$currentTime = showTime(0);
         this.$playing = false;
     }
 
@@ -61,6 +55,22 @@ export class AudioPlayerService {
         return this.$playing;
     }
 
+    inputTime(time: string): void {
+        this.$currentTime = time;
+        this.$frameEvent.emit(readTime(time));
+    }
+
+    setTime(time: number): void {
+        this.$currentTime = this.showTime(time);
+        this.$frameEvent.emit(time);
+    }
+
+    showTime(time: number): string {
+        const minutes = Math.floor(time / 60);
+        const seconds = time - (minutes * 60);
+        return `${minutes}m${seconds.toFixed(2)}s`;
+    }
+
     play() {
         this.$playing = true;
         this.$audio.play();
@@ -73,7 +83,7 @@ export class AudioPlayerService {
     pause() {       
         this.$playing = false;
         this.$audio.pause();
-        this.$currentTime = showTime(this.$audio.currentTime);
+        this.$currentTime = this.showTime(this.$audio.currentTime);
         this.$frame.unsubscribe();
         this.$frameEvent.emit(this.$audio.currentTime);
     }
@@ -81,7 +91,7 @@ export class AudioPlayerService {
     stop() {      
         this.$playing = false;
         this.$audio.pause();
-        this.$currentTime = showTime(0);
+        this.$currentTime = this.showTime(0);
         this.$frame.unsubscribe();
         this.$frameEvent.emit(0);
     }
@@ -91,7 +101,7 @@ export class AudioPlayerService {
     }
 
     private frame() {
-        this.$currentTime = showTime(this.$audio.currentTime);
+        this.$currentTime = this.showTime(this.$audio.currentTime);
         this.$frameEvent.emit(this.$audio.currentTime);
         if (this.$audio.ended) {
             this.stop();

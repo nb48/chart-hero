@@ -47,7 +47,7 @@ describe('Component: AudioPlayerControlsComponent', () => {
         const target = 'ng-reflect-disabled="true"';
         expect(buttonElement(0).nativeElement.outerHTML).toContain(target);
         expect(buttonElement(1).nativeElement.outerHTML).toContain(target);
-        expect(currentTimeElement().nativeElement.outerHTML).toContain(target);
+        expect(currentTimeElement().nativeElement.outerHTML).not.toContain(target);
     });
 
     it('AudioPlayerControls should display play and stop button when not playing', () => {

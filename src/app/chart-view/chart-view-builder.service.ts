@@ -29,13 +29,13 @@ export class ChartViewBuilderService {
     constructor() {
     }
 
-    buildView(csv: ChartStoreView, currentTime: number): ChartView {
+    buildView(csv: ChartStoreView, currentTime: number, playing: boolean): ChartView {
         return {
             currentTime,
             zeroPosition: zeroPosition(),
             duration: csv.duration,
             beats: this.buildBeats(csv, currentTime),
-            notes: this.buildNotes(csv, currentTime),
+            notes: this.buildNotes(csv, currentTime, playing),
         };
     }
 
@@ -48,9 +48,11 @@ export class ChartViewBuilderService {
             }));
     }
 
-    private buildNotes(csv: ChartStoreView, currentTime: number): ChartViewNote[] {
+    private buildNotes(csv: ChartStoreView, currentTime: number, playing: boolean)
+        : ChartViewNote[] {
         return [].concat.apply([], csv.notes
             .filter(n => this.timeInView(n.time, currentTime))
+            .filter(n => playing ? n.time >= currentTime : true)
             .map((note): ChartViewNote[] => {
                 const y = this.calculateYPos(note.time, currentTime);
                 if (note.open) {

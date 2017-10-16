@@ -40,7 +40,8 @@ export class ChartViewService {
     }
 
     private updateView(time: number): void {
-        this.currentView = this.builder.buildView(this.currentChart, time);
+        this.currentView = this.builder.buildView
+            (this.currentChart, time, this.audioPlayer.playing);
         this.renderedCurrentView = false;
     }
 

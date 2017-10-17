@@ -29,23 +29,30 @@ export class ScrollbarComponent implements AfterViewInit {
         return 10;
     }
 
-    get y(): number {
-        return (100 - this.height) -
-            ((100 - this.height) * (this.view.currentTime / this.view.duration));
+    get handlePosition(): number {
+        return 97 - this.height -
+            ((94 - this.height) * (this.view.currentTime / this.view.duration));
     }
 
     clickScrollbar(e: any): void {
+        if (this.audioPlayer.playing) {
+            return;
+        }
         this.propagateTimeChange(e);
     }
 
     clickHandle(e: any): void {
-        if (!this.audioPlayer.playing) {
-            this.moving = true;
-            this.currentTimeTooltip.show();            
+        if (this.audioPlayer.playing) {
+            return;
         }
+        this.moving = true;
+        this.currentTimeTooltip.show();
     }
 
     moveHandle(e: any): void {
+        if (this.audioPlayer.playing) {
+            return;
+        }
         if (this.moving) {
             this.currentTimeTooltip.hide();
             this.currentTimeTooltip.show();
@@ -54,10 +61,33 @@ export class ScrollbarComponent implements AfterViewInit {
     }
 
     releaseHandle(e: any): void {
+        if (this.audioPlayer.playing) {
+            return;
+        }
         if (this.moving) {
             this.propagateTimeChange(e);
             this.moving = false;
         }
+    }
+
+    moveForwards(e: any): void {
+        if (this.audioPlayer.playing) {
+            return;
+        }
+        const newTime = Math.min
+            (this.view.duration, this.view.currentTime + this.view.currentIncrement);        
+        this.audioPlayer.setTime(newTime);
+        e.stopPropagation();
+    }
+
+    moveBackwards(e: any): void {
+        if (this.audioPlayer.playing) {
+            return;
+        }
+        const newTime = Math.max
+            (0, this.view.currentTime - this.view.currentIncrement);
+        this.audioPlayer.setTime(newTime);
+        e.stopPropagation();
     }
 
     private propagateTimeChange(e: any) {

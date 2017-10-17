@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { AudioPlayerService } from '../../audio-player/audio-player.service';
 import { ChartView } from '../../chart-view/chart-view';
 
+const scrollingConstant = 0.018867924528301886;
+
 @Component({
     selector: 'app-scrollbar',
     templateUrl: './scrollbar.component.html',
@@ -32,6 +34,16 @@ export class ScrollbarComponent implements AfterViewInit {
     get handlePosition(): number {
         return 97 - this.height -
             ((94 - this.height) * (this.view.currentTime / this.view.duration));
+    }
+
+    scroll(e: any): void {
+        if (this.audioPlayer.playing) {
+            return;
+        }
+        const targetTime = this.view.currentTime +
+            (-scrollingConstant * this.view.currentIncrement * e.deltaY);
+        const newTime = Math.min(this.view.duration, Math.max(0, targetTime));
+        this.audioPlayer.setTime(newTime);
     }
 
     clickScrollbar(e: any): void {

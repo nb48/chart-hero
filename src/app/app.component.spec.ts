@@ -37,6 +37,10 @@ describe('Component: AppComponent', () => {
         expect(fixture.debugElement.query(By.css('app-audio-player-controls'))).toBeTruthy();
     });
 
+    it('Apps hould have editor', () => {
+        expect(fixture.debugElement.query(By.css('app-editor'))).toBeTruthy();
+    });
+
     it('App should have exporter', () => {
         expect(fixture.debugElement.query(By.css('app-exporter'))).toBeTruthy();
     });

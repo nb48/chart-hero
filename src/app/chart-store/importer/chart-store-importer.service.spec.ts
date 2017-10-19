@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ChartStoreGHLImporterService } from '../ghl/chart-store-ghl-importer.service';
+import { ChartStoreIdGeneratorService } from '../id-generator/chart-store-id-generator.service';
 import { ChartStoreImporterService } from './chart-store-importer.service';
 import { ChartStoreMidiTimeService } from '../midi-time/chart-store-midi-time.service';
 import { ChartStoreSyncTrackImporterService }
@@ -16,6 +17,7 @@ describe('Service: ChartStoreImporterService', () => {
         TestBed.configureTestingModule({
             providers: [
                 ChartStoreGHLImporterService,
+                ChartStoreIdGeneratorService,
                 ChartStoreImporterService,
                 ChartStoreMidiTimeService,
                 ChartStoreSyncTrackImporterService,

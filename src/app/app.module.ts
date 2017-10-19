@@ -28,6 +28,8 @@ import { ChartStoreGHLExporterService }
 from './chart-store/ghl/chart-store-ghl-exporter.service';
 import { ChartStoreGHLImporterService }
 from './chart-store/ghl/chart-store-ghl-importer.service';
+import { ChartStoreIdGeneratorService }
+from './chart-store/id-generator/chart-store-id-generator.service';
 import { ChartStoreImporterService } from './chart-store/importer/chart-store-importer.service';
 import { ChartStoreMidiTimeService } from './chart-store/midi-time/chart-store-midi-time.service';
 import { ChartStoreSyncTrackImporterService }
@@ -76,6 +78,7 @@ import { FileStoreService } from './file-store/file-store.service';
         ChartStoreExporterService,
         ChartStoreGHLExporterService,
         ChartStoreGHLImporterService,
+        ChartStoreIdGeneratorService,
         ChartStoreImporterService,
         ChartStoreMidiTimeService,
         ChartStoreSyncTrackExporterService,

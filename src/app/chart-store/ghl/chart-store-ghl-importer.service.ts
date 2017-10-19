@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
 import { ChartFileSyncTrack, ChartFileTrack } from '../../chart-file/chart-file';
+import { ChartStoreIdGeneratorService } from '../id-generator/chart-store-id-generator.service';
 import { ChartStoreMidiTimeService } from '../midi-time/chart-store-midi-time.service';
 import {
     ChartStoreTrack,
@@ -33,14 +34,13 @@ const ghlNoteType = (notes: number[]): ChartStoreTrackNoteType[] => {
     });
 };
 
-const idIncrement = 10;
-
 @Injectable()
 export class ChartStoreGHLImporterService {
 
-    nextId: number;
-
-    constructor(private midiTimeService: ChartStoreMidiTimeService) {
+    constructor(
+        private idGenerator: ChartStoreIdGeneratorService,
+        private midiTimeService: ChartStoreMidiTimeService,
+    ) {
     }
 
     import(
@@ -49,7 +49,6 @@ export class ChartStoreGHLImporterService {
         resolution: number,
         offset: number,
     ): ChartStoreTrack {
-        this.nextId = 10;
         this.midiTimeService.clearCache();
         return {
             events: [
@@ -78,11 +77,9 @@ export class ChartStoreGHLImporterService {
                         (midiTime + notes[0].length, resolution, syncTrack) - time
                     : 0;
                 const type: ChartStoreTrackNoteType[] = [];
-                const id = this.nextId;
-                this.nextId += idIncrement;
                 return {
-                    id,
                     length,
+                    id: this.idGenerator.id(),
                     event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
                     time: time + offset,
                     type: ghlNoteType(notes.map(n => n.note)),

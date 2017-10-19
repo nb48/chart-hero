@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
 import { ChartFileSyncTrack } from '../../chart-file/chart-file';
+import { ChartStoreIdGeneratorService } from '../id-generator/chart-store-id-generator.service';
 import { ChartStoreMidiTimeService } from '../midi-time/chart-store-midi-time.service';
 import {
     ChartStoreTrack,
@@ -8,18 +9,16 @@ import {
     ChartStoreTrackBPMChange,
 } from '../chart-store';
 
-const idIncrement = 10;
-
 @Injectable()
 export class ChartStoreSyncTrackImporterService {
 
-    nextId: number;
-
-    constructor(private midiTimeService: ChartStoreMidiTimeService) {
+    constructor(
+        private idGenerator: ChartStoreIdGeneratorService,
+        private midiTimeService: ChartStoreMidiTimeService,
+    ) {
     }
 
     import(st: ChartFileSyncTrack[], resolution: number, offset: number): ChartStoreTrack {
-        this.nextId = 10;
         this.midiTimeService.clearCache();
         return {
             events: [...this.importBPMChanges(st, resolution, offset)],
@@ -32,10 +31,8 @@ export class ChartStoreSyncTrackImporterService {
         const syncTrack = st.filter(e => e.type === 'B');
         return syncTrack.map((e) => {
             const time = this.midiTimeService.calculateTime(e.midiTime, resolution, syncTrack);
-            const id = this.nextId;
-            this.nextId += idIncrement;
             return {    
-                id,
+                id: this.idGenerator.id(),
                 event: ChartStoreTrackEventType.BPMChange as
                     ChartStoreTrackEventType.BPMChange,
                 time: time + offset,

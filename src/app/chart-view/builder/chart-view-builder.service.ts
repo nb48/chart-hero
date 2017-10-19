@@ -4,7 +4,7 @@ import {
     ChartStoreView,
     ChartStoreViewNote,
     ChartStoreViewNoteGHLColor,
-} from '../chart-store/chart-store-view';
+} from '../../chart-store/chart-store-view';
 import {
     ChartView,
     ChartViewBeat,
@@ -13,7 +13,7 @@ import {
     ChartViewNoteGHLColor,
     ChartViewNoteOpen,
     ChartViewNoteType,
-} from './chart-view';
+} from '../chart-view';
 
 const speed = 1;
 const timeBefore = (1 / speed) * 1.2;

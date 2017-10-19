@@ -4,7 +4,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { AudioPlayerService } from '../audio-player/audio-player.service';
 import { ChartStoreService } from '../chart-store/chart-store.service';
 import { ChartStoreView } from '../chart-store/chart-store-view';
-import { ChartViewBuilderService } from './chart-view-builder.service';
+import { ChartViewBuilderService } from './builder/chart-view-builder.service';
 import { ChartView } from './chart-view';
 
 @Injectable()

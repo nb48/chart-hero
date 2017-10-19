@@ -6,13 +6,13 @@ import {
     ChartStoreEventNote,
     ChartStoreEventType,
     ChartStoreNoteType,
-} from './chart-store';
+} from '../chart-store';
 import {
     ChartStoreView,
     ChartStoreViewBeat,
     ChartStoreViewNote,
     ChartStoreViewNoteGHLColor,
-} from './chart-store-view';
+} from '../chart-store-view';
 
 @Injectable()
 export class ChartStoreViewBuilderService {

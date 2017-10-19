@@ -4,9 +4,9 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { ChartFile } from '../chart-file/chart-file';
 import { ChartFileExporterService } from '../chart-file/exporter/chart-file-exporter.service';
 import { ChartFileImporterService } from '../chart-file/importer/chart-file-importer.service';
-import { ChartStoreGHLExporterService } from './chart-store-ghl-exporter.service';
-import { ChartStoreGHLImporterService } from './chart-store-ghl-importer.service';
-import { ChartStoreViewBuilderService } from './chart-store-view-builder.service';
+import { ChartStoreGHLExporterService } from './ghl-exporter/chart-store-ghl-exporter.service';
+import { ChartStoreGHLImporterService } from './ghl-importer/chart-store-ghl-importer.service';
+import { ChartStoreViewBuilderService } from './view-builder/chart-store-view-builder.service';
 import { ChartStore } from './chart-store';
 import { ChartStoreView } from './chart-store-view';
 

@@ -6,7 +6,7 @@ import {
     ChartFileMetadata,
     ChartFileSyncTrack,
     ChartFileTrack,
-} from '../chart-file/chart-file';
+} from '../../chart-file/chart-file';
 import {
     ChartStore,
     ChartStoreEventBPMChange,
@@ -15,8 +15,8 @@ import {
     ChartStoreMetadata,
     ChartStoreNoteType,
     ChartStoreUnsupportedEventType,
-} from './chart-store';
-import { ChartStoreMidiTimeService } from './chart-store-midi-time.service';
+} from '../chart-store';
+import { ChartStoreMidiTimeService } from '../midi-time/chart-store-midi-time.service';
 
 const noteValue = (note: ChartStoreNoteType): number => {
     switch (note) {

@@ -23,11 +23,14 @@ import { ScrollbarComponent } from './editor/scrollbar/scrollbar.component';
 import { AudioPlayerService } from './audio-player/audio-player.service';
 import { ChartFileExporterService } from './chart-file/exporter/chart-file-exporter.service';
 import { ChartFileImporterService } from './chart-file/importer/chart-file-importer.service';
-import { ChartStoreGHLExporterService } from './chart-store/chart-store-ghl-exporter.service';
-import { ChartStoreGHLImporterService } from './chart-store/chart-store-ghl-importer.service';
-import { ChartStoreMidiTimeService } from './chart-store/chart-store-midi-time.service';
+import { ChartStoreGHLExporterService }
+from './chart-store/ghl-exporter/chart-store-ghl-exporter.service';
+import { ChartStoreGHLImporterService }
+from './chart-store/ghl-importer/chart-store-ghl-importer.service';
+import { ChartStoreMidiTimeService } from './chart-store/midi-time/chart-store-midi-time.service';
 import { ChartStoreService } from './chart-store/chart-store.service';
-import { ChartStoreViewBuilderService } from './chart-store/chart-store-view-builder.service';
+import { ChartStoreViewBuilderService }
+from './chart-store/view-builder/chart-store-view-builder.service';
 import { ChartViewBuilderService } from './chart-view/builder/chart-view-builder.service';
 import { ChartViewService } from './chart-view/chart-view.service';
 import { FileStoreService } from './file-store/file-store.service';

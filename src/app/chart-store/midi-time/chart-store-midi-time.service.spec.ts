@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ChartFileSyncTrack } from './../chart-file/chart-file';
+import { ChartFileSyncTrack } from '../../chart-file/chart-file';
 import { ChartStoreMidiTimeService } from './chart-store-midi-time.service';
-import { ChartStoreEventBPMChange, ChartStoreEventType } from './chart-store';
+import { ChartStoreEventBPMChange, ChartStoreEventType } from '../chart-store';
 
 const syncTrack = (midiTime: number, value: number): ChartFileSyncTrack => ({
     midiTime,

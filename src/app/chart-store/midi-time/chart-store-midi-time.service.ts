@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { ChartFileSyncTrack } from '../chart-file/chart-file';
-import { ChartStoreEventBPMChange, ChartStoreEventType } from './chart-store';
+import { ChartFileSyncTrack } from '../../chart-file/chart-file';
+import { ChartStoreEventBPMChange, ChartStoreEventType } from '../chart-store';
 
 const conversionFactor = (bpm: number, resolution: number): number => {
     return bpm * resolution / 60;

@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ChartStoreGHLImporterService } from './chart-store-ghl-importer.service';
-import { ChartStoreMidiTimeService } from './chart-store-midi-time.service';
-import { TEST_GHL_FILE, TEST_GHL_STORE } from './test-chart-store-ghl';
+import { ChartStoreMidiTimeService } from '../midi-time/chart-store-midi-time.service';
+import { TEST_GHL_FILE, TEST_GHL_STORE } from '../test-chart-store-ghl';
 
 describe('Service: ChartStoreGHLImporterService', () => {
 

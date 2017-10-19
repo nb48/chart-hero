@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { AudioPlayerService } from '../audio-player/audio-player.service';
-import { ChartFileImporterService } from '../chart-file/chart-file-importer.service';
+import { ChartFileImporterService } from '../chart-file/importer/chart-file-importer.service';
 
 @Injectable()
 export class FileStoreService {

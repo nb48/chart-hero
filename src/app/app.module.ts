@@ -23,8 +23,8 @@ import { FileSelectComponent } from './file-select/file-select.component';
 import { ScrollbarComponent } from './editor/scrollbar/scrollbar.component';
 
 import { AudioPlayerService } from './audio-player/audio-player.service';
-import { ChartFileExporterService } from './chart-file/chart-file-exporter.service';
-import { ChartFileImporterService } from './chart-file/chart-file-importer.service';
+import { ChartFileExporterService } from './chart-file/exporter/chart-file-exporter.service';
+import { ChartFileImporterService } from './chart-file/importer/chart-file-importer.service';
 import { ChartStoreGHLExporterService } from './chart-store/chart-store-ghl-exporter.service';
 import { ChartStoreGHLImporterService } from './chart-store/chart-store-ghl-importer.service';
 import { ChartStoreMidiTimeService } from './chart-store/chart-store-midi-time.service';

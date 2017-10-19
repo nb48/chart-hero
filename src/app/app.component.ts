@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ChartFileImporterService } from './chart-file/chart-file-importer.service';
+import { ChartFileImporterService } from './chart-file/importer/chart-file-importer.service';
 import { ChartStoreService } from './chart-store/chart-store.service';
 
 @Component({

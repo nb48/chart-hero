@@ -2,8 +2,8 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
 import { ChartFile } from '../chart-file/chart-file';
-import { ChartFileExporterService } from '../chart-file/chart-file-exporter.service';
-import { ChartFileImporterService } from '../chart-file/chart-file-importer.service';
+import { ChartFileExporterService } from '../chart-file/exporter/chart-file-exporter.service';
+import { ChartFileImporterService } from '../chart-file/importer/chart-file-importer.service';
 import { ChartStoreGHLExporterService } from './chart-store-ghl-exporter.service';
 import { ChartStoreGHLImporterService } from './chart-store-ghl-importer.service';
 import { ChartStoreViewBuilderService } from './chart-store-view-builder.service';

@@ -1,9 +1,9 @@
 import { EventEmitter } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
-import { ChartFile } from './chart-file';
+import { ChartFile } from '../chart-file';
 import { ChartFileExporterService } from './chart-file-exporter.service';
-import { TEST_FILE, TEST_CHART } from './test-chart-file';
+import { TEST_FILE, TEST_CHART } from '../test-chart-file';
 
 describe('Service: ChartFileExporterService', () => {
 

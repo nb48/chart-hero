@@ -7,7 +7,7 @@ import {
     ChartFileSyncTrack,
     ChartFileEvent,
     ChartFileTrack,
-} from './chart-file';
+} from '../chart-file';
 
 @Injectable()
 export class ChartFileImporterService {

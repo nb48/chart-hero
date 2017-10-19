@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AudioPlayerService } from '../audio-player/audio-player.service';
-import { ChartFileImporterService } from '../chart-file/chart-file-importer.service';
+import { ChartFileImporterService } from '../chart-file/importer/chart-file-importer.service';
 import { FileStoreService } from './file-store.service';
 
 const testFile = new File(['testFileString'], 'testFileName');

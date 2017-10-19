@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule, MatListModule } from '@angular/material';
 import { By } from '@angular/platform-browser';
 
-import { ChartFileExporterService } from '../chart-file/chart-file-exporter.service';
+import { ChartFileExporterService } from '../chart-file/exporter/chart-file-exporter.service';
 import { ExporterComponent } from './exporter.component';
 
 describe('Component: ExporterComponent', () => {

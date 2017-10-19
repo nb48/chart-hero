@@ -1,8 +1,8 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 
-import { ChartFile } from './chart-file';
+import { ChartFile } from '../chart-file';
 import { ChartFileImporterService } from './chart-file-importer.service';
-import { TEST_FILE, TEST_CHART } from './test-chart-file';
+import { TEST_FILE, TEST_CHART } from '../test-chart-file';
 
 describe('Service: ChartFileImporterService', () => {
 

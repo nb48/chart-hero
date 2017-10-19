@@ -6,7 +6,7 @@ import {
     ChartFileSyncTrack,
     ChartFileEvent,
     ChartFileTrack,
-} from './chart-file';
+} from '../chart-file';
 
 const formatMidiTime = (midiTime: number): string => {
     return ('' + midiTime).split('.')[0];

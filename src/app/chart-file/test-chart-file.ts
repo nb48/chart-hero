@@ -59,39 +59,64 @@ export const TEST_CHART: ChartFile = {
         type: 'UNSUPPORTED',
         text: 'UNSUPPORTED',
     }],
-    track: [{
-        midiTime: 200,
-        type: 'N',
-        note: 0,
-        length: 0,
-    }, {
-        midiTime: 400,
-        type: 'N',
-        note: 1,
-        length: 0,
-    }, {
-        midiTime: 600,
-        type: 'N',
-        note: 2,
-        length: 0,
-    }, {
-        midiTime: 800,
-        type: 'N',
-        note: 3,
-        length: 0,
-    }, {
-        midiTime: 1000,
-        type: 'N',
-        note: 4,
-        length: 0,
-    }, {
-        midiTime: 1200,
-        type: 'N',
-        note: 7,
-        length: 0,
-    }, {
-        midiTime: 0,
-        type: 'UNSUPPORTED',
-        text: 'UNSUPPORTED',
-    }],
+    guitar: {
+        expert: null,
+        hard: null,
+        medium: null,
+        easy: null,
+    },
+    bass: {
+        expert: null,
+        hard: null,
+        medium: null,
+        easy: null,
+    },
+    drums: {
+        expert: null,
+        hard: null,
+        medium: null,
+        easy: null,
+    },
+    ghlGuitar: {
+        expert: [{
+            midiTime: 200,
+            type: 'N',
+            note: 0,
+            length: 0,
+        }, {
+            midiTime: 400,
+            type: 'N',
+            note: 1,
+            length: 0,
+        }, {
+            midiTime: 600,
+            type: 'N',
+            note: 2,
+            length: 0,
+        }, {
+            midiTime: 800,
+            type: 'N',
+            note: 3,
+            length: 0,
+        }, {
+            midiTime: 1000,
+            type: 'N',
+            note: 4,
+            length: 0,
+        }, {
+            midiTime: 1200,
+            type: 'N',
+            note: 7,
+            length: 0,
+        }, {
+            midiTime: 0,
+            type: 'UNSUPPORTED',
+            text: 'UNSUPPORTED',
+        }],
+        hard: null,
+        medium: null,
+        easy: null,
+    },
+    vocals: null,
+    venue: null,
 };

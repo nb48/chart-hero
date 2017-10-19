@@ -112,7 +112,7 @@ export class ChartStoreGHLImporterService {
 
     private groupNotes(cf: ChartFile): ChartFileTrack[][] {
         const times = new Map<number, ChartFileTrack[]>();
-        cf.track
+        cf.ghlGuitar.expert
             .filter(t => t.type === 'N' && supportedNotes.indexOf(t.note) !== -1)
             .forEach((note) => {
                 if (times.has(note.midiTime)) {
@@ -152,7 +152,7 @@ export class ChartStoreGHLImporterService {
     }
 
     private importUnsupportedTrack(cf: ChartFile): ChartStoreUnsupportedEvent[] {
-        return cf.track
+        return cf.ghlGuitar.expert
             .filter(t => t.type !== 'N' || supportedNotes.indexOf(t.note) === -1)        
             .map(original => ({
                 original,

@@ -52,10 +52,35 @@ export class ChartStoreGHLExporterService {
             events: [
                 ...this.exportUnsupportedEvents(cs),
             ].sort((a, b) => a.midiTime - b.midiTime),
-            track: [
-                ...this.exportNotes(cs),
-                ...this.exportUnsupportedTrack(cs),
-            ].sort((a, b) => a.midiTime - b.midiTime),
+            guitar: {
+                expert: null,
+                hard: null,
+                medium: null,
+                easy: null,
+            },
+            bass: {
+                expert: null,
+                hard: null,
+                medium: null,
+                easy: null,
+            },
+            drums: {
+                expert: null,
+                hard: null,
+                medium: null,
+                easy: null,
+            },
+            ghlGuitar: {
+                expert: [
+                    ...this.exportNotes(cs),
+                    ...this.exportUnsupportedTrack(cs),
+                ].sort((a, b) => a.midiTime - b.midiTime),
+                hard: null,
+                medium: null,
+                easy: null,
+            },
+            vocals: null,
+            venue: null,
         };
     }
 

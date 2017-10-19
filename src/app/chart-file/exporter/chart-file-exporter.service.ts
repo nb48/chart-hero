@@ -31,10 +31,31 @@ export class ChartFileExporterService {
     }
 
     private exportChart(chart: ChartFile): string {
-        return `[Song]\n{\n${this.exportMetadata(chart.metadata)}}\n`
+        let file = `[Song]\n{\n${this.exportMetadata(chart.metadata)}}\n`
         + `[SyncTrack]\n{\n${this.exportSyncTrack(chart.syncTrack)}}\n`
-        + `[Events]\n{\n${this.exportEvents(chart.events)}}\n`
-        + `[ExpertGHLGuitar]\n{\n${this.exportTrack(chart.track)}}`;
+        + `[Events]\n{\n${this.exportEvents(chart.events)}}\n`;
+        const maybeAddTrack = (name: string, track: ChartFileTrack[]) => {
+            if (track) {
+                file += `[${name}]\n{\n${this.exportTrack(track)}}`;
+            }
+        };
+        maybeAddTrack('ExpertSingle', chart.guitar.expert);
+        maybeAddTrack('HardSingle', chart.guitar.hard);
+        maybeAddTrack('MediumSingle', chart.guitar.medium);
+        maybeAddTrack('EasySingle', chart.guitar.easy);
+        maybeAddTrack('ExpertDoubleBass', chart.bass.expert);
+        maybeAddTrack('HardDoubleBass', chart.bass.hard);
+        maybeAddTrack('MediumDoubleBass', chart.bass.medium);
+        maybeAddTrack('EasyDoubleBass', chart.bass.easy);
+        maybeAddTrack('ExpertDrums', chart.drums.expert);
+        maybeAddTrack('HardDrums', chart.drums.hard);
+        maybeAddTrack('MediumDrums', chart.drums.medium);
+        maybeAddTrack('EasyDrums', chart.drums.easy);
+        maybeAddTrack('ExpertGHLGuitar', chart.ghlGuitar.expert);
+        maybeAddTrack('HardGHLGuitar', chart.ghlGuitar.hard);
+        maybeAddTrack('MediumGHLGuitar', chart.ghlGuitar.medium);
+        maybeAddTrack('EasyGHLGuitar', chart.ghlGuitar.easy);
+        return file;
     }
 
     private exportMetadata(metadata: ChartFileMetadata[]): string {

@@ -31,7 +31,32 @@ export class ChartFileImporterService {
             metadata: this.importMetadata(file),
             syncTrack: this.importSyncTrack(file),
             events: this.importEvents(file),
-            track: this.importTrack(file),
+            guitar: {
+                expert: this.importTrack(file, 'ExpertSingle'),
+                hard: this.importTrack(file, 'HardSingle'),
+                medium: this.importTrack(file, 'MediumSingle'),
+                easy: this.importTrack(file, 'EasySingle'),
+            },
+            bass: {
+                expert: this.importTrack(file, 'ExpertDoubleBass'),
+                hard: this.importTrack(file, 'HardDoubleBass'),
+                medium: this.importTrack(file, 'MediumDoubleBass'),
+                easy: this.importTrack(file, 'EasyDoubleBass'),
+            },
+            drums: {
+                expert: this.importTrack(file, 'ExpertDrums'),
+                hard: this.importTrack(file, 'HardDrums'),
+                medium: this.importTrack(file, 'MediumDrums'),
+                easy: this.importTrack(file, 'EasyDrums'),
+            },
+            ghlGuitar: {
+                expert: this.importTrack(file, 'ExpertGHLGuitar'),
+                hard: this.importTrack(file, 'HardGHLGuitar'),
+                medium: this.importTrack(file, 'MediumGHLGuitar'),
+                easy: this.importTrack(file, 'EasyGHLGuitar'),
+            },
+            vocals: this.importTrack(file, 'PART VOCALS'),
+            venue: this.importTrack(file, 'VENUE'),
         };
     }
 
@@ -74,8 +99,12 @@ export class ChartFileImporterService {
         });
     }
 
-    private importTrack(file: string): ChartFileTrack[] {
-        return this.findSection('[ExpertGHLGuitar]', file).map(([midiTime, content]) => {
+    private importTrack(file: string, track: string): ChartFileTrack[] {
+        const section = this.findSection(`[${track}]`, file);
+        if (!section) {
+            return null;
+        }
+        return section.map(([midiTime, content]) => {
             const i = content.indexOf(' ');
             const [type, text] = [content.slice(0, i), content.slice(i + 1)];
             if (type === 'N') {
@@ -96,7 +125,11 @@ export class ChartFileImporterService {
     }
 
     private findSection(header: string, file: string): string[][] {
-        const fromHeader = file.substring(file.indexOf(header));
+        const sectionIndex = file.indexOf(header);
+        if (sectionIndex === -1) {
+            return null;
+        }
+        const fromHeader = file.substring(sectionIndex);
         const section = fromHeader.substring(fromHeader.indexOf('{') + 1, fromHeader.indexOf('}'));
         return section.split('\n')
             .filter(s => s.trim() !== '')

@@ -5,6 +5,7 @@ import { ChartStoreGHLExporterService } from '../ghl/chart-store-ghl-exporter.se
 import { ChartStoreMidiTimeService } from '../midi-time/chart-store-midi-time.service';
 import { ChartStoreSyncTrackExporterService }
 from '../sync-track/chart-store-sync-track-exporter.service';
+import { ChartStoreTrackExporterService } from '../track/chart-store-track-exporter.service';
 import { TEST_CHART_FILE, TEST_CHART_STORE } from '../test-chart-store';
 
 describe('Service: ChartStoreExporterService', () => {
@@ -18,6 +19,7 @@ describe('Service: ChartStoreExporterService', () => {
                 ChartStoreGHLExporterService,
                 ChartStoreMidiTimeService,
                 ChartStoreSyncTrackExporterService,
+                ChartStoreTrackExporterService,
             ],
         });
         service = TestBed.get(ChartStoreExporterService);

@@ -133,7 +133,11 @@ export const TEST_CHART_FILE: ChartFile = {
         medium: null,
         easy: null,
     },
-    events: null,    
+    events: [{
+        midiTime: 9989,
+        type: 'UNSUPPORTED',
+        text: 'UNSUPPORTED',
+    }],    
     vocals: null,
     venue: null,
 };
@@ -172,10 +176,6 @@ export const TEST_CHART_STORE: ChartStore = {
             type: 'UNSUPPORTED',
             text: 'UNSUPPORTED',
         }],
-    },
-    events: {
-        events: [],
-        unsupported: [],
     },
     guitar: {
         expert: {
@@ -329,6 +329,14 @@ export const TEST_CHART_STORE: ChartStore = {
             events: [],
             unsupported: [],
         },
+    },
+    events: {
+        events: [],
+        unsupported: [{
+            midiTime: 9989,
+            type: 'UNSUPPORTED',
+            text: 'UNSUPPORTED',
+        }],
     },
     vocals: {
         events: [],

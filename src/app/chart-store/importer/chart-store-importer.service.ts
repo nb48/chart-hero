@@ -4,14 +4,8 @@ import { ChartFile } from '../../chart-file/chart-file';
 import { ChartStoreGHLImporterService } from '../ghl/chart-store-ghl-importer.service';
 import { ChartStoreSyncTrackImporterService }
 from '../sync-track/chart-store-sync-track-importer.service';
+import { ChartStoreTrackImporterService } from '../track/chart-store-track-importer.service';
 import { ChartStore, ChartStoreMetadata, ChartStoreTrack } from '../chart-store';
-
-const emptyTrack = (): ChartStoreTrack => {
-    return {
-        events: [],
-        unsupported: [],
-    };
-};
 
 @Injectable()
 export class ChartStoreImporterService {
@@ -19,6 +13,7 @@ export class ChartStoreImporterService {
     constructor(
         private ghlImporter: ChartStoreGHLImporterService,
         private syncTrackImporter: ChartStoreSyncTrackImporterService,
+        private trackImporter: ChartStoreTrackImporterService,
     ) {
     }
 
@@ -29,33 +24,33 @@ export class ChartStoreImporterService {
             metadata: cf.metadata as ChartStoreMetadata[],
             syncTrack: this.syncTrackImporter.import(cf.syncTrack, resolution, offset),
             guitar: {
-                expert: emptyTrack(),
-                hard: emptyTrack(),
-                medium: emptyTrack(),
-                easy: emptyTrack(),
+                expert: this.trackImporter.import(cf.guitar.expert),
+                hard: this.trackImporter.import(cf.guitar.hard),
+                medium: this.trackImporter.import(cf.guitar.medium),
+                easy: this.trackImporter.import(cf.guitar.easy),
             },
             bass: {
-                expert: emptyTrack(),
-                hard: emptyTrack(),
-                medium: emptyTrack(),
-                easy: emptyTrack(),
+                expert: this.trackImporter.import(cf.bass.expert),
+                hard: this.trackImporter.import(cf.bass.hard),
+                medium: this.trackImporter.import(cf.bass.medium),
+                easy: this.trackImporter.import(cf.bass.easy),
             },
             drums: {
-                expert: emptyTrack(),
-                hard: emptyTrack(),
-                medium: emptyTrack(),
-                easy: emptyTrack(),
+                expert: this.trackImporter.import(cf.drums.expert),
+                hard: this.trackImporter.import(cf.drums.hard),
+                medium: this.trackImporter.import(cf.drums.medium),
+                easy: this.trackImporter.import(cf.drums.easy),
             },
             ghlGuitar: {
                 expert: this.ghlImporter.import
                     (cf.ghlGuitar.expert, cf.syncTrack, resolution, offset),
-                hard: emptyTrack(),
-                medium: emptyTrack(),
-                easy: emptyTrack(),
+                hard: this.trackImporter.import(cf.ghlGuitar.hard),
+                medium: this.trackImporter.import(cf.ghlGuitar.medium),
+                easy: this.trackImporter.import(cf.ghlGuitar.easy),
             },
-            events: emptyTrack(),
-            vocals: emptyTrack(),
-            venue: emptyTrack(),
+            events: this.trackImporter.import(cf.events),
+            vocals: this.trackImporter.import(cf.vocals),
+            venue: this.trackImporter.import(cf.venue),
         };
     }
 

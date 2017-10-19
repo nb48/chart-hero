@@ -34,6 +34,10 @@ import { ChartStoreSyncTrackImporterService }
 from './chart-store/sync-track/chart-store-sync-track-importer.service';
 import { ChartStoreSyncTrackExporterService }
 from './chart-store/sync-track/chart-store-sync-track-exporter.service';
+import { ChartStoreTrackExporterService }
+from './chart-store/track/chart-store-track-exporter.service';
+import { ChartStoreTrackImporterService }
+from './chart-store/track/chart-store-track-importer.service';
 import { ChartStoreService } from './chart-store/chart-store.service';
 import { ChartViewBuilderService } from './chart-view/builder/chart-view-builder.service';
 import { ChartViewPreparerService } from './chart-view/preparer/chart-view-preparer.service';
@@ -76,6 +80,8 @@ import { FileStoreService } from './file-store/file-store.service';
         ChartStoreMidiTimeService,
         ChartStoreSyncTrackExporterService,
         ChartStoreSyncTrackImporterService,
+        ChartStoreTrackExporterService,
+        ChartStoreTrackImporterService,
         ChartStoreService,
         ChartViewBuilderService,
         ChartViewPreparerService,

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import {
-    ChartStoreView,
-    ChartStoreViewNote,
-    ChartStoreViewNoteGHLColor,
-} from '../../chart-store/chart-store-view';
+    ChartViewPrepared,
+    ChartViewPreparedNote,
+    ChartViewPreparedNoteGHLColor,
+} from '../chart-view-prepared';
 import {
     ChartView,
     ChartViewBeat,
@@ -29,7 +29,7 @@ export class ChartViewBuilderService {
     constructor() {
     }
 
-    buildView(csv: ChartStoreView, currentTime: number, playing: boolean): ChartView {
+    buildView(csv: ChartViewPrepared, currentTime: number, playing: boolean): ChartView {
         return {
             currentTime,
             currentIncrement: this.calculateCurrentIncrement(csv, currentTime, playing),
@@ -40,7 +40,7 @@ export class ChartViewBuilderService {
         };
     }
 
-    private buildBeats(csv: ChartStoreView, currentTime:number): ChartViewBeat[] {
+    private buildBeats(csv: ChartViewPrepared, currentTime:number): ChartViewBeat[] {
         return csv.beats
             .filter(b => this.timeInView(b.time, currentTime))
             .map(b => ({
@@ -49,7 +49,7 @@ export class ChartViewBuilderService {
             }));
     }
 
-    private calculateCurrentIncrement(csv: ChartStoreView, currentTime: number, playing: boolean)
+    private calculateCurrentIncrement(csv: ChartViewPrepared, currentTime: number, playing: boolean)
         : number {
         if (playing) {
             return 0;
@@ -65,7 +65,7 @@ export class ChartViewBuilderService {
         return nextBeat.time - currentBeat.time;
     }
 
-    private buildNotes(csv: ChartStoreView, currentTime: number, playing: boolean)
+    private buildNotes(csv: ChartViewPrepared, currentTime: number, playing: boolean)
         : ChartViewNote[] {
         return [].concat.apply([], csv.notes
             .filter(n => this.timeInView(n.time, currentTime))
@@ -82,20 +82,20 @@ export class ChartViewBuilderService {
             .sort((a: ChartViewNote, b: ChartViewNote) => a.y - b.y);
     }
 
-    private splitNote(note: ChartStoreViewNote, y: number): ChartViewNote[] {
+    private splitNote(note: ChartViewPreparedNote, y: number): ChartViewNote[] {
         const type = ChartViewNoteType.GHL;
         const notes: ChartViewNoteGHL[] = [];
-        if (note.ghlLane1 !== ChartStoreViewNoteGHLColor.None) {
+        if (note.ghlLane1 !== ChartViewPreparedNoteGHLColor.None) {
             const x = 25;
             const color = this.buildGHLNoteColor(note.ghlLane1);
             notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
         }
-        if (note.ghlLane2 !== ChartStoreViewNoteGHLColor.None) {
+        if (note.ghlLane2 !== ChartViewPreparedNoteGHLColor.None) {
             const x = 50;
             const color = this.buildGHLNoteColor(note.ghlLane2);
             notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
         }
-        if (note.ghlLane3 !== ChartStoreViewNoteGHLColor.None) {
+        if (note.ghlLane3 !== ChartViewPreparedNoteGHLColor.None) {
             const x = 75;
             const color = this.buildGHLNoteColor(note.ghlLane3);
             notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
@@ -113,13 +113,13 @@ export class ChartViewBuilderService {
         return (1 - (eventTime - bottom) / (top - bottom)) * 100;
     }
 
-    private buildGHLNoteColor(color: ChartStoreViewNoteGHLColor): ChartViewNoteGHLColor {
+    private buildGHLNoteColor(color: ChartViewPreparedNoteGHLColor): ChartViewNoteGHLColor {
         switch (color) {
-        case ChartStoreViewNoteGHLColor.Black:
+        case ChartViewPreparedNoteGHLColor.Black:
             return ChartViewNoteGHLColor.Black;
-        case ChartStoreViewNoteGHLColor.White:
+        case ChartViewPreparedNoteGHLColor.White:
             return ChartViewNoteGHLColor.White;
-        case ChartStoreViewNoteGHLColor.Chord:
+        case ChartViewPreparedNoteGHLColor.Chord:
             return ChartViewNoteGHLColor.Chord;
         }
     }

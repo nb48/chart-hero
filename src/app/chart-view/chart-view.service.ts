@@ -3,15 +3,17 @@ import { Observable, ReplaySubject } from 'rxjs';
 
 import { AudioPlayerService } from '../audio-player/audio-player.service';
 import { ChartStoreService } from '../chart-store/chart-store.service';
-import { ChartStoreView } from '../chart-store/chart-store-view';
+import { ChartStore } from '../chart-store/chart-store';
 import { ChartViewBuilderService } from './builder/chart-view-builder.service';
+import { ChartViewPreparerService } from './preparer/chart-view-preparer.service';
+import { ChartViewPrepared } from './chart-view-prepared';
 import { ChartView } from './chart-view';
 
 @Injectable()
 export class ChartViewService {
 
     private chartViewSubject: ReplaySubject<ChartView>;
-    private currentChart: ChartStoreView;
+    private currentPreparedView: ChartViewPrepared;
     private currentView: ChartView;
     private renderedCurrentView: boolean;
 
@@ -19,11 +21,12 @@ export class ChartViewService {
         private audioPlayer: AudioPlayerService,
         private chartStore: ChartStoreService,
         private builder: ChartViewBuilderService,
+        private preparer: ChartViewPreparerService,
     ) {
         this.renderedCurrentView = true;
         this.chartViewSubject = new ReplaySubject<ChartView>();
         this.chartStore.chart.subscribe((chart) => {
-            this.currentChart = chart;
+            this.currentPreparedView = this.preparer.buildView(chart);
             this.updateView(0);
         });
         this.audioPlayer.frameEvent.subscribe((time: number) => {
@@ -41,7 +44,7 @@ export class ChartViewService {
 
     private updateView(time: number): void {
         this.currentView = this.builder.buildView
-            (this.currentChart, time, this.audioPlayer.playing);
+            (this.currentPreparedView, time, this.audioPlayer.playing);
         this.renderedCurrentView = false;
     }
 

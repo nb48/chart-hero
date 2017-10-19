@@ -29,9 +29,8 @@ import { ChartStoreGHLImporterService }
 from './chart-store/ghl-importer/chart-store-ghl-importer.service';
 import { ChartStoreMidiTimeService } from './chart-store/midi-time/chart-store-midi-time.service';
 import { ChartStoreService } from './chart-store/chart-store.service';
-import { ChartStoreViewBuilderService }
-from './chart-store/view-builder/chart-store-view-builder.service';
 import { ChartViewBuilderService } from './chart-view/builder/chart-view-builder.service';
+import { ChartViewPreparerService } from './chart-view/preparer/chart-view-preparer.service';
 import { ChartViewService } from './chart-view/chart-view.service';
 import { FileStoreService } from './file-store/file-store.service';
 
@@ -68,8 +67,8 @@ import { FileStoreService } from './file-store/file-store.service';
         ChartStoreGHLImporterService,
         ChartStoreMidiTimeService,
         ChartStoreService,
-        ChartStoreViewBuilderService,
         ChartViewBuilderService,
+        ChartViewPreparerService,
         ChartViewService,
         FileStoreService,
     ],

@@ -1,20 +1,18 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { ChartFile } from '../chart-file/chart-file';
 import { ChartFileExporterService } from '../chart-file/exporter/chart-file-exporter.service';
 import { ChartFileImporterService } from '../chart-file/importer/chart-file-importer.service';
+import { ChartFile } from '../chart-file/chart-file';
 import { ChartStoreGHLExporterService } from './ghl-exporter/chart-store-ghl-exporter.service';
 import { ChartStoreGHLImporterService } from './ghl-importer/chart-store-ghl-importer.service';
-import { ChartStoreViewBuilderService } from './view-builder/chart-store-view-builder.service';
 import { ChartStore } from './chart-store';
-import { ChartStoreView } from './chart-store-view';
 
 @Injectable()
 export class ChartStoreService {
 
     private chartFileEmitter: EventEmitter<ChartFile>;
-    private chartStoreViewSubject: ReplaySubject<ChartStoreView>;
+    private chartStoreSubject: ReplaySubject<ChartStore>;
     private currentChart: ChartStore;
 
     constructor(
@@ -22,23 +20,22 @@ export class ChartStoreService {
         private fileExporter: ChartFileExporterService,
         private ghlImporter: ChartStoreGHLImporterService,
         private ghlExporter: ChartStoreGHLExporterService,
-        private viewBuilder: ChartStoreViewBuilderService,
     ) {
         this.chartFileEmitter = new EventEmitter<ChartFile>();
-        this.chartStoreViewSubject = new ReplaySubject<ChartStoreView>();
+        this.chartStoreSubject = new ReplaySubject<ChartStore>();
         fileExporter.chartFile = this.chartFileEmitter;
         fileImporter.chartFile.subscribe((chartFile: ChartFile) => {
             this.import(chartFile);
         });
     }
 
-    get chart(): Observable<ChartStoreView> {
-        return this.chartStoreViewSubject.asObservable();
+    get chart(): Observable<ChartStore> {
+        return this.chartStoreSubject.asObservable();
     }
 
     private import(chartFile: ChartFile) {
         this.currentChart = this.ghlImporter.import(chartFile);
-        this.chartStoreViewSubject.next(this.viewBuilder.buildView(this.currentChart));
+        this.chartStoreSubject.next(this.currentChart);
         this.chartFileEmitter.emit(this.ghlExporter.export(this.currentChart));
     }
 }

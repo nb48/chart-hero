@@ -6,21 +6,21 @@ import {
     ChartStoreEventNote,
     ChartStoreEventType,
     ChartStoreNoteType,
-} from '../chart-store';
+} from '../../chart-store/chart-store';
 import {
-    ChartStoreView,
-    ChartStoreViewBeat,
-    ChartStoreViewNote,
-    ChartStoreViewNoteGHLColor,
-} from '../chart-store-view';
+    ChartViewPrepared,
+    ChartViewPreparedBeat,
+    ChartViewPreparedNote,
+    ChartViewPreparedNoteGHLColor,
+} from '../chart-view-prepared';
 
 @Injectable()
-export class ChartStoreViewBuilderService {
+export class ChartViewPreparerService {
 
     constructor() {
     }
 
-    buildView(cs: ChartStore): ChartStoreView {
+    buildView(cs: ChartStore): ChartViewPrepared {
         return {
             duration: this.buildDuration(cs),
             beats: this.buildBeats(cs),
@@ -34,8 +34,8 @@ export class ChartStoreViewBuilderService {
         return lastEvent ? lastEvent.time : 1;
     }
 
-    private buildBeats(cs: ChartStore): ChartStoreViewBeat[] {
-        const beatTimes: ChartStoreViewBeat[] = [];
+    private buildBeats(cs: ChartStore): ChartViewPreparedBeat[] {
+        const beatTimes: ChartViewPreparedBeat[] = [];
         let timeCounter = 0;
         let currentIncrement = 0;
         cs.events
@@ -60,14 +60,14 @@ export class ChartStoreViewBuilderService {
         return beatTimes;
     }
 
-    private buildNotes(cs: ChartStore): ChartStoreViewNote[] {
+    private buildNotes(cs: ChartStore): ChartViewPreparedNote[] {
         return cs.events
             .filter(e => e.event === ChartStoreEventType.Note)
             .map(e => e as ChartStoreEventNote)
             .map(e => this.buildNote(e));
     }
 
-    private buildNote(note: ChartStoreEventNote): ChartStoreViewNote {
+    private buildNote(note: ChartStoreEventNote): ChartViewPreparedNote {
         const time = note.time;
         const open = note.type.length === 0;
         const ghlLane1 = this.buildGHLColor(
@@ -83,16 +83,16 @@ export class ChartStoreViewBuilderService {
         types: ChartStoreNoteType[],
         black: ChartStoreNoteType,
         white: ChartStoreNoteType,
-    ): ChartStoreViewNoteGHLColor {
+    ): ChartViewPreparedNoteGHLColor {
         if (types.indexOf(black) !== -1 && types.indexOf(white) !== -1) {
-            return ChartStoreViewNoteGHLColor.Chord;
+            return ChartViewPreparedNoteGHLColor.Chord;
         }
         if (types.indexOf(black) !== -1) {
-            return ChartStoreViewNoteGHLColor.Black;
+            return ChartViewPreparedNoteGHLColor.Black;
         }
         if (types.indexOf(white) !== -1) {
-            return ChartStoreViewNoteGHLColor.White;
+            return ChartViewPreparedNoteGHLColor.White;
         }
-        return ChartStoreViewNoteGHLColor.None;
+        return ChartViewPreparedNoteGHLColor.None;
     }
 }

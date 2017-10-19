@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 
 import {
     ChartStore,
-    ChartStoreEventBPMChange,
-    ChartStoreEventNote,
-    ChartStoreEventType,
-    ChartStoreNoteType,
+    ChartStoreTrackEventType,
+    ChartStoreTrackBPMChange,
+    ChartStoreTrackNote,
+    ChartStoreTrackNoteType,
 } from '../../chart-store/chart-store';
 import {
     ChartViewPrepared,
@@ -29,7 +29,7 @@ export class ChartViewPreparerService {
     }
 
     private buildDuration(cs: ChartStore): number {
-        const lastEvent = cs.events
+        const lastEvent = cs.ghlGuitar.expert.events
             .sort((a, b) => b.time - a.time)[0];
         return lastEvent ? lastEvent.time : 1;
     }
@@ -38,9 +38,9 @@ export class ChartViewPreparerService {
         const beatTimes: ChartViewPreparedBeat[] = [];
         let timeCounter = 0;
         let currentIncrement = 0;
-        cs.events
-            .filter(e => e.event === ChartStoreEventType.BPMChange)
-            .map(e => e as ChartStoreEventBPMChange)
+        cs.syncTrack.events
+            .filter(e => e.event === ChartStoreTrackEventType.BPMChange)
+            .map(e => e as ChartStoreTrackBPMChange)
             .sort((a, b) => a.time - b.time)
             .forEach((e) => {
                 while (timeCounter < e.time) {
@@ -49,8 +49,7 @@ export class ChartViewPreparerService {
                 }
                 currentIncrement = 60 / e.bpm;
             });
-        const lastNote = cs.events
-            .filter(e => e.event === ChartStoreEventType.Note)
+        const lastNote = cs.ghlGuitar.expert.events
             .sort((a, b) => b.time - a.time)[0];
         const lastTime = lastNote ? lastNote.time + currentIncrement : 0;
         while (timeCounter < lastTime) {
@@ -61,28 +60,28 @@ export class ChartViewPreparerService {
     }
 
     private buildNotes(cs: ChartStore): ChartViewPreparedNote[] {
-        return cs.events
-            .filter(e => e.event === ChartStoreEventType.Note)
-            .map(e => e as ChartStoreEventNote)
+        return cs.ghlGuitar.expert.events
+            .filter(e => e.event === ChartStoreTrackEventType.Note)
+            .map(e => e as ChartStoreTrackNote)
             .map(e => this.buildNote(e));
     }
 
-    private buildNote(note: ChartStoreEventNote): ChartViewPreparedNote {
+    private buildNote(note: ChartStoreTrackNote): ChartViewPreparedNote {
         const time = note.time;
         const open = note.type.length === 0;
         const ghlLane1 = this.buildGHLColor(
-            note.type, ChartStoreNoteType.GHLBlack1, ChartStoreNoteType.GHLWhite1);
+            note.type, ChartStoreTrackNoteType.GHLBlack1, ChartStoreTrackNoteType.GHLWhite1);
         const ghlLane2 = this.buildGHLColor(
-            note.type, ChartStoreNoteType.GHLBlack2, ChartStoreNoteType.GHLWhite2);
+            note.type, ChartStoreTrackNoteType.GHLBlack2, ChartStoreTrackNoteType.GHLWhite2);
         const ghlLane3 = this.buildGHLColor(
-            note.type, ChartStoreNoteType.GHLBlack3, ChartStoreNoteType.GHLWhite3);
+            note.type, ChartStoreTrackNoteType.GHLBlack3, ChartStoreTrackNoteType.GHLWhite3);
         return { time, open, ghlLane1, ghlLane2, ghlLane3, id: note.id };
     }
 
     private buildGHLColor(
-        types: ChartStoreNoteType[],
-        black: ChartStoreNoteType,
-        white: ChartStoreNoteType,
+        types: ChartStoreTrackNoteType[],
+        black: ChartStoreTrackNoteType,
+        white: ChartStoreTrackNoteType,
     ): ChartViewPreparedNoteGHLColor {
         if (types.indexOf(black) !== -1 && types.indexOf(white) !== -1) {
             return ChartViewPreparedNoteGHLColor.Chord;

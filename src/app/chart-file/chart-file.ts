@@ -2,7 +2,6 @@
 export interface ChartFile {
     metadata: ChartFileMetadata[];
     syncTrack: ChartFileSyncTrack[];
-    events: ChartFileEvent[];
     guitar: {
         expert: ChartFileTrack[];
         hard: ChartFileTrack[];
@@ -27,6 +26,7 @@ export interface ChartFile {
         medium: ChartFileTrack[];
         easy: ChartFileTrack[];
     };
+    events: ChartFileTrack[];
     vocals: ChartFileTrack[];
     venue: ChartFileTrack[];
 }
@@ -41,12 +41,6 @@ export interface ChartFileSyncTrack {
     type: string;
     value?: number;
     text?: string;
-}
-
-export interface ChartFileEvent {
-    midiTime: number;
-    type: string;
-    text: string;
 }
 
 export interface ChartFileTrack {

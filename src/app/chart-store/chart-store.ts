@@ -1,9 +1,35 @@
-import { ChartFileEvent, ChartFileSyncTrack, ChartFileTrack } from './../chart-file/chart-file';
+import { ChartFileSyncTrack, ChartFileTrack } from './../chart-file/chart-file';
 
 export interface ChartStore {
     metadata: ChartStoreMetadata[];
-    events: ChartStoreEvent[];
-    unsupported: ChartStoreUnsupportedEvent[];
+    syncTrack: ChartStoreTrack;
+    guitar: {
+        expert: ChartStoreTrack;
+        hard: ChartStoreTrack;
+        medium: ChartStoreTrack;
+        easy: ChartStoreTrack;
+    };
+    bass: {
+        expert: ChartStoreTrack;
+        hard: ChartStoreTrack;
+        medium: ChartStoreTrack;
+        easy: ChartStoreTrack;
+    };
+    drums: {
+        expert: ChartStoreTrack;
+        hard: ChartStoreTrack;
+        medium: ChartStoreTrack;
+        easy: ChartStoreTrack;
+    };
+    ghlGuitar: {
+        expert: ChartStoreTrack;
+        hard: ChartStoreTrack;
+        medium: ChartStoreTrack;
+        easy: ChartStoreTrack;
+    };
+    events: ChartStoreTrack;
+    vocals: ChartStoreTrack;
+    venue: ChartStoreTrack;
 }
 
 export interface ChartStoreMetadata {
@@ -11,46 +37,40 @@ export interface ChartStoreMetadata {
     value: string;
 }
 
-export type ChartStoreEvent =
-    ChartStoreEventBPMChange |
-    ChartStoreEventNote;
+export interface ChartStoreTrack {
+    events: ChartStoreTrackEvent[];
+    unsupported: ChartFileTrack[];
+}
 
-export enum ChartStoreEventType {
+export type ChartStoreTrackEvent = 
+    ChartStoreTrackBPMChange |
+    ChartStoreTrackNote;
+
+export enum ChartStoreTrackEventType {
     BPMChange,
     Note,
 }
 
-export interface ChartStoreEventBPMChange {
+export interface ChartStoreTrackBPMChange {
     id: number;
-    event: ChartStoreEventType.BPMChange;
+    event: ChartStoreTrackEventType.BPMChange;
     time: number;
     bpm: number;
 }
 
-export interface ChartStoreEventNote {
+export interface ChartStoreTrackNote {
     id: number;
-    event: ChartStoreEventType.Note;
+    event: ChartStoreTrackEventType.Note;
     time: number;
-    type: ChartStoreNoteType[];
+    type: ChartStoreTrackNoteType[];
     length: number;
 }
 
-export enum ChartStoreNoteType {
+export enum ChartStoreTrackNoteType {
     GHLBlack1,
     GHLBlack2,
     GHLBlack3,
     GHLWhite1,
     GHLWhite2,
     GHLWhite3,
-}
-
-export enum ChartStoreUnsupportedEventType {
-    SyncTrack,
-    Event,
-    Track,
-}
-
-export interface ChartStoreUnsupportedEvent {
-    event: ChartStoreUnsupportedEventType;
-    original: ChartFileSyncTrack | ChartFileEvent | ChartFileTrack;
 }

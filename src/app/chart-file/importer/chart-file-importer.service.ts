@@ -5,7 +5,6 @@ import {
     ChartFile,
     ChartFileMetadata,
     ChartFileSyncTrack,
-    ChartFileEvent,
     ChartFileTrack,
 } from '../chart-file';
 
@@ -30,7 +29,6 @@ export class ChartFileImporterService {
         return {
             metadata: this.importMetadata(file),
             syncTrack: this.importSyncTrack(file),
-            events: this.importEvents(file),
             guitar: {
                 expert: this.importTrack(file, 'ExpertSingle'),
                 hard: this.importTrack(file, 'HardSingle'),
@@ -55,6 +53,7 @@ export class ChartFileImporterService {
                 medium: this.importTrack(file, 'MediumGHLGuitar'),
                 easy: this.importTrack(file, 'EasyGHLGuitar'),
             },
+            events: this.importTrack(file, 'Events'),
             vocals: this.importTrack(file, 'PART VOCALS'),
             venue: this.importTrack(file, 'VENUE'),
         };
@@ -83,17 +82,6 @@ export class ChartFileImporterService {
             return {
                 text,
                 type,
-                midiTime: parseInt(midiTime, 10),
-            };
-        });
-    }
-
-    private importEvents(file: string): ChartFileEvent[] {
-        return this.findSection('[Events]', file).map(([midiTime, content]) => {
-            const [type, text] = content.split(' ');
-            return {
-                type,
-                text,
                 midiTime: parseInt(midiTime, 10),
             };
         });

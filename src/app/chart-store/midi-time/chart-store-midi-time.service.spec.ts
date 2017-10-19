@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { ChartFileSyncTrack } from '../../chart-file/chart-file';
 import { ChartStoreMidiTimeService } from './chart-store-midi-time.service';
-import { ChartStoreEventBPMChange, ChartStoreEventType } from '../chart-store';
+import { ChartStoreTrackBPMChange, ChartStoreTrackEventType } from '../chart-store';
 
 const syncTrack = (midiTime: number, value: number): ChartFileSyncTrack => ({
     midiTime,
@@ -10,10 +10,10 @@ const syncTrack = (midiTime: number, value: number): ChartFileSyncTrack => ({
     type: 'B',
 });
 
-const bpmChange = (time: number, bpm: number): ChartStoreEventBPMChange => ({
+const bpmChange = (time: number, bpm: number): ChartStoreTrackBPMChange => ({
     time,
     bpm,
-    event: ChartStoreEventType.BPMChange,
+    event: ChartStoreTrackEventType.BPMChange,
     id: 1,
 });
 
@@ -63,7 +63,7 @@ describe('Service: ChartStoreMidiTimeService', () => {
             id: number,
             time: number,
             resolution: number,
-            bpmChanges: ChartStoreEventBPMChange[],
+            bpmChanges: ChartStoreTrackBPMChange[],
             expectedMidiTime: number,
         ): void => {
             it(`Test case ${id}`, () => {

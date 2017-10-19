@@ -4,7 +4,6 @@ import {
     ChartFile,
     ChartFileMetadata,
     ChartFileSyncTrack,
-    ChartFileEvent,
     ChartFileTrack,
 } from '../chart-file';
 
@@ -32,11 +31,10 @@ export class ChartFileExporterService {
 
     private exportChart(chart: ChartFile): string {
         let file = `[Song]\n{\n${this.exportMetadata(chart.metadata)}}\n`
-        + `[SyncTrack]\n{\n${this.exportSyncTrack(chart.syncTrack)}}\n`
-        + `[Events]\n{\n${this.exportEvents(chart.events)}}\n`;
+        + `[SyncTrack]\n{\n${this.exportSyncTrack(chart.syncTrack)}}\n`;
         const maybeAddTrack = (name: string, track: ChartFileTrack[]) => {
             if (track) {
-                file += `[${name}]\n{\n${this.exportTrack(track)}}`;
+                file += `[${name}]\n{\n${this.exportTrack(track)}}\n`;
             }
         };
         maybeAddTrack('ExpertSingle', chart.guitar.expert);
@@ -55,6 +53,9 @@ export class ChartFileExporterService {
         maybeAddTrack('HardGHLGuitar', chart.ghlGuitar.hard);
         maybeAddTrack('MediumGHLGuitar', chart.ghlGuitar.medium);
         maybeAddTrack('EasyGHLGuitar', chart.ghlGuitar.easy);
+        maybeAddTrack('Events', chart.events);
+        maybeAddTrack('PART VOCALS', chart.vocals);
+        maybeAddTrack('VENUE', chart.venue);
         return file;
     }
 
@@ -69,12 +70,6 @@ export class ChartFileExporterService {
             if (type === 'B') {
                 return `    ${formatMidiTime(midiTime)} = ${type} ${value}\n`;
             }
-            return `    ${formatMidiTime(midiTime)} = ${type} ${text}\n`;
-        }).join('');
-    }
-
-    private exportEvents(events: ChartFileEvent[]): string {
-        return events.map(({ midiTime, type, text }) => {
             return `    ${formatMidiTime(midiTime)} = ${type} ${text}\n`;
         }).join('');
     }

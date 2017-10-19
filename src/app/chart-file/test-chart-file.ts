@@ -13,10 +13,6 @@ export const TEST_FILE = `[Song]
     0 = B 60000
     0 = UNSUPPORTED UNSUPPORTED
 }
-[Events]
-{
-    0 = UNSUPPORTED UNSUPPORTED
-}
 [ExpertGHLGuitar]
 {
     200 = N 0 0
@@ -26,7 +22,12 @@ export const TEST_FILE = `[Song]
     1000 = N 4 0
     1200 = N 7 0
     0 = UNSUPPORTED UNSUPPORTED
-}`;
+}
+[Events]
+{
+    0 = UNSUPPORTED UNSUPPORTED
+}
+`;
 
 export const TEST_CHART: ChartFile = {
     metadata: [{
@@ -50,11 +51,6 @@ export const TEST_CHART: ChartFile = {
         type: 'B',
         value: 60000,
     }, {
-        midiTime: 0,
-        type: 'UNSUPPORTED',
-        text: 'UNSUPPORTED',
-    }],
-    events: [{
         midiTime: 0,
         type: 'UNSUPPORTED',
         text: 'UNSUPPORTED',
@@ -117,6 +113,11 @@ export const TEST_CHART: ChartFile = {
         medium: null,
         easy: null,
     },
+    events: [{
+        midiTime: 0,
+        type: 'UNSUPPORTED',
+        text: 'UNSUPPORTED',
+    }],
     vocals: null,
     venue: null,
 };

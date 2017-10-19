@@ -23,11 +23,17 @@ import { ScrollbarComponent } from './editor/scrollbar/scrollbar.component';
 import { AudioPlayerService } from './audio-player/audio-player.service';
 import { ChartFileExporterService } from './chart-file/exporter/chart-file-exporter.service';
 import { ChartFileImporterService } from './chart-file/importer/chart-file-importer.service';
+import { ChartStoreExporterService } from './chart-store/exporter/chart-store-exporter.service';
 import { ChartStoreGHLExporterService }
-from './chart-store/ghl-exporter/chart-store-ghl-exporter.service';
+from './chart-store/ghl/chart-store-ghl-exporter.service';
 import { ChartStoreGHLImporterService }
-from './chart-store/ghl-importer/chart-store-ghl-importer.service';
+from './chart-store/ghl/chart-store-ghl-importer.service';
+import { ChartStoreImporterService } from './chart-store/importer/chart-store-importer.service';
 import { ChartStoreMidiTimeService } from './chart-store/midi-time/chart-store-midi-time.service';
+import { ChartStoreSyncTrackImporterService }
+from './chart-store/sync-track/chart-store-sync-track-importer.service';
+import { ChartStoreSyncTrackExporterService }
+from './chart-store/sync-track/chart-store-sync-track-exporter.service';
 import { ChartStoreService } from './chart-store/chart-store.service';
 import { ChartViewBuilderService } from './chart-view/builder/chart-view-builder.service';
 import { ChartViewPreparerService } from './chart-view/preparer/chart-view-preparer.service';
@@ -63,9 +69,13 @@ import { FileStoreService } from './file-store/file-store.service';
         AudioPlayerService,
         ChartFileExporterService,
         ChartFileImporterService,
+        ChartStoreExporterService,
         ChartStoreGHLExporterService,
         ChartStoreGHLImporterService,
+        ChartStoreImporterService,
         ChartStoreMidiTimeService,
+        ChartStoreSyncTrackExporterService,
+        ChartStoreSyncTrackImporterService,
         ChartStoreService,
         ChartViewBuilderService,
         ChartViewPreparerService,

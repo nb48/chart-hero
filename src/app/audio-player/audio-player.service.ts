@@ -24,6 +24,7 @@ export class AudioPlayerService {
     private $playing: boolean;
     private $frame: Subscription;
     private $frameEvent: EventEmitter<number>;
+    private $lastPlayedTime: number;
 
     constructor(private zone: NgZone) {
         this.$loaded = false;
@@ -72,6 +73,7 @@ export class AudioPlayerService {
     }
 
     play() {
+        this.$lastPlayedTime = readTime(this.$currentTime);
         this.$playing = true;
         this.$audio.play();
         this.$audio.currentTime = readTime(this.$currentTime);
@@ -94,6 +96,14 @@ export class AudioPlayerService {
         this.$currentTime = this.showTime(0);
         this.$frame.unsubscribe();
         this.$frameEvent.emit(0);
+    }
+
+    repeat() {
+        this.$currentTime = this.showTime(this.$lastPlayedTime);
+        this.$frameEvent.emit(this.$lastPlayedTime);
+        if (this.$playing) {
+            this.$audio.currentTime = readTime(this.$currentTime);            
+        }
     }
 
     get frameEvent(): EventEmitter<number> {

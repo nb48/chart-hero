@@ -8,6 +8,9 @@
     <button class="stop" [disabled]="!audioPlayer.loaded" (click)="audioPlayer.stop()" mat-icon-button color="primary">
         <i class="fa fa-stop fa-2x" aria-hidden="true" aria-label="Stop"></i>
     </button>
+    <button class="repeat" [disabled]="!audioPlayer.loaded" (click)="audioPlayer.repeat()" mat-icon-button color="primary">
+        <i class="fa fa-repeat fa-2x" aria-hidden="true" aria-label="Repeat"></i>
+    </button>
     <mat-form-field>
         <input [ngModel]="audioPlayer.currentTime" (ngModelChange)="audioPlayer.inputTime($event)" [readOnly]="audioPlayer.playing" matInput type="text">
     </mat-form-field>

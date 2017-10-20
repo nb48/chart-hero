@@ -49,6 +49,7 @@ import { ChartStoreTrackImporterService }
 from './chart-store/track/chart-store-track-importer.service';
 import { ChartStoreService } from './chart-store/chart-store.service';
 import { ChartViewBuilderService } from './chart-view/builder/chart-view-builder.service';
+import { ChartViewControllerService } from './chart-view/controller/chart-view-controller.service';
 import { ChartViewPreparerService } from './chart-view/preparer/chart-view-preparer.service';
 import { ChartViewService } from './chart-view/chart-view.service';
 import { FileStoreService } from './file-store/file-store.service';
@@ -96,6 +97,7 @@ import { FileStoreService } from './file-store/file-store.service';
         ChartStoreTrackImporterService,
         ChartStoreService,
         ChartViewBuilderService,
+        ChartViewControllerService,
         ChartViewPreparerService,
         ChartViewService,
         FileStoreService,

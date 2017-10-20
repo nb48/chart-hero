@@ -1,16 +1,19 @@
 import { Component } from '@angular/core';
 
+import { ChartViewControllerService } from '../chart-view/controller/chart-view-controller.service';
+import { ChartViewTrack } from '../chart-view/chart-view-track';
+
 const tracks = [{
-    model: 'ghlGuitar.expert',
+    model: ChartViewTrack.GHLGuitarExpert,
     view: 'Guitar Hero Live - Expert',
 }, {
-    model: 'ghlGuitar.hard',
+    model: ChartViewTrack.GHLGuitarHard,
     view: 'Guitar Hero Live - Hard',
 }, {
-    model: 'ghlGuitar.medium',
+    model: ChartViewTrack.GHLGuitarMedium,
     view: 'Guitar Hero Live - Medium',
 }, {
-    model: 'ghlGuitar.easy',
+    model: ChartViewTrack.GHLGuitarEasy,
     view: 'Guitar Hero Live - Easy',
 }];
 
@@ -21,10 +24,9 @@ const tracks = [{
 })
 export class TrackSelectorComponent {
 
-    currentTrack: string;
     tracks = tracks;
 
-    constructor() {
-        this.currentTrack = 'ghlGuitar.expert';
+    constructor(public viewController: ChartViewControllerService) {
+        this.viewController.track = ChartViewTrack.GHLGuitarExpert;
     }
 }

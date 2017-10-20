@@ -1,0 +1,22 @@
+
+export enum ChartViewTrack {
+    GuitarExpert,
+    GuitarHard,
+    GuitarMedium,
+    GuitarEasy,
+    BassExpert,
+    BassHard,
+    BassMedium,
+    BassEasy,
+    DrumsExpert,
+    DrumsHard,
+    DrumsMedium,
+    DrumsEasy,
+    GHLGuitarExpert,
+    GHLGuitarHard,
+    GHLGuitarMedium,
+    GHLGuitarEasy,
+    Events,
+    Vocals,
+    Venue,
+}

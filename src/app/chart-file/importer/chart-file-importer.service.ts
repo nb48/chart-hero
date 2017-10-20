@@ -22,7 +22,12 @@ export class ChartFileImporterService {
     }
 
     import(file: string): void {
-        this.chartFileSubject.next(this.importFile(file));
+        try {
+            this.chartFileSubject.next(this.importFile(file));            
+        } catch (error) {
+            console.warn('Invalid chart file. Loading empty chart instead');
+            this.chartFileSubject.next(this.importFile(''));                        
+        }
     }
 
     private importFile(file: string): ChartFile {
@@ -60,7 +65,11 @@ export class ChartFileImporterService {
     }
 
     private importMetadata(file: string): ChartFileMetadata[] {
-        return this.findSection('[Song]', file).map(([name, value]) => {
+        const section = this.findSection(`[Song]`, file);
+        if (!section) {
+            return null;
+        }
+        return section.map(([name, value]) => {
             return {
                 name,
                 value,
@@ -69,7 +78,11 @@ export class ChartFileImporterService {
     }
 
     private importSyncTrack(file: string): ChartFileSyncTrack[] {
-        return this.findSection('[SyncTrack]', file).map(([midiTime, content]) => {
+        const section = this.findSection(`[SyncTrack]`, file);
+        if (!section) {
+            return null;
+        }
+        return section.map(([midiTime, content]) => {
             const i = content.indexOf(' ');
             const [type, text] = [content.slice(0, i), content.slice(i + 1)];
             if (type === 'B') {

@@ -19,6 +19,12 @@ export class ChartStoreSyncTrackImporterService {
     }
 
     import(st: ChartFileSyncTrack[], resolution: number, offset: number): ChartStoreTrack {
+        if (!st) {
+            return {
+                events: [this.defaultBPMChange()],
+                unsupported: [],
+            };
+        }
         this.midiTimeService.clearCache();
         return {
             events: [...this.importBPMChanges(st, resolution, offset)],
@@ -29,6 +35,9 @@ export class ChartStoreSyncTrackImporterService {
     private importBPMChanges(st: ChartFileSyncTrack[], resolution: number, offset: number)
         : ChartStoreTrackBPMChange[] {
         const syncTrack = st.filter(e => e.type === 'B');
+        if (syncTrack.length === 0) {
+            return [this.defaultBPMChange()];
+        }
         return syncTrack.map((e) => {
             const time = this.midiTimeService.calculateTime(e.midiTime, resolution, syncTrack);
             return {    
@@ -43,5 +52,14 @@ export class ChartStoreSyncTrackImporterService {
 
     private importUnsupportedSyncTrack(cf: ChartFileSyncTrack[]): ChartFileSyncTrack[] {
         return cf.filter(st => st.type !== 'B');
+    }
+
+    private defaultBPMChange(): ChartStoreTrackBPMChange {
+        return {
+            id: this.idGenerator.id(),
+            event: ChartStoreTrackEventType.BPMChange as ChartStoreTrackEventType.BPMChange,
+            time: 0,
+            bpm: 120,
+        };
     }
 }

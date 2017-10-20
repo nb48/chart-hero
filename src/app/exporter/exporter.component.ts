@@ -14,7 +14,11 @@ export class ExporterComponent {
 
     exportChart() {
         const chartString = this.chartFileExporter.export();
-        const filename = 'notes.chart';
+        const datetime = new Date()
+            .toISOString()
+            .replace(/:/g, '-')
+            .split('.')[0];
+        const filename = `notes-${datetime}.chart`;
         const chart = new File([chartString], filename, { type: 'text/plain' });
         const url = window.URL.createObjectURL(chart);
         const link = document.createElement('a');

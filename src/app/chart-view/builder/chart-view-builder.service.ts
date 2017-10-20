@@ -3,12 +3,15 @@ import { Injectable } from '@angular/core';
 import {
     ChartViewPrepared,
     ChartViewPreparedNote,
+    ChartViewPreparedNoteGuitarColor,
     ChartViewPreparedNoteGHLColor,
 } from '../chart-view-prepared';
 import {
     ChartView,
     ChartViewBeat,
     ChartViewNote,
+    ChartViewNoteGuitar,
+    ChartViewNoteGuitarColor,
     ChartViewNoteGHL,
     ChartViewNoteGHLColor,
     ChartViewNoteOpen,
@@ -88,8 +91,34 @@ export class ChartViewBuilderService {
     }
 
     private splitNote(note: ChartViewPreparedNote, y: number): ChartViewNote[] {
-        const type = ChartViewNoteType.GHL;
-        const notes: ChartViewNoteGHL[] = [];
+        const notes: (ChartViewNoteGuitar | ChartViewNoteGHL)[] = [];
+        let type = ChartViewNoteType.Guitar;
+        if (note.guitarLane1 !== ChartViewPreparedNoteGuitarColor.None) {
+            const x = 10;
+            const color = this.buildGuitarNoteColor(note.guitarLane1);
+            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
+        }
+        if (note.guitarLane2 !== ChartViewPreparedNoteGuitarColor.None) {
+            const x = 30;
+            const color = this.buildGuitarNoteColor(note.guitarLane2);
+            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
+        }
+        if (note.guitarLane3 !== ChartViewPreparedNoteGuitarColor.None) {
+            const x = 50;
+            const color = this.buildGuitarNoteColor(note.guitarLane3);
+            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
+        }
+        if (note.guitarLane4 !== ChartViewPreparedNoteGuitarColor.None) {
+            const x = 70;
+            const color = this.buildGuitarNoteColor(note.guitarLane4);
+            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
+        }
+        if (note.guitarLane5 !== ChartViewPreparedNoteGuitarColor.None) {
+            const x = 90;
+            const color = this.buildGuitarNoteColor(note.guitarLane5);
+            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
+        }
+        type = ChartViewNoteType.GHL;
         if (note.ghlLane1 !== ChartViewPreparedNoteGHLColor.None) {
             const x = 25;
             const color = this.buildGHLNoteColor(note.ghlLane1);
@@ -116,6 +145,22 @@ export class ChartViewBuilderService {
         const bottom = currentTime + timeAfter;
         const top = currentTime + timeBefore;
         return (1 - (eventTime - bottom) / (top - bottom)) * 100;
+    }
+
+    private buildGuitarNoteColor(color: ChartViewPreparedNoteGuitarColor)
+        : ChartViewNoteGuitarColor {
+        switch (color) {
+        case ChartViewPreparedNoteGuitarColor.Green:
+            return ChartViewNoteGuitarColor.Green;
+        case ChartViewPreparedNoteGuitarColor.Red:
+            return ChartViewNoteGuitarColor.Red;
+        case ChartViewPreparedNoteGuitarColor.Orange:
+            return ChartViewNoteGuitarColor.Orange;
+        case ChartViewPreparedNoteGuitarColor.Blue:
+            return ChartViewNoteGuitarColor.Blue;
+        case ChartViewPreparedNoteGuitarColor.Orange:
+            return ChartViewNoteGuitarColor.Orange;
+        }
     }
 
     private buildGHLNoteColor(color: ChartViewPreparedNoteGHLColor): ChartViewNoteGHLColor {

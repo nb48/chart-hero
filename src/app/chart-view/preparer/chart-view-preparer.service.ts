@@ -13,6 +13,7 @@ import {
     ChartViewPrepared,
     ChartViewPreparedBeat,
     ChartViewPreparedNote,
+    ChartViewPreparedNoteGuitarColor,
     ChartViewPreparedNoteGHLColor,
 } from '../chart-view-prepared';
 import { ChartViewTrack, getTrack } from '../chart-view-track';
@@ -77,13 +78,51 @@ export class ChartViewPreparerService {
     private buildNote(note: ChartStoreTrackNote): ChartViewPreparedNote {
         const time = note.time;
         const open = note.type.length === 0;
+        const guitarLane1 = this.buildGuitarColor(note.type, ChartStoreTrackNoteType.GuitarGreen);
+        const guitarLane2 = this.buildGuitarColor(note.type, ChartStoreTrackNoteType.GuitarRed);
+        const guitarLane3 = this.buildGuitarColor(note.type, ChartStoreTrackNoteType.GuitarYellow);
+        const guitarLane4 = this.buildGuitarColor(note.type, ChartStoreTrackNoteType.GuitarBlue);
+        const guitarLane5 = this.buildGuitarColor(note.type, ChartStoreTrackNoteType.GuitarOrange);
         const ghlLane1 = this.buildGHLColor(
             note.type, ChartStoreTrackNoteType.GHLBlack1, ChartStoreTrackNoteType.GHLWhite1);
         const ghlLane2 = this.buildGHLColor(
             note.type, ChartStoreTrackNoteType.GHLBlack2, ChartStoreTrackNoteType.GHLWhite2);
         const ghlLane3 = this.buildGHLColor(
             note.type, ChartStoreTrackNoteType.GHLBlack3, ChartStoreTrackNoteType.GHLWhite3);
-        return { time, open, ghlLane1, ghlLane2, ghlLane3, id: note.id };
+        return {
+            time,
+            open,
+            guitarLane1,
+            guitarLane2,
+            guitarLane3,
+            guitarLane4,
+            guitarLane5,
+            ghlLane1,
+            ghlLane2,
+            ghlLane3,
+            id: note.id,
+        };
+    }
+
+    private buildGuitarColor(
+        types: ChartStoreTrackNoteType[],
+        color: ChartStoreTrackNoteType,
+    ): ChartViewPreparedNoteGuitarColor {
+        if (types.indexOf(color) !== 1) {
+            switch (color) {
+            case ChartStoreTrackNoteType.GuitarGreen:
+                return ChartViewPreparedNoteGuitarColor.Green;
+            case ChartStoreTrackNoteType.GuitarRed:
+                return ChartViewPreparedNoteGuitarColor.Red;
+            case ChartStoreTrackNoteType.GuitarYellow:
+                return ChartViewPreparedNoteGuitarColor.Yellow;
+            case ChartStoreTrackNoteType.GuitarBlue:
+                return ChartViewPreparedNoteGuitarColor.Blue;
+            case ChartStoreTrackNoteType.GuitarOrange:
+                return ChartViewPreparedNoteGuitarColor.Orange;
+            }
+        }
+        return ChartViewPreparedNoteGuitarColor.None;
     }
 
     private buildGHLColor(

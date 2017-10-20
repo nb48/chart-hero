@@ -67,6 +67,11 @@ export interface ChartStoreTrackNote {
 }
 
 export enum ChartStoreTrackNoteType {
+    GuitarGreen,
+    GuitarRed,
+    GuitarYellow,
+    GuitarBlue,
+    GuitarOrange,
     GHLBlack1,
     GHLBlack2,
     GHLBlack3,

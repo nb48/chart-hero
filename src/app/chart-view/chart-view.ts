@@ -14,10 +14,13 @@ export interface ChartViewBeat {
 }
 
 export type ChartViewNote =
-    ChartViewNoteOpen | ChartViewNoteGHL;
+    ChartViewNoteOpen |
+    ChartViewNoteGuitar |
+    ChartViewNoteGHL;
 
 export enum ChartViewNoteType {
     Open,
+    Guitar,
     GHL,
 }
 
@@ -25,6 +28,22 @@ export interface ChartViewNoteOpen {
     id: number;
     type: ChartViewNoteType.Open;
     y: number;
+}
+
+export interface ChartViewNoteGuitar {
+    id: number;
+    type: ChartViewNoteType.Guitar;
+    x: number;
+    y: number;
+    color: ChartViewNoteGuitarColor;    
+}
+
+export enum ChartViewNoteGuitarColor {
+    Green,
+    Red,
+    Yellow,
+    Blue,
+    Orange,
 }
 
 export interface ChartViewNoteGHL {

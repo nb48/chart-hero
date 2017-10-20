@@ -19,6 +19,8 @@ import { ChartViewBeatComponent } from './editor/chart-view/beat/chart-view-beat
 import { ChartViewNoteComponent } from './editor/chart-view/note/chart-view-note.component';
 import { ChartViewNoteGHLComponent }
 from './editor/chart-view/note/ghl/chart-view-note-ghl.component';
+import { ChartViewNoteGuitarComponent }
+from './editor/chart-view/note/guitar/chart-view-note-guitar.component';
 import { ChartViewNoteOpenComponent }
 from './editor/chart-view/note/open/chart-view-note-open.component';
 import { EditorComponent } from './editor/editor.component';
@@ -83,6 +85,7 @@ import { FileStoreService } from './file-store/file-store.service';
         ChartViewBeatComponent,
         ChartViewNoteComponent,
         ChartViewNoteGHLComponent,
+        ChartViewNoteGuitarComponent,
         ChartViewNoteOpenComponent,
         EditorComponent,
         ExporterComponent,

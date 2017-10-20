@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatListModule, MatTooltipModule }
-from '@angular/material';
+import {
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatListModule,
+    MatSelectModule,
+    MatTooltipModule,
+} from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -19,6 +25,7 @@ import { EditorComponent } from './editor/editor.component';
 import { ExporterComponent } from './exporter/exporter.component';
 import { FileSelectComponent } from './file-select/file-select.component';
 import { ScrollbarComponent } from './editor/scrollbar/scrollbar.component';
+import { TrackSelectorComponent } from './track-selector/track-selector.component';
 
 import { AudioPlayerService } from './audio-player/audio-player.service';
 import { ChartFileExporterService } from './chart-file/exporter/chart-file-exporter.service';
@@ -55,6 +62,7 @@ import { FileStoreService } from './file-store/file-store.service';
         MatFormFieldModule,
         MatInputModule,
         MatListModule,
+        MatSelectModule,
         MatTooltipModule,
         ReactiveFormsModule,
     ],
@@ -70,6 +78,7 @@ import { FileStoreService } from './file-store/file-store.service';
         ExporterComponent,
         FileSelectComponent,
         ScrollbarComponent,
+        TrackSelectorComponent,
     ],
     providers: [
         AudioPlayerService,

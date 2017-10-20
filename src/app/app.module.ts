@@ -39,6 +39,10 @@ import { ChartStoreGHLExporterService }
 from './chart-store/ghl/chart-store-ghl-exporter.service';
 import { ChartStoreGHLImporterService }
 from './chart-store/ghl/chart-store-ghl-importer.service';
+import { ChartStoreGuitarImporterService }
+from './chart-store/guitar/chart-store-guitar-importer.service';
+import { ChartStoreGuitarExporterService }
+from './chart-store/guitar/chart-store-guitar-exporter.service';
 import { ChartStoreIdGeneratorService }
 from './chart-store/id-generator/chart-store-id-generator.service';
 import { ChartStoreImporterService } from './chart-store/importer/chart-store-importer.service';
@@ -95,6 +99,8 @@ import { FileStoreService } from './file-store/file-store.service';
         ChartStoreGenericImporterService,
         ChartStoreGHLExporterService,
         ChartStoreGHLImporterService,
+        ChartStoreGuitarExporterService,
+        ChartStoreGuitarImporterService,
         ChartStoreIdGeneratorService,
         ChartStoreImporterService,
         ChartStoreMetadataService,

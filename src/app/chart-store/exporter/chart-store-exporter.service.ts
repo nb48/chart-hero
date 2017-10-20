@@ -2,6 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 
 import { ChartFile } from '../../chart-file/chart-file';
 import { ChartStoreGHLExporterService } from '../ghl/chart-store-ghl-exporter.service';
+import { ChartStoreGuitarExporterService } from '../guitar/chart-store-guitar-exporter.service';
 import { ChartStoreMetadataService } from '../metadata/chart-store-metadata.service';
 import { ChartStoreSyncTrackExporterService }
 from '../sync-track/chart-store-sync-track-exporter.service';
@@ -13,6 +14,7 @@ export class ChartStoreExporterService {
 
     constructor(
         private ghlExporter: ChartStoreGHLExporterService,
+        private guitarExporter: ChartStoreGuitarExporterService,
         private metadataService: ChartStoreMetadataService,
         private syncTrackExporter: ChartStoreSyncTrackExporterService,
         private trackExporter: ChartStoreTrackExporterService,

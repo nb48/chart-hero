@@ -14,8 +14,15 @@ export class ExporterComponent {
 
     exportChart() {
         const chartString = this.chartFileExporter.export();
-        const chart = new File([chartString], 'notes.chart', { type: 'text/chart' });
+        const filename = 'notes.chart';
+        const chart = new File([chartString], filename, { type: 'text/plain' });
         const url = window.URL.createObjectURL(chart);
-        window.open(url);
+        const link = document.createElement('a');
+        link.setAttribute('style', 'display: none');
+        link.setAttribute('href', url);
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        window.URL.revokeObjectURL(url);
     }
 }

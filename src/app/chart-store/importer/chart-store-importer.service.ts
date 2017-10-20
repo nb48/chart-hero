@@ -2,6 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 
 import { ChartFile, ChartFileMetadata } from '../../chart-file/chart-file';
 import { ChartStoreGHLImporterService } from '../ghl/chart-store-ghl-importer.service';
+import { ChartStoreMetadataService } from '../metadata/chart-store-metadata.service';
 import { ChartStoreSyncTrackImporterService }
 from '../sync-track/chart-store-sync-track-importer.service';
 import { ChartStoreTrackImporterService } from '../track/chart-store-track-importer.service';
@@ -12,15 +13,16 @@ export class ChartStoreImporterService {
 
     constructor(
         private ghlImporter: ChartStoreGHLImporterService,
+        private metadataService: ChartStoreMetadataService,
         private syncTrackImporter: ChartStoreSyncTrackImporterService,
         private trackImporter: ChartStoreTrackImporterService,
     ) {
     }
 
     import(cf: ChartFile): ChartStore {
-        const metadata = this.importMetadata(cf.metadata);
-        const resolution = this.getResolution(metadata);
-        const offset = this.getOffset(metadata);
+        const metadata = this.metadataService.import(cf.metadata);
+        const resolution = this.metadataService.getResolution(metadata);
+        const offset = this.metadataService.getOffset(metadata);
         return {
             metadata,
             syncTrack: this.syncTrackImporter.import(cf.syncTrack, resolution, offset),
@@ -55,41 +57,6 @@ export class ChartStoreImporterService {
             events: this.trackImporter.import(cf.events),
             vocals: this.trackImporter.import(cf.vocals),
             venue: this.trackImporter.import(cf.venue),
-        };
-    }
-
-    private getResolution(metadata: ChartStoreMetadata[]): number {
-        return parseFloat(metadata.find(m => m.name === 'Resolution').value);         
-    }
-    
-    private getOffset(metadata: ChartStoreMetadata[]): number {
-        return parseFloat(metadata.find(m => m.name === 'Offset').value);     
-    }
-
-    private importMetadata(metadata: ChartFileMetadata[]): ChartStoreMetadata[] {
-        if (!metadata) {
-            return [this.defaultResolution(), this.defaultOffset()];
-        }
-        if (!metadata.find(m => m.name === 'Resolution')) {
-            metadata.push(this.defaultResolution());
-        }
-        if (!metadata.find(m => m.name === 'Offset')) {
-            metadata.push(this.defaultOffset());
-        }
-        return metadata as ChartStoreMetadata[];
-    }
-
-    private defaultResolution(): ChartStoreMetadata {
-        return {
-            name: 'Resolution',
-            value: '192',
-        };
-    }
-
-    private defaultOffset(): ChartStoreMetadata {
-        return {
-            name: 'Offset',
-            value: '0',
         };
     }
 }

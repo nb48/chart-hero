@@ -1,7 +1,8 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
-import { ChartFile, ChartFileMetadata } from '../../chart-file/chart-file';
+import { ChartFile } from '../../chart-file/chart-file';
 import { ChartStoreGHLExporterService } from '../ghl/chart-store-ghl-exporter.service';
+import { ChartStoreMetadataService } from '../metadata/chart-store-metadata.service';
 import { ChartStoreSyncTrackExporterService }
 from '../sync-track/chart-store-sync-track-exporter.service';
 import { ChartStoreTrackExporterService } from '../track/chart-store-track-exporter.service';
@@ -12,16 +13,17 @@ export class ChartStoreExporterService {
 
     constructor(
         private ghlExporter: ChartStoreGHLExporterService,
+        private metadataService: ChartStoreMetadataService,
         private syncTrackExporter: ChartStoreSyncTrackExporterService,
         private trackExporter: ChartStoreTrackExporterService,
     ) {
     }
 
     export(cs: ChartStore): ChartFile {
-        const resolution = this.getResolution(cs);
-        const offset = this.getOffset(cs);
+        const resolution = this.metadataService.getResolution(cs.metadata);
+        const offset = this.metadataService.getOffset(cs.metadata);
         return {
-            metadata: cs.metadata as ChartFileMetadata[],
+            metadata: this.metadataService.export(cs.metadata),
             syncTrack: this.syncTrackExporter.export(cs.syncTrack, resolution, offset),
             guitar: {
                 expert: this.trackExporter.export(cs.guitar.expert),
@@ -55,15 +57,5 @@ export class ChartStoreExporterService {
             vocals: this.trackExporter.export(cs.vocals),
             venue: this.trackExporter.export(cs.venue),
         };
-    }
-
-    private getResolution(cs: ChartStore): number {
-        const resolution = cs.metadata.find(m => m.name === 'Resolution');
-        return resolution ? parseInt(resolution.value, 10) : 192;        
-    }
-    
-    private getOffset(cs: ChartStore): number {
-        const offset = cs.metadata.find(m => m.name === 'Offset');
-        return offset ? parseFloat(offset.value) : 0;        
     }
 }

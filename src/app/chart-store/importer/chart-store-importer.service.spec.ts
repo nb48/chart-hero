@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { ChartStoreGHLImporterService } from '../ghl/chart-store-ghl-importer.service';
 import { ChartStoreIdGeneratorService } from '../id-generator/chart-store-id-generator.service';
 import { ChartStoreImporterService } from './chart-store-importer.service';
+import { ChartStoreMetadataService } from '../metadata/chart-store-metadata.service';
 import { ChartStoreMidiTimeService } from '../midi-time/chart-store-midi-time.service';
 import { ChartStoreSyncTrackImporterService }
 from './../sync-track/chart-store-sync-track-importer.service';
@@ -19,6 +20,7 @@ describe('Service: ChartStoreImporterService', () => {
                 ChartStoreGHLImporterService,
                 ChartStoreIdGeneratorService,
                 ChartStoreImporterService,
+                ChartStoreMetadataService,
                 ChartStoreMidiTimeService,
                 ChartStoreSyncTrackImporterService,
                 ChartStoreTrackImporterService,

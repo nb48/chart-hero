@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ChartStoreExporterService } from './chart-store-exporter.service';
+import { ChartStoreGenericExporterService } from '../generic/chart-store-generic-exporter.service';
 import { ChartStoreGHLExporterService } from '../ghl/chart-store-ghl-exporter.service';
 import { ChartStoreIdGeneratorService } from '../id-generator/chart-store-id-generator.service';
 import { ChartStoreMetadataService } from '../metadata/chart-store-metadata.service';
@@ -18,6 +19,7 @@ describe('Service: ChartStoreExporterService', () => {
         TestBed.configureTestingModule({
             providers: [
                 ChartStoreExporterService,
+                ChartStoreGenericExporterService,
                 ChartStoreGHLExporterService,
                 ChartStoreIdGeneratorService,
                 ChartStoreMetadataService,

@@ -31,6 +31,10 @@ import { AudioPlayerService } from './audio-player/audio-player.service';
 import { ChartFileExporterService } from './chart-file/exporter/chart-file-exporter.service';
 import { ChartFileImporterService } from './chart-file/importer/chart-file-importer.service';
 import { ChartStoreExporterService } from './chart-store/exporter/chart-store-exporter.service';
+import { ChartStoreGenericExporterService }
+from './chart-store/generic/chart-store-generic-exporter.service';
+import { ChartStoreGenericImporterService }
+from './chart-store/generic/chart-store-generic-importer.service';
 import { ChartStoreGHLExporterService }
 from './chart-store/ghl/chart-store-ghl-exporter.service';
 import { ChartStoreGHLImporterService }
@@ -87,6 +91,8 @@ import { FileStoreService } from './file-store/file-store.service';
         ChartFileExporterService,
         ChartFileImporterService,
         ChartStoreExporterService,
+        ChartStoreGenericExporterService,
+        ChartStoreGenericImporterService,
         ChartStoreGHLExporterService,
         ChartStoreGHLImporterService,
         ChartStoreIdGeneratorService,

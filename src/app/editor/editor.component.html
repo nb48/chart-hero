@@ -1,4 +1,4 @@
-<div class="editor">
-    <app-chart-view [view]="chartView.view | async"></app-chart-view>
-    <app-scrollbar [view]="chartView.view | async"></app-scrollbar>
+<div class="editor" *ngIf="chartView.view | async; let view">
+    <app-chart-view [view]="view"></app-chart-view>
+    <app-scrollbar [view]="view"></app-scrollbar>
 </div>

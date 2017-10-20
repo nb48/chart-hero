@@ -23,6 +23,8 @@ const zeroPosition = (): number => {
     return timeBefore / (timeBefore - timeAfter) * 100;
 };
 
+const incrementWhenNoEvents = 1;
+
 @Injectable()
 export class ChartViewBuilderService {
 
@@ -57,6 +59,9 @@ export class ChartViewBuilderService {
         const currentBeat = csv.beats
             .slice().reverse()
             .find(b => b.time <= currentTime);
+        if (!currentBeat) {
+            return incrementWhenNoEvents;
+        }
         const nextBeat = csv.beats.find(b => b.time > currentTime);
         if (!nextBeat) {
             const previousBeat = csv.beats[csv.beats.length - 2];

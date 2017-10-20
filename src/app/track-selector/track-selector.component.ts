@@ -25,8 +25,11 @@ const tracks = [{
 export class TrackSelectorComponent {
 
     tracks = tracks;
+    track: ChartViewTrack;
 
     constructor(public viewController: ChartViewControllerService) {
-        this.viewController.track = ChartViewTrack.GHLGuitarExpert;
+        this.viewController.track.subscribe((track) => {
+            this.track = track;
+        });
     }
 }

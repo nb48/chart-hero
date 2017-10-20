@@ -40,6 +40,9 @@ export class ChartStoreGHLExporterService {
         resolution: number,
         offset: number,
     ): ChartFileTrack[] {
+        if (track.events.length === 0 && track.unsupported.length === 0) {
+            return null;
+        }
         this.midiTimeService.clearCache();
         return [
             ...this.exportNotes(track, syncTrack, resolution, offset),

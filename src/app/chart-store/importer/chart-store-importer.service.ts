@@ -44,9 +44,12 @@ export class ChartStoreImporterService {
             ghlGuitar: {
                 expert: this.ghlImporter.import
                     (cf.ghlGuitar.expert, cf.syncTrack, resolution, offset),
-                hard: this.trackImporter.import(cf.ghlGuitar.hard),
-                medium: this.trackImporter.import(cf.ghlGuitar.medium),
-                easy: this.trackImporter.import(cf.ghlGuitar.easy),
+                hard: this.ghlImporter.import
+                    (cf.ghlGuitar.hard, cf.syncTrack, resolution, offset),
+                medium: this.ghlImporter.import
+                    (cf.ghlGuitar.medium, cf.syncTrack, resolution, offset),
+                easy: this.ghlImporter.import
+                    (cf.ghlGuitar.easy, cf.syncTrack, resolution, offset),
             },
             events: this.trackImporter.import(cf.events),
             vocals: this.trackImporter.import(cf.vocals),

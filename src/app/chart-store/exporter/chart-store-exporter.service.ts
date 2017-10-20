@@ -44,9 +44,12 @@ export class ChartStoreExporterService {
             ghlGuitar: {
                 expert: this.ghlExporter.export
                     (cs.ghlGuitar.expert, cs.syncTrack, resolution, offset),
-                hard: this.trackExporter.export(cs.ghlGuitar.hard),
-                medium: this.trackExporter.export(cs.ghlGuitar.medium),
-                easy: this.trackExporter.export(cs.ghlGuitar.easy),
+                hard: this.ghlExporter.export
+                    (cs.ghlGuitar.hard, cs.syncTrack, resolution, offset),
+                medium: this.ghlExporter.export
+                    (cs.ghlGuitar.medium, cs.syncTrack, resolution, offset),
+                easy: this.ghlExporter.export
+                    (cs.ghlGuitar.easy, cs.syncTrack, resolution, offset),
             },
             events: this.trackExporter.export(cs.events),
             vocals: this.trackExporter.export(cs.vocals),

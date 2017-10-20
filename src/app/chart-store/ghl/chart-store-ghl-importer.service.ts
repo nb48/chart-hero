@@ -49,6 +49,12 @@ export class ChartStoreGHLImporterService {
         resolution: number,
         offset: number,
     ): ChartStoreTrack {
+        if (!track) {
+            return {
+                events: [],
+                unsupported: [],
+            };
+        }
         this.midiTimeService.clearCache();
         return {
             events: [

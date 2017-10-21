@@ -3,6 +3,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { ChartFileSyncTrack, ChartFileTrack } from '../../chart-file/chart-file';
 import { ChartStoreIdGeneratorService } from '../id-generator/chart-store-id-generator.service';
 import { ChartStoreMidiTimeService } from '../midi-time/chart-store-midi-time.service';
+import { defaultSyncTrack } from '../sync-track/chart-store-sync-track-importer.service';
 import {
     ChartStoreTrack,
     ChartStoreTrackEventType,
@@ -56,7 +57,10 @@ export class ChartStoreGenericImporterService {
         supportedNotes: SupportedNotes,
         noteTransformer: NoteImporter,
     ): ChartStoreTrackNote[] {
-        const syncTrack = st.filter(e => e.type === 'B');
+        let syncTrack = st ? st.filter(e => e.type === 'B') : [defaultSyncTrack()];
+        if (syncTrack.length === 0) {
+            syncTrack = [defaultSyncTrack()];
+        }
         const groupedNotes = this.groupNotes(track, supportedNotes);
         return groupedNotes
             .map((notes: ChartFileTrack[]) => {

@@ -5,7 +5,8 @@ import { AudioPlayerService } from '../audio-player/audio-player.service';
 import { ChartStoreService } from '../chart-store/chart-store.service';
 import { ChartStore } from '../chart-store/chart-store';
 import { ChartViewBuilderService } from './builder/chart-view-builder.service';
-import { ChartViewControllerService } from './controller/chart-view-controller.service';
+import { ChartViewTrackControllerService }
+from './track-controller/chart-view-track-controller.service';
 import { ChartViewPreparerService } from './preparer/chart-view-preparer.service';
 import { ChartViewPrepared } from './chart-view-prepared';
 import { ChartView } from './chart-view';
@@ -22,12 +23,12 @@ export class ChartViewService {
         private audioPlayer: AudioPlayerService,
         private chartStore: ChartStoreService,
         private builder: ChartViewBuilderService,
-        private controller: ChartViewControllerService,
+        private trackController: ChartViewTrackControllerService,
         private preparer: ChartViewPreparerService,
     ) {
         this.currentTime = 0;
         this.chartViewSubject = new ReplaySubject<ChartView>();
-        this.chartStore.chart.combineLatest(this.controller.track, (chart, track) => {
+        this.chartStore.chart.combineLatest(this.trackController.track, (chart, track) => {
             this.currentPreparedView = this.preparer.buildView(chart, track);
         }).subscribe(() => {
             this.updateView(this.currentTime);  

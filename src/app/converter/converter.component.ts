@@ -4,7 +4,8 @@ import { ChartStoreGuitarToGHLConverterService }
 from '../chart-store/ghl/chart-store-guitar-to-ghl-converter.service';
 import { ChartStoreService } from '../chart-store/chart-store.service';
 import { ChartStore } from '../chart-store/chart-store';
-import { ChartViewControllerService } from '../chart-view/controller/chart-view-controller.service';
+import { ChartViewTrackControllerService }
+from '../chart-view/track-controller/chart-view-track-controller.service';
 import { ChartViewTrack } from '../chart-view/chart-view-track';
 
 @Component({
@@ -21,9 +22,9 @@ export class ConverterComponent {
     constructor(
         private guitarToGHLConverter: ChartStoreGuitarToGHLConverterService,
         private chartStore: ChartStoreService,
-        private viewController: ChartViewControllerService,
+        private trackController: ChartViewTrackControllerService,
     ) {
-        this.chartStore.chart.combineLatest(this.viewController.track, (chart, track) => {
+        this.chartStore.chart.combineLatest(this.trackController.track, (chart, track) => {
             this.currentChart = chart;
             this.currentTrack = track;
         }).subscribe(() => {

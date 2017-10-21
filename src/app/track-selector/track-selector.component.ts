@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
-import { ChartViewControllerService } from '../chart-view/controller/chart-view-controller.service';
+import { ChartViewTrackControllerService }
+from '../chart-view/track-controller/chart-view-track-controller.service';
 import { ChartViewTrack } from '../chart-view/chart-view-track';
 
 const tracks = [{
@@ -39,8 +40,8 @@ export class TrackSelectorComponent {
     tracks = tracks;
     track: ChartViewTrack;
 
-    constructor(public viewController: ChartViewControllerService) {
-        this.viewController.track.subscribe((track) => {
+    constructor(public trackController: ChartViewTrackControllerService) {
+        this.trackController.track.subscribe((track) => {
             this.track = track;
         });
     }

@@ -4,7 +4,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { ChartViewTrack } from '../chart-view-track';
 
 @Injectable()
-export class ChartViewControllerService {
+export class ChartViewTrackControllerService {
 
     private trackSubject: ReplaySubject<ChartViewTrack>;
 

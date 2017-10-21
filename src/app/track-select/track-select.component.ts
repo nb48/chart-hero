@@ -31,11 +31,11 @@ const tracks = [{
 }];
 
 @Component({
-    selector: 'app-track-selector',
-    templateUrl: './track-selector.component.html',
-    styleUrls: ['./track-selector.component.css'],
+    selector: 'app-track-select',
+    templateUrl: './track-select.component.html',
+    styleUrls: ['./track-select.component.css'],
 })
-export class TrackSelectorComponent {
+export class TrackSelectComponent {
 
     tracks = tracks;
     track: ChartViewTrack;

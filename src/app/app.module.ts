@@ -29,7 +29,7 @@ import { ExporterComponent } from './exporter/exporter.component';
 import { FileSelectComponent } from './file-select/file-select.component';
 import { NoteControlsComponent } from './note-controls/note-controls.component';
 import { ScrollbarComponent } from './editor/scrollbar/scrollbar.component';
-import { TrackSelectorComponent } from './track-selector/track-selector.component';
+import { TrackSelectComponent } from './track-select/track-select.component';
 
 import { AudioPlayerService } from './audio-player/audio-player.service';
 import { ChartFileExporterService } from './chart-file/exporter/chart-file-exporter.service';
@@ -100,7 +100,7 @@ import { FileStoreService } from './file-store/file-store.service';
         FileSelectComponent,
         NoteControlsComponent,
         ScrollbarComponent,
-        TrackSelectorComponent,
+        TrackSelectComponent,
     ],
     providers: [
         AudioPlayerService,

@@ -2,17 +2,21 @@
     <svg:path [attr.d]="blackNotePath" [attr.transform]="noteTransform(1, 0, -3.85)" fill="black"></svg:path>
     <svg:path [attr.d]="blackNotePath" [attr.transform]="noteTransform(1, 0, -3.85)" fill="black" stroke="black" stroke-width="0.1"></svg:path>
     <svg:path [attr.d]="blackNotePath" [attr.transform]="noteTransform(0.85, 0, -3.85)" fill="black" stroke="white" stroke-width="0.2"></svg:path>
+    <svg:path *ngIf="note.selected" [attr.d]="blackNotePath" [attr.transform]="noteTransform(1.05, 0, -3.85)" fill="transparent" stroke="red" stroke-width="0.6"></svg:path>
 </ng-container>
 <ng-container *ngIf="white">
     <svg:path [attr.d]="whiteNotePath" [attr.transform]="noteTransform(1, 0, -4.95)" fill="white"></svg:path>
     <svg:path [attr.d]="whiteNotePath" [attr.transform]="noteTransform(1, 0, -4.95)" fill="white" stroke="black" stroke-width="0.1"></svg:path>
     <svg:path [attr.d]="whiteNotePath" [attr.transform]="noteTransform(0.85, 0, -4.95)" fill="white" stroke="black" stroke-width="0.3"></svg:path>
+    <svg:path *ngIf="note.selected" [attr.d]="whiteNotePath" [attr.transform]="noteTransform(1.05, 0, -4.95)" fill="transparent" stroke="red" stroke-width="0.6"></svg:path>
 </ng-container>
 <ng-container *ngIf="chord">
     <svg:path [attr.d]="halfBlackNotePath" [attr.transform]="noteTransform(1.1, 0, -4.5)" fill="black" stroke="black" stroke-width="0.3"></svg:path>
     <svg:path [attr.d]="halfWhiteNotePath" [attr.transform]="noteTransform(1.1, 0, -4.5)" fill="black" stroke="black" stroke-width="0.3"></svg:path>
     <svg:path [attr.d]="halfBlackNotePath" [attr.transform]="noteTransform(1.025, 0, -4.5)" fill="white" stroke="white" stroke-width="0.3"></svg:path>
     <svg:path [attr.d]="halfWhiteNotePath" [attr.transform]="noteTransform(1.025, 0, -4.5)" fill="white" stroke="white" stroke-width="0.3"></svg:path>
+    <svg:path *ngIf="note.selected" [attr.d]="halfBlackNotePath" [attr.transform]="noteTransform(1.065, 0, -4.5)" fill="transparent" stroke="red" stroke-width="0.6"></svg:path>
+    <svg:path *ngIf="note.selected" [attr.d]="halfWhiteNotePath" [attr.transform]="noteTransform(1.065, 0, -4.5)" fill="transparent" stroke="red" stroke-width="0.6"></svg:path>
     <svg:path [attr.d]="halfBlackNotePath" [attr.transform]="noteTransform(1, 0, -4.5)" fill="black" stroke="black" stroke-width="0.1"></svg:path>
     <svg:path [attr.d]="halfWhiteNotePath" [attr.transform]="noteTransform(1, 0, -4.5)" fill="black" stroke="black" stroke-width="0.1"></svg:path>
     <svg:path [attr.d]="halfBlackNotePath" [attr.transform]="noteTransform(0.9, 0, -4.5)" fill="black"></svg:path>

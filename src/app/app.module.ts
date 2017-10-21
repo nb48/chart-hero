@@ -23,6 +23,7 @@ import { ChartViewNoteGuitarComponent }
 from './editor/chart-view/note/guitar/chart-view-note-guitar.component';
 import { ChartViewNoteOpenComponent }
 from './editor/chart-view/note/open/chart-view-note-open.component';
+import { ConverterComponent } from './converter/converter.component';
 import { EditorComponent } from './editor/editor.component';
 import { ExporterComponent } from './exporter/exporter.component';
 import { FileSelectComponent } from './file-select/file-select.component';
@@ -87,6 +88,7 @@ import { FileStoreService } from './file-store/file-store.service';
         ChartViewNoteGHLComponent,
         ChartViewNoteGuitarComponent,
         ChartViewNoteOpenComponent,
+        ConverterComponent,
         EditorComponent,
         ExporterComponent,
         FileSelectComponent,

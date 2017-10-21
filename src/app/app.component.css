@@ -6,10 +6,11 @@
     grid-template-areas: ". . file-select"
                          "track-selector editor ."
                          "audio-player-controls editor ."
+                         "converter editor ."
                          ". editor ."
                          ". editor exporter";
     grid-template-columns: 20% 2fr 1fr;
-    grid-template-rows: 8.25em 2.25em 4.25em 1fr 4.25em;
+    grid-template-rows: 8.25em 2.25em 4.25em 3.25em 1fr 4.25em;
 }
 
 .app app-file-select {
@@ -22,6 +23,10 @@
 
 .app app-audio-player-controls {
     grid-area: audio-player-controls;
+}
+
+.app app-converter {
+    grid-area: converter;
 }
 
 .app app-editor {

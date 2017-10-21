@@ -19,7 +19,14 @@
     width: 80%;
 }
 
-.note-controls .note-type {
+.note-controls .note-type-guitar {
     order: 2;
-    height: 15%;
+    height: 10%;
+    margin-top: 2%;
+}
+
+.note-controls .note-type-ghl {
+    order: 2;
+    height: 20%;
+    margin-top: 2%;
 }

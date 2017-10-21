@@ -10,6 +10,7 @@
                 <input [ngModel]="time" matInput [readonly]="true" type="number">
             </mat-list-item>
         </mat-list>
-        <app-note-controls-guitar class="note-type" *ngIf="isGuitarNote" [type]="type" (changed)="typeChanged($event)"></app-note-controls-guitar>
+        <app-note-controls-guitar *ngIf="isGuitarNote" class="note-type-guitar" [type]="type" (changed)="typeChanged($event)"></app-note-controls-guitar>
+        <app-note-controls-ghl *ngIf="isGHLNote" class="note-type-ghl" [type]="type" (changed)="typeChanged($event)"></app-note-controls-ghl>
     </ng-container>
 </div>

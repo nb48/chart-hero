@@ -19,6 +19,9 @@ export class FileStoreService {
     }
 
     set audioFile(file: File) {
+        if (this.audioPlayer.playing) {
+            this.audioPlayer.stop();
+        }
         this.$audioFileName = file.name;
         this.audioPlayer.audio = URL.createObjectURL(file);
     }
@@ -28,6 +31,9 @@ export class FileStoreService {
     }
 
     set chartFile(file: File) {
+        if (this.audioPlayer.playing) {
+            this.audioPlayer.stop();
+        }
         this.$chartFileName = file.name;
         const reader = new FileReader();
         reader.onload = () => {

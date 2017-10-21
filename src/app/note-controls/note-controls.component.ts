@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ChartStoreTrackNote } from '../chart-store/chart-store';
+import { ChartStoreTrackNote, ChartStoreTrackEventType } from '../chart-store/chart-store';
 import { ChartViewNoteControllerService }
 from '../chart-view/note-controller/chart-view-note-controller.service';
 
@@ -11,11 +11,20 @@ from '../chart-view/note-controller/chart-view-note-controller.service';
 })
 export class NoteControlsComponent {
 
-    note: ChartStoreTrackNote;
+    selected: boolean;
+    id: number;
+    time: number;
+    isGuitarNote: boolean;
+    isGHLNote: boolean;
 
     constructor(private controller: ChartViewNoteControllerService) {
+        this.selected = false;
         this.controller.selectedNote.subscribe((note) => {
-            this.note = note;
+            this.selected = true;
+            this.id = note.id;
+            this.time = Math.floor(note.time * 1000) / 1000;
+            this.isGuitarNote = note.event === ChartStoreTrackEventType.GuitarNote;
+            this.isGHLNote = note.event === ChartStoreTrackEventType.GHLNote;
         });
     }
 }

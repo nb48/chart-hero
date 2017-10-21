@@ -70,7 +70,8 @@ export class ChartViewPreparerService {
 
     private buildNotes(track: ChartStoreTrack): ChartViewPreparedNote[] {
         return track.events
-            .filter(e => e.event === ChartStoreTrackEventType.Note)
+            .filter(e => e.event === ChartStoreTrackEventType.GuitarNote
+                || e.event === ChartStoreTrackEventType.GHLNote)
             .map(e => e as ChartStoreTrackNote)
             .map(e => this.buildNote(e));
     }

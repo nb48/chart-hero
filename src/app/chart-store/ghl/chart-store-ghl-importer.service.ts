@@ -3,7 +3,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { ChartFileSyncTrack, ChartFileTrack } from '../../chart-file/chart-file';
 import { ChartStoreGenericImporterService, NoteImporter, SupportedNotes }
 from '../generic/chart-store-generic-importer.service';
-import { ChartStoreTrack, ChartStoreTrackNoteType } from '../chart-store';
+import { ChartStoreTrack, ChartStoreTrackEventType, ChartStoreTrackNoteType } from '../chart-store';
 
 const supportedGHLNotes: SupportedNotes = [0, 1, 2, 3, 4, 7, 8];
 
@@ -41,7 +41,14 @@ export class ChartStoreGHLImporterService {
         resolution: number,
         offset: number,
     ): ChartStoreTrack {
-        return this.genericImporter.import
-            (track, syncTrack, resolution, offset, supportedGHLNotes, ghlNoteImporter);
+        return this.genericImporter.import(
+            track,
+            syncTrack,
+            resolution,
+            offset,
+            supportedGHLNotes,
+            ghlNoteImporter,
+            ChartStoreTrackEventType.GHLNote,
+        );
     }
 }

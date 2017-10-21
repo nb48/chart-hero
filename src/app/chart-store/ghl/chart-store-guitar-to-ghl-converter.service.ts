@@ -29,7 +29,7 @@ export class ChartStoreGuitarToGHLConverterService {
                 .map(event => event as ChartStoreTrackNote)
                 .map(event => ({
                     id: this.idGenerator.id(),
-                    event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
+                    event: ChartStoreTrackEventType.GHLNote as ChartStoreTrackEventType.GHLNote,
                     time: event.time,
                     type: this.convertGuitarNotesToGHLNotes(event.type),
                     length: event.length,

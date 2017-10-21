@@ -30,6 +30,7 @@ export class ChartStoreGenericImporterService {
         offset: number,
         supportedNotes: SupportedNotes,
         noteTransformer: NoteImporter,
+        eventType: ChartStoreTrackEventType,
     ): ChartStoreTrack {
         if (!track) {
             return {
@@ -40,8 +41,15 @@ export class ChartStoreGenericImporterService {
         this.midiTimeService.clearCache();
         return {
             events: [
-                ...this.importNotes
-                    (track, syncTrack, resolution, offset, supportedNotes, noteTransformer),
+                ...this.importNotes(
+                    track,
+                    syncTrack,
+                    resolution,
+                    offset,
+                    supportedNotes,
+                    noteTransformer,
+                    eventType,
+                ),
             ],
             unsupported: [
                 ...this.importUnsupportedTrack(track, supportedNotes),
@@ -56,6 +64,7 @@ export class ChartStoreGenericImporterService {
         offset: number,
         supportedNotes: SupportedNotes,
         noteTransformer: NoteImporter,
+        eventType: ChartStoreTrackEventType,
     ): ChartStoreTrackNote[] {
         let syncTrack = st ? st.filter(e => e.type === 'B') : [defaultSyncTrack()];
         if (syncTrack.length === 0) {
@@ -74,7 +83,8 @@ export class ChartStoreGenericImporterService {
                 return {
                     length,
                     id: this.idGenerator.id(),
-                    event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
+                    event: eventType as
+                        ChartStoreTrackEventType.GuitarNote | ChartStoreTrackEventType.GHLNote,
                     time: time + offset,
                     type: noteTransformer(notes.map(n => n.note)),
                 };

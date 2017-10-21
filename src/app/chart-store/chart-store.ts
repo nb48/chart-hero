@@ -36,7 +36,8 @@ export type ChartStoreTrackEvent =
 
 export enum ChartStoreTrackEventType {
     BPMChange,
-    Note,
+    GuitarNote,
+    GHLNote,
 }
 
 export interface ChartStoreTrackBPMChange {
@@ -48,7 +49,7 @@ export interface ChartStoreTrackBPMChange {
 
 export interface ChartStoreTrackNote {
     id: number;
-    event: ChartStoreTrackEventType.Note;
+    event: ChartStoreTrackEventType.GuitarNote | ChartStoreTrackEventType.GHLNote;
     time: number;
     type: ChartStoreTrackNoteType[];
     length: number;

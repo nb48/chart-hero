@@ -53,7 +53,8 @@ export class ChartStoreGenericExporterService {
                 bpm: e.bpm,
             } as ChartStoreTrackBPMChange));
         return [].concat.apply([], track.events
-            .filter(e => e.event === ChartStoreTrackEventType.Note)
+            .filter(e => e.event === ChartStoreTrackEventType.GuitarNote
+                || e.event === ChartStoreTrackEventType.GHLNote)
             .map(e => e as ChartStoreTrackNote)
             .map((n) => {
                 const time = n.time - offset;

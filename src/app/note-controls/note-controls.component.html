@@ -1,2 +1,20 @@
 <div class="note-controls">
+    <ng-container *ngIf="selected">
+        <mat-list>
+            <mat-list-item>
+                <label class="body-1">Id: </label>                
+                <input [ngModel]="id" matInput [readonly]="true" type="number">
+            </mat-list-item>
+            <mat-list-item>
+                <label class="body-1">Time: </label>                
+                <input [ngModel]="time" matInput [readonly]="true" type="number">
+            </mat-list-item>
+            <mat-list-item *ngIf="isGuitarNote">
+                <label class="body-1">Guitar</label>
+            </mat-list-item>
+            <mat-list-item *ngIf="isGHLNote">
+                <label class="body-1">GHL</label>
+            </mat-list-item>
+        </mat-list>
+    </ng-container>
 </div>

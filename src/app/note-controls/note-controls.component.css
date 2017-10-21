@@ -3,3 +3,12 @@
     width: 100%;
     height: 100%;
 }
+
+.note-controls label {
+    width: 15%;
+    margin-left: 5%;
+}
+
+.note-controls input {
+    width: 80%;
+}

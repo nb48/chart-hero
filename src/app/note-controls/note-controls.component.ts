@@ -20,6 +20,10 @@ export class NoteControlsComponent {
     constructor(private controller: ChartViewNoteControllerService) {
         this.selected = false;
         this.controller.selectedNote.subscribe((note) => {
+            if (!note) {
+                this.selected = false;
+                return;
+            }
             this.selected = true;
             this.id = note.id;
             this.time = Math.floor(note.time * 1000) / 1000;

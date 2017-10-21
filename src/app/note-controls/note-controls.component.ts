@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 
-import { ChartStoreTrackNote, ChartStoreTrackEventType } from '../chart-store/chart-store';
+import {
+    ChartStoreTrackNote,
+    ChartStoreTrackEventType,
+    ChartStoreTrackNoteType,
+} from '../chart-store/chart-store';
 import { ChartViewNoteControllerService }
 from '../chart-view/note-controller/chart-view-note-controller.service';
 
@@ -16,6 +20,7 @@ export class NoteControlsComponent {
     time: number;
     isGuitarNote: boolean;
     isGHLNote: boolean;
+    type: ChartStoreTrackNoteType[];
 
     constructor(private controller: ChartViewNoteControllerService) {
         this.selected = false;
@@ -29,6 +34,11 @@ export class NoteControlsComponent {
             this.time = Math.floor(note.time * 1000) / 1000;
             this.isGuitarNote = note.event === ChartStoreTrackEventType.GuitarNote;
             this.isGHLNote = note.event === ChartStoreTrackEventType.GHLNote;
+            this.type = note.type;
         });
+    }
+
+    typeChanged(type: ChartStoreTrackNoteType[]) {
+        this.controller.updateNoteType(this.id, type);
     }
 }

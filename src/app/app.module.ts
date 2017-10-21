@@ -28,6 +28,7 @@ import { EditorComponent } from './editor/editor.component';
 import { ExporterComponent } from './exporter/exporter.component';
 import { FileSelectComponent } from './file-select/file-select.component';
 import { NoteControlsComponent } from './note-controls/note-controls.component';
+import { NoteControlsGuitarComponent } from './note-controls/guitar/note-controls-guitar.component';
 import { ScrollbarComponent } from './editor/scrollbar/scrollbar.component';
 import { TrackSelectComponent } from './track-select/track-select.component';
 
@@ -99,6 +100,7 @@ import { FileStoreService } from './file-store/file-store.service';
         ExporterComponent,
         FileSelectComponent,
         NoteControlsComponent,
+        NoteControlsGuitarComponent,
         ScrollbarComponent,
         TrackSelectComponent,
     ],

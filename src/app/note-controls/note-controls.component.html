@@ -1,6 +1,6 @@
 <div class="note-controls">
     <ng-container *ngIf="selected">
-        <mat-list>
+        <mat-list class="info">
             <mat-list-item>
                 <label class="body-1">Id: </label>                
                 <input [ngModel]="id" matInput [readonly]="true" type="number">
@@ -9,12 +9,7 @@
                 <label class="body-1">Time: </label>                
                 <input [ngModel]="time" matInput [readonly]="true" type="number">
             </mat-list-item>
-            <mat-list-item *ngIf="isGuitarNote">
-                <label class="body-1">Guitar</label>
-            </mat-list-item>
-            <mat-list-item *ngIf="isGHLNote">
-                <label class="body-1">GHL</label>
-            </mat-list-item>
         </mat-list>
+        <app-note-controls-guitar class="note-type" *ngIf="isGuitarNote" [type]="type" (changed)="typeChanged($event)"></app-note-controls-guitar>
     </ng-container>
 </div>

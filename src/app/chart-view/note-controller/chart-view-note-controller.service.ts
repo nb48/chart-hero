@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
 import { ChartStoreService } from '../../chart-store/chart-store.service';
-import { ChartStore, ChartStoreTrackNote } from '../../chart-store/chart-store';
+import {
+    ChartStore,
+    ChartStoreTrackNote,
+    ChartStoreTrackNoteType,
+} from '../../chart-store/chart-store';
 import { ChartViewTrackControllerService }
 from '../track-controller/chart-view-track-controller.service';
 import { ChartViewTrack, getTrack } from '../chart-view-track';
@@ -32,10 +36,21 @@ export class ChartViewNoteControllerService {
         return this.selectedNoteSubject.asObservable();
     }
 
-    selectNote(id: number) {
+    selectNote(id: number): void {
         const chordId = Math.floor(id / 10) * 10;
-        const note = getTrack(this.currentChart, this.currentTrack).events
-            .find(e => e.id === chordId);
+        const note = this.findNote(chordId);
         this.selectedNoteSubject.next(JSON.parse(JSON.stringify(note)));
+    }
+
+    updateNoteType(id: number, type: ChartStoreTrackNoteType[]): void {
+        const note = this.findNote(id);
+        note.type = type;
+        this.chartStore.newChart(this.currentChart);
+        this.selectedNoteSubject.next(note);
+    }
+
+    private findNote(id: number): ChartStoreTrackNote {
+        return getTrack(this.currentChart, this.currentTrack).events
+            .find(e => e.id === id) as ChartStoreTrackNote;
     }
 }

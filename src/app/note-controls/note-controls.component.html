@@ -12,5 +12,19 @@
         </mat-list>
         <app-note-controls-guitar *ngIf="isGuitarNote" class="note-type-guitar" [type]="type" (changed)="typeChanged($event)"></app-note-controls-guitar>
         <app-note-controls-ghl *ngIf="isGHLNote" class="note-type-ghl" [type]="type" (changed)="typeChanged($event)"></app-note-controls-ghl>
+        <div class="time-controls">
+            <button (click)="snapForwards()" [matTooltip]="'Snap note to next beat'" [matTooltipClass]="'app-tooltip'" class="snap-forward" mat-icon-button color="primary">
+                <i class="fa fa-angle-double-up fa-4x" aria-hidden="true" aria-label="Snap to next beat"></i>
+            </button>
+            <button (click)="moveForwards()" [matTooltip]="'Move note forwards'" [matTooltipClass]="'app-tooltip'" class="forwawrd" mat-icon-button color="primary">
+                <i class="fa fa-angle-up fa-4x" aria-hidden="true" aria-label="Forwards"></i>
+            </button>
+            <button (click)="moveBackwards()" [matTooltip]="'Move note backwards'" [matTooltipClass]="'app-tooltip'" class="backwards" mat-icon-button color="primary">
+                <i class="fa fa-angle-down fa-4x" aria-hidden="true" aria-label="Backwards"></i>
+            </button>
+            <button (click)="snapBackwards()" [matTooltip]="'Snap note to previous beat'" [matTooltipClass]="'app-tooltip'" class="snap-backwards"mat-icon-button color="primary">
+                <i class="fa fa-angle-double-down fa-4x" aria-hidden="true" aria-label="Snap to previous beat"></i>
+            </button>
+        </div>
     </ng-container>
 </div>

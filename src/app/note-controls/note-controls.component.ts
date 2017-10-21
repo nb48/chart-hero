@@ -7,6 +7,8 @@ import {
 } from '../chart-store/chart-store';
 import { ChartViewNoteControllerService }
 from '../chart-view/note-controller/chart-view-note-controller.service';
+import { ChartViewTimeControllerService }
+from '../chart-view/time-controller/chart-view-time-controller.service';
 
 @Component({
     selector: 'app-note-controls',
@@ -22,9 +24,12 @@ export class NoteControlsComponent {
     isGHLNote: boolean;
     type: ChartStoreTrackNoteType[];
 
-    constructor(private controller: ChartViewNoteControllerService) {
+    constructor(
+        private noteController: ChartViewNoteControllerService,
+        private timeController: ChartViewTimeControllerService,
+    ) {
         this.selected = false;
-        this.controller.selectedNote.subscribe((note) => {
+        this.noteController.selectedNote.subscribe((note) => {
             if (!note) {
                 this.selected = false;
                 return;
@@ -36,9 +41,30 @@ export class NoteControlsComponent {
             this.isGHLNote = note.event === ChartStoreTrackEventType.GHLNote;
             this.type = note.type;
         });
+        this.timeController.newStep(1, 3);
     }
 
-    typeChanged(type: ChartStoreTrackNoteType[]) {
-        this.controller.updateNoteType(this.id, type);
+    typeChanged(type: ChartStoreTrackNoteType[]): void {
+        this.noteController.updateNoteType(this.id, type);
+    }
+
+    moveForwards(): void {
+        this.move(this.timeController.moveForwardsTime(this.time));
+    }
+
+    moveBackwards(): void {
+        this.move(this.timeController.moveBackwardsTime(this.time));
+    }
+
+    snapForwards(): void {
+        this.move(this.timeController.snapForwardsTime(this.time));
+    }
+
+    snapBackwards(): void {
+        this.move(this.timeController.snapBackwardsTime(this.time));
+    }
+
+    private move(time: number): void {
+        this.noteController.moveNote(this.id, time);
     }
 }

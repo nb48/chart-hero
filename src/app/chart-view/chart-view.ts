@@ -10,6 +10,7 @@ export interface ChartView {
 
 export interface ChartViewBeat {
     id: number;
+    time: number;
     y: number;
 }
 
@@ -26,6 +27,7 @@ export enum ChartViewNoteType {
 
 export interface ChartViewNoteOpen {
     id: number;
+    time: number;
     type: ChartViewNoteType.Open;
     selected: boolean;
     y: number;
@@ -33,6 +35,7 @@ export interface ChartViewNoteOpen {
 
 export interface ChartViewNoteGuitar {
     id: number;
+    time: number;
     type: ChartViewNoteType.Guitar;
     selected: boolean;
     x: number;
@@ -50,6 +53,7 @@ export enum ChartViewNoteGuitarColor {
 
 export interface ChartViewNoteGHL {
     id: number;
+    time: number;
     type: ChartViewNoteType.GHL;
     selected: boolean;
     x: number;

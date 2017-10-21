@@ -52,6 +52,7 @@ export class ChartViewBuilderService {
             .filter(b => this.timeInView(b.time, currentTime))
             .map(b => ({
                 id: b.id,
+                time: b.time,
                 y: this.calculateYPos(b.time, currentTime),
             }));
     }
@@ -89,7 +90,13 @@ export class ChartViewBuilderService {
                 const selected = note.id === selectedId;
                 if (note.open) {
                     const type = ChartViewNoteType.Open;
-                    return [{ type, y, selected, id: note.id + 1 }] as ChartViewNoteOpen[];
+                    return [{
+                        type,
+                        y,
+                        selected,
+                        id: note.id + 1,
+                        time: note.time,
+                    }] as ChartViewNoteOpen[];
                 } else {
                     return this.splitNote(note, y, selected);
                 }
@@ -99,47 +106,48 @@ export class ChartViewBuilderService {
 
     private splitNote(note: ChartViewPreparedNote, y: number, selected: boolean): ChartViewNote[] {
         const notes: (ChartViewNoteGuitar | ChartViewNoteGHL)[] = [];
+        const time = note.time;
         let type = ChartViewNoteType.Guitar;
         if (note.guitarLane1 !== ChartViewPreparedNoteGuitarColor.None) {
             const x = 13;
             const color = this.buildGuitarNoteColor(note.guitarLane1);
-            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
+            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         if (note.guitarLane2 !== ChartViewPreparedNoteGuitarColor.None) {
             const x = 31.5;
             const color = this.buildGuitarNoteColor(note.guitarLane2);
-            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
+            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         if (note.guitarLane3 !== ChartViewPreparedNoteGuitarColor.None) {
             const x = 50;
             const color = this.buildGuitarNoteColor(note.guitarLane3);
-            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
+            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         if (note.guitarLane4 !== ChartViewPreparedNoteGuitarColor.None) {
             const x = 68.5;
             const color = this.buildGuitarNoteColor(note.guitarLane4);
-            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
+            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         if (note.guitarLane5 !== ChartViewPreparedNoteGuitarColor.None) {
             const x = 87;
             const color = this.buildGuitarNoteColor(note.guitarLane5);
-            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
+            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         type = ChartViewNoteType.GHL;
         if (note.ghlLane1 !== ChartViewPreparedNoteGHLColor.None) {
             const x = 25;
             const color = this.buildGHLNoteColor(note.ghlLane1);
-            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
+            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         if (note.ghlLane2 !== ChartViewPreparedNoteGHLColor.None) {
             const x = 50;
             const color = this.buildGHLNoteColor(note.ghlLane2);
-            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
+            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         if (note.ghlLane3 !== ChartViewPreparedNoteGHLColor.None) {
             const x = 75;
             const color = this.buildGHLNoteColor(note.ghlLane3);
-            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
+            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         return notes;
     }

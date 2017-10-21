@@ -49,6 +49,13 @@ export class ChartViewNoteControllerService {
         this.selectedNoteSubject.next(note);
     }
 
+    moveNote(id: number, time: number): void {
+        const note = this.findNote(id);
+        note.time += time;
+        this.chartStore.newChart(this.currentChart);
+        this.selectedNoteSubject.next(note);
+    }
+
     private findNote(id: number): ChartStoreTrackNote {
         return getTrack(this.currentChart, this.currentTrack).events
             .find(e => e.id === id) as ChartStoreTrackNote;

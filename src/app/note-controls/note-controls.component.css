@@ -30,3 +30,15 @@
     height: 20%;
     margin-top: 2%;
 }
+
+.note-controls .time-controls {
+    order: 3;
+    width: 80%;
+    height: 6%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    justify-content: space-around;
+}

@@ -9,23 +9,18 @@ import { ChartViewNoteGuitar, ChartViewNoteGuitarColor } from '../../../../chart
 export class ChartViewNoteGuitarComponent {
     @Input() note: ChartViewNoteGuitar;
 
-    get green(): boolean {
-        return this.note.color === ChartViewNoteGuitarColor.Green;
-    }
-
-    get red(): boolean {
-        return this.note.color === ChartViewNoteGuitarColor.Red;
-    }
-
-    get yellow(): boolean {
-        return this.note.color === ChartViewNoteGuitarColor.Yellow;
-    }
-
-    get blue(): boolean {
-        return this.note.color === ChartViewNoteGuitarColor.Blue;
-    }
-
-    get orange(): boolean {
-        return this.note.color === ChartViewNoteGuitarColor.Orange;
+    get color(): string {
+        switch (this.note.color) {
+        case ChartViewNoteGuitarColor.Green:
+            return 'green';
+        case ChartViewNoteGuitarColor.Red:
+            return 'red';
+        case ChartViewNoteGuitarColor.Yellow:
+            return 'yellow';
+        case ChartViewNoteGuitarColor.Blue:
+            return 'blue';
+        case ChartViewNoteGuitarColor.Orange:
+            return 'orange';
+        }
     }
 }

@@ -28,16 +28,24 @@ export class ChartStoreExporterService {
             metadata: this.metadataService.export(cs.metadata),
             syncTrack: this.syncTrackExporter.export(cs.syncTrack, resolution, offset),
             guitar: {
-                expert: this.trackExporter.export(cs.guitar.expert),
-                hard: this.trackExporter.export(cs.guitar.hard),
-                medium: this.trackExporter.export(cs.guitar.medium),
-                easy: this.trackExporter.export(cs.guitar.easy),
+                expert: this.guitarExporter.export
+                    (cs.guitar.expert, cs.syncTrack, resolution, offset),
+                hard: this.guitarExporter.export
+                    (cs.guitar.hard, cs.syncTrack, resolution, offset),
+                medium: this.guitarExporter.export
+                    (cs.guitar.medium, cs.syncTrack, resolution, offset),
+                easy: this.guitarExporter.export
+                    (cs.guitar.easy, cs.syncTrack, resolution, offset),
             },
             bass: {
-                expert: this.trackExporter.export(cs.bass.expert),
-                hard: this.trackExporter.export(cs.bass.hard),
-                medium: this.trackExporter.export(cs.bass.medium),
-                easy: this.trackExporter.export(cs.bass.easy),
+                expert: this.guitarExporter.export
+                    (cs.bass.expert, cs.syncTrack, resolution, offset),
+                hard: this.guitarExporter.export
+                    (cs.bass.hard, cs.syncTrack, resolution, offset),
+                medium: this.guitarExporter.export
+                    (cs.bass.medium, cs.syncTrack, resolution, offset),
+                easy: this.guitarExporter.export
+                    (cs.bass.easy, cs.syncTrack, resolution, offset),
             },
             drums: {
                 expert: this.trackExporter.export(cs.drums.expert),

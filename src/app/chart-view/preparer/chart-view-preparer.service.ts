@@ -108,7 +108,7 @@ export class ChartViewPreparerService {
         types: ChartStoreTrackNoteType[],
         color: ChartStoreTrackNoteType,
     ): ChartViewPreparedNoteGuitarColor {
-        if (types.indexOf(color) !== 1) {
+        if (types.indexOf(color) !== -1) {
             switch (color) {
             case ChartStoreTrackNoteType.GuitarGreen:
                 return ChartViewPreparedNoteGuitarColor.Green;

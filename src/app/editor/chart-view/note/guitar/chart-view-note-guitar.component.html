@@ -1,15 +1,4 @@
-<ng-container *ngIf="green">
-    <svg:circle [attr.cx]="note.x" [attr.cy]="note.y" color="green"></svg:circle>
-</ng-container>
-<ng-container *ngIf="red">
-    <svg:circle [attr.cx]="note.x" [attr.cy]="note.y" color="red"></svg:circle>
-</ng-container>
-<ng-container *ngIf="yellow">
-    <svg:circle [attr.cx]="note.x" [attr.cy]="note.y" color="yellow"></svg:circle>
-</ng-container>
-<ng-container *ngIf="blue">
-    <svg:circle [attr.cx]="note.x" [attr.cy]="note.y" color="blue"></svg:circle>
-</ng-container>
-<ng-container *ngIf="orange">
-    <svg:circle [attr.cx]="note.x" [attr.cy]="note.y" color="orange"></svg:circle>
-</ng-container>
+<svg:circle [attr.cx]="note.x" [attr.cy]="note.y" r="4.05" fill="transparent" stroke="black" stroke-width="0.5"></svg:circle>
+<svg:circle [attr.cx]="note.x" [attr.cy]="note.y" r="4" [attr.fill]="color"></svg:circle>
+<svg:circle [attr.cx]="note.x" [attr.cy]="note.y" r="1.1" fill="white"></svg:circle>
+<svg:circle [attr.cx]="note.x" [attr.cy]="note.y" r="1.2" fill="transparent" stroke="black" stroke-width="0.5"></svg:circle>

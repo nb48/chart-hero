@@ -29,16 +29,24 @@ export class ChartStoreImporterService {
             metadata,
             syncTrack: this.syncTrackImporter.import(cf.syncTrack, resolution, offset),
             guitar: {
-                expert: this.trackImporter.import(cf.guitar.expert),
-                hard: this.trackImporter.import(cf.guitar.hard),
-                medium: this.trackImporter.import(cf.guitar.medium),
-                easy: this.trackImporter.import(cf.guitar.easy),
+                expert: this.guitarImporter.import
+                    (cf.guitar.expert, cf.syncTrack, resolution, offset),
+                hard: this.guitarImporter.import
+                    (cf.guitar.hard, cf.syncTrack, resolution, offset),
+                medium: this.guitarImporter.import
+                    (cf.guitar.medium, cf.syncTrack, resolution, offset),
+                easy: this.guitarImporter.import
+                    (cf.guitar.easy, cf.syncTrack, resolution, offset),
             },
             bass: {
-                expert: this.trackImporter.import(cf.bass.expert),
-                hard: this.trackImporter.import(cf.bass.hard),
-                medium: this.trackImporter.import(cf.bass.medium),
-                easy: this.trackImporter.import(cf.bass.easy),
+                expert: this.guitarImporter.import
+                    (cf.bass.expert, cf.syncTrack, resolution, offset),
+                hard: this.guitarImporter.import
+                    (cf.bass.hard, cf.syncTrack, resolution, offset),
+                medium: this.guitarImporter.import
+                    (cf.bass.medium, cf.syncTrack, resolution, offset),
+                easy: this.guitarImporter.import
+                    (cf.bass.easy, cf.syncTrack, resolution, offset),
             },
             drums: {
                 expert: this.trackImporter.import(cf.drums.expert),

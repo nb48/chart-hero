@@ -36,7 +36,22 @@ export const TEST_CHART_FILE: ChartFile = {
         text: 'UNSUPPORTED',
     }],
     guitar: {
-        expert: null,
+        expert: [{
+            midiTime: 200,
+            type: 'N',
+            note: 0,
+            length: 0,
+        }, {
+            midiTime: 400,
+            type: 'N',
+            note: 1,
+            length: 0,
+        }, {
+            midiTime: 600,
+            type: 'N',
+            note: 2,
+            length: 0,
+        }],
         hard: null,
         medium: null,
         easy: null,
@@ -179,7 +194,25 @@ export const TEST_CHART_STORE: ChartStore = {
     },
     guitar: {
         expert: {
-            events: [],
+            events: [{
+                id: 30,
+                event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
+                time: 0.9,
+                type: [ChartStoreTrackNoteType.GuitarGreen],
+                length: 0,
+            }, {
+                id: 40,
+                event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
+                time: 1.9,
+                type: [ChartStoreTrackNoteType.GuitarRed],
+                length: 0,
+            }, {
+                id: 50,
+                event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
+                time: 2.9,
+                type: [ChartStoreTrackNoteType.GuitarYellow],
+                length: 0,
+            }],
             unsupported: [],
         },
         hard: {
@@ -234,73 +267,73 @@ export const TEST_CHART_STORE: ChartStore = {
     ghlGuitar: {
         expert: {
             events: [{
-                id: 30,
+                id: 60,
                 event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
                 time: 0.9,
                 type: [ChartStoreTrackNoteType.GHLBlack1],
                 length: 0,
             }, {
-                id: 40,
+                id: 70,
                 event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
                 time: 1.9,
                 type: [ChartStoreTrackNoteType.GHLBlack2],
                 length: 0.75,
             }, {
-                id: 50,
+                id: 80,
                 event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
                 time: 2.9,
                 type: [ChartStoreTrackNoteType.GHLBlack3],
                 length: 1,
             }, {
-                id: 60,
+                id: 90,
                 event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
                 time: 4.4,
                 type: [ChartStoreTrackNoteType.GHLWhite1],
                 length: 0,
             }, {
-                id: 70,
+                id: 100,
                 event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
                 time: 6.4,
                 type: [ChartStoreTrackNoteType.GHLWhite2],
                 length: 0,
             }, {
-                id: 80,
+                id: 110,
                 event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
                 time: 8.4,
                 type: [ChartStoreTrackNoteType.GHLWhite3],
                 length: 0,
             }, {
-                id: 90,
+                id: 120,
                 event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
                 time: 10.4,
                 type: [],
                 length: 0,
             }, {
-                id: 100,
+                id: 130,
                 event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
                 time: 12.4,
                 type: [ChartStoreTrackNoteType.GHLBlack1, ChartStoreTrackNoteType.GHLWhite1],
                 length: 0,
             }, {
-                id: 110,
+                id: 140,
                 event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
                 time: 14.4,
                 type: [ChartStoreTrackNoteType.GHLWhite1],
                 length: 1,
             }, {
-                id: 120,
+                id: 150,
                 event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
                 time: 14.4,
                 type: [ChartStoreTrackNoteType.GHLWhite2],
                 length: 0.5,
             }, {
-                id: 130,
+                id: 160,
                 event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
                 time: 16.4,
                 type: [ChartStoreTrackNoteType.GHLWhite3],
                 length: 1,
             }, {
-                id: 140,
+                id: 170,
                 event: ChartStoreTrackEventType.Note as ChartStoreTrackEventType.Note,
                 time: 16.4,
                 type: [],

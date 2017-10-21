@@ -8,16 +8,18 @@ import { ChartStoreTrack, ChartStoreTrackNoteType } from '../chart-store';
 
 const ghlNoteExporter: NoteExporter = (note: ChartStoreTrackNoteType): number => {
     switch (note) {
-    case ChartStoreTrackNoteType.GuitarGreen:
-        return 0;
-    case ChartStoreTrackNoteType.GuitarRed:
-        return 1;
-    case ChartStoreTrackNoteType.GuitarYellow:
-        return 2;
-    case ChartStoreTrackNoteType.GuitarBlue:
+    case ChartStoreTrackNoteType.GHLBlack1:
         return 3;
-    case ChartStoreTrackNoteType.GuitarOrange:
+    case ChartStoreTrackNoteType.GHLBlack2:
         return 4;
+    case ChartStoreTrackNoteType.GHLBlack3:
+        return 8;
+    case ChartStoreTrackNoteType.GHLWhite1:
+        return 0;
+    case ChartStoreTrackNoteType.GHLWhite2:
+        return 1;
+    case ChartStoreTrackNoteType.GHLWhite3:
+        return 2;
     }
 };
 

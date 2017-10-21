@@ -94,12 +94,12 @@ export class ChartViewBuilderService {
         const notes: (ChartViewNoteGuitar | ChartViewNoteGHL)[] = [];
         let type = ChartViewNoteType.Guitar;
         if (note.guitarLane1 !== ChartViewPreparedNoteGuitarColor.None) {
-            const x = 10;
+            const x = 13;
             const color = this.buildGuitarNoteColor(note.guitarLane1);
             notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
         }
         if (note.guitarLane2 !== ChartViewPreparedNoteGuitarColor.None) {
-            const x = 30;
+            const x = 31.5;
             const color = this.buildGuitarNoteColor(note.guitarLane2);
             notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
         }
@@ -109,12 +109,12 @@ export class ChartViewBuilderService {
             notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
         }
         if (note.guitarLane4 !== ChartViewPreparedNoteGuitarColor.None) {
-            const x = 70;
+            const x = 68.5;
             const color = this.buildGuitarNoteColor(note.guitarLane4);
             notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
         }
         if (note.guitarLane5 !== ChartViewPreparedNoteGuitarColor.None) {
-            const x = 90;
+            const x = 87;
             const color = this.buildGuitarNoteColor(note.guitarLane5);
             notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
         }
@@ -154,8 +154,8 @@ export class ChartViewBuilderService {
             return ChartViewNoteGuitarColor.Green;
         case ChartViewPreparedNoteGuitarColor.Red:
             return ChartViewNoteGuitarColor.Red;
-        case ChartViewPreparedNoteGuitarColor.Orange:
-            return ChartViewNoteGuitarColor.Orange;
+        case ChartViewPreparedNoteGuitarColor.Yellow:
+            return ChartViewNoteGuitarColor.Yellow;
         case ChartViewPreparedNoteGuitarColor.Blue:
             return ChartViewNoteGuitarColor.Blue;
         case ChartViewPreparedNoteGuitarColor.Orange:

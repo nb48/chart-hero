@@ -13,6 +13,10 @@ export class ChartViewNoteComponent {
         return this.note.type === ChartViewNoteType.Open;
     }
 
+    get guitar(): boolean {
+        return this.note.type === ChartViewNoteType.Guitar;
+    }
+
     get ghl(): boolean {
         return this.note.type === ChartViewNoteType.GHL;
     }

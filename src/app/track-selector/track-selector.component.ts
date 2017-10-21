@@ -4,6 +4,18 @@ import { ChartViewControllerService } from '../chart-view/controller/chart-view-
 import { ChartViewTrack } from '../chart-view/chart-view-track';
 
 const tracks = [{
+    model: ChartViewTrack.GuitarExpert,
+    view: 'Guitar - Expert',
+}, {
+    model: ChartViewTrack.GuitarHard,
+    view: 'Guitar - Hard',
+}, {
+    model: ChartViewTrack.GuitarMedium,
+    view: 'Guitar - Medium',
+}, {
+    model: ChartViewTrack.GuitarEasy,
+    view: 'Guitar - Easy',
+}, {
     model: ChartViewTrack.GHLGuitarExpert,
     view: 'Guitar Hero Live - Expert',
 }, {
@@ -15,6 +27,18 @@ const tracks = [{
 }, {
     model: ChartViewTrack.GHLGuitarEasy,
     view: 'Guitar Hero Live - Easy',
+}, {
+    model: ChartViewTrack.BassExpert,
+    view: 'Bass - Expert',
+}, {
+    model: ChartViewTrack.BassHard,
+    view: 'Bass - Hard',
+}, {
+    model: ChartViewTrack.BassMedium,
+    view: 'Bass - Medium',
+}, {
+    model: ChartViewTrack.BassEasy,
+    view: 'Bass - Easy',
 }];
 
 @Component({
@@ -31,5 +55,9 @@ export class TrackSelectorComponent {
         this.viewController.track.subscribe((track) => {
             this.track = track;
         });
+    }
+
+    captureScroll(e: any) {
+        e.stopPropagation();
     }
 }

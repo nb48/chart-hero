@@ -5,7 +5,7 @@ import { ChartStoreGenericImporterService, NoteImporter, SupportedNotes }
 from '../generic/chart-store-generic-importer.service';
 import { ChartStoreTrack, ChartStoreTrackNoteType } from '../chart-store';
 
-const supportedGuitarNotes: SupportedNotes = [0, 1, 2, 3, 4, 7, 8];
+const supportedGuitarNotes: SupportedNotes = [0, 1, 2, 3, 4, 7];
 
 const guitarNoteImporter: NoteImporter = (notes: number[]): ChartStoreTrackNoteType[] => {
     if (notes[0] === 7) {
@@ -13,18 +13,16 @@ const guitarNoteImporter: NoteImporter = (notes: number[]): ChartStoreTrackNoteT
     }
     return notes.map((note) => {
         switch (note) {
-        case 3:
-            return ChartStoreTrackNoteType.GHLBlack1;
-        case 4:
-            return ChartStoreTrackNoteType.GHLBlack2;
-        case 8:
-            return ChartStoreTrackNoteType.GHLBlack3;
         case 0:
-            return ChartStoreTrackNoteType.GHLWhite1;
+            return ChartStoreTrackNoteType.GuitarGreen;
         case 1:
-            return ChartStoreTrackNoteType.GHLWhite2;
+            return ChartStoreTrackNoteType.GuitarRed;
         case 2:
-            return ChartStoreTrackNoteType.GHLWhite3;
+            return ChartStoreTrackNoteType.GuitarYellow;
+        case 3:
+            return ChartStoreTrackNoteType.GuitarBlue;
+        case 4:
+            return ChartStoreTrackNoteType.GuitarOrange;
         }
     });
 };

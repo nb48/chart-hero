@@ -1,5 +1,5 @@
 <div class='track-selector'>
     <mat-select [ngModel]="track" (ngModelChange)="viewController.newTrack($event)">
-        <mat-option *ngFor="let track of tracks" [value]="track.model">{{track.view}}</mat-option>
+        <mat-option *ngFor="let track of tracks" [value]="track.model" (mousewheel)="captureScroll($event)">{{track.view}}</mat-option>
     </mat-select>
 </div>

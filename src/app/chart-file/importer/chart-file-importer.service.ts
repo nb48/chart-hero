@@ -40,18 +40,6 @@ export class ChartFileImporterService {
                 medium: this.importTrack(file, 'MediumSingle'),
                 easy: this.importTrack(file, 'EasySingle'),
             },
-            bass: {
-                expert: this.importTrack(file, 'ExpertDoubleBass'),
-                hard: this.importTrack(file, 'HardDoubleBass'),
-                medium: this.importTrack(file, 'MediumDoubleBass'),
-                easy: this.importTrack(file, 'EasyDoubleBass'),
-            },
-            drums: {
-                expert: this.importTrack(file, 'ExpertDrums'),
-                hard: this.importTrack(file, 'HardDrums'),
-                medium: this.importTrack(file, 'MediumDrums'),
-                easy: this.importTrack(file, 'EasyDrums'),
-            },
             ghlGuitar: {
                 expert: this.importTrack(file, 'ExpertGHLGuitar'),
                 hard: this.importTrack(file, 'HardGHLGuitar'),

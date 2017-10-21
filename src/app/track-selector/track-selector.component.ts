@@ -27,18 +27,6 @@ const tracks = [{
 }, {
     model: ChartViewTrack.GHLGuitarEasy,
     view: 'Guitar Hero Live - Easy',
-}, {
-    model: ChartViewTrack.BassExpert,
-    view: 'Bass - Expert',
-}, {
-    model: ChartViewTrack.BassHard,
-    view: 'Bass - Hard',
-}, {
-    model: ChartViewTrack.BassMedium,
-    view: 'Bass - Medium',
-}, {
-    model: ChartViewTrack.BassEasy,
-    view: 'Bass - Easy',
 }];
 
 @Component({

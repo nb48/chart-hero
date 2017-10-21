@@ -56,18 +56,6 @@ export const TEST_CHART_FILE: ChartFile = {
         medium: null,
         easy: null,
     },
-    bass: {
-        expert: null,
-        hard: null,
-        medium: null,
-        easy: null,
-    },
-    drums: {
-        expert: null,
-        hard: null,
-        medium: null,
-        easy: null,
-    },
     ghlGuitar: {
         expert: [{
             midiTime: 200,
@@ -213,42 +201,6 @@ export const TEST_CHART_STORE: ChartStore = {
                 type: [ChartStoreTrackNoteType.GuitarYellow],
                 length: 0,
             }],
-            unsupported: [],
-        },
-        hard: {
-            events: [],
-            unsupported: [],
-        },
-        medium: {
-            events: [],
-            unsupported: [],
-        },
-        easy: {
-            events: [],
-            unsupported: [],
-        },
-    },
-    bass: {
-        expert: {
-            events: [],
-            unsupported: [],
-        },
-        hard: {
-            events: [],
-            unsupported: [],
-        },
-        medium: {
-            events: [],
-            unsupported: [],
-        },
-        easy: {
-            events: [],
-            unsupported: [],
-        },
-    },
-    drums: {
-        expert: {
-            events: [],
             unsupported: [],
         },
         hard: {

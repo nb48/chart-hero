@@ -8,18 +8,6 @@ export interface ChartFile {
         medium: ChartFileTrack[];
         easy: ChartFileTrack[];
     };
-    bass: {
-        expert: ChartFileTrack[];
-        hard: ChartFileTrack[];
-        medium: ChartFileTrack[];
-        easy: ChartFileTrack[];
-    };
-    drums: {
-        expert: ChartFileTrack[];
-        hard: ChartFileTrack[];
-        medium: ChartFileTrack[];
-        easy: ChartFileTrack[];
-    };
     ghlGuitar: {
         expert: ChartFileTrack[];
         hard: ChartFileTrack[];

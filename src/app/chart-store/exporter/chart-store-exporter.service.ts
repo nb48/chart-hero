@@ -37,22 +37,6 @@ export class ChartStoreExporterService {
                 easy: this.guitarExporter.export
                     (cs.guitar.easy, cs.syncTrack, resolution, offset),
             },
-            bass: {
-                expert: this.guitarExporter.export
-                    (cs.bass.expert, cs.syncTrack, resolution, offset),
-                hard: this.guitarExporter.export
-                    (cs.bass.hard, cs.syncTrack, resolution, offset),
-                medium: this.guitarExporter.export
-                    (cs.bass.medium, cs.syncTrack, resolution, offset),
-                easy: this.guitarExporter.export
-                    (cs.bass.easy, cs.syncTrack, resolution, offset),
-            },
-            drums: {
-                expert: this.trackExporter.export(cs.drums.expert),
-                hard: this.trackExporter.export(cs.drums.hard),
-                medium: this.trackExporter.export(cs.drums.medium),
-                easy: this.trackExporter.export(cs.drums.easy),
-            },
             ghlGuitar: {
                 expert: this.ghlExporter.export
                     (cs.ghlGuitar.expert, cs.syncTrack, resolution, offset),

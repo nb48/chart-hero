@@ -61,18 +61,6 @@ export const TEST_CHART: ChartFile = {
         medium: null,
         easy: null,
     },
-    bass: {
-        expert: null,
-        hard: null,
-        medium: null,
-        easy: null,
-    },
-    drums: {
-        expert: null,
-        hard: null,
-        medium: null,
-        easy: null,
-    },
     ghlGuitar: {
         expert: [{
             midiTime: 200,

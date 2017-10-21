@@ -9,18 +9,6 @@ export interface ChartStore {
         medium: ChartStoreTrack;
         easy: ChartStoreTrack;
     };
-    bass: {
-        expert: ChartStoreTrack;
-        hard: ChartStoreTrack;
-        medium: ChartStoreTrack;
-        easy: ChartStoreTrack;
-    };
-    drums: {
-        expert: ChartStoreTrack;
-        hard: ChartStoreTrack;
-        medium: ChartStoreTrack;
-        easy: ChartStoreTrack;
-    };
     ghlGuitar: {
         expert: ChartStoreTrack;
         hard: ChartStoreTrack;

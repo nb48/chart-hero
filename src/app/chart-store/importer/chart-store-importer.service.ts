@@ -39,22 +39,6 @@ export class ChartStoreImporterService {
                 easy: this.guitarImporter.import
                     (cf.guitar.easy, cf.syncTrack, resolution, offset),
             },
-            bass: {
-                expert: this.guitarImporter.import
-                    (cf.bass.expert, cf.syncTrack, resolution, offset),
-                hard: this.guitarImporter.import
-                    (cf.bass.hard, cf.syncTrack, resolution, offset),
-                medium: this.guitarImporter.import
-                    (cf.bass.medium, cf.syncTrack, resolution, offset),
-                easy: this.guitarImporter.import
-                    (cf.bass.easy, cf.syncTrack, resolution, offset),
-            },
-            drums: {
-                expert: this.trackImporter.import(cf.drums.expert),
-                hard: this.trackImporter.import(cf.drums.hard),
-                medium: this.trackImporter.import(cf.drums.medium),
-                easy: this.trackImporter.import(cf.drums.easy),
-            },
             ghlGuitar: {
                 expert: this.ghlImporter.import
                     (cf.ghlGuitar.expert, cf.syncTrack, resolution, offset),
@@ -88,10 +72,6 @@ export class ChartStoreImporterService {
         checkTrack(cs.ghlGuitar.hard, ChartViewTrack.GHLGuitarHard);
         checkTrack(cs.ghlGuitar.medium, ChartViewTrack.GHLGuitarMedium);
         checkTrack(cs.ghlGuitar.easy, ChartViewTrack.GHLGuitarEasy);
-        checkTrack(cs.bass.expert, ChartViewTrack.BassExpert);
-        checkTrack(cs.bass.hard, ChartViewTrack.BassHard);
-        checkTrack(cs.bass.medium, ChartViewTrack.BassMedium);
-        checkTrack(cs.bass.easy, ChartViewTrack.BassEasy);
         return longestTrack;
     }
 }

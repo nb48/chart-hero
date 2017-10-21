@@ -41,14 +41,6 @@ export class ChartFileExporterService {
         maybeAddTrack('HardSingle', chart.guitar.hard);
         maybeAddTrack('MediumSingle', chart.guitar.medium);
         maybeAddTrack('EasySingle', chart.guitar.easy);
-        maybeAddTrack('ExpertDoubleBass', chart.bass.expert);
-        maybeAddTrack('HardDoubleBass', chart.bass.hard);
-        maybeAddTrack('MediumDoubleBass', chart.bass.medium);
-        maybeAddTrack('EasyDoubleBass', chart.bass.easy);
-        maybeAddTrack('ExpertDrums', chart.drums.expert);
-        maybeAddTrack('HardDrums', chart.drums.hard);
-        maybeAddTrack('MediumDrums', chart.drums.medium);
-        maybeAddTrack('EasyDrums', chart.drums.easy);
         maybeAddTrack('ExpertGHLGuitar', chart.ghlGuitar.expert);
         maybeAddTrack('HardGHLGuitar', chart.ghlGuitar.hard);
         maybeAddTrack('MediumGHLGuitar', chart.ghlGuitar.medium);

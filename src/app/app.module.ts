@@ -5,6 +5,7 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    MatRadioModule,
     MatSelectModule,
     MatTooltipModule,
 } from '@angular/material';
@@ -85,6 +86,7 @@ import { FileStoreService } from './file-store/file-store.service';
         MatFormFieldModule,
         MatInputModule,
         MatListModule,
+        MatRadioModule,
         MatSelectModule,
         MatTooltipModule,
         ReactiveFormsModule,

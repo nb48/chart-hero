@@ -23,6 +23,9 @@ export class NoteControlsComponent {
     isGuitarNote: boolean;
     isGHLNote: boolean;
     type: ChartStoreTrackNoteType[];
+    stepControl: string = 'one';
+    customStepTop: number = 1;
+    customStepBottom: number = 1;
 
     constructor(
         private noteController: ChartViewNoteControllerService,
@@ -46,6 +49,32 @@ export class NoteControlsComponent {
 
     typeChanged(type: ChartStoreTrackNoteType[]): void {
         this.noteController.updateNoteType(this.id, type);
+    }
+
+    newStep(): void {
+        switch (this.stepControl) {
+        case 'one':
+            this.timeController.newStep(1, 1);
+            return;
+        case 'half':
+            this.timeController.newStep(1, 2);
+            return;
+        case 'third':
+            this.timeController.newStep(1, 3);
+            return;
+        case 'quarter':
+            this.timeController.newStep(1, 4);
+            return;
+        case 'custom':
+            const top = this.customStepTop !== null && this.customStepTop !== 0
+                ? this.customStepTop
+                : 1;
+            const bottom = this.customStepBottom !== null && this.customStepBottom !== 0
+                ? this.customStepBottom
+                : 1;
+            this.timeController.newStep(top, bottom);
+            return;
+        }
     }
 
     moveForwards(): void {

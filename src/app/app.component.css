@@ -4,10 +4,10 @@
     width: 100vw;
     height: 100vh;
     grid-template-areas: ". . file-select"
-                         "track-selector editor ."
-                         "audio-player-controls editor ."
-                         "converter editor ."
-                         ". editor ."
+                         "track-selector editor note-controls"
+                         "audio-player-controls editor note-controls"
+                         "converter editor note-controls"
+                         ". editor note-controls"
                          ". editor exporter";
     grid-template-columns: 20% 2fr 1fr;
     grid-template-rows: 8.25em 2.25em 4.25em 3.25em 1fr 4.25em;
@@ -31,6 +31,10 @@
 
 .app app-editor {
     grid-area: editor;
+}
+
+.app app-note-controls {
+    grid-area: note-controls;
 }
 
 .app app-exporter {

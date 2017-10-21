@@ -27,6 +27,7 @@ import { ConverterComponent } from './converter/converter.component';
 import { EditorComponent } from './editor/editor.component';
 import { ExporterComponent } from './exporter/exporter.component';
 import { FileSelectComponent } from './file-select/file-select.component';
+import { NoteControlsComponent } from './note-controls/note-controls.component';
 import { ScrollbarComponent } from './editor/scrollbar/scrollbar.component';
 import { TrackSelectorComponent } from './track-selector/track-selector.component';
 
@@ -97,6 +98,7 @@ import { FileStoreService } from './file-store/file-store.service';
         EditorComponent,
         ExporterComponent,
         FileSelectComponent,
+        NoteControlsComponent,
         ScrollbarComponent,
         TrackSelectorComponent,
     ],

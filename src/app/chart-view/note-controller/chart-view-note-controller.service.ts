@@ -12,7 +12,7 @@ export class ChartViewNoteControllerService {
 
     private currentChart: ChartStore;
     private currentTrack: ChartViewTrack;
-    private selectedNoteSubject: ReplaySubject<number>;
+    private selectedNoteSubject: ReplaySubject<ChartStoreTrackNote>;
 
     constructor(
         private chartStore: ChartStoreService,
@@ -24,10 +24,10 @@ export class ChartViewNoteControllerService {
         this.trackController.track.subscribe((track) => {
             this.currentTrack = track;
         });
-        this.selectedNoteSubject = new ReplaySubject<number>();
+        this.selectedNoteSubject = new ReplaySubject<ChartStoreTrackNote>();
     }
 
-    get selectedNote(): Observable<number> {
+    get selectedNote(): Observable<ChartStoreTrackNote> {
         return this.selectedNoteSubject.asObservable();
     }
 

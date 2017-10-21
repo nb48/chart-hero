@@ -6,7 +6,7 @@ import { ChartViewTrack } from '../chart-view-track';
 @Injectable()
 export class ChartViewControllerService {
 
-    trackSubject: ReplaySubject<ChartViewTrack>;
+    private trackSubject: ReplaySubject<ChartViewTrack>;
 
     constructor() {
         this.trackSubject = new ReplaySubject<ChartViewTrack>();

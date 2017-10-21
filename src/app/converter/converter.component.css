@@ -3,3 +3,8 @@
     width: 100%;
     height: 100%;
 }
+
+.converter button {
+    min-width: 60%;
+    float: right;
+}

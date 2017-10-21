@@ -37,6 +37,12 @@ export class ChartStoreService {
         return this.chartStoreSubject.asObservable();
     }
 
+    newChart(chart: ChartStore): void {
+        this.currentChart = chart;
+        this.chartStoreSubject.next(this.currentChart);
+        this.chartFileEmitter.emit(this.exporter.export(this.currentChart));
+    }
+
     private import(chartFile: ChartFile) {
         this.currentChart = this.importer.import(chartFile);
         this.audioPlayer.setTime(0);

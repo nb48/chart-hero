@@ -17,7 +17,6 @@ export class ChartViewService {
     private currentPreparedView: ChartViewPrepared;
     private currentView: ChartView;
     private currentTime: number;
-    private renderedCurrentView: boolean;
 
     constructor(
         private audioPlayer: AudioPlayerService,
@@ -27,7 +26,6 @@ export class ChartViewService {
         private preparer: ChartViewPreparerService,
     ) {
         this.currentTime = 0;
-        this.renderedCurrentView = true;
         this.chartViewSubject = new ReplaySubject<ChartView>();
         this.chartStore.chart.combineLatest(this.controller.track, (chart, track) => {
             this.currentPreparedView = this.preparer.buildView(chart, track);
@@ -36,10 +34,9 @@ export class ChartViewService {
         });
         this.audioPlayer.frameEvent.subscribe((time: number) => {
             this.currentTime = time;
-            this.updateView(time);
         });
-        this.renderView();
-        Observable.interval(16.7).subscribe((n) => {
+        Observable.interval(16.666).subscribe((n) => {
+            this.updateView(this.currentTime);            
             this.renderView();
         });
     }
@@ -51,13 +48,9 @@ export class ChartViewService {
     private updateView(time: number): void {
         this.currentView = this.builder.buildView
             (this.currentPreparedView, time, this.audioPlayer.playing);
-        this.renderedCurrentView = false;
     }
 
     private renderView(): void {
-        if (!this.renderedCurrentView) {
-            this.renderedCurrentView = true;
-            this.chartViewSubject.next(this.currentView);            
-        }
+        this.chartViewSubject.next(this.currentView);
     }
 }

@@ -21,6 +21,7 @@ import {
 const speed = 1;
 const timeBefore = (1 / speed) * 1.2;
 const timeAfter = (1 / speed) * -0.3;
+const spacer = 0.2;
 
 const zeroPosition = (): number => {
     return timeBefore / (timeBefore - timeAfter) * 100;
@@ -144,7 +145,8 @@ export class ChartViewBuilderService {
     }
 
     private timeInView(eventTime: number, currentTime: number): boolean {
-        return eventTime > (currentTime + timeAfter) && eventTime < (currentTime + timeBefore);  
+        return eventTime > (currentTime + timeAfter - spacer) &&
+            eventTime < (currentTime + timeBefore + spacer);
     }
 
     private calculateYPos(eventTime: number, currentTime: number): number {

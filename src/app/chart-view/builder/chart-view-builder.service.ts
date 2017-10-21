@@ -34,14 +34,15 @@ export class ChartViewBuilderService {
     constructor() {
     }
 
-    buildView(csv: ChartViewPrepared, currentTime: number, playing: boolean): ChartView {
+    buildView(csv: ChartViewPrepared, currentTime: number, playing: boolean, selectedId: number)
+        : ChartView {
         return {
             currentTime,
             currentIncrement: this.calculateCurrentIncrement(csv, currentTime, playing),
             zeroPosition: zeroPosition(),
             duration: csv.duration,
             beats: this.buildBeats(csv, currentTime),
-            notes: this.buildNotes(csv, currentTime, playing),
+            notes: this.buildNotes(csv, currentTime, playing, selectedId),
         };
     }
 
@@ -73,66 +74,71 @@ export class ChartViewBuilderService {
         return nextBeat.time - currentBeat.time;
     }
 
-    private buildNotes(csv: ChartViewPrepared, currentTime: number, playing: boolean)
-        : ChartViewNote[] {
+    private buildNotes(
+        csv: ChartViewPrepared,
+        currentTime: number,
+        playing: boolean,
+        selectedId: number,
+    ): ChartViewNote[] {
         return [].concat.apply([], csv.notes
             .filter(n => this.timeInView(n.time, currentTime))
             .filter(n => playing ? n.time >= currentTime : true)
             .map((note): ChartViewNote[] => {
                 const y = this.calculateYPos(note.time, currentTime);
+                const selected = note.id === selectedId;
                 if (note.open) {
                     const type = ChartViewNoteType.Open;
-                    return [{ type, y, id: note.id + 1 }] as ChartViewNoteOpen[];
+                    return [{ type, y, selected, id: note.id + 1 }] as ChartViewNoteOpen[];
                 } else {
-                    return this.splitNote(note, y);
+                    return this.splitNote(note, y, selected);
                 }
             }))
             .sort((a: ChartViewNote, b: ChartViewNote) => a.y - b.y);
     }
 
-    private splitNote(note: ChartViewPreparedNote, y: number): ChartViewNote[] {
+    private splitNote(note: ChartViewPreparedNote, y: number, selected: boolean): ChartViewNote[] {
         const notes: (ChartViewNoteGuitar | ChartViewNoteGHL)[] = [];
         let type = ChartViewNoteType.Guitar;
         if (note.guitarLane1 !== ChartViewPreparedNoteGuitarColor.None) {
             const x = 13;
             const color = this.buildGuitarNoteColor(note.guitarLane1);
-            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
+            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         if (note.guitarLane2 !== ChartViewPreparedNoteGuitarColor.None) {
             const x = 31.5;
             const color = this.buildGuitarNoteColor(note.guitarLane2);
-            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
+            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         if (note.guitarLane3 !== ChartViewPreparedNoteGuitarColor.None) {
             const x = 50;
             const color = this.buildGuitarNoteColor(note.guitarLane3);
-            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
+            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         if (note.guitarLane4 !== ChartViewPreparedNoteGuitarColor.None) {
             const x = 68.5;
             const color = this.buildGuitarNoteColor(note.guitarLane4);
-            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
+            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         if (note.guitarLane5 !== ChartViewPreparedNoteGuitarColor.None) {
             const x = 87;
             const color = this.buildGuitarNoteColor(note.guitarLane5);
-            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
+            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         type = ChartViewNoteType.GHL;
         if (note.ghlLane1 !== ChartViewPreparedNoteGHLColor.None) {
             const x = 25;
             const color = this.buildGHLNoteColor(note.ghlLane1);
-            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
+            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         if (note.ghlLane2 !== ChartViewPreparedNoteGHLColor.None) {
             const x = 50;
             const color = this.buildGHLNoteColor(note.ghlLane2);
-            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
+            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         if (note.ghlLane3 !== ChartViewPreparedNoteGHLColor.None) {
             const x = 75;
             const color = this.buildGHLNoteColor(note.ghlLane3);
-            notes.push({ type, x, y, color, id: note.id + notes.length + 1 });
+            notes.push({ type, x, y, color, selected, id: note.id + notes.length + 1 });
         }
         return notes;
     }

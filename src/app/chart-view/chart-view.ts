@@ -27,12 +27,14 @@ export enum ChartViewNoteType {
 export interface ChartViewNoteOpen {
     id: number;
     type: ChartViewNoteType.Open;
+    selected: boolean;
     y: number;
 }
 
 export interface ChartViewNoteGuitar {
     id: number;
     type: ChartViewNoteType.Guitar;
+    selected: boolean;
     x: number;
     y: number;
     color: ChartViewNoteGuitarColor;    
@@ -49,6 +51,7 @@ export enum ChartViewNoteGuitarColor {
 export interface ChartViewNoteGHL {
     id: number;
     type: ChartViewNoteType.GHL;
+    selected: boolean;
     x: number;
     y: number;
     color: ChartViewNoteGHLColor;

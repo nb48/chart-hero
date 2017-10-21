@@ -5,6 +5,8 @@ import { AudioPlayerService } from '../audio-player/audio-player.service';
 import { ChartStoreService } from '../chart-store/chart-store.service';
 import { ChartStore } from '../chart-store/chart-store';
 import { ChartViewBuilderService } from './builder/chart-view-builder.service';
+import { ChartViewNoteControllerService }
+from './note-controller/chart-view-note-controller.service';
 import { ChartViewTrackControllerService }
 from './track-controller/chart-view-track-controller.service';
 import { ChartViewPreparerService } from './preparer/chart-view-preparer.service';
@@ -18,20 +20,28 @@ export class ChartViewService {
     private currentPreparedView: ChartViewPrepared;
     private currentView: ChartView;
     private currentTime: number;
+    private selectedId: number;
 
     constructor(
         private audioPlayer: AudioPlayerService,
         private chartStore: ChartStoreService,
         private builder: ChartViewBuilderService,
+        private noteController: ChartViewNoteControllerService,
         private trackController: ChartViewTrackControllerService,
         private preparer: ChartViewPreparerService,
     ) {
         this.currentTime = 0;
         this.chartViewSubject = new ReplaySubject<ChartView>();
-        this.chartStore.chart.combineLatest(this.trackController.track, (chart, track) => {
-            this.currentPreparedView = this.preparer.buildView(chart, track);
-        }).subscribe(() => {
-            this.updateView(this.currentTime);  
+        Observable.combineLatest(
+            this.chartStore.chart,
+            this.trackController.track,
+            this.noteController.selectedNote,
+            (chart, track, selectedNote) => {
+                this.currentPreparedView = this.preparer.buildView(chart, track);
+                this.selectedId = selectedNote ? selectedNote.id : undefined;
+            },
+        ).subscribe(() => {
+            this.updateView(this.currentTime);            
         });
         this.audioPlayer.frameEvent.subscribe((time: number) => {
             this.currentTime = time;
@@ -48,7 +58,7 @@ export class ChartViewService {
 
     private updateView(time: number): void {
         this.currentView = this.builder.buildView
-            (this.currentPreparedView, time, this.audioPlayer.playing);
+            (this.currentPreparedView, time, this.audioPlayer.playing, this.selectedId);
     }
 
     private renderView(): void {

@@ -17,6 +17,7 @@ export class ScrollbarComponent implements AfterViewInit {
     @ViewChild(MatTooltip) currentTimeTooltip: MatTooltip;
 
     private moving: boolean;
+    private playing: boolean;
     private svg: any;
 
     constructor(public audioPlayer: AudioPlayerService, private scrollbar: ElementRef) {
@@ -24,6 +25,7 @@ export class ScrollbarComponent implements AfterViewInit {
 
     ngAfterViewInit() {
         this.moving = false;
+        this.playing = false;
         this.svg = this.scrollbar.nativeElement.querySelector('svg');
     }
 
@@ -48,23 +50,26 @@ export class ScrollbarComponent implements AfterViewInit {
 
     clickScrollbar(e: any): void {
         if (this.audioPlayer.playing) {
-            return;
+            this.audioPlayer.pause();
+            this.playing = true;
         }
         this.propagateTimeChange(e);
+        if (this.playing) {
+            this.audioPlayer.play();
+            this.playing = false;
+        }
     }
 
     clickHandle(e: any): void {
         if (this.audioPlayer.playing) {
-            return;
+            this.audioPlayer.pause();
+            this.playing = true;
         }
         this.moving = true;
         this.currentTimeTooltip.show();
     }
 
     moveHandle(e: any): void {
-        if (this.audioPlayer.playing) {
-            return;
-        }
         if (this.moving) {
             this.currentTimeTooltip.hide();
             this.currentTimeTooltip.show();
@@ -73,12 +78,13 @@ export class ScrollbarComponent implements AfterViewInit {
     }
 
     releaseHandle(e: any): void {
-        if (this.audioPlayer.playing) {
-            return;
-        }
         if (this.moving) {
             this.propagateTimeChange(e);
             this.moving = false;
+            if (this.playing) {
+                this.audioPlayer.play();
+                this.playing = false;
+            }
         }
     }
 

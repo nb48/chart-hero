@@ -44,7 +44,7 @@ export class NoteControlsComponent {
             this.isGHLNote = note.event === ChartStoreTrackEventType.GHLNote;
             this.type = note.type;
         });
-        this.timeController.newStep(1, 3);
+        this.newStep();
     }
 
     typeChanged(type: ChartStoreTrackNoteType[]): void {

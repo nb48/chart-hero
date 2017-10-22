@@ -7,6 +7,7 @@ import { ChartViewNote, ChartViewNoteType } from '../../../chart-view/chart-view
 @Component({
     selector: '[app-chart-view-note]',
     templateUrl: './chart-view-note.component.html',
+    styleUrls: ['./chart-view-note.component.css'],
 })
 export class ChartViewNoteComponent {
     @Input() note: ChartViewNote;
@@ -28,5 +29,9 @@ export class ChartViewNoteComponent {
 
     get ghl(): boolean {
         return this.note.type === ChartViewNoteType.GHL;
+    }
+
+    get tooltip(): string {
+        return `${this.note.id}, ${Math.floor(this.note.time * 1000) / 1000}`;
     }
 }

@@ -45,9 +45,10 @@ export class ChartViewService {
         });
         this.audioPlayer.frameEvent.subscribe((time: number) => {
             this.currentTime = time;
-        });
-        Observable.interval(16.666).subscribe((n) => {
             this.updateView(this.currentTime);            
+        });
+        this.renderView();                            
+        Observable.interval(16.666).subscribe(() => {
             this.renderView();
         });
     }
@@ -62,6 +63,6 @@ export class ChartViewService {
     }
 
     private renderView(): void {
-        this.chartViewSubject.next(this.currentView);
+        this.chartViewSubject.next(this.currentView); 
     }
 }

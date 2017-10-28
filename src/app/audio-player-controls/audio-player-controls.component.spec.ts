@@ -1,7 +1,12 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import {
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTooltipModule,
+} from '@angular/material';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -28,6 +33,7 @@ describe('Component: AudioPlayerControlsComponent', () => {
                 MatButtonModule,
                 MatFormFieldModule,
                 MatInputModule,
+                MatTooltipModule,
                 ReactiveFormsModule,
             ],
             declarations: [

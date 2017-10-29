@@ -6,6 +6,7 @@ import { AudioPlayerService } from '../../audio-player/audio-player.service';
 import { ChartView } from '../../chart-view/chart-view';
 
 const scrollingConstant = 0.018867924528301886;
+const lineHeightPx = 17.666;
 
 @Component({
     selector: 'app-scrollbar',
@@ -42,8 +43,9 @@ export class ScrollbarComponent implements AfterViewInit {
         if (this.audioPlayer.playing) {
             return;
         }
+        const delta = e.deltaMode === 1 ? e.deltaY * lineHeightPx : e.deltaY;
         const targetTime = this.view.currentTime +
-            (-scrollingConstant * this.view.currentIncrement * e.deltaY);
+            (-scrollingConstant * this.view.currentIncrement * delta);
         const newTime = Math.min(this.view.duration, Math.max(0, targetTime));
         this.audioPlayer.setTime(newTime);
     }

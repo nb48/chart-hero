@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 
 import { ChartView } from '../../chart-view/chart-view';
 import { TimeService } from '../../time/time.service';
-import { showTime } from '../audio-player-controls/audio-player-controls.component';
+import { ScrollbarBuilder } from './builder/scrollbar-builder.service';
+import { Scrollbar } from './builder/scrollbar';
 
 const scrollingConstant = 0.018867924528301886;
 const lineHeightPx = 17.666;
@@ -15,23 +16,31 @@ const lineHeightPx = 17.666;
     styleUrls: ['./scrollbar.component.css'],
 })
 export class ScrollbarComponent implements AfterViewInit {
-    @Input() view: ChartView;
     @ViewChild(MatTooltip) currentTimeTooltip: MatTooltip;
 
+    private duration: number;
+    private scrollbar: Scrollbar;
     private moving: boolean;
     private playing: boolean;
     private svg: any;
 
     constructor(
-        private scrollbar: ElementRef,
+        private builder: ScrollbarBuilder,
+        private scrollbarElement: ElementRef,
         private timeService: TimeService,
     ) {
+        this.builder.duration.subscribe((duration) => {
+            this.duration = duration;
+        });
+        this.builder.scrollbar.subscribe((scrollbar) => {
+            this.scrollbar = scrollbar;
+        });
     }
 
     ngAfterViewInit() {
         this.moving = false;
         this.playing = false;
-        this.svg = this.scrollbar.nativeElement.querySelector('svg');
+        this.svg = this.scrollbarElement.nativeElement.querySelector('svg');
     }
 
     get height(): number {
@@ -40,11 +49,11 @@ export class ScrollbarComponent implements AfterViewInit {
 
     get handlePosition(): number {
         return 97 - this.height -
-            ((94 - this.height) * (this.view.currentTime / this.view.duration));
+            ((94 - this.height) * (this.scrollbar.currentTime / this.duration));
     }
 
     get tooltip(): string {
-        return showTime(this.view.currentTime);
+        return this.scrollbar.formattedTime;
     }
 
     scroll(e: any): void {
@@ -52,9 +61,9 @@ export class ScrollbarComponent implements AfterViewInit {
             return;
         }
         const delta = e.deltaMode === 1 ? e.deltaY * lineHeightPx : e.deltaY;
-        const targetTime = this.view.currentTime +
-            (-scrollingConstant * this.view.currentIncrement * delta);
-        const newTime = Math.min(this.view.duration, Math.max(0, targetTime));
+        const targetTime = this.scrollbar.currentTime +
+            (-scrollingConstant * this.scrollbar.currentIncrement * delta);
+        const newTime = Math.min(this.duration, Math.max(0, targetTime));
         this.timeService.time = newTime;
     }
 
@@ -102,8 +111,10 @@ export class ScrollbarComponent implements AfterViewInit {
         if (this.timeService.playing) {
             return;
         }
-        const newTime = Math.min
-            (this.view.duration, this.view.currentTime + this.view.currentIncrement);        
+        const newTime = Math.min(
+            this.duration,
+            this.scrollbar.currentTime + this.scrollbar.currentIncrement,
+        );        
         this.timeService.time = newTime;
         e.stopPropagation();
     }
@@ -113,7 +124,7 @@ export class ScrollbarComponent implements AfterViewInit {
             return;
         }
         const newTime = Math.max
-            (0, this.view.currentTime - this.view.currentIncrement);
+            (0, this.scrollbar.currentTime - this.scrollbar.currentIncrement);
         this.timeService.time = newTime;
         e.stopPropagation();
     }
@@ -130,6 +141,6 @@ export class ScrollbarComponent implements AfterViewInit {
         const yPos = point.matrixTransform(this.svg.getScreenCTM().inverse()).y;
         const clampedPos = Math.min(100 - (this.height / 2), Math.max(this.height / 2, yPos));
         const scaledPos = (clampedPos - (this.height / 2)) / (100 - this.height);
-        return (1 - scaledPos) * this.view.duration;
+        return (1 - scaledPos) * this.duration;
     }
 }

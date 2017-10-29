@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, ReplaySubject, Subscription } from 'rxjs';
 
 import { AudioPlayerService } from './audio-player/audio-player.service';
 
@@ -12,10 +12,11 @@ export class TimeService {
     private lastPlayedTime: number;
     private lastRealTime: number;
     private subscription: Subscription;
-    private timeEmitter: EventEmitter<number>;
+    private timeSubject: ReplaySubject<number>;
 
     constructor(private audioPlayer: AudioPlayerService) {
-        this.timeEmitter = new EventEmitter<number>();
+        this.timeSubject = new ReplaySubject<number>();
+        this.time = 0;
         this.currentlyPlaying = false;
         this.lastPlayedTime = this.currentTime;
         this.audioPlayer.times.subscribe((time: number) => {
@@ -26,13 +27,13 @@ export class TimeService {
         });
     }
 
-    get times(): EventEmitter<number> {
-        return this.timeEmitter;
+    get times(): Observable<number> {
+        return this.timeSubject.asObservable();
     }
 
     set time(time: number) {
         this.currentTime = time;
-        this.timeEmitter.emit(time);
+        this.timeSubject.next(time);
     }
 
     get playing(): boolean {
@@ -70,7 +71,7 @@ export class TimeService {
         if (playing) {
             this.play();
         }
-        this.timeEmitter.emit(this.currentTime);
+        this.timeSubject.next(this.currentTime);
     }
 
     private audioTimeUpdate(audioTime: number): void {

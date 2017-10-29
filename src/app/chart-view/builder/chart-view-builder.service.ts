@@ -38,10 +38,7 @@ export class ChartViewBuilderService {
     buildView(csv: ChartViewPrepared, currentTime: number, playing: boolean, selectedId: number)
         : ChartView {
         return {
-            currentTime,
-            currentIncrement: this.calculateCurrentIncrement(csv, currentTime, playing),
             zeroPosition: zeroPosition(),
-            duration: csv.duration,
             beats: this.buildBeats(csv, currentTime),
             notes: this.buildNotes(csv, currentTime, playing, selectedId),
         };
@@ -55,25 +52,6 @@ export class ChartViewBuilderService {
                 time: b.time,
                 y: this.calculateYPos(b.time, currentTime),
             }));
-    }
-
-    private calculateCurrentIncrement(csv: ChartViewPrepared, currentTime: number, playing: boolean)
-        : number {
-        if (playing) {
-            return 0;
-        }
-        const currentBeat = csv.beats
-            .slice().reverse()
-            .find(b => b.time <= currentTime + 0.005);
-        if (!currentBeat) {
-            return incrementWhenNoEvents;
-        }
-        const nextBeat = csv.beats.find(b => b.time > currentTime + 0.005);
-        if (!nextBeat) {
-            const previousBeat = csv.beats[csv.beats.length - 2];
-            return currentBeat.time - previousBeat.time;
-        }        
-        return nextBeat.time - currentBeat.time;
     }
 
     private buildNotes(

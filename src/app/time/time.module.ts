@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AudioPlayerService } from './audio-player/audio-player.service';
 import { AudioPlayerControlsComponent }
 from './audio-player-controls/audio-player-controls.component';
+import { ScrollbarBuilder } from './scrollbar/builder/scrollbar-builder.service';
 import { ScrollbarComponent } from './scrollbar/scrollbar.component';
 import { TimeService } from './time.service';
 
@@ -38,6 +39,7 @@ import { TimeService } from './time.service';
     ],
     providers: [
         AudioPlayerService,
+        ScrollbarBuilder,
         TimeService,
     ],
 })

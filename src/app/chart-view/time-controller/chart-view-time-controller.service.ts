@@ -28,11 +28,13 @@ export class ChartViewTimeControllerService {
     }
 
     moveForwardsTime(time: number): number {
-        return this.currentView.currentIncrement * this.step;
+        return 1 * this.step;
+        // return this.currentView.currentIncrement * this.step;
     }
 
     moveBackwardsTime(time: number): number {
-        return -this.currentView.currentIncrement * this.step;
+        return -1 * this.step;
+        // return -this.currentView.currentIncrement * this.step;
     }
 
     snapForwardsTime(time: number): number {

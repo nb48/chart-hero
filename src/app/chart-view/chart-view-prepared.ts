@@ -1,6 +1,5 @@
 
 export interface ChartViewPrepared {
-    duration: number;
     beats: ChartViewPreparedBeat[];
     notes: ChartViewPreparedNote[];
 }

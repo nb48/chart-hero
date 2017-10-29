@@ -23,34 +23,22 @@ const durationWhenNoEvents = 1;
 @Injectable()
 export class ChartViewPreparerService {
 
-    buildView(cs: Model, t: ChartViewTrack): ChartViewPrepared {
-        const track: ModelTrack = getTrack(cs, t);
-        const duration = this.buildDuration(cs);
+    buildView(model: Model, track: ChartViewTrack): ChartViewPrepared {
         return {
-            duration,
-            beats: this.buildBeats(cs.syncTrack, duration),
-            notes: this.buildNotes(track),
+            beats: this.buildBeats(model),
+            notes: this.buildNotes(model, track),
         };
     }
 
-    private buildDuration(cs: Model): number {
-        const events: ModelTrackEvent[] = [];
-        Object.keys(ChartViewTrack)
-            .map(k => ChartViewTrack[k])
-            .filter(v => typeof v === 'number')
-            .forEach((track: ChartViewTrack) => {
-                events.push(...getTrack(cs, track).events);                
-            });
-        const lastEvent = events.sort((a, b) => b.time - a.time)[0];
-        return lastEvent ? lastEvent.time : durationWhenNoEvents;
-    }
 
-    private buildBeats(syncTrack: ModelTrack, duration: number)
+
+    private buildBeats(model: Model)
         : ChartViewPreparedBeat[] {
+        const duration = this.calculateDuration(model);
         const beatTimes: ChartViewPreparedBeat[] = [];
         let timeCounter = 0;
         let currentIncrement = 0;
-        syncTrack.events
+        model.syncTrack.events
             .filter(e => e.event === ModelTrackEventType.BPMChange)
             .map(e => e as ModelTrackBPMChange)
             .sort((a, b) => a.time - b.time)
@@ -68,8 +56,21 @@ export class ChartViewPreparerService {
         return beatTimes;
     }
 
-    private buildNotes(track: ModelTrack): ChartViewPreparedNote[] {
-        return track.events
+    private calculateDuration(cs: Model): number {
+        const events: ModelTrackEvent[] = [];
+        Object.keys(ChartViewTrack)
+            .map(k => ChartViewTrack[k])
+            .filter(v => typeof v === 'number')
+            .forEach((track: ChartViewTrack) => {
+                events.push(...getTrack(cs, track).events);                
+            });
+        const lastEvent = events.sort((a, b) => b.time - a.time)[0];
+        return lastEvent ? lastEvent.time : durationWhenNoEvents;
+    }
+
+    private buildNotes(model: Model, track: ChartViewTrack): ChartViewPreparedNote[] {
+        const t: ModelTrack = getTrack(model, track);
+        return t.events
             .filter(e => e.event === ModelTrackEventType.GuitarNote
                 || e.event === ModelTrackEventType.GHLNote)
             .map(e => e as ModelTrackNote)

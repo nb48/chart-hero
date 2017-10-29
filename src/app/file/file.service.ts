@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { AudioPlayerService } from '../../audio-player/audio-player.service';
-import { ModelImporterService } from '../../model/import-export/model-importer.service';
-import { TimeService } from '../../time/time.service';
+import { AudioPlayerService } from '../audio-player/audio-player.service';
+import { ModelImporterService } from '../model/import-export/model-importer.service';
+import { TimeService } from '../time/time.service';
 
 @Injectable()
-export class FileStoreService {
+export class FileService {
 
     private $audioFileName: string;
     private $chartFileName: string;

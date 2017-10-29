@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { FileStoreService } from '../store/file-store.service';
+import { FileService } from '../file.service';
 
 @Component({
     selector: 'app-file-select',
@@ -9,6 +9,6 @@ import { FileStoreService } from '../store/file-store.service';
 })
 export class FileSelectComponent {
 
-    constructor(public store: FileStoreService) {
+    constructor(public store: FileService) {
     }
 }

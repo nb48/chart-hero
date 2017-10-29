@@ -3,7 +3,7 @@ import { MatButtonModule, MatListModule } from '@angular/material';
 import { By } from '@angular/platform-browser';
 
 import { AppFileModule } from '../file.module';
-import { FileStoreService } from '../store/file-store.service';
+import { FileService } from '../file.service';
 import { FileSelectComponent } from './file-select.component';
 
 describe('Component: FileSelectComponent', () => {
@@ -16,7 +16,7 @@ describe('Component: FileSelectComponent', () => {
                 AppFileModule,
             ],
             providers: [
-                { provide: FileStoreService, useClass: MockFileStoreService },
+                { provide: FileService, useClass: MockFileService },
             ],
         });
         fixture = TestBed.createComponent(FileSelectComponent);
@@ -44,7 +44,7 @@ describe('Component: FileSelectComponent', () => {
     });
 });
 
-class MockFileStoreService {
+class MockFileService {
 
     audioFileName = 'testAudioFile';
     chartFileName = 'testChartFile';

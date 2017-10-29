@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AudioPlayerService } from '../../audio-player/audio-player.service';
-import { ModelImporterService } from '../../model/import-export/model-importer.service';
-import { TimeService } from '../../time/time.service';
-import { FileStoreService } from './file-store.service';
+import { AudioPlayerService } from '../audio-player/audio-player.service';
+import { ModelImporterService } from '../model/import-export/model-importer.service';
+import { TimeService } from '../time/time.service';
+import { FileService } from './file.service';
 
 const testFile = new File(['testFileString'], 'testFileName');
 
-describe('Service: FileStoreService', () => {
+describe('Service: FileService', () => {
 
-    let service: FileStoreService;
+    let service: FileService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -17,10 +17,10 @@ describe('Service: FileStoreService', () => {
                 { provide: AudioPlayerService, useClass: MockAudioPlayerService },
                 { provide: ModelImporterService, useClass: MockModelImporterService },
                 { provide: TimeService, useClass: MockTimeService },
-                FileStoreService,
+                FileService,
             ],
         });
-        service = TestBed.get(FileStoreService);
+        service = TestBed.get(FileService);
     });
 
     it('FileStore should update audio file name after setting audio file', () => {

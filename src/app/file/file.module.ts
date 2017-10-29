@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FileDownloadComponent } from './download/file-download.component';
 import { FileSelectComponent } from './select/file-select.component';
-import { FileStoreService } from './store/file-store.service';
+import { FileService } from './file.service';
 
 @NgModule({
     imports: [
@@ -23,7 +23,7 @@ import { FileStoreService } from './store/file-store.service';
         FileSelectComponent,
     ],
     providers: [
-        FileStoreService,
+        FileService,
     ],
 })
 export class AppFileModule {

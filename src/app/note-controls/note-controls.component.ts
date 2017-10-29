@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 import {
-    ChartStoreTrackNote,
-    ChartStoreTrackEventType,
-    ChartStoreTrackNoteType,
-} from '../chart-store/chart-store';
+    ModelTrackNote,
+    ModelTrackEventType,
+    ModelTrackNoteType,
+} from '../model/model';
 import { ChartViewNoteControllerService }
 from '../chart-view/note-controller/chart-view-note-controller.service';
 import { ChartViewTimeControllerService }
@@ -22,7 +22,7 @@ export class NoteControlsComponent {
     time: number;
     isGuitarNote: boolean;
     isGHLNote: boolean;
-    type: ChartStoreTrackNoteType[];
+    type: ModelTrackNoteType[];
     stepControl: string = 'one';
     customStepTop: number = 1;
     customStepBottom: number = 1;
@@ -40,14 +40,14 @@ export class NoteControlsComponent {
             this.selected = true;
             this.id = note.id;
             this.time = Math.floor(note.time * 1000) / 1000;
-            this.isGuitarNote = note.event === ChartStoreTrackEventType.GuitarNote;
-            this.isGHLNote = note.event === ChartStoreTrackEventType.GHLNote;
+            this.isGuitarNote = note.event === ModelTrackEventType.GuitarNote;
+            this.isGHLNote = note.event === ModelTrackEventType.GHLNote;
             this.type = note.type;
         });
         this.newStep();
     }
 
-    typeChanged(type: ChartStoreTrackNoteType[]): void {
+    typeChanged(type: ModelTrackNoteType[]): void {
         this.noteController.updateNoteType(this.id, type);
     }
 

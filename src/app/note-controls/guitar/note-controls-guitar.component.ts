@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { ChartStoreTrackNoteType } from '../../chart-store/chart-store';
+import { ModelTrackNoteType } from '../../model/model';
 
 @Component({
     selector: 'app-note-controls-guitar',
@@ -8,54 +8,54 @@ import { ChartStoreTrackNoteType } from '../../chart-store/chart-store';
     styleUrls: ['./note-controls-guitar.component.css'],
 })
 export class NoteControlsGuitarComponent {
-    @Input() type: ChartStoreTrackNoteType[];
-    @Output() changed: EventEmitter<ChartStoreTrackNoteType[]>;
+    @Input() type: ModelTrackNoteType[];
+    @Output() changed: EventEmitter<ModelTrackNoteType[]>;
 
     constructor() {
-        this.changed = new EventEmitter<ChartStoreTrackNoteType[]>();
+        this.changed = new EventEmitter<ModelTrackNoteType[]>();
     }
 
     get green(): boolean {
-        return this.type.indexOf(ChartStoreTrackNoteType.GuitarGreen) !== -1;
+        return this.type.indexOf(ModelTrackNoteType.GuitarGreen) !== -1;
     }
     
     get red(): boolean {
-        return this.type.indexOf(ChartStoreTrackNoteType.GuitarRed) !== -1;
+        return this.type.indexOf(ModelTrackNoteType.GuitarRed) !== -1;
     }
     
     get yellow(): boolean {
-        return this.type.indexOf(ChartStoreTrackNoteType.GuitarYellow) !== -1;
+        return this.type.indexOf(ModelTrackNoteType.GuitarYellow) !== -1;
     }
     
     get blue(): boolean {
-        return this.type.indexOf(ChartStoreTrackNoteType.GuitarBlue) !== -1;
+        return this.type.indexOf(ModelTrackNoteType.GuitarBlue) !== -1;
     }
     
     get orange(): boolean {
-        return this.type.indexOf(ChartStoreTrackNoteType.GuitarOrange) !== -1;
+        return this.type.indexOf(ModelTrackNoteType.GuitarOrange) !== -1;
     }
 
     flipGreen(): void {
-        this.flip(ChartStoreTrackNoteType.GuitarGreen);
+        this.flip(ModelTrackNoteType.GuitarGreen);
     }
     
     flipRed(): void {
-        this.flip(ChartStoreTrackNoteType.GuitarRed);
+        this.flip(ModelTrackNoteType.GuitarRed);
     }
     
     flipYellow(): void {
-        this.flip(ChartStoreTrackNoteType.GuitarYellow);
+        this.flip(ModelTrackNoteType.GuitarYellow);
     }
     
     flipBlue(): void {
-        this.flip(ChartStoreTrackNoteType.GuitarBlue);
+        this.flip(ModelTrackNoteType.GuitarBlue);
     }
     
     flipOrange(): void {
-        this.flip(ChartStoreTrackNoteType.GuitarOrange);
+        this.flip(ModelTrackNoteType.GuitarOrange);
     }
 
-    private flip(type: ChartStoreTrackNoteType): void {
+    private flip(type: ModelTrackNoteType): void {
         const index = this.type.indexOf(type);
         if (index === -1) {
             this.changed.emit(this.type.concat([type]));

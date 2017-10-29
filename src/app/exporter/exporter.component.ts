@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ChartFileExporterService } from '../chart-file/exporter/chart-file-exporter.service';
+import { ModelExporterService } from '../model/import-export/model-exporter.service';
 
 @Component({
     selector: 'app-exporter',
@@ -9,11 +9,11 @@ import { ChartFileExporterService } from '../chart-file/exporter/chart-file-expo
 })
 export class ExporterComponent {
 
-    constructor(public chartFileExporter: ChartFileExporterService) {
+    constructor(public modelExporter: ModelExporterService) {
     }
 
     exportChart() {
-        const chartString = this.chartFileExporter.export();
+        const chartString = this.modelExporter.export();
         const datetime = new Date()
             .toISOString()
             .replace(/:/g, '-')

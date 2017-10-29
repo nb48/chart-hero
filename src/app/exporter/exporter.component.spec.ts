@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule, MatListModule } from '@angular/material';
 import { By } from '@angular/platform-browser';
 
-import { ChartFileExporterService } from '../chart-file/exporter/chart-file-exporter.service';
+import { ModelExporterService } from '../model/import-export/model-exporter.service';
 import { ExporterComponent } from './exporter.component';
 
 describe('Component: ExporterComponent', () => {
@@ -19,7 +19,7 @@ describe('Component: ExporterComponent', () => {
                 ExporterComponent,
             ],
             providers: [
-                { provide: ChartFileExporterService, useClass: MockChartFileExporterService },
+                { provide: ModelExporterService, useClass: MockModelExporterService },
             ],
         });
         fixture = TestBed.createComponent(ExporterComponent);
@@ -32,5 +32,5 @@ describe('Component: ExporterComponent', () => {
     });
 });
 
-class MockChartFileExporterService {
+class MockModelExporterService {
 }

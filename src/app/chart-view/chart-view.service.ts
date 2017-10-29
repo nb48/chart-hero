@@ -1,9 +1,9 @@
+import { ModelService } from '../model/model.service';
+import { Model } from '../model/model';
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
 import { AudioPlayerService } from '../audio-player/audio-player.service';
-import { ChartStoreService } from '../chart-store/chart-store.service';
-import { ChartStore } from '../chart-store/chart-store';
 import { ChartViewBuilderService } from './builder/chart-view-builder.service';
 import { ChartViewNoteControllerService }
 from './note-controller/chart-view-note-controller.service';
@@ -24,7 +24,7 @@ export class ChartViewService {
 
     constructor(
         private audioPlayer: AudioPlayerService,
-        private chartStore: ChartStoreService,
+        private modelService: ModelService,
         private builder: ChartViewBuilderService,
         private noteController: ChartViewNoteControllerService,
         private trackController: ChartViewTrackControllerService,
@@ -33,11 +33,11 @@ export class ChartViewService {
         this.currentTime = 0;
         this.chartViewSubject = new ReplaySubject<ChartView>();
         Observable.combineLatest(
-            this.chartStore.chart,
+            this.modelService.models,
             this.trackController.track,
             this.noteController.selectedNote,
-            (chart, track, selectedNote) => {
-                this.currentPreparedView = this.preparer.buildView(chart, track);
+            (model, track, selectedNote) => {
+                this.currentPreparedView = this.preparer.buildView(model, track);
                 this.selectedId = selectedNote ? selectedNote.id : undefined;
             },
         ).subscribe(() => {

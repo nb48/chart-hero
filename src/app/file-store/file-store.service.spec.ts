@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AudioPlayerService } from '../audio-player/audio-player.service';
-import { ChartFileImporterService } from '../chart-file/importer/chart-file-importer.service';
+import { ModelImporterService } from '../model/import-export/model-importer.service';
 import { FileStoreService } from './file-store.service';
 
 const testFile = new File(['testFileString'], 'testFileName');
@@ -14,7 +14,7 @@ describe('Service: FileStoreService', () => {
         TestBed.configureTestingModule({
             providers: [
                 { provide: AudioPlayerService, useClass: MockAudioPlayerService },
-                { provide: ChartFileImporterService, useClass: MockChartFileImporterService },
+                { provide: ModelImporterService, useClass: MockModelImporterService },
                 FileStoreService,
             ],
         });
@@ -41,8 +41,8 @@ describe('Service: FileStoreService', () => {
     it('FileStore should pass chart string to chart importer after setting chart file', (done) => {
         service.chartFile = testFile;
         setTimeout(() => {
-            const chartFileImporter = TestBed.get(ChartFileImporterService);
-            expect((chartFileImporter as any).file).toEqual('testFileString');
+            const modelImporter = TestBed.get(ModelImporterService);
+            expect((modelImporter as any).file).toEqual('testFileString');
             done();
         });
     });
@@ -61,7 +61,7 @@ class MockAudioPlayerService {
     }
 }
 
-class MockChartFileImporterService {
+class MockModelImporterService {
 
     public file: string;
 

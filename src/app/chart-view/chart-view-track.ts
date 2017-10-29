@@ -1,4 +1,4 @@
-import { ChartStore, ChartStoreTrack } from '../chart-store/chart-store';
+import { Model, ModelTrack } from '../model/model';
 
 export enum ChartViewTrack {
     GuitarExpert,
@@ -14,7 +14,7 @@ export enum ChartViewTrack {
     Venue,
 }
 
-export const getTrack = (cs: ChartStore, track: ChartViewTrack): ChartStoreTrack => {
+export const getTrack = (cs: Model, track: ChartViewTrack): ModelTrack => {
     switch (track) {
     case ChartViewTrack.GuitarExpert:
         return cs.guitar.expert;

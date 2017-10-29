@@ -35,37 +35,6 @@ import { ScrollbarComponent } from './editor/scrollbar/scrollbar.component';
 import { TrackSelectComponent } from './track-select/track-select.component';
 
 import { AudioPlayerService } from './audio-player/audio-player.service';
-import { ChartFileExporterService } from './chart-file/exporter/chart-file-exporter.service';
-import { ChartFileImporterService } from './chart-file/importer/chart-file-importer.service';
-import { ChartStoreExporterService } from './chart-store/exporter/chart-store-exporter.service';
-import { ChartStoreGenericExporterService }
-from './chart-store/generic/chart-store-generic-exporter.service';
-import { ChartStoreGenericImporterService }
-from './chart-store/generic/chart-store-generic-importer.service';
-import { ChartStoreGHLExporterService }
-from './chart-store/ghl/chart-store-ghl-exporter.service';
-import { ChartStoreGHLImporterService }
-from './chart-store/ghl/chart-store-ghl-importer.service';
-import { ChartStoreGuitarImporterService }
-from './chart-store/guitar/chart-store-guitar-importer.service';
-import { ChartStoreGuitarExporterService }
-from './chart-store/guitar/chart-store-guitar-exporter.service';
-import { ChartStoreGuitarToGHLConverterService }
- from './chart-store/ghl/chart-store-guitar-to-ghl-converter.service';
-import { ChartStoreIdGeneratorService }
-from './chart-store/id-generator/chart-store-id-generator.service';
-import { ChartStoreImporterService } from './chart-store/importer/chart-store-importer.service';
-import { ChartStoreMetadataService } from './chart-store/metadata/chart-store-metadata.service';
-import { ChartStoreMidiTimeService } from './chart-store/midi-time/chart-store-midi-time.service';
-import { ChartStoreSyncTrackImporterService }
-from './chart-store/sync-track/chart-store-sync-track-importer.service';
-import { ChartStoreSyncTrackExporterService }
-from './chart-store/sync-track/chart-store-sync-track-exporter.service';
-import { ChartStoreTrackExporterService }
-from './chart-store/track/chart-store-track-exporter.service';
-import { ChartStoreTrackImporterService }
-from './chart-store/track/chart-store-track-importer.service';
-import { ChartStoreService } from './chart-store/chart-store.service';
 import { ChartViewBuilderService } from './chart-view/builder/chart-view-builder.service';
 import { ChartViewTimeControllerService }
 from './chart-view/time-controller/chart-view-time-controller.service';
@@ -76,6 +45,8 @@ from './chart-view/note-controller/chart-view-note-controller.service';
 import { ChartViewPreparerService } from './chart-view/preparer/chart-view-preparer.service';
 import { ChartViewService } from './chart-view/chart-view.service';
 import { FileStoreService } from './file-store/file-store.service';
+
+import { AppModelModule } from './model/model.module';
 
 @NgModule({
     imports: [
@@ -90,6 +61,7 @@ import { FileStoreService } from './file-store/file-store.service';
         MatSelectModule,
         MatTooltipModule,
         ReactiveFormsModule,
+        AppModelModule,
     ],
     declarations: [
         AppComponent,
@@ -112,25 +84,6 @@ import { FileStoreService } from './file-store/file-store.service';
     ],
     providers: [
         AudioPlayerService,
-        ChartFileExporterService,
-        ChartFileImporterService,
-        ChartStoreExporterService,
-        ChartStoreGenericExporterService,
-        ChartStoreGenericImporterService,
-        ChartStoreGHLExporterService,
-        ChartStoreGHLImporterService,
-        ChartStoreGuitarExporterService,
-        ChartStoreGuitarImporterService,
-        ChartStoreGuitarToGHLConverterService,
-        ChartStoreIdGeneratorService,
-        ChartStoreImporterService,
-        ChartStoreMetadataService,
-        ChartStoreMidiTimeService,
-        ChartStoreSyncTrackExporterService,
-        ChartStoreSyncTrackImporterService,
-        ChartStoreTrackExporterService,
-        ChartStoreTrackImporterService,
-        ChartStoreService,
         ChartViewBuilderService,
         ChartViewNoteControllerService,
         ChartViewPreparerService,

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
-import { ChartStoreGuitarToGHLConverterService }
-from '../chart-store/ghl/chart-store-guitar-to-ghl-converter.service';
-import { ChartStoreService } from '../chart-store/chart-store.service';
-import { ChartStore } from '../chart-store/chart-store';
+// import { ModelGuitarToGHLConverterService }
+// from '../chart-store/ghl/chart-store-guitar-to-ghl-converter.service';
+// import { ModelService } from '../chart-store/chart-store.service';
+// import { Model } from '../chart-store/chart-store';
 import { ChartViewTrackControllerService }
 from '../chart-view/track-controller/chart-view-track-controller.service';
 import { ChartViewTrack } from '../chart-view/chart-view-track';
@@ -15,21 +15,21 @@ import { ChartViewTrack } from '../chart-view/chart-view-track';
 })
 export class ConverterComponent {
 
-    private currentChart: ChartStore;
+    // private currentChart: Model;
     private currentTrack: ChartViewTrack;
     private $shouldConvertExpertGuitarToExpertGHL: boolean;
 
     constructor(
-        private guitarToGHLConverter: ChartStoreGuitarToGHLConverterService,
-        private chartStore: ChartStoreService,
+        // private guitarToGHLConverter: ModelGuitarToGHLConverterService,
+        // private chartStore: ModelService,
         private trackController: ChartViewTrackControllerService,
     ) {
-        this.chartStore.chart.combineLatest(this.trackController.track, (chart, track) => {
-            this.currentChart = chart;
-            this.currentTrack = track;
-        }).subscribe(() => {
-            this.decideConvertExpertGuitarToExpertGHL();  
-        });
+        // this.chartStore.chart.combineLatest(this.trackController.track, (chart, track) => {
+        //     this.currentChart = chart;
+        //     this.currentTrack = track;
+        // }).subscribe(() => {
+        //     this.decideConvertExpertGuitarToExpertGHL();  
+        // });
     }
 
     get shouldConvertExpertGuitarToExpertGHL(): boolean {
@@ -37,12 +37,12 @@ export class ConverterComponent {
     }
 
     convertExpertGuitarToExpertGHLGuitar() {
-        this.guitarToGHLConverter.convertExpert();
+        // this.guitarToGHLConverter.convertExpert();
     }
 
     private decideConvertExpertGuitarToExpertGHL(): void {
-        const ghlExpertIsEmpty = this.currentChart.ghlGuitar.expert.events.length === 0;
-        const trackIsGHLExpert = this.currentTrack === ChartViewTrack.GHLGuitarExpert;
-        this.$shouldConvertExpertGuitarToExpertGHL = ghlExpertIsEmpty && trackIsGHLExpert;
+        // const ghlExpertIsEmpty = this.currentChart.ghlGuitar.expert.events.length === 0;
+        // const trackIsGHLExpert = this.currentTrack === ChartViewTrack.GHLGuitarExpert;
+        // this.$shouldConvertExpertGuitarToExpertGHL = ghlExpertIsEmpty && trackIsGHLExpert;
     }
 }

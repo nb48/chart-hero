@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { ChartStoreService } from '../../chart-store/chart-store.service';
+import { ModelService } from '../../model/model.service';
 import {
-    ChartStore,
-    ChartStoreTrackNote,
-    ChartStoreTrackNoteType,
-} from '../../chart-store/chart-store';
+    Model,
+    ModelTrackNote,
+    ModelTrackNoteType,
+} from '../../model/model';
 import { ChartViewTrackControllerService }
 from '../track-controller/chart-view-track-controller.service';
 import { ChartViewTrack, getTrack } from '../chart-view-track';
@@ -14,17 +14,17 @@ import { ChartViewTrack, getTrack } from '../chart-view-track';
 @Injectable()
 export class ChartViewNoteControllerService {
 
-    private currentChart: ChartStore;
+    private currentChart: Model;
     private currentTrack: ChartViewTrack;
-    private selectedNoteSubject: ReplaySubject<ChartStoreTrackNote>;
+    private selectedNoteSubject: ReplaySubject<ModelTrackNote>;
 
     constructor(
-        private chartStore: ChartStoreService,
+        private chartStore: ModelService,
         private trackController: ChartViewTrackControllerService,
     ) {
-        this.selectedNoteSubject = new ReplaySubject<ChartStoreTrackNote>();        
-        this.chartStore.chart.subscribe((chart) => {
-            this.currentChart = chart;
+        this.selectedNoteSubject = new ReplaySubject<ModelTrackNote>();        
+        this.chartStore.models.subscribe((model) => {
+            this.currentChart = model;
         });
         this.trackController.track.subscribe((track) => {
             this.currentTrack = track;
@@ -32,7 +32,7 @@ export class ChartViewNoteControllerService {
         });
     }
 
-    get selectedNote(): Observable<ChartStoreTrackNote> {
+    get selectedNote(): Observable<ModelTrackNote> {
         return this.selectedNoteSubject.asObservable();
     }
 
@@ -42,22 +42,22 @@ export class ChartViewNoteControllerService {
         this.selectedNoteSubject.next(JSON.parse(JSON.stringify(note)));
     }
 
-    updateNoteType(id: number, type: ChartStoreTrackNoteType[]): void {
+    updateNoteType(id: number, type: ModelTrackNoteType[]): void {
         const note = this.findNote(id);
         note.type = type;
-        this.chartStore.newChart(this.currentChart);
+        this.chartStore.model = this.currentChart;
         this.selectedNoteSubject.next(note);
     }
 
     moveNote(id: number, time: number): void {
         const note = this.findNote(id);
         note.time += time;
-        this.chartStore.newChart(this.currentChart);
+        this.chartStore.model = this.currentChart;
         this.selectedNoteSubject.next(note);
     }
 
-    private findNote(id: number): ChartStoreTrackNote {
+    private findNote(id: number): ModelTrackNote {
         return getTrack(this.currentChart, this.currentTrack).events
-            .find(e => e.id === id) as ChartStoreTrackNote;
+            .find(e => e.id === id) as ModelTrackNote;
     }
 }

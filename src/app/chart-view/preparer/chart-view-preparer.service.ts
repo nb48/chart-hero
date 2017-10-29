@@ -1,14 +1,14 @@
-import { ChartStoreTrack } from './../../chart-store/chart-store';
 import { Injectable } from '@angular/core';
 
 import {
-    ChartStore,
-    ChartStoreTrackEvent,
-    ChartStoreTrackEventType,
-    ChartStoreTrackBPMChange,
-    ChartStoreTrackNote,
-    ChartStoreTrackNoteType,
-} from '../../chart-store/chart-store';
+    Model,
+    ModelTrack,
+    ModelTrackEvent,
+    ModelTrackEventType,
+    ModelTrackBPMChange,
+    ModelTrackNote,
+    ModelTrackNoteType,
+} from '../../model/model';
 import {
     ChartViewPrepared,
     ChartViewPreparedBeat,
@@ -23,8 +23,8 @@ const durationWhenNoEvents = 1;
 @Injectable()
 export class ChartViewPreparerService {
 
-    buildView(cs: ChartStore, t: ChartViewTrack): ChartViewPrepared {
-        const track: ChartStoreTrack = getTrack(cs, t);
+    buildView(cs: Model, t: ChartViewTrack): ChartViewPrepared {
+        const track: ModelTrack = getTrack(cs, t);
         const duration = this.buildDuration(cs);
         return {
             duration,
@@ -33,8 +33,8 @@ export class ChartViewPreparerService {
         };
     }
 
-    private buildDuration(cs: ChartStore): number {
-        const events: ChartStoreTrackEvent[] = [];
+    private buildDuration(cs: Model): number {
+        const events: ModelTrackEvent[] = [];
         Object.keys(ChartViewTrack)
             .map(k => ChartViewTrack[k])
             .filter(v => typeof v === 'number')
@@ -45,14 +45,14 @@ export class ChartViewPreparerService {
         return lastEvent ? lastEvent.time : durationWhenNoEvents;
     }
 
-    private buildBeats(syncTrack: ChartStoreTrack, duration: number)
+    private buildBeats(syncTrack: ModelTrack, duration: number)
         : ChartViewPreparedBeat[] {
         const beatTimes: ChartViewPreparedBeat[] = [];
         let timeCounter = 0;
         let currentIncrement = 0;
         syncTrack.events
-            .filter(e => e.event === ChartStoreTrackEventType.BPMChange)
-            .map(e => e as ChartStoreTrackBPMChange)
+            .filter(e => e.event === ModelTrackEventType.BPMChange)
+            .map(e => e as ModelTrackBPMChange)
             .sort((a, b) => a.time - b.time)
             .forEach((e) => {
                 while (timeCounter < e.time) {
@@ -68,28 +68,28 @@ export class ChartViewPreparerService {
         return beatTimes;
     }
 
-    private buildNotes(track: ChartStoreTrack): ChartViewPreparedNote[] {
+    private buildNotes(track: ModelTrack): ChartViewPreparedNote[] {
         return track.events
-            .filter(e => e.event === ChartStoreTrackEventType.GuitarNote
-                || e.event === ChartStoreTrackEventType.GHLNote)
-            .map(e => e as ChartStoreTrackNote)
+            .filter(e => e.event === ModelTrackEventType.GuitarNote
+                || e.event === ModelTrackEventType.GHLNote)
+            .map(e => e as ModelTrackNote)
             .map(e => this.buildNote(e));
     }
 
-    private buildNote(note: ChartStoreTrackNote): ChartViewPreparedNote {
+    private buildNote(note: ModelTrackNote): ChartViewPreparedNote {
         const time = note.time;
         const open = note.type.length === 0;
-        const guitarLane1 = this.buildGuitarColor(note.type, ChartStoreTrackNoteType.GuitarGreen);
-        const guitarLane2 = this.buildGuitarColor(note.type, ChartStoreTrackNoteType.GuitarRed);
-        const guitarLane3 = this.buildGuitarColor(note.type, ChartStoreTrackNoteType.GuitarYellow);
-        const guitarLane4 = this.buildGuitarColor(note.type, ChartStoreTrackNoteType.GuitarBlue);
-        const guitarLane5 = this.buildGuitarColor(note.type, ChartStoreTrackNoteType.GuitarOrange);
+        const guitarLane1 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarGreen);
+        const guitarLane2 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarRed);
+        const guitarLane3 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarYellow);
+        const guitarLane4 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarBlue);
+        const guitarLane5 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarOrange);
         const ghlLane1 = this.buildGHLColor(
-            note.type, ChartStoreTrackNoteType.GHLBlack1, ChartStoreTrackNoteType.GHLWhite1);
+            note.type, ModelTrackNoteType.GHLBlack1, ModelTrackNoteType.GHLWhite1);
         const ghlLane2 = this.buildGHLColor(
-            note.type, ChartStoreTrackNoteType.GHLBlack2, ChartStoreTrackNoteType.GHLWhite2);
+            note.type, ModelTrackNoteType.GHLBlack2, ModelTrackNoteType.GHLWhite2);
         const ghlLane3 = this.buildGHLColor(
-            note.type, ChartStoreTrackNoteType.GHLBlack3, ChartStoreTrackNoteType.GHLWhite3);
+            note.type, ModelTrackNoteType.GHLBlack3, ModelTrackNoteType.GHLWhite3);
         return {
             time,
             open,
@@ -106,20 +106,20 @@ export class ChartViewPreparerService {
     }
 
     private buildGuitarColor(
-        types: ChartStoreTrackNoteType[],
-        color: ChartStoreTrackNoteType,
+        types: ModelTrackNoteType[],
+        color: ModelTrackNoteType,
     ): ChartViewPreparedNoteGuitarColor {
         if (types.indexOf(color) !== -1) {
             switch (color) {
-            case ChartStoreTrackNoteType.GuitarGreen:
+            case ModelTrackNoteType.GuitarGreen:
                 return ChartViewPreparedNoteGuitarColor.Green;
-            case ChartStoreTrackNoteType.GuitarRed:
+            case ModelTrackNoteType.GuitarRed:
                 return ChartViewPreparedNoteGuitarColor.Red;
-            case ChartStoreTrackNoteType.GuitarYellow:
+            case ModelTrackNoteType.GuitarYellow:
                 return ChartViewPreparedNoteGuitarColor.Yellow;
-            case ChartStoreTrackNoteType.GuitarBlue:
+            case ModelTrackNoteType.GuitarBlue:
                 return ChartViewPreparedNoteGuitarColor.Blue;
-            case ChartStoreTrackNoteType.GuitarOrange:
+            case ModelTrackNoteType.GuitarOrange:
                 return ChartViewPreparedNoteGuitarColor.Orange;
             }
         }
@@ -127,9 +127,9 @@ export class ChartViewPreparerService {
     }
 
     private buildGHLColor(
-        types: ChartStoreTrackNoteType[],
-        black: ChartStoreTrackNoteType,
-        white: ChartStoreTrackNoteType,
+        types: ModelTrackNoteType[],
+        black: ModelTrackNoteType,
+        white: ModelTrackNoteType,
     ): ChartViewPreparedNoteGHLColor {
         if (types.indexOf(black) !== -1 && types.indexOf(white) !== -1) {
             return ChartViewPreparedNoteGHLColor.Chord;

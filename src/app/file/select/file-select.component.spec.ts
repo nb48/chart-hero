@@ -2,8 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule, MatListModule } from '@angular/material';
 import { By } from '@angular/platform-browser';
 
+import { AppFileModule } from '../file.module';
+import { FileStoreService } from '../store/file-store.service';
 import { FileSelectComponent } from './file-select.component';
-import { FileStoreService } from '../file-store/file-store.service';
 
 describe('Component: FileSelectComponent', () => {
 
@@ -12,11 +13,7 @@ describe('Component: FileSelectComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                MatButtonModule,
-                MatListModule,
-            ],
-            declarations: [
-                FileSelectComponent,
+                AppFileModule,
             ],
             providers: [
                 { provide: FileStoreService, useClass: MockFileStoreService },

@@ -9,7 +9,7 @@
                          "audio-player-controls editor note-controls"
                          "converter editor note-controls"
                          ". editor note-controls"
-                         ". editor exporter";
+                         ". editor file-download";
     grid-template-columns: 20% 2fr 1fr;
     grid-template-rows: 9.25em 1em 2.25em 4.25em 3.25em 1fr 4.25em;
 }
@@ -48,6 +48,6 @@
     grid-area: note-controls;
 }
 
-.app app-exporter {
-    grid-area: exporter;
+.app app-file-download {
+    grid-area: file-download;
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { FileStoreService } from '../file-store/file-store.service';
+import { FileStoreService } from '../store/file-store.service';
 
 @Component({
     selector: 'app-file-select',

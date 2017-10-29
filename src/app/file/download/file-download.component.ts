@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 
-import { ModelExporterService } from '../model/import-export/model-exporter.service';
+import { ModelExporterService } from '../../model/import-export/model-exporter.service';
 
 @Component({
-    selector: 'app-exporter',
-    templateUrl: './exporter.component.html',
-    styleUrls: ['./exporter.component.css'],
+    selector: 'app-file-download',
+    templateUrl: './file-download.component.html',
+    styleUrls: ['./file-download.component.css'],
 })
-export class ExporterComponent {
+export class FileDownloadComponent {
 
     constructor(public modelExporter: ModelExporterService) {
     }

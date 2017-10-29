@@ -1,8 +1,8 @@
-import { TimeService } from './../time/time.service';
 import { TestBed } from '@angular/core/testing';
 
-import { AudioPlayerService } from '../audio-player/audio-player.service';
-import { ModelImporterService } from '../model/import-export/model-importer.service';
+import { AudioPlayerService } from '../../audio-player/audio-player.service';
+import { ModelImporterService } from '../../model/import-export/model-importer.service';
+import { TimeService } from '../../time/time.service';
 import { FileStoreService } from './file-store.service';
 
 const testFile = new File(['testFileString'], 'testFileName');

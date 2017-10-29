@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { AudioPlayerService } from '../audio-player/audio-player.service';
-import { ModelImporterService } from '../model/import-export/model-importer.service';
-import { TimeService } from '../time/time.service';
+import { AudioPlayerService } from '../../audio-player/audio-player.service';
+import { ModelImporterService } from '../../model/import-export/model-importer.service';
+import { TimeService } from '../../time/time.service';
 
 @Injectable()
 export class FileStoreService {
@@ -36,6 +36,8 @@ export class FileStoreService {
     set chartFile(file: File) {
         if (this.timeService.playing) {
             this.timeService.stop();
+        } else {
+            this.timeService.time = 0;
         }
         this.$chartFileName = file.name;
         const reader = new FileReader();

@@ -26,8 +26,6 @@ import { ChartViewNoteOpenComponent }
 from './editor/chart-view/note/open/chart-view-note-open.component';
 import { ConverterComponent } from './converter/converter.component';
 import { EditorComponent } from './editor/editor.component';
-import { ExporterComponent } from './exporter/exporter.component';
-import { FileSelectComponent } from './file-select/file-select.component';
 import { NoteControlsComponent } from './note-controls/note-controls.component';
 import { NoteControlsGuitarComponent } from './note-controls/guitar/note-controls-guitar.component';
 import { NoteControlsGHLComponent } from './note-controls/ghl/note-controls-ghl.component';
@@ -44,9 +42,9 @@ import { ChartViewNoteControllerService }
 from './chart-view/note-controller/chart-view-note-controller.service';
 import { ChartViewPreparerService } from './chart-view/preparer/chart-view-preparer.service';
 import { ChartViewService } from './chart-view/chart-view.service';
-import { FileStoreService } from './file-store/file-store.service';
 import { TimeService } from './time/time.service';
 
+import { AppFileModule } from './file/file.module';
 import { AppModelModule } from './model/model.module';
 
 @NgModule({
@@ -62,6 +60,7 @@ import { AppModelModule } from './model/model.module';
         MatSelectModule,
         MatTooltipModule,
         ReactiveFormsModule,
+        AppFileModule,
         AppModelModule,
     ],
     declarations: [
@@ -75,8 +74,6 @@ import { AppModelModule } from './model/model.module';
         ChartViewNoteOpenComponent,
         ConverterComponent,
         EditorComponent,
-        ExporterComponent,
-        FileSelectComponent,
         NoteControlsComponent,
         NoteControlsGuitarComponent,
         NoteControlsGHLComponent,
@@ -91,7 +88,6 @@ import { AppModelModule } from './model/model.module';
         ChartViewTimeControllerService,
         ChartViewTrackControllerService,
         ChartViewService,
-        FileStoreService,
         TimeService,
     ],
     bootstrap: [AppComponent],

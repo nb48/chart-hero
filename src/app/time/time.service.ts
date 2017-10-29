@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 
-import { AudioPlayerService } from '../audio-player/audio-player.service';
+import { AudioPlayerService } from './audio-player/audio-player.service';
 
 @Injectable()
 export class TimeService {

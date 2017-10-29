@@ -2,9 +2,9 @@ import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular
 import { MatTooltip } from '@angular/material';
 import { Observable } from 'rxjs';
 
-import { showTime } from '../../audio-player-controls/audio-player-controls.component';
 import { ChartView } from '../../chart-view/chart-view';
 import { TimeService } from '../../time/time.service';
+import { showTime } from '../audio-player-controls/audio-player-controls.component';
 
 const scrollingConstant = 0.018867924528301886;
 const lineHeightPx = 17.666;

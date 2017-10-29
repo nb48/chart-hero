@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AudioPlayerService } from '../audio-player/audio-player.service';
+import { AudioPlayerService } from '../time/audio-player/audio-player.service';
 import { ModelImporterService } from '../model/import-export/model-importer.service';
 import { TimeService } from '../time/time.service';
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { AudioPlayerService } from '../audio-player/audio-player.service';
-import { TimeService } from '../time/time.service';
+import { TimeService } from '../time.service';
 
 export const showTime = (time: number): string => {
     const minutes = Math.floor(time / 60);

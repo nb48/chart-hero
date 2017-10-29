@@ -13,8 +13,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { AudioPlayerControlsComponent }
-from './audio-player-controls/audio-player-controls.component';
 import { ChartViewComponent } from './editor/chart-view/chart-view.component';
 import { ChartViewBeatComponent } from './editor/chart-view/beat/chart-view-beat.component';
 import { ChartViewNoteComponent } from './editor/chart-view/note/chart-view-note.component';
@@ -29,10 +27,8 @@ import { EditorComponent } from './editor/editor.component';
 import { NoteControlsComponent } from './note-controls/note-controls.component';
 import { NoteControlsGuitarComponent } from './note-controls/guitar/note-controls-guitar.component';
 import { NoteControlsGHLComponent } from './note-controls/ghl/note-controls-ghl.component';
-import { ScrollbarComponent } from './editor/scrollbar/scrollbar.component';
 import { TrackSelectComponent } from './track-select/track-select.component';
 
-import { AudioPlayerService } from './audio-player/audio-player.service';
 import { ChartViewBuilderService } from './chart-view/builder/chart-view-builder.service';
 import { ChartViewTimeControllerService }
 from './chart-view/time-controller/chart-view-time-controller.service';
@@ -46,6 +42,7 @@ import { TimeService } from './time/time.service';
 
 import { AppFileModule } from './file/file.module';
 import { AppModelModule } from './model/model.module';
+import { AppTimeModule } from './time/time.module';
 
 @NgModule({
     imports: [
@@ -62,10 +59,10 @@ import { AppModelModule } from './model/model.module';
         ReactiveFormsModule,
         AppFileModule,
         AppModelModule,
+        AppTimeModule,
     ],
     declarations: [
         AppComponent,
-        AudioPlayerControlsComponent,
         ChartViewComponent,
         ChartViewBeatComponent,
         ChartViewNoteComponent,
@@ -77,11 +74,9 @@ import { AppModelModule } from './model/model.module';
         NoteControlsComponent,
         NoteControlsGuitarComponent,
         NoteControlsGHLComponent,
-        ScrollbarComponent,
         TrackSelectComponent,
     ],
     providers: [
-        AudioPlayerService,
         ChartViewBuilderService,
         ChartViewNoteControllerService,
         ChartViewPreparerService,

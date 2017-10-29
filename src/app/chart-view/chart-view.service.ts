@@ -3,7 +3,6 @@ import { Model } from '../model/model';
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { AudioPlayerService } from '../audio-player/audio-player.service';
 import { ChartViewBuilderService } from './builder/chart-view-builder.service';
 import { ChartViewNoteControllerService }
 from './note-controller/chart-view-note-controller.service';
@@ -12,6 +11,7 @@ from './track-controller/chart-view-track-controller.service';
 import { ChartViewPreparerService } from './preparer/chart-view-preparer.service';
 import { ChartViewPrepared } from './chart-view-prepared';
 import { ChartView } from './chart-view';
+import { TimeService } from '../time/time.service';
 
 @Injectable()
 export class ChartViewService {
@@ -23,12 +23,12 @@ export class ChartViewService {
     private selectedId: number;
 
     constructor(
-        private audioPlayer: AudioPlayerService,
         private modelService: ModelService,
         private builder: ChartViewBuilderService,
         private noteController: ChartViewNoteControllerService,
         private trackController: ChartViewTrackControllerService,
         private preparer: ChartViewPreparerService,
+        private timeService: TimeService,
     ) {
         this.currentTime = 0;
         this.chartViewSubject = new ReplaySubject<ChartView>();
@@ -41,28 +41,24 @@ export class ChartViewService {
                 this.selectedId = selectedNote ? selectedNote.id : undefined;
             },
         ).subscribe(() => {
-            this.updateView(this.currentTime);            
+            this.renderView(this.currentTime);            
         });
-        this.audioPlayer.frameEvent.subscribe((time: number) => {
+        this.timeService.times.subscribe((time: number) => {
             this.currentTime = time;
-            this.updateView(this.currentTime);            
         });
-        this.renderView();                            
         Observable.interval(16.666).subscribe(() => {
-            this.renderView();
+            this.renderView(this.currentTime);
         });
+        this.renderView(0);
     }
 
     get view(): Observable<ChartView> {
         return this.chartViewSubject.asObservable();
     }
 
-    private updateView(time: number): void {
+    private renderView(time: number): void {
         this.currentView = this.builder.buildView
-            (this.currentPreparedView, time, this.audioPlayer.playing, this.selectedId);
-    }
-
-    private renderView(): void {
+        (this.currentPreparedView, time, this.timeService.playing, this.selectedId);
         this.chartViewSubject.next(this.currentView); 
     }
 }

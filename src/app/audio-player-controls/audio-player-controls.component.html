@@ -1,17 +1,17 @@
 <div class="audio-player-controls">
-    <button class="play" *ngIf="!audioPlayer.playing" [matTooltip]="'Play'" [matTooltipClass]="'app-tooltip'" [disabled]="!audioPlayer.loaded" (click)="audioPlayer.play()" mat-icon-button color="primary">
+    <button class="play" *ngIf="!playing" [matTooltip]="'Play'" [matTooltipClass]="'app-tooltip'" [disabled]="!loaded" (click)="play()" mat-icon-button color="primary">
         <i class="fa fa-play fa-2x" aria-hidden="true" aria-label="Play"></i>
     </button>
-    <button class="pause" *ngIf="audioPlayer.playing" [matTooltip]="'Pause'" [matTooltipClass]="'app-tooltip'" [disabled]="!audioPlayer.loaded" (click)="audioPlayer.pause()" mat-icon-button color="primary">
+    <button class="pause" *ngIf="playing" [matTooltip]="'Pause'" [matTooltipClass]="'app-tooltip'" [disabled]="!loaded" (click)="pause()" mat-icon-button color="primary">
         <i class="fa fa-pause fa-2x" aria-hidden="true" aria-label="Pause"></i>
     </button>
-    <button class="stop" [disabled]="!audioPlayer.loaded" [matTooltip]="'Stop'" [matTooltipClass]="'app-tooltip'" (click)="audioPlayer.stop()" mat-icon-button color="primary">
+    <button class="stop" [disabled]="!loaded" [matTooltip]="'Stop'" [matTooltipClass]="'app-tooltip'" (click)="stop()" mat-icon-button color="primary">
         <i class="fa fa-stop fa-2x" aria-hidden="true" aria-label="Stop"></i>
     </button>
-    <button class="repeat" [disabled]="!audioPlayer.loaded" [matTooltip]="'Repeat'" [matTooltipClass]="'app-tooltip'" (click)="audioPlayer.repeat()" mat-icon-button color="primary">
+    <button class="repeat" [disabled]="!loaded" [matTooltip]="'Repeat'" [matTooltipClass]="'app-tooltip'" (click)="repeat()" mat-icon-button color="primary">
         <i class="fa fa-repeat fa-2x" aria-hidden="true" aria-label="Repeat"></i>
     </button>
     <mat-form-field>
-        <input [ngModel]="audioPlayer.currentTime" (ngModelChange)="audioPlayer.inputTime($event)" [readOnly]="audioPlayer.playing" matInput type="text">
+        <input [ngModel]="currentTime" (ngModelChange)="saveTime($event)" (blur)="changeTime()" [readOnly]="playing" matInput type="text">
     </mat-form-field>
 </div>

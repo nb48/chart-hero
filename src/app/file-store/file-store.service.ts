@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { AudioPlayerService } from '../audio-player/audio-player.service';
 import { ModelImporterService } from '../model/import-export/model-importer.service';
+import { TimeService } from '../time/time.service';
 
 @Injectable()
 export class FileStoreService {
@@ -11,7 +12,9 @@ export class FileStoreService {
 
     constructor(
         private audioPlayer: AudioPlayerService,
-        private modelImporter: ModelImporterService) {
+        private modelImporter: ModelImporterService,
+        private timeService: TimeService,
+    ) {
     }
 
     get audioFileName(): string {
@@ -19,8 +22,8 @@ export class FileStoreService {
     }
 
     set audioFile(file: File) {
-        if (this.audioPlayer.playing) {
-            this.audioPlayer.stop();
+        if (this.timeService.playing) {
+            this.timeService.stop();
         }
         this.$audioFileName = file.name;
         this.audioPlayer.audio = URL.createObjectURL(file);
@@ -31,8 +34,8 @@ export class FileStoreService {
     }
 
     set chartFile(file: File) {
-        if (this.audioPlayer.playing) {
-            this.audioPlayer.stop();
+        if (this.timeService.playing) {
+            this.timeService.stop();
         }
         this.$chartFileName = file.name;
         const reader = new FileReader();

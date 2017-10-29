@@ -1,3 +1,4 @@
+import { TimeService } from './../time/time.service';
 import { TestBed } from '@angular/core/testing';
 
 import { AudioPlayerService } from '../audio-player/audio-player.service';
@@ -15,6 +16,7 @@ describe('Service: FileStoreService', () => {
             providers: [
                 { provide: AudioPlayerService, useClass: MockAudioPlayerService },
                 { provide: ModelImporterService, useClass: MockModelImporterService },
+                { provide: TimeService, useClass: MockTimeService },
                 FileStoreService,
             ],
         });
@@ -68,4 +70,9 @@ class MockModelImporterService {
     import(file: string) {
         this.file = file;
     }
+}
+
+class MockTimeService {
+    
+    playing: false;
 }

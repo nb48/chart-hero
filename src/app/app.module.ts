@@ -45,6 +45,7 @@ from './chart-view/note-controller/chart-view-note-controller.service';
 import { ChartViewPreparerService } from './chart-view/preparer/chart-view-preparer.service';
 import { ChartViewService } from './chart-view/chart-view.service';
 import { FileStoreService } from './file-store/file-store.service';
+import { TimeService } from './time/time.service';
 
 import { AppModelModule } from './model/model.module';
 
@@ -91,6 +92,7 @@ import { AppModelModule } from './model/model.module';
         ChartViewTrackControllerService,
         ChartViewService,
         FileStoreService,
+        TimeService,
     ],
     bootstrap: [AppComponent],
 })

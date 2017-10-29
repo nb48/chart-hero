@@ -25,6 +25,4 @@ export class ModelService {
     get models(): Observable<Model> {
         return this.currentModelSubject.asObservable();
     }
-    //     this.audioPlayer.setTime(0);
-    //     this.trackController.newTrack(this.importer.defaultTrack(this.currentChart));
 }

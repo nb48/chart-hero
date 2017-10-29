@@ -64,15 +64,15 @@ export class ChartViewBuilderService {
         }
         const currentBeat = csv.beats
             .slice().reverse()
-            .find(b => b.time <= currentTime);
+            .find(b => b.time <= currentTime + 0.005);
         if (!currentBeat) {
             return incrementWhenNoEvents;
         }
-        const nextBeat = csv.beats.find(b => b.time > currentTime);
+        const nextBeat = csv.beats.find(b => b.time > currentTime + 0.005);
         if (!nextBeat) {
             const previousBeat = csv.beats[csv.beats.length - 2];
             return currentBeat.time - previousBeat.time;
-        }
+        }        
         return nextBeat.time - currentBeat.time;
     }
 

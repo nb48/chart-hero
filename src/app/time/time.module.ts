@@ -14,7 +14,7 @@ import { AudioPlayerService } from './audio-player/audio-player.service';
 import { AudioPlayerControlsComponent }
 from './audio-player-controls/audio-player-controls.component';
 import { DurationService } from './duration/duration.service';
-import { ScrollbarBuilder } from './scrollbar/builder/scrollbar-builder.service';
+import { IncrementService } from './increment/increment.service';
 import { ScrollbarComponent } from './scrollbar/scrollbar.component';
 import { TimeService } from './time.service';
 
@@ -41,7 +41,7 @@ import { TimeService } from './time.service';
     providers: [
         AudioPlayerService,
         DurationService,
-        ScrollbarBuilder,
+        IncrementService,
         TimeService,
     ],
 })

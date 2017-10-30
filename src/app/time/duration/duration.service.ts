@@ -19,7 +19,7 @@ export class DurationService {
         });
     }
 
-    get duration(): Observable<number> {
+    get durations(): Observable<number> {
         return this.durationSubject.asObservable();
     }
 

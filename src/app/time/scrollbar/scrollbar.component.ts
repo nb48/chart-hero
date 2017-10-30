@@ -2,11 +2,10 @@ import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular
 import { MatTooltip } from '@angular/material';
 import { Observable } from 'rxjs';
 
-import { ChartView } from '../../chart-view/chart-view';
 import { TimeService } from '../../time/time.service';
+import { showTime } from '../audio-player-controls/audio-player-controls.component';
 import { DurationService } from '../duration/duration.service';
-import { ScrollbarBuilder } from './builder/scrollbar-builder.service';
-import { Scrollbar } from './builder/scrollbar';
+import { IncrementService } from '../increment/increment.service';
 
 const scrollingConstant = 0.018867924528301886;
 const lineHeightPx = 17.666;
@@ -20,22 +19,28 @@ export class ScrollbarComponent implements AfterViewInit {
     @ViewChild(MatTooltip) currentTimeTooltip: MatTooltip;
 
     private duration: number;
-    private scrollbar: Scrollbar;
+    private increment: number;
+    private currentTime: number;
+    private formattedTime: string;
     private moving: boolean;
     private playing: boolean;
     private svg: any;
 
     constructor(
-        private builder: ScrollbarBuilder,
         private durationService: DurationService,
+        private incrementService: IncrementService,
         private scrollbarElement: ElementRef,
         private timeService: TimeService,
     ) {
-        this.durationService.duration.subscribe((duration) => {
+        this.durationService.durations.subscribe((duration) => {
             this.duration = duration;
         });
-        this.builder.scrollbar.subscribe((scrollbar) => {
-            this.scrollbar = scrollbar;
+        this.incrementService.increments.subscribe((increment) => {
+            this.increment = increment;
+        });
+        this.timeService.times.subscribe((time) => {
+            this.currentTime = time;
+            this.formattedTime = showTime(time);
         });
     }
 
@@ -51,11 +56,11 @@ export class ScrollbarComponent implements AfterViewInit {
 
     get handlePosition(): number {
         return 97 - this.height -
-            ((94 - this.height) * (this.scrollbar.currentTime / this.duration));
+            ((94 - this.height) * (this.currentTime / this.duration));
     }
 
     get tooltip(): string {
-        return this.scrollbar.formattedTime;
+        return this.formattedTime;
     }
 
     scroll(e: any): void {
@@ -63,8 +68,8 @@ export class ScrollbarComponent implements AfterViewInit {
             return;
         }
         const delta = e.deltaMode === 1 ? e.deltaY * lineHeightPx : e.deltaY;
-        const targetTime = this.scrollbar.currentTime +
-            (-scrollingConstant * this.scrollbar.currentIncrement * delta);
+        const targetTime = this.currentTime +
+            (-scrollingConstant * this.increment * delta);
         const newTime = Math.min(this.duration, Math.max(0, targetTime));
         this.timeService.time = newTime;
     }
@@ -115,7 +120,7 @@ export class ScrollbarComponent implements AfterViewInit {
         }
         const newTime = Math.min(
             this.duration,
-            this.scrollbar.currentTime + this.scrollbar.currentIncrement,
+            this.currentTime + this.increment,
         );        
         this.timeService.time = newTime;
         e.stopPropagation();
@@ -126,7 +131,7 @@ export class ScrollbarComponent implements AfterViewInit {
             return;
         }
         const newTime = Math.max
-            (0, this.scrollbar.currentTime - this.scrollbar.currentIncrement);
+            (0, this.currentTime - this.increment);
         this.timeService.time = newTime;
         e.stopPropagation();
     }

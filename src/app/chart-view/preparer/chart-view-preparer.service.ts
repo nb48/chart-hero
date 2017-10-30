@@ -24,7 +24,7 @@ export class ChartViewPreparerService {
     private duration: number;
 
     constructor(private durationService: DurationService) {
-        this.durationService.duration.subscribe((duration) => {
+        this.durationService.durations.subscribe((duration) => {
             this.duration = duration;
         });
     }

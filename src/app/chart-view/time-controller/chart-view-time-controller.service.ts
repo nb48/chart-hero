@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
+import { IncrementService } from '../../time/increment/increment.service';
 import { ChartViewService } from '../chart-view.service';
-import { ChartViewTrack } from '../chart-view-track';
 import { ChartView } from '../chart-view';
 
 const defaultStep = 1;
@@ -10,13 +10,17 @@ const defaultStep = 1;
 @Injectable()
 export class ChartViewTimeControllerService {
 
-    private currentView: ChartView;
+    private increment: number;
     private step: number;
+    private view: ChartView;
 
-    constructor(private view: ChartViewService) {
+    constructor(private incrementService: IncrementService, private viewService: ChartViewService) {
+        this.incrementService.increments.subscribe((increment) => {
+            this.increment = increment;
+        });
         this.step = defaultStep;
-        this.view.view.subscribe((view) => {
-            this.currentView = view;
+        this.viewService.view.subscribe((view) => {
+            this.view = view;
         });
     }
 
@@ -28,17 +32,15 @@ export class ChartViewTimeControllerService {
     }
 
     moveForwardsTime(time: number): number {
-        return 1 * this.step;
-        // return this.currentView.currentIncrement * this.step;
+        return this.increment * this.step;
     }
 
     moveBackwardsTime(time: number): number {
-        return -1 * this.step;
-        // return -this.currentView.currentIncrement * this.step;
+        return -this.increment * this.step;
     }
 
     snapForwardsTime(time: number): number {
-        const nextBeat = this.currentView.beats
+        const nextBeat = this.view.beats
             .find(e => e.time - 0.001 > time);
         if (!nextBeat) {
             return 0;
@@ -47,7 +49,7 @@ export class ChartViewTimeControllerService {
     }
 
     snapBackwardsTime(time: number): number {
-        const previousBeat = this.currentView.beats
+        const previousBeat = this.view.beats
             .sort((a, b) => b.time - a.time)
             .find(e => e.time + 0.001 < time);
         if (!previousBeat) {

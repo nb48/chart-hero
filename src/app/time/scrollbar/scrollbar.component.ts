@@ -10,6 +10,8 @@ import { IncrementService } from '../increment/increment.service';
 const scrollingConstant = 0.018867924528301886;
 const lineHeightPx = 17.666;
 
+const formattedZero = showTime(0);
+
 @Component({
     selector: 'app-scrollbar',
     templateUrl: './scrollbar.component.html',
@@ -21,6 +23,7 @@ export class ScrollbarComponent implements AfterViewInit {
     private duration: number;
     private increment: number;
     private currentTime: number;
+    private formattedDuration: string;
     private formattedTime: string;
     private moving: boolean;
     private playing: boolean;
@@ -34,6 +37,7 @@ export class ScrollbarComponent implements AfterViewInit {
     ) {
         this.durationService.durations.subscribe((duration) => {
             this.duration = duration;
+            this.formattedDuration = showTime(duration);
         });
         this.incrementService.increments.subscribe((increment) => {
             this.increment = increment;
@@ -59,8 +63,16 @@ export class ScrollbarComponent implements AfterViewInit {
             ((94 - this.height) * (this.currentTime / this.duration));
     }
 
-    get tooltip(): string {
+    get topAnchorTooltip(): string {
+        return this.formattedDuration;
+    }
+
+    get handleTooltip(): string {
         return this.formattedTime;
+    }
+
+    get bottomAnchorTooltip(): string {
+        return formattedZero;
     }
 
     scroll(e: any): void {

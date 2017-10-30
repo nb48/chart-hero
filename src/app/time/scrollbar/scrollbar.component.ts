@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { ChartView } from '../../chart-view/chart-view';
 import { TimeService } from '../../time/time.service';
+import { DurationService } from '../duration/duration.service';
 import { ScrollbarBuilder } from './builder/scrollbar-builder.service';
 import { Scrollbar } from './builder/scrollbar';
 
@@ -26,10 +27,11 @@ export class ScrollbarComponent implements AfterViewInit {
 
     constructor(
         private builder: ScrollbarBuilder,
+        private durationService: DurationService,
         private scrollbarElement: ElementRef,
         private timeService: TimeService,
     ) {
-        this.builder.duration.subscribe((duration) => {
+        this.durationService.duration.subscribe((duration) => {
             this.duration = duration;
         });
         this.builder.scrollbar.subscribe((scrollbar) => {

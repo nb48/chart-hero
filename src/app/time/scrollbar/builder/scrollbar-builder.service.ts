@@ -12,8 +12,6 @@ import { showTime } from '../../audio-player-controls/audio-player-controls.comp
 import { TimeService } from '../../time.service';
 import { Scrollbar } from './scrollbar';
 
-const durationWhenNoEvents = 1;
-
 @Injectable()
 export class ScrollbarBuilder {
 

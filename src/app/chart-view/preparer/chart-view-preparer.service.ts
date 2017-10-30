@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import {
     Model,
     ModelTrack,
-    ModelTrackEvent,
     ModelTrackEventType,
     ModelTrackBPMChange,
     ModelTrackNote,
     ModelTrackNoteType,
 } from '../../model/model';
+import { DurationService } from '../../time/duration/duration.service';
 import {
     ChartViewPrepared,
     ChartViewPreparedBeat,
@@ -18,10 +18,16 @@ import {
 } from '../chart-view-prepared';
 import { ChartViewTrack, getTrack } from '../chart-view-track';
 
-const durationWhenNoEvents = 1;
-
 @Injectable()
 export class ChartViewPreparerService {
+
+    private duration: number;
+
+    constructor(private durationService: DurationService) {
+        this.durationService.duration.subscribe((duration) => {
+            this.duration = duration;
+        });
+    }
 
     buildView(model: Model, track: ChartViewTrack): ChartViewPrepared {
         return {
@@ -30,11 +36,8 @@ export class ChartViewPreparerService {
         };
     }
 
-
-
     private buildBeats(model: Model)
         : ChartViewPreparedBeat[] {
-        const duration = this.calculateDuration(model);
         const beatTimes: ChartViewPreparedBeat[] = [];
         let timeCounter = 0;
         let currentIncrement = 0;
@@ -49,23 +52,11 @@ export class ChartViewPreparerService {
                 }
                 currentIncrement = 60 / e.bpm;
             });
-        while (timeCounter <= duration) {
+        while (timeCounter <= this.duration) {
             beatTimes.push({ id: beatTimes.length + 1, time: timeCounter });
             timeCounter += currentIncrement;
         }
         return beatTimes;
-    }
-
-    private calculateDuration(cs: Model): number {
-        const events: ModelTrackEvent[] = [];
-        Object.keys(ChartViewTrack)
-            .map(k => ChartViewTrack[k])
-            .filter(v => typeof v === 'number')
-            .forEach((track: ChartViewTrack) => {
-                events.push(...getTrack(cs, track).events);                
-            });
-        const lastEvent = events.sort((a, b) => b.time - a.time)[0];
-        return lastEvent ? lastEvent.time : durationWhenNoEvents;
     }
 
     private buildNotes(model: Model, track: ChartViewTrack): ChartViewPreparedNote[] {

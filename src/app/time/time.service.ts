@@ -43,16 +43,12 @@ export class TimeService {
     play() {
         this.audioPlayer.start(this.currentTime);
         this.currentlyPlaying = true;
-        this.lastRealTime = Date.now();
-        this.lastAudioTime = this.currentTime;
         this.lastPlayedTime = this.currentTime;
-        this.subscription = Observable.interval(16.666).subscribe(() => {
-            this.estimateAudioTime();
-        });
     }
 
     pause() {
         this.subscription.unsubscribe();
+        this.subscription = undefined;
         this.audioPlayer.stop();
         this.currentlyPlaying = false;
     }
@@ -77,6 +73,11 @@ export class TimeService {
     private audioTimeUpdate(audioTime: number): void {
         this.lastRealTime = Date.now();
         this.lastAudioTime = audioTime;
+        if (this.currentlyPlaying && !this.subscription) {
+            this.subscription = Observable.interval(16.666).subscribe(() => {
+                this.estimateAudioTime();
+            });
+        }
     }
 
     private estimateAudioTime(): void {

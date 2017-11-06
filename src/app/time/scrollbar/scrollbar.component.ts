@@ -28,6 +28,7 @@ export class ScrollbarComponent implements AfterViewInit {
     private moving: boolean;
     private playing: boolean;
     private svg: any;
+    private recentlyReleasedHandle: boolean;
 
     constructor(
         private durationService: DurationService,
@@ -87,6 +88,9 @@ export class ScrollbarComponent implements AfterViewInit {
     }
 
     clickScrollbar(e: any): void {
+        if (this.recentlyReleasedHandle) {
+            return;
+        }
         if (this.timeService.playing) {
             this.timeService.pause();
             this.playing = true;
@@ -123,6 +127,8 @@ export class ScrollbarComponent implements AfterViewInit {
                 this.timeService.play();
                 this.playing = false;
             }
+            this.recentlyReleasedHandle = true;
+            setTimeout(() => this.recentlyReleasedHandle = false, 100);
         }
     }
 

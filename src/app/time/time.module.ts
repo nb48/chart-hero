@@ -10,12 +10,13 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AudioPlayerService } from './audio-player/audio-player.service';
 import { AudioPlayerControlsComponent }
 from './audio-player-controls/audio-player-controls.component';
+import { ScrollbarComponent } from './scrollbar/scrollbar.component';
+
+import { AudioPlayerService } from './audio-player/audio-player.service';
 import { DurationService } from './duration/duration.service';
 import { IncrementService } from './increment/increment.service';
-import { ScrollbarComponent } from './scrollbar/scrollbar.component';
 import { TimeService } from './time.service';
 
 @NgModule({

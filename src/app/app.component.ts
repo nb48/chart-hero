@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 
-import { ChartViewTrackControllerService }
-from './chart-view/track-controller/chart-view-track-controller.service';
 import { ChartViewTrack } from './chart-view/chart-view-track';
 import { ModelImporterService } from './model/import-export/model-importer.service';
+import { TrackService } from './track/track.service';
 
 @Component({
     selector: 'app',
@@ -14,9 +13,9 @@ export class AppComponent {
 
     constructor(
         private modelImporter: ModelImporterService,
-        private trackController: ChartViewTrackControllerService,
+        private trackService: TrackService,
     ) {
         this.modelImporter.import('');
-        this.trackController.newTrack(ChartViewTrack.GHLGuitarExpert);
+        this.trackService.newTrack(ChartViewTrack.GHLGuitarExpert);
     }
 }

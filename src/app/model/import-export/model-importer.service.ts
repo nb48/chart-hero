@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 
+import { TimeService } from '../../time/time.service';
+import { TrackService } from '../../track/track.service';
 import { ModelService } from '../model.service';
 import { FileToMemoryService } from './file-to-memory/file-to-memory.service';
 import { MemoryToModelService } from './memory-to-model/memory-to-model.service';
-import { TimeService } from './../../time/time.service';
-import { ChartViewTrackControllerService }
-from '../../chart-view/track-controller/chart-view-track-controller.service';
 
 @Injectable()
 export class ModelImporterService {
 
     constructor(
-        private model: ModelService,
+        private timeService: TimeService,
+        private trackService: TrackService,
+        private modelService: ModelService,
         private fileToMemory: FileToMemoryService,
         private memoryToModel: MemoryToModelService,
-        private timeService: TimeService,
-        private trackService: ChartViewTrackControllerService,
     ) {
     }
 
@@ -24,6 +23,6 @@ export class ModelImporterService {
         const model = this.memoryToModel.import(memory);
         this.timeService.time = 0;
         this.trackService.defaultTrack(model);
-        this.model.model = model;
+        this.modelService.model = model;
     }
 }

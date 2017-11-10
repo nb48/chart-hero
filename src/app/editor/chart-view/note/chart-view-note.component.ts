@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { ChartViewNoteControllerService }
-from '../../../chart-view/note-controller/chart-view-note-controller.service';
 import { ChartViewNote, ChartViewNoteType } from '../../../chart-view/chart-view';
+import { SelectedService } from '../../../note/selected/selected.service';
 
 @Component({
     selector: '[app-chart-view-note]',
@@ -12,11 +11,11 @@ import { ChartViewNote, ChartViewNoteType } from '../../../chart-view/chart-view
 export class ChartViewNoteComponent {
     @Input() note: ChartViewNote;
 
-    constructor(private noteController: ChartViewNoteControllerService) {
+    constructor(private selectedService: SelectedService) {
     }
 
     select(): void {
-        this.noteController.selectNote(this.note.id);
+        this.selectedService.selectNote(this.note.id);
     }
 
     get open(): boolean {

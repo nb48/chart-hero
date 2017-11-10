@@ -1,14 +1,9 @@
 import { Component } from '@angular/core';
 
-import {
-    ModelTrackNote,
-    ModelTrackEventType,
-    ModelTrackNoteType,
-} from '../model/model';
-import { ChartViewNoteControllerService }
-from '../chart-view/note-controller/chart-view-note-controller.service';
-import { ChartViewTimeControllerService }
-from '../chart-view/time-controller/chart-view-time-controller.service';
+import { ModelTrackNoteType, ModelTrackEventType } from '../../model/model';
+import { TimeService } from '../time/time.service';
+import { TypeService } from '../type/type.service';
+import { SelectedService } from '../selected/selected.service';
 
 @Component({
     selector: 'app-note-controls',
@@ -28,11 +23,12 @@ export class NoteControlsComponent {
     customStepBottom: number = 1;
 
     constructor(
-        private noteController: ChartViewNoteControllerService,
-        private timeController: ChartViewTimeControllerService,
+        private timeService: TimeService,
+        private typeService: TypeService,
+        private selectedService: SelectedService,
     ) {
         this.selected = false;
-        this.noteController.selectedNote.subscribe((note) => {
+        this.selectedService.selectedNote.subscribe((note) => {
             if (!note) {
                 this.selected = false;
                 return;
@@ -48,22 +44,22 @@ export class NoteControlsComponent {
     }
 
     typeChanged(type: ModelTrackNoteType[]): void {
-        this.noteController.updateNoteType(this.id, type);
+        this.typeService.updateNoteType(type);
     }
 
     newStep(): void {
         switch (this.stepControl) {
         case 'one':
-            this.timeController.newStep(1, 1);
+            this.timeService.newStep(1, 1);
             return;
         case 'half':
-            this.timeController.newStep(1, 2);
+            this.timeService.newStep(1, 2);
             return;
         case 'third':
-            this.timeController.newStep(1, 3);
+            this.timeService.newStep(1, 3);
             return;
         case 'quarter':
-            this.timeController.newStep(1, 4);
+            this.timeService.newStep(1, 4);
             return;
         case 'custom':
             const top = this.customStepTop !== null && this.customStepTop !== 0
@@ -72,28 +68,24 @@ export class NoteControlsComponent {
             const bottom = this.customStepBottom !== null && this.customStepBottom !== 0
                 ? this.customStepBottom
                 : 1;
-            this.timeController.newStep(top, bottom);
+            this.timeService.newStep(top, bottom);
             return;
         }
     }
 
     moveForwards(): void {
-        this.move(this.timeController.moveForwardsTime(this.time));
+        this.timeService.moveForwardsTime();
     }
 
     moveBackwards(): void {
-        this.move(this.timeController.moveBackwardsTime(this.time));
+        this.timeService.moveBackwardsTime();
     }
 
     snapForwards(): void {
-        this.move(this.timeController.snapForwardsTime(this.time));
+        this.timeService.snapForwardsTime();
     }
 
     snapBackwards(): void {
-        this.move(this.timeController.snapBackwardsTime(this.time));
-    }
-
-    private move(time: number): void {
-        this.noteController.moveNote(this.id, time);
+        this.timeService.snapBackwardsTime();
     }
 }

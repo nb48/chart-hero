@@ -4,9 +4,6 @@ import { Component } from '@angular/core';
 // from '../chart-store/ghl/chart-store-guitar-to-ghl-converter.service';
 // import { ModelService } from '../chart-store/chart-store.service';
 // import { Model } from '../chart-store/chart-store';
-import { ChartViewTrackControllerService }
-from '../chart-view/track-controller/chart-view-track-controller.service';
-import { ChartViewTrack } from '../chart-view/chart-view-track';
 
 @Component({
     selector: 'app-converter',
@@ -16,13 +13,13 @@ import { ChartViewTrack } from '../chart-view/chart-view-track';
 export class ConverterComponent {
 
     // private currentChart: Model;
-    private currentTrack: ChartViewTrack;
+    // private currentTrack: ChartViewTrack;
     private $shouldConvertExpertGuitarToExpertGHL: boolean;
 
     constructor(
         // private guitarToGHLConverter: ModelGuitarToGHLConverterService,
         // private chartStore: ModelService,
-        private trackController: ChartViewTrackControllerService,
+        // private trackController: ChartViewTrackControllerService,
     ) {
         // this.chartStore.chart.combineLatest(this.trackController.track, (chart, track) => {
         //     this.currentChart = chart;

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 
-import { ChartViewTrackControllerService }
-from '../chart-view/track-controller/chart-view-track-controller.service';
-import { ChartViewTrack } from '../chart-view/chart-view-track';
+import { ChartViewTrack } from '../../chart-view/chart-view-track';
+import { TrackService } from '../track.service';
 
 const tracks = [{
     model: ChartViewTrack.GuitarExpert,
@@ -31,17 +30,17 @@ const tracks = [{
 }];
 
 @Component({
-    selector: 'app-track-select',
-    templateUrl: './track-select.component.html',
-    styleUrls: ['./track-select.component.css'],
+    selector: 'app-track-selector',
+    templateUrl: './selector.component.html',
+    styleUrls: ['./selector.component.css'],
 })
-export class TrackSelectComponent {
+export class TrackSelectorComponent {
 
     tracks = tracks;
     track: ChartViewTrack;
 
-    constructor(public trackController: ChartViewTrackControllerService) {
-        this.trackController.track.subscribe((track) => {
+    constructor(public trackService: TrackService) {
+        this.trackService.track.subscribe((track) => {
             this.track = track;
         });
     }

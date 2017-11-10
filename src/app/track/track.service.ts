@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { Model, ModelTrack } from '../../model/model';
-import { ChartViewTrack } from '../chart-view-track';
+import { ChartViewTrack } from '../chart-view/chart-view-track';
+import { Model, ModelTrack } from '../model/model';
 
 @Injectable()
-export class ChartViewTrackControllerService {
+export class TrackService {
 
     private trackSubject: ReplaySubject<ChartViewTrack>;
 

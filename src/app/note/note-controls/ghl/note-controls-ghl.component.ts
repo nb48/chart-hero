@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { ModelTrackNoteType } from '../../model/model';
+import { ModelTrackNoteType } from '../../../model/model';
 
 @Component({
     selector: 'app-note-controls-ghl',

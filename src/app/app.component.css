@@ -5,7 +5,7 @@
     height: 100vh;
     grid-template-areas: "title title file-select"
                          ". editor note-controls"
-                         "track-select editor note-controls"
+                         "track-selector editor note-controls"
                          "audio-player-controls editor note-controls"
                          "converter editor note-controls"
                          ". editor note-controls"
@@ -28,8 +28,8 @@
     grid-area: file-select;
 }
 
-.app app-track-select {
-    grid-area: track-select;
+.app app-track-selector {
+    grid-area: track-selector;
 }
 
 .app app-audio-player-controls {

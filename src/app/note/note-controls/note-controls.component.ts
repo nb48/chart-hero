@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { ModelTrackNoteType, ModelTrackEventType } from '../../model/model';
 import { TimeService } from '../time/time.service';
 import { TypeService } from '../type/type.service';
-import { SelectedService } from '../selected/selected.service';
+import { SelectedNoteService } from '../selected/selected.service';
 
 @Component({
     selector: 'app-note-controls',
@@ -25,10 +25,10 @@ export class NoteControlsComponent {
     constructor(
         private timeService: TimeService,
         private typeService: TypeService,
-        private selectedService: SelectedService,
+        private selectedNoteService: SelectedNoteService,
     ) {
         this.selected = false;
-        this.selectedService.selectedNote.subscribe((note) => {
+        this.selectedNoteService.selectedNote.subscribe((note) => {
             if (!note) {
                 this.selected = false;
                 return;

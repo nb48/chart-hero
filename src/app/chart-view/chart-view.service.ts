@@ -3,7 +3,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 
 import { ModelService } from '../model/model.service';
 import { Model } from '../model/model';
-import { SelectedService } from '../note/selected/selected.service';
+import { SelectedNoteService } from '../note/selected/selected.service';
 import { TimeService } from '../time/time.service';
 import { TrackService } from '../track/track.service';
 import { ChartViewBuilderService } from './builder/chart-view-builder.service';
@@ -23,7 +23,7 @@ export class ChartViewService {
     constructor(
         private modelService: ModelService,
         private builder: ChartViewBuilderService,
-        private selectedService: SelectedService,
+        private selectedNoteService: SelectedNoteService,
         private trackService: TrackService,
         private preparer: ChartViewPreparerService,
         private timeService: TimeService,
@@ -33,7 +33,7 @@ export class ChartViewService {
         Observable.combineLatest(
             this.modelService.models,
             this.trackService.track,
-            this.selectedService.selectedNote,
+            this.selectedNoteService.selectedNote,
             (model, track, selectedNote) => {
                 this.currentPreparedView = this.preparer.buildView(model, track);
                 this.selectedId = selectedNote ? selectedNote.id : undefined;

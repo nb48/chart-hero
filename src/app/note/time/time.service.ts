@@ -5,7 +5,7 @@ import { ChartViewBeat } from '../../chart-view/chart-view';
 import { ChartViewService } from '../../chart-view/chart-view.service';
 import { ModelTrackNote } from '../../model/model';
 import { IncrementService } from '../../time/increment/increment.service';
-import { SelectedService } from '../selected/selected.service';
+import { SelectedNoteService } from '../selected/selected.service';
 
 const defaultStep = 1;
 
@@ -20,7 +20,7 @@ export class TimeService {
     constructor(
         private beatsService: ChartViewService,
         private incrementService: IncrementService,
-        private selectedService: SelectedService,
+        private selectedNoteService: SelectedNoteService,
     ) {
         this.beatsService.view.subscribe((view) => {
             this.beats = view.beats;
@@ -28,7 +28,7 @@ export class TimeService {
         this.incrementService.increments.subscribe((increment) => {
             this.increment = increment;
         });
-        this.selectedService.selectedNote.subscribe((note) => {
+        this.selectedNoteService.selectedNote.subscribe((note) => {
             this.note = note;
         });
         this.step = defaultStep;
@@ -72,6 +72,6 @@ export class TimeService {
 
     private updateNoteTime(change: number): void {
         this.note.time += change;
-        this.selectedService.noteChanged(this.note);
+        this.selectedNoteService.noteChanged(this.note);
     }
 }

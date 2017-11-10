@@ -14,7 +14,7 @@ import { NoteControlsGHLComponent } from './note-controls/ghl/note-controls-ghl.
 import { NoteControlsGuitarComponent } from './note-controls/guitar/note-controls-guitar.component';
 import { NoteControlsComponent } from './note-controls/note-controls.component';
 
-import { SelectedService } from './selected/selected.service';
+import { SelectedNoteService } from './selected/selected.service';
 import { TimeService } from './time/time.service';
 import { TypeService } from './type/type.service';
 
@@ -38,7 +38,7 @@ import { TypeService } from './type/type.service';
         NoteControlsComponent,
     ],
     providers: [
-        SelectedService,
+        SelectedNoteService,
         TimeService,
         TypeService,
     ],

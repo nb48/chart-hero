@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { BeatService } from './fretboard/beat/beat.service';
+import { EventService } from './fretboard/event/event.service';
 import { Fretboard } from './fretboard/fretboard/fretboard';
 import { NoteService } from './fretboard/note/note.service';
 
@@ -17,14 +18,16 @@ export class AppComponent {
     constructor(
         private beatService: BeatService,
         private noteService: NoteService,
+        private eventService: EventService,
     ) {
         Observable.combineLatest(
             this.beatService.beats,
             this.beatService.zeroPositions,
             this.noteService.notes,
-            (beats, zeroPosition, notes) => {
+            this.eventService.events,
+            (beats, zeroPosition, notes, events) => {
                 this.fretboard = {
-                    beats, zeroPosition, notes,
+                    beats, zeroPosition, notes, events,
                 };
             },
         ).subscribe(() => {

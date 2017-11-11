@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { Beat } from '../beat/beat';
-import { BeatService } from '../beat/beat.service';
+import { Event } from '../event/event';
 import { Note } from '../note/note';
-import { NoteService } from '../note/note.service';
 import { Fretboard } from './fretboard';
 
 @Component({
@@ -21,6 +19,10 @@ export class FretboardComponent {
     }
 
     trackNote(index: number, item: Note) {
+        return item.id;
+    }
+
+    trackEvent(index: number, item: Event) {
         return item.id;
     }
 }

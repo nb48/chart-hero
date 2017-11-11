@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BeatComponent } from './beat/beat.component';
+import { EventComponent } from './event/event.component';
 import { FretboardComponent } from './fretboard/fretboard.component';
 import { NoteGHLComponent } from './note/ghl/note-ghl.component';
 import { NoteGuitarComponent } from './note/guitar/note-guitar.component';
@@ -32,6 +33,7 @@ import { SpeedService } from './speed/speed.service';
     ],
     declarations: [
         BeatComponent,
+        EventComponent,
         FretboardComponent,
         NoteGHLComponent,
         NoteGuitarComponent,

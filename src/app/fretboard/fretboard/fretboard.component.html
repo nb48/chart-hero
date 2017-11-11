@@ -3,5 +3,6 @@
         <line x1="0" x2="100" [attr.y1]="fretboard.zeroPosition" [attr.y2]="fretboard.zeroPosition" stroke="white" stroke-width="1.5"></line>
         <svg:g app-beat *ngFor="let beat of fretboard.beats; trackBy: trackBeat" [beat]="beat"/>
         <svg:g app-note *ngFor="let note of fretboard.notes; trackBy: trackNote" [note]="note"/>
+        <svg:g app-event *ngFor="let event of fretboard.events; trackBy: trackEvent" [event]="event"/>
     </svg>
 </div>

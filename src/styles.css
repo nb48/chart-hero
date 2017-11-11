@@ -9,3 +9,7 @@ html, body {
 .app-tooltip {
     font-size: 1.5em;
 }
+
+.speed-controls .mat-list-item-content {
+    padding-right: 0 !important;
+}

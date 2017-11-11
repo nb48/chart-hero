@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { ActionsService } from './actions/actions.service';
 import { IdGeneratorService } from './id-generator/id-generator.service';
 import { AppModelImportExportModule } from './import-export/model-import-export.module';
 import { ModelService } from './model.service';
@@ -9,6 +10,7 @@ import { ModelService } from './model.service';
         AppModelImportExportModule,
     ],
     providers: [
+        ActionsService,
         IdGeneratorService,
         ModelService,
     ],

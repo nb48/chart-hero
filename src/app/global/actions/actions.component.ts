@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { ActionsService } from '../../model/actions/actions.service';
+
 @Component({
     selector: 'app-actions',
     templateUrl: './actions.component.html',
@@ -7,10 +9,6 @@ import { Component } from '@angular/core';
 })
 export class ActionsComponent {
 
-    constructor() {
-    }
-
-    addNote() {
-        console.log('Add Note');
+    constructor(public service: ActionsService) {
     }
 }

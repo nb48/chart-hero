@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { ActionsService } from '../../model/actions/actions.service';
 import { ModelTrackNoteType, ModelTrackEventType } from '../../model/model';
 import { TimeService } from '../time/time.service';
 import { TypeService } from '../type/type.service';
@@ -23,6 +24,7 @@ export class NoteControlsComponent {
     customStepBottom: number = 1;
 
     constructor(
+        private actionsService: ActionsService,
         private timeService: TimeService,
         private typeService: TypeService,
         private selectedNoteService: SelectedNoteService,
@@ -90,6 +92,7 @@ export class NoteControlsComponent {
     }
 
     delete(): void {
-        console.log('delete note');
+        this.actionsService.deleteNote(this.id);
+        this.selectedNoteService.selectNearestNote();
     }
 }

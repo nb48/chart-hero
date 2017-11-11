@@ -51,6 +51,20 @@ export class SelectedNoteService {
         }
     }
 
+    selectNearestNote(): void {
+        const previous = this.findPreviousNote();
+        if (previous) {
+            this.newSelection(previous);
+            return;
+        }
+        const next = this.findNextNote();
+        if (next) {
+            this.newSelection(next);
+            return;
+        }
+        this.clearSelection();
+    }
+
     clearSelection(): void {
         this.selectedNotesSubject.next(undefined);
     }

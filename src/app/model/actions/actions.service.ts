@@ -59,4 +59,11 @@ export class ActionsService {
         });
         this.modelService.model = this.model;
     }
+
+    deleteNote(id: number): void {
+        const track = getTrack(this.model, this.track);
+        const index = track.events.findIndex(n => n.id === id);
+        track.events.splice(index, 1);
+        this.modelService.model = this.model;
+    }
 }

@@ -78,6 +78,7 @@ export class PreparerService {
                     timeCounter += currentIncrement;
                 }
                 currentIncrement = 60 / e.bpm;
+                timeCounter = e.time;
             });
         while (timeCounter <= this.duration) {
             beatTimes.push({ id: beatTimes.length + 1, time: timeCounter });

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ModelTrackBPMChange } from '../../model/model';
+import { BPMService } from '../bpm/bpm.service';
 import { SelectorService } from '../selector/selector.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class EventControlsComponent {
     bpm: number;
 
     constructor(
+        private bpmService: BPMService,
         private selectorService: SelectorService,
     ) {
         this.selected = false;
@@ -31,5 +33,11 @@ export class EventControlsComponent {
             this.type = 'BPM Change';
             this.bpm = (event as ModelTrackBPMChange).bpm;
         });
+    }
+
+    bpmChanged(bpm: number) {
+        if (bpm && bpm > 0) {
+            this.bpmService.updateBPM(bpm);            
+        }
     }
 }

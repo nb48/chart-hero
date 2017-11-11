@@ -6,7 +6,13 @@ import { TimeService } from '../../time/time.service';
 import { Track, getTrack, isGHLTrack } from '../../track/track';
 import { TrackService } from '../../track/track.service';
 import { IdGeneratorService } from '../id-generator/id-generator.service';
-import { Model, ModelTrackEventType, ModelTrackNote, ModelTrackNoteType } from '../model';
+import {
+    Model,
+    ModelTrackEvent,
+    ModelTrackEventType,
+    ModelTrackNote,
+    ModelTrackNoteType,
+} from '../model';
 import { ModelService } from '../model.service';
 
 @Injectable()
@@ -64,6 +70,14 @@ export class ActionsService {
         const track = getTrack(this.model, this.track);
         const index = track.events.findIndex(n => n.id === id);
         track.events.splice(index, 1);
+        this.modelService.model = this.model;
+    }
+
+    syncTrackChanged(event: ModelTrackEvent): void {
+        const modelEvent = this.model.syncTrack.events.find(e => e.id === event.id);
+        Object.keys(event).forEach((key) => {
+            modelEvent[key] = event[key];
+        });
         this.modelService.model = this.model;
     }
 }

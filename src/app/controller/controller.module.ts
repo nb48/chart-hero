@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MatButtonModule,
+    MatFormFieldModule,
     MatInputModule,
     MatListModule,
     MatRadioModule,
@@ -16,6 +17,7 @@ import { NoteControlsGuitarComponent } from './note-controls/guitar/note-control
 import { NoteControlsComponent } from './note-controls/note-controls.component';
 import { ParentControlsComponent } from './parent-controls/parent-controls.component';
 
+import { BPMService } from './bpm/bpm.service';
 import { SelectorService } from './selector/selector.service';
 import { TimeService } from './time/time.service';
 import { TypeService } from './type/type.service';
@@ -26,10 +28,12 @@ import { TypeService } from './type/type.service';
         BrowserAnimationsModule,
         FormsModule,
         MatButtonModule,
+        MatFormFieldModule,
         MatInputModule,
         MatListModule,
         MatRadioModule,
         MatTooltipModule,
+        ReactiveFormsModule,
     ],
     exports: [
         ParentControlsComponent,
@@ -42,6 +46,7 @@ import { TypeService } from './type/type.service';
         ParentControlsComponent,
     ],
     providers: [
+        BPMService,
         SelectorService,
         TimeService,
         TypeService,

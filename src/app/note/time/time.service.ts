@@ -72,6 +72,9 @@ export class TimeService {
 
     private updateNoteTime(change: number): void {
         this.note.time += change;
+        if (this.note.time < 0) {
+            this.note.time = 0;
+        }
         this.selectedNoteService.noteChanged(this.note);
     }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { SelectorService } from '../../note/selector/selector.service';
+import { SelectorService } from '../../controller/selector/selector.service';
 import { TimeService } from '../../time/time.service';
 import { Track, getTrack, isGHLTrack } from '../../track/track';
 import { TrackService } from '../../track/track.service';

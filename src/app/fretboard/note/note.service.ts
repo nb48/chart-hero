@@ -10,7 +10,7 @@ import {
     NoteOpen,
     NoteType,
 } from './note';
-import { SelectorService } from '../../note/selector/selector.service';
+import { SelectorService } from '../../controller/selector/selector.service';
 import { TimeService } from '../../time/time.service';
 import {
     Prepared,

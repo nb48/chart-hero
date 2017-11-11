@@ -43,5 +43,5 @@ import { TypeService } from './type/type.service';
         TypeService,
     ],
 })
-export class AppNoteModule {
+export class AppControllerModule {
 }

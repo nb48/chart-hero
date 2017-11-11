@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { SelectorService } from '../../note/selector/selector.service';
+import { SelectorService } from '../../controller/selector/selector.service';
 import { TimeService } from '../../time/time.service';
 import { TrackService } from '../../track/track.service';
 import { ModelService } from '../model.service';

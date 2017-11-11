@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Note, NoteType } from './note';
-import { SelectorService } from '../../note/selector/selector.service';
+import { SelectorService } from '../../controller/selector/selector.service';
 
 @Component({
     selector: '[app-note]',

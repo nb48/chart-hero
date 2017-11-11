@@ -38,6 +38,14 @@ export class SelectedNoteService {
         this.newSelection(note);
     }
 
+    selectNextNote(): void {
+        console.log('next');
+    }
+
+    selectPreviousNote(): void {
+        console.log('previous');
+    }
+
     noteChanged(note: ModelTrackNote): void {
         const modelNote = this.findNote(note.id);
         Object.keys(note).forEach((key) => {

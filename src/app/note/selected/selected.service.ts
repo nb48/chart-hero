@@ -25,6 +25,9 @@ export class SelectedNoteService {
                 this.model = model;
                 this.track = track;
             }).subscribe(() => {
+                if (this.selectedNotesSubject.value) {
+                    this.selectNote(this.selectedNotesSubject.value.id);
+                }
             });
     }
 

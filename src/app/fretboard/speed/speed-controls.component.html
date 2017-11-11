@@ -3,7 +3,7 @@
         <mat-list-item>
             <div class="slider">
                 <label class="body-1">Speed: </label>                                    
-                <mat-slider thumbLabel min="1" max="20" step="1" value="5"></mat-slider>
+                <mat-slider [value]="service.speed" (change)="service.speed = $event.value" thumbLabel min="1" max="20" step="1"></mat-slider>
             </div>
         </mat-list-item>
     </mat-list>

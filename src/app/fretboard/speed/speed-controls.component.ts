@@ -9,6 +9,6 @@ import { SpeedService } from './speed.service';
 })
 export class SpeedControlsComponent {
 
-    constructor(service: SpeedService) {
+    constructor(public service: SpeedService) {
     }
 }

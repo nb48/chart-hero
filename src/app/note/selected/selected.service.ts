@@ -25,7 +25,6 @@ export class SelectedNoteService {
                 this.model = model;
                 this.track = track;
             }).subscribe(() => {
-                this.clearSelection();
             });
     }
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { SelectedNoteService } from '../../note/selected/selected.service';
 import { Track } from '../track';
 import { TrackService } from '../track.service';
 
@@ -39,10 +40,18 @@ export class TrackSelectorComponent {
     tracks = tracks;
     track: Track;
 
-    constructor(public trackService: TrackService) {
+    constructor(
+        public trackService: TrackService,
+        private selectedNoteService: SelectedNoteService,
+    ) {
         this.trackService.tracks.subscribe((track) => {
             this.track = track;
         });
+    }
+
+    newTrack(track: Track) {
+        this.trackService.newTrack(track);
+        this.selectedNoteService.clearSelection();
     }
 
     captureScroll(e: any) {

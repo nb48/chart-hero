@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { SelectedNoteService } from '../../note/selected/selected.service';
 import { TimeService } from '../../time/time.service';
 import { TrackService } from '../../track/track.service';
 import { ModelService } from '../model.service';
@@ -10,6 +11,7 @@ import { MemoryToModelService } from './memory-to-model/memory-to-model.service'
 export class ModelImporterService {
 
     constructor(
+        private selectedNoteService: SelectedNoteService,
         private timeService: TimeService,
         private trackService: TrackService,
         private modelService: ModelService,
@@ -25,5 +27,6 @@ export class ModelImporterService {
         this.timeService.time = 0;
         this.trackService.defaultTrack(model);
         this.modelService.model = model;
+        this.selectedNoteService.clearSelection();
     }
 }

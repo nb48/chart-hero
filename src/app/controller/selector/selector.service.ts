@@ -109,7 +109,10 @@ export class SelectorService {
                 return;
             }
             const oldDifference = currentTime - this.time;
-            const newTime = event.time - oldDifference;
+            const after = this.speedService.after;
+            const before = this.speedService.before;
+            const difference = Math.max(after, Math.min(before, oldDifference));
+            const newTime = event.time - difference;
             this.timeService.time = newTime;
         }
     }

@@ -50,6 +50,14 @@ export class SpeedService {
         this.timeAfter = (1 / this.currentSpeed) * -0.3;
     }
 
+    get after(): number {
+        return this.timeAfter;
+    }
+
+    get before(): number {
+        return this.timeBefore;
+    }
+
     zeroPosition() {
         return zeroPosition;
     }

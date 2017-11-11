@@ -40,8 +40,23 @@
     grid-area: converter;
 }
 
-.app app-editor {
+.app .editor {
     grid-area: editor;
+    display: grid;
+    width: 99%;
+    height: 99.30%;
+    margin-left: 1%;
+    grid-template-areas: "chart-view . scrollbar";
+    grid-template-columns: 19fr 0.5em 1em;
+    grid-template-rows: 99.30%;
+}
+
+.app .editor app-chart-view {
+    grid-area: chart-view;
+}
+
+.app .editor app-scrollbar {
+    grid-area: scrollbar;
 }
 
 .app app-note-controls {
@@ -51,3 +66,4 @@
 .app app-file-download {
     grid-area: file-download;
 }
+

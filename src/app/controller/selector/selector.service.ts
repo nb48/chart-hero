@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
+import { SpeedService } from '../../fretboard/speed/speed.service';
 import { Model, ModelTrackEvent, ModelTrackEventType, ModelTrackNote } from '../../model/model';
 import { ModelService } from '../../model/model.service';
+import { TimeService } from '../../time/time.service';
 import { Track, getTrack } from '../../track/track';
 import { TrackService } from '../../track/track.service';
 
@@ -12,10 +14,13 @@ export class SelectorService {
     private selectedNotesSubject: BehaviorSubject<ModelTrackNote>;
     private selectedEventsSubject: BehaviorSubject<ModelTrackEvent>;
     private model: Model;
+    private time: number;
     private track: Track;
 
     constructor(
+        private speedService: SpeedService,
         private modelService: ModelService,
+        private timeService: TimeService,
         private trackService: TrackService,
     ) {
         this.selectedNotesSubject = new BehaviorSubject<ModelTrackNote>(undefined);
@@ -28,6 +33,9 @@ export class SelectorService {
             if (this.selectedEventsSubject.value) {
                 this.selectEvent(this.selectedEventsSubject.value.id);
             }
+        });
+        this.timeService.times.subscribe((time) => {
+            this.time = time;
         });
         this.trackService.tracks.subscribe((track) => {
             this.track = track;
@@ -137,6 +145,14 @@ export class SelectorService {
             : null;
     }
 
+    private currentTime(): number {
+        return this.selectedNotesSubject.value
+            ? this.selectedNotesSubject.value.time
+            : this.selectedEventsSubject.value
+            ? this.selectedEventsSubject.value.time
+            : 0;
+    }
+
     private combinateEventTracks(): ModelTrackEvent[] {
         return this.model.syncTrack.events
             .concat(getTrack(this.model, this.track).events);
@@ -157,12 +173,27 @@ export class SelectorService {
     }
 
     private newNoteSelection(note: ModelTrackNote): void {
+        this.adjustTime(note);
         this.selectedEventsSubject.next(undefined);
         this.selectedNotesSubject.next(JSON.parse(JSON.stringify(note)));
     }
 
     private newEventSelection(event: ModelTrackEvent): void {
+        this.adjustTime(event);
         this.selectedNotesSubject.next(undefined);
         this.selectedEventsSubject.next(JSON.parse(JSON.stringify(event)));
+    }
+
+    private adjustTime(event: ModelTrackEvent): void {
+        if (!this.speedService.timeInTightView(event.time, this.time)) {
+            const currentTime = this.currentTime();
+            if (!currentTime) {
+                this.timeService.time = event.time;
+                return;
+            }
+            const oldDifference = currentTime - this.time;
+            const newTime = event.time - oldDifference;
+            this.timeService.time = newTime;
+        }
     }
 }

@@ -59,6 +59,11 @@ export class SpeedService {
             eventTime < (currentTime + this.timeBefore + spacer);
     }
 
+    timeInTightView(eventTime: number, currentTime: number): boolean {
+        return eventTime > (currentTime + this.timeAfter) &&
+            eventTime < (currentTime + this.timeBefore);
+    }
+
     calculateYPos(eventTime: number, currentTime: number): number {
         const bottom = currentTime + this.timeAfter;
         const top = currentTime + this.timeBefore;

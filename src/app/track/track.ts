@@ -40,3 +40,15 @@ export const getTrack = (cs: Model, track: Track): ModelTrack => {
         return cs.venue;
     }
 };
+
+export const isGHLTrack = (track: Track): boolean => {
+    switch (track) {
+    case Track.GHLGuitarExpert:
+    case Track.GHLGuitarHard:
+    case Track.GHLGuitarMedium:
+    case Track.GHLGuitarEasy:
+        return true;
+    default:
+        return false;
+    }
+};

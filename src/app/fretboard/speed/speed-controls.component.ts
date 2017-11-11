@@ -11,4 +11,8 @@ export class SpeedControlsComponent {
 
     constructor(public service: SpeedService) {
     }
+
+    captureEvent(event: any) {
+        event.stopPropagation();
+    }
 }

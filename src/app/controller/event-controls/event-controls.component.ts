@@ -41,7 +41,7 @@ export class EventControlsComponent {
     }
 
     bpmChanged(bpm: number) {
-        if (bpm && bpm > 0) {
+        if (bpm && bpm > 0 && bpm <= 10000) {
             this.bpmService.updateBPM(bpm);            
         }
     }

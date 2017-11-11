@@ -12,6 +12,8 @@ const lineHeightPx = 17.666;
 
 const formattedZero = showTime(0);
 
+const minDuration = 1;
+
 @Component({
     selector: 'app-scrollbar',
     templateUrl: './scrollbar.component.html',
@@ -37,7 +39,7 @@ export class ScrollbarComponent implements AfterViewInit {
         private timeService: TimeService,
     ) {
         this.durationService.durations.subscribe((duration) => {
-            this.duration = duration;
+            this.duration = duration < minDuration ? minDuration : duration;
             this.formattedDuration = showTime(duration);
         });
         this.incrementService.increments.subscribe((increment) => {

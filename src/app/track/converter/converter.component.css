@@ -6,5 +6,6 @@
 
 .converter button {
     min-width: 60%;
+    margin-right: 0.5em;
     float: right;
 }

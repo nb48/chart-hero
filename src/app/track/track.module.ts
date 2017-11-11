@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConverterComponent } from './converter/converter.component';
 import { TrackSelectorComponent } from './selector/selector.component';
 
+import { GuitarToGHLConverterService } from './guitar-to-ghl/guitar-to-ghl-converter.service';
 import { TrackService } from './track.service';
 
 @NgModule({
@@ -27,6 +28,7 @@ import { TrackService } from './track.service';
         TrackSelectorComponent,
     ],
     providers: [
+        GuitarToGHLConverterService,
         TrackService,
     ],
 })

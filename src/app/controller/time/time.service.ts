@@ -73,10 +73,12 @@ export class TimeService {
     }
 
     private updateNoteTime(change: number): void {
-        this.note.time += change;
-        if (this.note.time < 0) {
-            this.note.time = 0;
+        const newNote = JSON.parse(JSON.stringify(this.note));
+        newNote.time += change;
+        if (newNote.time < 0) {
+            newNote.time = 0;
         }
-        this.actionsService.noteChanged(this.note);
+        this.selectorService.adjustTime(newNote);
+        this.actionsService.noteChanged(newNote);
     }
 }

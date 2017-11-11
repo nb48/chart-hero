@@ -101,6 +101,19 @@ export class SelectorService {
         this.selectedEventsSubject.next(undefined);
     }
 
+    adjustTime(event: ModelTrackEvent): void {
+        if (!this.speedService.timeInTightView(event.time, this.time)) {
+            const currentTime = this.currentTime();
+            if (!currentTime) {
+                this.timeService.time = event.time;
+                return;
+            }
+            const oldDifference = currentTime - this.time;
+            const newTime = event.time - oldDifference;
+            this.timeService.time = newTime;
+        }
+    }
+
     private findNote(id: number): ModelTrackNote {
         const chordId = Math.floor(id / 10) * 10;
         return getTrack(this.model, this.track).events
@@ -175,25 +188,12 @@ export class SelectorService {
     private newNoteSelection(note: ModelTrackNote): void {
         this.adjustTime(note);
         this.selectedEventsSubject.next(undefined);
-        this.selectedNotesSubject.next(JSON.parse(JSON.stringify(note)));
+        this.selectedNotesSubject.next(note);
     }
 
     private newEventSelection(event: ModelTrackEvent): void {
         this.adjustTime(event);
         this.selectedNotesSubject.next(undefined);
-        this.selectedEventsSubject.next(JSON.parse(JSON.stringify(event)));
-    }
-
-    private adjustTime(event: ModelTrackEvent): void {
-        if (!this.speedService.timeInTightView(event.time, this.time)) {
-            const currentTime = this.currentTime();
-            if (!currentTime) {
-                this.timeService.time = event.time;
-                return;
-            }
-            const oldDifference = currentTime - this.time;
-            const newTime = event.time - oldDifference;
-            this.timeService.time = newTime;
-        }
+        this.selectedEventsSubject.next(event);
     }
 }

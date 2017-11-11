@@ -20,7 +20,8 @@ export class TypeService {
     }
 
     updateNoteType(type: ModelTrackNoteType[]): void {
-        this.note.type = type;
-        this.actionsService.noteChanged(this.note);
+        const newNote = JSON.parse(JSON.stringify(this.note));
+        newNote.type = type;
+        this.actionsService.noteChanged(newNote);
     }
 }

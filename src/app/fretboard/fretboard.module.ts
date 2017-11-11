@@ -14,6 +14,7 @@ import { BeatService } from './beat/beat.service';
 import { NoteService } from './note/note.service';
 import { PreparerService } from './preparer/preparer.service';
 import { RendererService } from './renderer/renderer.service';
+import { SpeedService } from './speed/speed.service';
 
 @NgModule({
     imports: [
@@ -37,6 +38,7 @@ import { RendererService } from './renderer/renderer.service';
         NoteService,
         PreparerService,
         RendererService,
+        SpeedService,
     ],
 })
 export class AppFretboardModule {

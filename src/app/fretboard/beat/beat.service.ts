@@ -5,14 +5,8 @@ import { ModelTrackNote } from '../../model/model';
 import { Prepared } from '../preparer/prepared';
 import { PreparerService } from '../preparer/preparer.service';
 import { RendererService } from '../renderer/renderer.service';
+import { SpeedService } from '../speed/speed.service';
 import { Beat } from './beat';
-
-const speed = 1;
-const timeBefore = (1 / speed) * 1.2;
-const timeAfter = (1 / speed) * -0.3;
-const spacer = 0.2;
-
-const zeroPosition = 100 * 1.2 / 1.5;
 
 @Injectable()
 export class BeatService {
@@ -25,6 +19,7 @@ export class BeatService {
     constructor(
         private preparerService: PreparerService,
         private rendererService: RendererService,
+        private speedService: SpeedService,
     ) {
         this.beatsSubject = new ReplaySubject<Beat[]>();
         this.zeroPositionsSubject = new ReplaySubject<number>();
@@ -38,7 +33,7 @@ export class BeatService {
         ).subscribe(() => {
             this.beatsSubject.next(this.buildBeats());
         });
-        this.zeroPositionsSubject.next(zeroPosition);
+        this.zeroPositionsSubject.next(this.speedService.zeroPosition());
     }
 
     get beats(): Observable<Beat[]> {
@@ -51,22 +46,11 @@ export class BeatService {
 
     private buildBeats(): Beat[] {
         return this.prepared.beats
-            .filter(b => this.timeInView(b.time, this.time))
+            .filter(b => this.speedService.timeInView(b.time, this.time))
             .map(b => ({
                 id: b.id,
                 time: b.time,
-                y: this.calculateYPos(b.time, this.time),
+                y: this.speedService.calculateYPos(b.time, this.time),
             }));
-    }
-
-    private timeInView(eventTime: number, currentTime: number): boolean {
-        return eventTime > (currentTime + timeAfter - spacer) &&
-            eventTime < (currentTime + timeBefore + spacer);
-    }
-
-    private calculateYPos(eventTime: number, currentTime: number): number {
-        const bottom = currentTime + timeAfter;
-        const top = currentTime + timeBefore;
-        return (1 - (eventTime - bottom) / (top - bottom)) * 100;
     }
 }

@@ -12,7 +12,6 @@ import {
 } from './note';
 import { SelectedNoteService } from '../../note/selected/selected.service';
 import { TimeService } from '../../time/time.service';
-import { RendererService } from '../renderer/renderer.service';
 import {
     Prepared,
     PreparedNote,
@@ -20,11 +19,8 @@ import {
     PreparedNoteGHLColor,
 } from '../preparer/prepared';
 import { PreparerService } from '../preparer/preparer.service';
-
-const speed = 1;
-const timeBefore = (1 / speed) * 1.2;
-const timeAfter = (1 / speed) * -0.3;
-const spacer = 0.2;
+import { RendererService } from '../renderer/renderer.service';
+import { SpeedService } from '../speed/speed.service';
 
 @Injectable()
 export class NoteService {
@@ -36,10 +32,11 @@ export class NoteService {
     private selectedId: number;
 
     constructor(
+        private selectedNoteService: SelectedNoteService,
+        private timeService: TimeService,
         private preparerService: PreparerService,
         private rendererService: RendererService,
-        private timeService: TimeService,
-        private selectedNoteService: SelectedNoteService,
+        private speedService: SpeedService,
     ) {
         this.notesSubject = new ReplaySubject<Note[]>();
         Observable.combineLatest(
@@ -63,10 +60,10 @@ export class NoteService {
 
     private buildNotes(): Note[] {
         return [].concat.apply([], this.prepared.notes
-            .filter(n => this.timeInView(n.time, this.time))
+            .filter(n => this.speedService.timeInView(n.time, this.time))
             .filter(n => this.playing ? n.time >= this.time : true)
             .map((note): Note[] => {
-                const y = this.calculateYPos(note.time, this.time);
+                const y = this.speedService.calculateYPos(note.time, this.time);
                 const selected = note.id === this.selectedId;
                 if (note.open) {
                     const type = NoteType.Open;
@@ -157,16 +154,5 @@ export class NoteService {
         case PreparedNoteGHLColor.Chord:
             return NoteGHLColor.Chord;
         }
-    }
-
-    private timeInView(eventTime: number, currentTime: number): boolean {
-        return eventTime > (currentTime + timeAfter - spacer) &&
-            eventTime < (currentTime + timeBefore + spacer);
-    }
-
-    private calculateYPos(eventTime: number, currentTime: number): number {
-        const bottom = currentTime + timeAfter;
-        const top = currentTime + timeBefore;
-        return (1 - (eventTime - bottom) / (top - bottom)) * 100;
     }
 }

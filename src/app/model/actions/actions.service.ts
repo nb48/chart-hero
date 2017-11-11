@@ -58,14 +58,10 @@ export class ActionsService {
         this.selectorService.selectNote(newNote.id);
     }
 
-    deleteNote(id: number): void {
-        const track = getTrack(this.model, this.track);
-        const index = track.events.findIndex(n => n.id === id);
-        track.events.splice(index, 1);
-        this.modelService.model = this.model;
-    }
-
     addBPMChange() {
+        if (this.time === 0) {
+            return;
+        }
         const newBPMChange: ModelTrackBPMChange = {
             id: this.idGenerator.id(),
             event: ModelTrackEventType.BPMChange,
@@ -73,6 +69,19 @@ export class ActionsService {
             bpm: 120,
         };
         this.model.syncTrack.events.push(newBPMChange);
+        this.modelService.model = this.model;
+    }
+
+    deleteTrackEvent(id: number): void {
+        const track = getTrack(this.model, this.track);
+        const index = track.events.findIndex(n => n.id === id);
+        track.events.splice(index, 1);
+        this.modelService.model = this.model;
+    }
+
+    deleteSyncTrackEvent(id: number) {
+        const index = this.model.syncTrack.events.findIndex(n => n.id === id);
+        this.model.syncTrack.events.splice(index, 1);
         this.modelService.model = this.model;
     }
 

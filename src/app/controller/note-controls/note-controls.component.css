@@ -82,9 +82,9 @@
     margin-left: 0.5em;
     margin-right: 0.5em;
     display: grid;
-    grid-template-areas: ". . . delete-note"
-                         ". . . .";
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas: ". . delete-note"
+                         ". . .";
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
 }
 

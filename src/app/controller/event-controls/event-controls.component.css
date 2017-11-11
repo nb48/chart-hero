@@ -18,3 +18,24 @@
 .event-controls .info input {
     width: 80%;
 }
+
+.event-controls .actions {
+    order: 2;
+    width: calc(100% - 1em);
+    height: 10%;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    display: grid;
+    grid-template-areas: ". . delete-event"
+                         ". . .";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.event-controls .actions .delete-event {
+    grid-area: delete-event;
+}
+
+.event-controls .actions button {
+    margin: 0.5em;
+}

@@ -20,5 +20,8 @@
                 </mat-form-field>
             </mat-list-item>
         </mat-list>
+        <div class="actions">
+            <button [disabled]="time === 0" class="delete-event" mat-raised-button color="primary" (click)="delete()">Delete Event</button>        
+        </div>
     </ng-container>
 </div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { ActionsService } from '../../model/actions/actions.service';
 import { ModelTrackBPMChange } from '../../model/model';
 import { BPMService } from '../bpm/bpm.service';
 import { SelectorService } from '../selector/selector.service';
@@ -18,6 +19,7 @@ export class EventControlsComponent {
     bpm: number;
 
     constructor(
+        private actionsService: ActionsService,
         private bpmService: BPMService,
         private selectorService: SelectorService,
     ) {
@@ -39,5 +41,10 @@ export class EventControlsComponent {
         if (bpm && bpm > 0) {
             this.bpmService.updateBPM(bpm);            
         }
+    }
+
+    delete() {
+        this.actionsService.deleteSyncTrackEvent(this.id);
+        this.selectorService.selectNearest();
     }
 }

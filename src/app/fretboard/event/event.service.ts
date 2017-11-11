@@ -42,7 +42,7 @@ export class EventService {
             .map(b => ({
                 id: b.id,
                 time: b.time,
-                x: 10,
+                x: 14,
                 y: this.speedService.calculateYPos(b.time, this.time),
                 type: b.event,
             }));

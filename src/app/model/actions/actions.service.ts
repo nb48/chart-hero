@@ -40,7 +40,7 @@ export class ActionsService {
             id: this.idGenerator.id(),
             event: ghl ? ModelTrackEventType.GHLNote : ModelTrackEventType.GuitarNote,
             time: this.time,
-            type: ghl ? [ModelTrackNoteType.GHLBlack1] : [ModelTrackNoteType.GuitarGreen],
+            type: [],
             length: 0,
         };
         const track = getTrack(this.model, this.track);        

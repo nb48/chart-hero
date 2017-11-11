@@ -4,13 +4,13 @@
     width: 100vw;
     height: 100vh;
     grid-template-areas: "title title file-select"
-                         ". view note-controls"
-                         "track-selector view note-controls"
-                         "audio-player-controls view note-controls"
-                         "speed-controls view note-controls"
-                         "converter view note-controls"
-                         ". view note-controls"
-                         "actions view note-controls"
+                         ". view parent-controls"
+                         "track-selector view parent-controls"
+                         "audio-player-controls view parent-controls"
+                         "speed-controls view parent-controls"
+                         "converter view parent-controls"
+                         ". view parent-controls"
+                         "actions view parent-controls"
                          ". view file-download";
     grid-template-columns: 20% 2fr 1fr;
     grid-template-rows: 9.25em 1em 2.25em 4.25em 4em 3.25em 4fr 1fr 4.25em;
@@ -69,8 +69,8 @@
     grid-area: scrollbar;
 }
 
-.app app-note-controls {
-    grid-area: note-controls;
+.app app-parent-controls {
+    grid-area: parent-controls;
 }
 
 .app app-file-download {

@@ -10,9 +10,11 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { EventControlsComponent } from './event-controls/event-controls.component';
 import { NoteControlsGHLComponent } from './note-controls/ghl/note-controls-ghl.component';
 import { NoteControlsGuitarComponent } from './note-controls/guitar/note-controls-guitar.component';
 import { NoteControlsComponent } from './note-controls/note-controls.component';
+import { ParentControlsComponent } from './parent-controls/parent-controls.component';
 
 import { SelectorService } from './selector/selector.service';
 import { TimeService } from './time/time.service';
@@ -30,12 +32,14 @@ import { TypeService } from './type/type.service';
         MatTooltipModule,
     ],
     exports: [
-        NoteControlsComponent,
+        ParentControlsComponent,
     ],
     declarations: [
+        EventControlsComponent,
         NoteControlsGHLComponent,
         NoteControlsGuitarComponent,
         NoteControlsComponent,
+        ParentControlsComponent,
     ],
     providers: [
         SelectorService,

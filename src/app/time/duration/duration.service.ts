@@ -5,7 +5,7 @@ import { Track, getTrack } from '../../track/track';
 import { ModelService } from '../../model/model.service';
 import { Model, ModelTrackEvent } from '../../model/model';
 
-const durationWhenNoEvents = 1;
+const minDuration = 1;
 
 @Injectable()
 export class DurationService {
@@ -32,6 +32,7 @@ export class DurationService {
                 events.push(...getTrack(model, track).events);                
             });
         const lastEvent = events.sort((a, b) => b.time - a.time)[0];
-        return lastEvent ? lastEvent.time : durationWhenNoEvents;
+        const duration = lastEvent ? lastEvent.time : minDuration;
+        return duration < minDuration ? minDuration : duration;
     }
 }

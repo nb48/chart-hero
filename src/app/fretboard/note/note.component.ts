@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 
-import { Note, NoteType } from './note';
 import { SelectorService } from '../../controller/selector/selector.service';
+import { showTime } from '../../time/audio-player-controls/audio-player-controls.component';
+import { Note, NoteType } from './note';
 
 @Component({
     selector: '[app-note]',
@@ -32,6 +33,6 @@ export class NoteComponent {
     }
 
     get tooltip(): string {
-        return `${this.note.id}, ${Math.floor(this.note.time * 1000) / 1000}`;
+        return `${this.note.id}, ${showTime(this.note.time)}`;
     }
 }

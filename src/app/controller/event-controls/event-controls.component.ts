@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { ActionsService } from '../../model/actions/actions.service';
 import { ModelTrackBPMChange } from '../../model/model';
+import { showTime } from '../../time/audio-player-controls/audio-player-controls.component';
 import { BPMService } from '../bpm/bpm.service';
 import { SelectorService } from '../selector/selector.service';
 
@@ -15,6 +16,7 @@ export class EventControlsComponent {
     selected: boolean;
     id: number;
     time: number;
+    formattedTime: string;
     type: string;
     bpm: number;
 
@@ -32,6 +34,7 @@ export class EventControlsComponent {
             this.selected = true;
             this.id = event.id;
             this.time = event.time;
+            this.formattedTime = showTime(event.time);
             this.type = 'BPM Change';
             this.bpm = (event as ModelTrackBPMChange).bpm;
         });

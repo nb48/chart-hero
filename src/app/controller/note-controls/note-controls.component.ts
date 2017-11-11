@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { ActionsService } from '../../model/actions/actions.service';
 import { ModelTrackNoteType, ModelTrackEventType } from '../../model/model';
+import { showTime } from '../../time/audio-player-controls/audio-player-controls.component';
 import { TimeService } from '../time/time.service';
 import { TypeService } from '../type/type.service';
 import { SelectorService } from '../selector/selector.service';
@@ -16,6 +17,7 @@ export class NoteControlsComponent {
     selected: boolean;
     id: number;
     time: number;
+    formattedTime: string;
     isGuitarNote: boolean;
     isGHLNote: boolean;
     type: ModelTrackNoteType[];
@@ -37,7 +39,8 @@ export class NoteControlsComponent {
             }
             this.selected = true;
             this.id = note.id;
-            this.time = Math.floor(note.time * 1000) / 1000;
+            this.time = note.time;
+            this.formattedTime = showTime(note.time);
             this.isGuitarNote = note.event === ModelTrackEventType.GuitarNote;
             this.isGHLNote = note.event === ModelTrackEventType.GHLNote;
             this.type = note.type;

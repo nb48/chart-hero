@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 
-import { Event } from './event';
 import { SelectorService } from '../../controller/selector/selector.service';
+import { showTime } from '../../time/audio-player-controls/audio-player-controls.component';
+import { Event } from './event';
 
 @Component({
     selector: '[app-event]',
@@ -20,6 +21,6 @@ export class EventComponent {
     }
 
     get tooltip(): string {
-        return `${this.event.id}, ${Math.floor(this.event.time * 1000) / 1000}`;
+        return `${this.event.id}, ${showTime(this.event.time)}`;
     }
 }

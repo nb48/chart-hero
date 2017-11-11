@@ -7,7 +7,7 @@
             </mat-list-item>
             <mat-list-item>
                 <label class="body-1">Time: </label>
-                <input [ngModel]="time" matInput [readonly]="true" type="number">
+                <input [ngModel]="formattedTime" matInput [readonly]="true" type="text">
             </mat-list-item>
         </mat-list>
         <app-note-controls-guitar *ngIf="isGuitarNote" class="note-type-guitar" [type]="type" (changed)="typeChanged($event)"></app-note-controls-guitar>

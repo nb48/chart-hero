@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Event } from './event';
+import { SelectorService } from '../../controller/selector/selector.service';
 
 @Component({
     selector: '[app-event]',
@@ -10,7 +11,11 @@ import { Event } from './event';
 export class EventComponent {
     @Input() event: Event;
 
+    constructor(private selectorService: SelectorService) {
+    }
+
     select(): void {
+        this.selectorService.selectEvent(this.event.id);
     }
 
     get tooltip(): string {

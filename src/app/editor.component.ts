@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ChartViewService } from '../chart-view/chart-view.service';
+import { ChartViewService } from './chart-view/chart-view.service';
 
 @Component({
     selector: 'app-editor',

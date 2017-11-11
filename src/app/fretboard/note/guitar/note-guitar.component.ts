@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 
-import { ChartViewNoteGuitar, ChartViewNoteGuitarColor } from '../../../../chart-view/chart-view';
+import { ChartViewNoteGuitar, ChartViewNoteGuitarColor } from '../../../chart-view/chart-view';
 
 @Component({
-    selector: '[app-chart-view-note-guitar]',
-    templateUrl: './chart-view-note-guitar.component.html',
+    selector: '[app-note-guitar]',
+    templateUrl: './note-guitar.component.html',
 })
-export class ChartViewNoteGuitarComponent {
+export class NoteGuitarComponent {
     @Input() note: ChartViewNoteGuitar;
 
     get color(): string {

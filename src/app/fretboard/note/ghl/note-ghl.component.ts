@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 
-import { ChartViewNoteGHL, ChartViewNoteGHLColor } from '../../../../chart-view/chart-view';
+import { ChartViewNoteGHL, ChartViewNoteGHLColor } from '../../../chart-view/chart-view';
 
 @Component({
-    selector: '[app-chart-view-note-ghl]',
-    templateUrl: './chart-view-note-ghl.component.html',
+    selector: '[app-note-ghl]',
+    templateUrl: './note-ghl.component.html',
 })
-export class ChartViewNoteGHLComponent {
+export class NoteGHLComponent {
     @Input() note: ChartViewNoteGHL;
 
     get black(): boolean {

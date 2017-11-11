@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 import { ChartView, ChartViewBeat, ChartViewNote } from '../../chart-view/chart-view';
 
 @Component({
-    selector: 'app-chart-view',
-    templateUrl: './chart-view.component.html',
-    styleUrls: ['./chart-view.component.css'],
+    selector: 'app-fretboard',
+    templateUrl: './fretboard.component.html',
+    styleUrls: ['./fretboard.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChartViewComponent {
+export class FretboardComponent {
     @Input() view: ChartView;
 
     trackBeat(index: number, item: ChartViewBeat) {

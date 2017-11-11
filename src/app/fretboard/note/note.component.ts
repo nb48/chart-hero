@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
 
-import { ChartViewNote, ChartViewNoteType } from '../../../chart-view/chart-view';
-import { SelectedNoteService } from '../../../note/selected/selected.service';
+import { ChartViewNote, ChartViewNoteType } from '../../chart-view/chart-view';
+import { SelectedNoteService } from '../../note/selected/selected.service';
 
 @Component({
-    selector: '[app-chart-view-note]',
-    templateUrl: './chart-view-note.component.html',
-    styleUrls: ['./chart-view-note.component.css'],
+    selector: '[app-note]',
+    templateUrl: './note.component.html',
+    styleUrls: ['./note.component.css'],
 })
-export class ChartViewNoteComponent {
+export class NoteComponent {
     @Input() note: ChartViewNote;
 
     constructor(private selectedNoteService: SelectedNoteService) {

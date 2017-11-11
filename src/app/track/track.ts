@@ -1,6 +1,6 @@
 import { Model, ModelTrack } from '../model/model';
 
-export enum ChartViewTrack {
+export enum Track {
     GuitarExpert,
     GuitarHard,
     GuitarMedium,
@@ -14,29 +14,29 @@ export enum ChartViewTrack {
     Venue,
 }
 
-export const getTrack = (cs: Model, track: ChartViewTrack): ModelTrack => {
+export const getTrack = (cs: Model, track: Track): ModelTrack => {
     switch (track) {
-    case ChartViewTrack.GuitarExpert:
+    case Track.GuitarExpert:
         return cs.guitar.expert;
-    case ChartViewTrack.GuitarHard:
+    case Track.GuitarHard:
         return cs.guitar.hard;
-    case ChartViewTrack.GuitarMedium:
+    case Track.GuitarMedium:
         return cs.guitar.medium;
-    case ChartViewTrack.GuitarEasy:
+    case Track.GuitarEasy:
         return cs.guitar.easy;
-    case ChartViewTrack.GHLGuitarExpert:
+    case Track.GHLGuitarExpert:
         return cs.ghlGuitar.expert;
-    case ChartViewTrack.GHLGuitarHard:
+    case Track.GHLGuitarHard:
         return cs.ghlGuitar.hard;
-    case ChartViewTrack.GHLGuitarMedium:
+    case Track.GHLGuitarMedium:
         return cs.ghlGuitar.medium;
-    case ChartViewTrack.GHLGuitarEasy:
+    case Track.GHLGuitarEasy:
         return cs.ghlGuitar.easy;
-    case ChartViewTrack.Events:
+    case Track.Events:
         return cs.events;
-    case ChartViewTrack.Vocals:
+    case Track.Vocals:
         return cs.vocals;
-    case ChartViewTrack.Venue:
+    case Track.Venue:
         return cs.venue;
     }
 };

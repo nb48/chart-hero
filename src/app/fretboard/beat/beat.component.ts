@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
-import { ChartViewBeat } from '../../chart-view/chart-view';
+import { Beat } from './beat';
 
 @Component({
     selector: '[app-beat]',
     templateUrl: './beat.component.html',
 })
 export class BeatComponent {
-    @Input() beat: ChartViewBeat;
+    @Input() beat: Beat;
 }

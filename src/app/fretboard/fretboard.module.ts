@@ -10,6 +10,9 @@ import { NoteGuitarComponent } from './note/guitar/note-guitar.component';
 import { NoteOpenComponent } from './note/open/note-open.component';
 import { NoteComponent } from './note/note.component';
 
+import { BeatService } from './beat/beat.service';
+import { NoteService } from './note/note.service';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -28,6 +31,8 @@ import { NoteComponent } from './note/note.component';
         NoteComponent,
     ],
     providers: [
+        BeatService,
+        NoteService,
     ],
 })
 export class AppFretboardModule {

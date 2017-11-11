@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { ChartViewNote, ChartViewNoteType } from '../../chart-view/chart-view';
+import { Note, NoteType } from './note';
 import { SelectedNoteService } from '../../note/selected/selected.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { SelectedNoteService } from '../../note/selected/selected.service';
     styleUrls: ['./note.component.css'],
 })
 export class NoteComponent {
-    @Input() note: ChartViewNote;
+    @Input() note: Note;
 
     constructor(private selectedNoteService: SelectedNoteService) {
     }
@@ -19,15 +19,15 @@ export class NoteComponent {
     }
 
     get open(): boolean {
-        return this.note.type === ChartViewNoteType.Open;
+        return this.note.type === NoteType.Open;
     }
 
     get guitar(): boolean {
-        return this.note.type === ChartViewNoteType.Guitar;
+        return this.note.type === NoteType.Guitar;
     }
 
     get ghl(): boolean {
-        return this.note.type === ChartViewNoteType.GHL;
+        return this.note.type === NoteType.GHL;
     }
 
     get tooltip(): string {

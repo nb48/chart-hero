@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { ChartViewTrack, getTrack } from '../../chart-view/chart-view-track';
 import { Model, ModelTrackNote } from '../../model/model';
 import { ModelService } from '../../model/model.service';
+import { Track, getTrack } from '../../track/track';
 import { TrackService } from '../../track/track.service';
 
 @Injectable()
 export class SelectedNoteService {
 
     private model: Model;
-    private track: ChartViewTrack;
-    private selectedNoteSubject: ReplaySubject<ModelTrackNote>;
+    private track: Track;
+    private selectedNotesSubject: ReplaySubject<ModelTrackNote>;
 
     constructor(
         private modelService: ModelService,
         private trackService: TrackService,
     ) {
-        this.selectedNoteSubject = new ReplaySubject<ModelTrackNote>();
+        this.selectedNotesSubject = new ReplaySubject<ModelTrackNote>();
         Observable.combineLatest(
             this.modelService.models,
-            this.trackService.track,
+            this.trackService.tracks,
             (model, track) => {
                 this.model = model;
                 this.track = track;
@@ -29,8 +29,8 @@ export class SelectedNoteService {
             });
     }
 
-    get selectedNote(): Observable<ModelTrackNote> {
-        return this.selectedNoteSubject.asObservable();
+    get selectedNotes(): Observable<ModelTrackNote> {
+        return this.selectedNotesSubject.asObservable();
     }
 
     selectNote(id: number): void {
@@ -47,7 +47,7 @@ export class SelectedNoteService {
     }
 
     clearSelection(): void {
-        this.selectedNoteSubject.next(undefined);
+        this.selectedNotesSubject.next(undefined);
     }
 
     private findNote(id: number): ModelTrackNote {
@@ -57,6 +57,6 @@ export class SelectedNoteService {
     }
 
     private newSelection(note: ModelTrackNote): void {
-        this.selectedNoteSubject.next(JSON.parse(JSON.stringify(note)));
+        this.selectedNotesSubject.next(JSON.parse(JSON.stringify(note)));
     }
 }

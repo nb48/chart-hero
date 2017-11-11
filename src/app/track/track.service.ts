@@ -1,43 +1,43 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { ChartViewTrack } from '../chart-view/chart-view-track';
+import { Track } from './track';
 import { Model, ModelTrack } from '../model/model';
 
 @Injectable()
 export class TrackService {
 
-    private trackSubject: ReplaySubject<ChartViewTrack>;
+    private trackSubject: ReplaySubject<Track>;
 
     constructor() {
-        this.trackSubject = new ReplaySubject<ChartViewTrack>();
+        this.trackSubject = new ReplaySubject<Track>();
     }
 
-    get track(): Observable<ChartViewTrack> {
+    get tracks(): Observable<Track> {
         return this.trackSubject.asObservable();
     }
 
-    newTrack(track: ChartViewTrack) {
+    newTrack(track: Track) {
         this.trackSubject.next(track);
     }
 
     defaultTrack(cs: Model): void {
-        let longestTrack = ChartViewTrack.GuitarExpert;
+        let longestTrack = Track.GuitarExpert;
         let longestCount = 0;
-        const checkTrack = (track: ModelTrack, view: ChartViewTrack): void => {
+        const checkTrack = (track: ModelTrack, view: Track): void => {
             if (track.events.length > longestCount) {
                 longestTrack = view;
                 longestCount = track.events.length;
             }
         };
-        checkTrack(cs.guitar.expert, ChartViewTrack.GuitarExpert);
-        checkTrack(cs.guitar.hard, ChartViewTrack.GuitarHard);
-        checkTrack(cs.guitar.medium, ChartViewTrack.GuitarMedium);
-        checkTrack(cs.guitar.easy, ChartViewTrack.GuitarEasy);
-        checkTrack(cs.ghlGuitar.expert, ChartViewTrack.GHLGuitarExpert);
-        checkTrack(cs.ghlGuitar.hard, ChartViewTrack.GHLGuitarHard);
-        checkTrack(cs.ghlGuitar.medium, ChartViewTrack.GHLGuitarMedium);
-        checkTrack(cs.ghlGuitar.easy, ChartViewTrack.GHLGuitarEasy);
+        checkTrack(cs.guitar.expert, Track.GuitarExpert);
+        checkTrack(cs.guitar.hard, Track.GuitarHard);
+        checkTrack(cs.guitar.medium, Track.GuitarMedium);
+        checkTrack(cs.guitar.easy, Track.GuitarEasy);
+        checkTrack(cs.ghlGuitar.expert, Track.GHLGuitarExpert);
+        checkTrack(cs.ghlGuitar.hard, Track.GHLGuitarHard);
+        checkTrack(cs.ghlGuitar.medium, Track.GHLGuitarMedium);
+        checkTrack(cs.ghlGuitar.easy, Track.GHLGuitarEasy);
         this.newTrack(longestTrack);
     }
 }

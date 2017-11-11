@@ -10,7 +10,7 @@ export class TypeService {
     private note: ModelTrackNote;
 
     constructor(private selectedNoteService: SelectedNoteService) {
-        this.selectedNoteService.selectedNote.subscribe((note) => {
+        this.selectedNoteService.selectedNotes.subscribe((note) => {
             this.note = note;
         });
     }

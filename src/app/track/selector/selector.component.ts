@@ -1,31 +1,31 @@
 import { Component } from '@angular/core';
 
-import { ChartViewTrack } from '../../chart-view/chart-view-track';
+import { Track } from '../track';
 import { TrackService } from '../track.service';
 
 const tracks = [{
-    model: ChartViewTrack.GuitarExpert,
+    model: Track.GuitarExpert,
     view: 'Guitar - Expert',
 }, {
-    model: ChartViewTrack.GuitarHard,
+    model: Track.GuitarHard,
     view: 'Guitar - Hard',
 }, {
-    model: ChartViewTrack.GuitarMedium,
+    model: Track.GuitarMedium,
     view: 'Guitar - Medium',
 }, {
-    model: ChartViewTrack.GuitarEasy,
+    model: Track.GuitarEasy,
     view: 'Guitar - Easy',
 }, {
-    model: ChartViewTrack.GHLGuitarExpert,
+    model: Track.GHLGuitarExpert,
     view: 'Guitar Hero Live - Expert',
 }, {
-    model: ChartViewTrack.GHLGuitarHard,
+    model: Track.GHLGuitarHard,
     view: 'Guitar Hero Live - Hard',
 }, {
-    model: ChartViewTrack.GHLGuitarMedium,
+    model: Track.GHLGuitarMedium,
     view: 'Guitar Hero Live - Medium',
 }, {
-    model: ChartViewTrack.GHLGuitarEasy,
+    model: Track.GHLGuitarEasy,
     view: 'Guitar Hero Live - Easy',
 }];
 
@@ -37,10 +37,10 @@ const tracks = [{
 export class TrackSelectorComponent {
 
     tracks = tracks;
-    track: ChartViewTrack;
+    track: Track;
 
     constructor(public trackService: TrackService) {
-        this.trackService.track.subscribe((track) => {
+        this.trackService.tracks.subscribe((track) => {
             this.track = track;
         });
     }

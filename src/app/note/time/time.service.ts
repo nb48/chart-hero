@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { ChartViewBeat } from '../../chart-view/chart-view';
-import { ChartViewService } from '../../chart-view/chart-view.service';
+import { Beat } from '../../fretboard/beat/beat';
+import { BeatService } from '../../fretboard/beat/beat.service';
 import { ModelTrackNote } from '../../model/model';
 import { IncrementService } from '../../time/increment/increment.service';
 import { SelectedNoteService } from '../selected/selected.service';
@@ -14,21 +14,21 @@ export class TimeService {
 
     private note: ModelTrackNote;
     private increment: number;
-    private beats: ChartViewBeat[];
+    private beats: Beat[];
     private step: number;
 
     constructor(
-        private beatsService: ChartViewService,
+        private beatsService: BeatService,
         private incrementService: IncrementService,
         private selectedNoteService: SelectedNoteService,
     ) {
-        this.beatsService.view.subscribe((view) => {
-            this.beats = view.beats;
+        this.beatsService.beats.subscribe((beats) => {
+            this.beats = beats;
         });
         this.incrementService.increments.subscribe((increment) => {
             this.increment = increment;
         });
-        this.selectedNoteService.selectedNote.subscribe((note) => {
+        this.selectedNoteService.selectedNotes.subscribe((note) => {
             this.note = note;
         });
         this.step = defaultStep;

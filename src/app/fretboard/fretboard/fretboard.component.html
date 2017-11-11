@@ -1,7 +1,7 @@
 <div class="fretboard">
     <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" shape-rendering="auto">
-        <line x1="0" x2="100" [attr.y1]="view.zeroPosition" [attr.y2]="view.zeroPosition" stroke="white" stroke-width="1.5"></line>
-        <svg:g app-beat *ngFor="let beat of view.beats; trackBy: trackBeat" [beat]="beat"/>
-        <svg:g app-note *ngFor="let note of view.notes; trackBy: trackNote" [note]="note"/>
+        <line x1="0" x2="100" [attr.y1]="zeroPosition" [attr.y2]="zeroPosition" stroke="white" stroke-width="1.5"></line>
+        <svg:g app-beat *ngFor="let beat of beats; trackBy: trackBeat" [beat]="beat"/>
+        <svg:g app-note *ngFor="let note of notes; trackBy: trackNote" [note]="note"/>
     </svg>
 </div>

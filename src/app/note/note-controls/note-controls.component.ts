@@ -28,7 +28,7 @@ export class NoteControlsComponent {
         private selectedNoteService: SelectedNoteService,
     ) {
         this.selected = false;
-        this.selectedNoteService.selectedNote.subscribe((note) => {
+        this.selectedNoteService.selectedNotes.subscribe((note) => {
             if (!note) {
                 this.selected = false;
                 return;

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, ReplaySubject } from 'rxjs';
 
 import {
     Model,
@@ -8,40 +9,65 @@ import {
     ModelTrackNote,
     ModelTrackNoteType,
 } from '../../model/model';
+import { ModelService } from '../../model/model.service';
 import { DurationService } from '../../time/duration/duration.service';
+import { Track, getTrack } from '../../track/track';
+import { TrackService } from '../../track/track.service';
+import { RendererService } from '../renderer.service';
 import {
-    ChartViewPrepared,
-    ChartViewPreparedBeat,
-    ChartViewPreparedNote,
-    ChartViewPreparedNoteGuitarColor,
-    ChartViewPreparedNoteGHLColor,
-} from '../chart-view-prepared';
-import { ChartViewTrack, getTrack } from '../chart-view-track';
+    Prepared,
+    PreparedBeat,
+    PreparedNote,
+    PreparedNoteGuitarColor,
+    PreparedNoteGHLColor,
+} from './prepared';
 
 @Injectable()
-export class ChartViewPreparerService {
-
+export class PreparerService {
+    
+    private preparedSubject: ReplaySubject<Prepared>;
+    private model: Model;
+    private track: Track;
     private duration: number;
 
-    constructor(private durationService: DurationService) {
-        this.durationService.durations.subscribe((duration) => {
-            this.duration = duration;
+    constructor(
+        private modelService: ModelService,
+        private trackService: TrackService,
+        private durationService: DurationService,
+    ) {
+        this.preparedSubject = new ReplaySubject<Prepared>();
+        Observable.combineLatest(
+            this.modelService.models,
+            this.trackService.tracks,
+            this.durationService.durations,
+            (model, track, duration) => {
+                this.model = model;
+                this.track = track;
+                this.duration = duration;
+            },
+        ).subscribe(() => {
+            const prepared = this.prepareView();
+            this.preparedSubject.next(prepared);
         });
     }
 
-    buildView(model: Model, track: ChartViewTrack): ChartViewPrepared {
+    get prepareds(): Observable<Prepared> {
+        return this.preparedSubject.asObservable();
+    }
+
+    private prepareView(): Prepared {
         return {
-            beats: this.buildBeats(model),
-            notes: this.buildNotes(model, track),
+            beats: this.buildBeats(),
+            notes: this.buildNotes(),
         };
     }
 
-    private buildBeats(model: Model)
-        : ChartViewPreparedBeat[] {
-        const beatTimes: ChartViewPreparedBeat[] = [];
+    private buildBeats()
+        : PreparedBeat[] {
+        const beatTimes: PreparedBeat[] = [];
         let timeCounter = 0;
         let currentIncrement = 0;
-        model.syncTrack.events
+        this.model.syncTrack.events
             .filter(e => e.event === ModelTrackEventType.BPMChange)
             .map(e => e as ModelTrackBPMChange)
             .sort((a, b) => a.time - b.time)
@@ -59,8 +85,8 @@ export class ChartViewPreparerService {
         return beatTimes;
     }
 
-    private buildNotes(model: Model, track: ChartViewTrack): ChartViewPreparedNote[] {
-        const t: ModelTrack = getTrack(model, track);
+    private buildNotes(): PreparedNote[] {
+        const t: ModelTrack = getTrack(this.model, this.track);
         return t.events
             .filter(e => e.event === ModelTrackEventType.GuitarNote
                 || e.event === ModelTrackEventType.GHLNote)
@@ -68,7 +94,7 @@ export class ChartViewPreparerService {
             .map(e => this.buildNote(e));
     }
 
-    private buildNote(note: ModelTrackNote): ChartViewPreparedNote {
+    private buildNote(note: ModelTrackNote): PreparedNote {
         const time = note.time;
         const open = note.type.length === 0;
         const guitarLane1 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarGreen);
@@ -100,38 +126,38 @@ export class ChartViewPreparerService {
     private buildGuitarColor(
         types: ModelTrackNoteType[],
         color: ModelTrackNoteType,
-    ): ChartViewPreparedNoteGuitarColor {
+    ): PreparedNoteGuitarColor {
         if (types.indexOf(color) !== -1) {
             switch (color) {
             case ModelTrackNoteType.GuitarGreen:
-                return ChartViewPreparedNoteGuitarColor.Green;
+                return PreparedNoteGuitarColor.Green;
             case ModelTrackNoteType.GuitarRed:
-                return ChartViewPreparedNoteGuitarColor.Red;
+                return PreparedNoteGuitarColor.Red;
             case ModelTrackNoteType.GuitarYellow:
-                return ChartViewPreparedNoteGuitarColor.Yellow;
+                return PreparedNoteGuitarColor.Yellow;
             case ModelTrackNoteType.GuitarBlue:
-                return ChartViewPreparedNoteGuitarColor.Blue;
+                return PreparedNoteGuitarColor.Blue;
             case ModelTrackNoteType.GuitarOrange:
-                return ChartViewPreparedNoteGuitarColor.Orange;
+                return PreparedNoteGuitarColor.Orange;
             }
         }
-        return ChartViewPreparedNoteGuitarColor.None;
+        return PreparedNoteGuitarColor.None;
     }
 
     private buildGHLColor(
         types: ModelTrackNoteType[],
         black: ModelTrackNoteType,
         white: ModelTrackNoteType,
-    ): ChartViewPreparedNoteGHLColor {
+    ): PreparedNoteGHLColor {
         if (types.indexOf(black) !== -1 && types.indexOf(white) !== -1) {
-            return ChartViewPreparedNoteGHLColor.Chord;
+            return PreparedNoteGHLColor.Chord;
         }
         if (types.indexOf(black) !== -1) {
-            return ChartViewPreparedNoteGHLColor.Black;
+            return PreparedNoteGHLColor.Black;
         }
         if (types.indexOf(white) !== -1) {
-            return ChartViewPreparedNoteGHLColor.White;
+            return PreparedNoteGHLColor.White;
         }
-        return ChartViewPreparedNoteGHLColor.None;
+        return PreparedNoteGHLColor.None;
     }
 }

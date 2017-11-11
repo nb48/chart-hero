@@ -1,24 +1,24 @@
 import { Component, Input } from '@angular/core';
 
-import { ChartViewNoteGHL, ChartViewNoteGHLColor } from '../../../chart-view/chart-view';
+import { NoteGHL, NoteGHLColor } from '../note';
 
 @Component({
     selector: '[app-note-ghl]',
     templateUrl: './note-ghl.component.html',
 })
 export class NoteGHLComponent {
-    @Input() note: ChartViewNoteGHL;
+    @Input() note: NoteGHL;
 
     get black(): boolean {
-        return this.note.color === ChartViewNoteGHLColor.Black;
+        return this.note.color === NoteGHLColor.Black;
     }
 
     get white(): boolean {
-        return this.note.color === ChartViewNoteGHLColor.White;
+        return this.note.color === NoteGHLColor.White;
     }
 
     get chord(): boolean {
-        return this.note.color === ChartViewNoteGHLColor.Chord;
+        return this.note.color === NoteGHLColor.Chord;
     }
 
     get blackNotePath(): string {

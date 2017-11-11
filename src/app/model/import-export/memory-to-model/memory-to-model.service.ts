@@ -1,7 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
-import { ChartViewTrack } from '../../../chart-view/chart-view-track';
-
 import { Model, ModelMetadata, ModelTrack } from '../../model';
 import { Memory, MemoryMetadata } from '../memory';
 import { MetadataService } from './common/metadata.service';

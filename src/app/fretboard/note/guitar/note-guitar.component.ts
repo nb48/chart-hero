@@ -1,25 +1,25 @@
 import { Component, Input } from '@angular/core';
 
-import { ChartViewNoteGuitar, ChartViewNoteGuitarColor } from '../../../chart-view/chart-view';
+import { NoteGuitar, NoteGuitarColor } from '../note';
 
 @Component({
     selector: '[app-note-guitar]',
     templateUrl: './note-guitar.component.html',
 })
 export class NoteGuitarComponent {
-    @Input() note: ChartViewNoteGuitar;
+    @Input() note: NoteGuitar;
 
     get color(): string {
         switch (this.note.color) {
-        case ChartViewNoteGuitarColor.Green:
+        case NoteGuitarColor.Green:
             return 'green';
-        case ChartViewNoteGuitarColor.Red:
+        case NoteGuitarColor.Red:
             return 'red';
-        case ChartViewNoteGuitarColor.Yellow:
+        case NoteGuitarColor.Yellow:
             return 'yellow';
-        case ChartViewNoteGuitarColor.Blue:
+        case NoteGuitarColor.Blue:
             return 'blue';
-        case ChartViewNoteGuitarColor.Orange:
+        case NoteGuitarColor.Orange:
             return 'orange';
         }
     }

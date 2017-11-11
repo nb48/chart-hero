@@ -16,6 +16,7 @@ export class ModelImporterService {
         private fileToMemory: FileToMemoryService,
         private memoryToModel: MemoryToModelService,
     ) {
+        this.import('');
     }
 
     import(file: string): void {

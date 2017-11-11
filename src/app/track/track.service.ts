@@ -11,6 +11,7 @@ export class TrackService {
 
     constructor() {
         this.tracksSubject = new ReplaySubject<Track>();
+        this.newTrack(Track.GHLGuitarExpert);
     }
 
     get tracks(): Observable<Track> {

@@ -4,9 +4,6 @@ import { Observable } from 'rxjs';
 import { BeatService } from './fretboard/beat/beat.service';
 import { Fretboard } from './fretboard/fretboard/fretboard';
 import { NoteService } from './fretboard/note/note.service';
-import { ModelImporterService } from './model/import-export/model-importer.service';
-import { Track } from './track/track';
-import { TrackService } from './track/track.service';
 
 @Component({
     selector: 'app',
@@ -20,8 +17,6 @@ export class AppComponent {
     constructor(
         private beatService: BeatService,
         private noteService: NoteService,
-        private modelImporter: ModelImporterService,
-        private trackService: TrackService,
     ) {
         Observable.combineLatest(
             this.beatService.beats,
@@ -34,7 +29,5 @@ export class AppComponent {
             },
         ).subscribe(() => {
         });
-        this.modelImporter.import('');
-        this.trackService.newTrack(Track.GHLGuitarExpert);
     }
 }

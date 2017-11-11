@@ -1,4 +1,22 @@
 <div class="event-controls">
     <ng-container *ngIf="selected">
+        <mat-list class="info">
+            <mat-list-item>
+                <label class="body-1">Id: </label>                
+                <input [ngModel]="id" matInput [readonly]="true" type="number">
+            </mat-list-item>
+            <mat-list-item>
+                <label class="body-1">Time: </label>                
+                <input [ngModel]="time" matInput [readonly]="true" type="number">
+            </mat-list-item>
+            <mat-list-item>
+                <label class="body-1">Type: </label>                
+                <input [ngModel]="type" matInput [readonly]="true" type="text">
+            </mat-list-item>
+            <mat-list-item>
+                <label class="body-1">BPM: </label>                
+                <input [ngModel]="bpm" matInput [readonly]="true" type="number">
+            </mat-list-item>
+        </mat-list>
     </ng-container>
 </div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { ModelTrackBPMChange } from '../../model/model';
 import { SelectorService } from '../selector/selector.service';
 
 @Component({
@@ -10,6 +11,10 @@ import { SelectorService } from '../selector/selector.service';
 export class EventControlsComponent {
 
     selected: boolean;
+    id: number;
+    time: number;
+    type: string;
+    bpm: number;
 
     constructor(
         private selectorService: SelectorService,
@@ -21,6 +26,10 @@ export class EventControlsComponent {
                 return;
             }
             this.selected = true;
+            this.id = event.id;
+            this.time = event.time;
+            this.type = 'BPM Change';
+            this.bpm = (event as ModelTrackBPMChange).bpm;
         });
     }
 }

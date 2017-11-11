@@ -15,7 +15,6 @@ import { AppTrackModule } from './track/track.module';
 
 @NgModule({
     imports: [
-        BrowserModule,
         AppFretboardModule,
         AppFileModule,
         AppModelModule,

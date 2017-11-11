@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { Model, ModelTrackNote } from '../../model/model';
 import { ModelService } from '../../model/model.service';
@@ -9,15 +9,15 @@ import { TrackService } from '../../track/track.service';
 @Injectable()
 export class SelectedNoteService {
 
+    private selectedNotesSubject: BehaviorSubject<ModelTrackNote>;
     private model: Model;
     private track: Track;
-    private selectedNotesSubject: ReplaySubject<ModelTrackNote>;
 
     constructor(
         private modelService: ModelService,
         private trackService: TrackService,
     ) {
-        this.selectedNotesSubject = new ReplaySubject<ModelTrackNote>();
+        this.selectedNotesSubject = new BehaviorSubject<ModelTrackNote>(undefined);
         Observable.combineLatest(
             this.modelService.models,
             this.trackService.tracks,
@@ -39,11 +39,17 @@ export class SelectedNoteService {
     }
 
     selectNextNote(): void {
-        console.log('next');
+        const note = this.findNextNote();
+        if (note) {
+            this.newSelection(note);            
+        }
     }
 
     selectPreviousNote(): void {
-        console.log('previous');
+        const note = this.findPreviousNote();
+        if (note) {
+            this.newSelection(note);            
+        }
     }
 
     noteChanged(note: ModelTrackNote): void {
@@ -62,6 +68,24 @@ export class SelectedNoteService {
         const chordId = Math.floor(id / 10) * 10;
         return getTrack(this.model, this.track).events
             .find(e => e.id === chordId) as ModelTrackNote;
+    }
+
+    private findNextNote(): ModelTrackNote {
+        const currentTime = this.selectedNotesSubject.value
+            ? this.selectedNotesSubject.value.time
+            : -1;
+        return getTrack(this.model, this.track).events
+            .sort((a, b) => a.time - b.time)
+            .find(e => e.time > currentTime) as ModelTrackNote;
+    }
+
+    private findPreviousNote(): ModelTrackNote {
+        if (!this.selectedNotesSubject.value) {
+            return this.findNextNote();
+        }
+        return getTrack(this.model, this.track).events
+            .sort((a, b) => b.time - a.time)
+            .find(e => e.time < this.selectedNotesSubject.value.time) as ModelTrackNote;
     }
 
     private newSelection(note: ModelTrackNote): void {

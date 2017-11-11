@@ -7,3 +7,6 @@ import '@angular/platform-browser-dynamic';
 
 // RxJS
 import 'rxjs';
+
+// HammerJS
+import 'hammerjs';

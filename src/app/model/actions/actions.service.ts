@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { SelectedNoteService } from '../../note/selected/selected.service';
 import { TimeService } from '../../time/time.service';
 import { Track, getTrack, isGHLTrack } from '../../track/track';
 import { TrackService } from '../../track/track.service';
@@ -16,6 +17,7 @@ export class ActionsService {
     private model: Model;
 
     constructor(
+        private selectedNoteService: SelectedNoteService,
         private timeService: TimeService,
         private trackService: TrackService,
         private idGenerator: IdGeneratorService,
@@ -46,5 +48,6 @@ export class ActionsService {
         const track = getTrack(this.model, this.track);        
         track.events.push(newNote);
         this.modelService.model = this.model;
+        this.selectedNoteService.selectNote(newNote.id);
     }
 }

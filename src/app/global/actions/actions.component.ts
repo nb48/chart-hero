@@ -9,4 +9,8 @@ export class ActionsComponent {
 
     constructor() {
     }
+
+    addNote() {
+        console.log('Add Note');
+    }
 }

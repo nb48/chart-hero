@@ -1,5 +1,19 @@
 
 .actions {
-    width: 100%;
+    width: calc(100% - 0.5em);
     height: 100%;
+    margin-left: 0.5em;
+    display: grid;
+    grid-template-areas: "add-note . ."
+                         ". . .";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.actions .add-note {
+    grid-area: add-note;
+}
+
+.actions button {
+    margin: 0.5em;
 }

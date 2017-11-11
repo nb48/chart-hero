@@ -13,7 +13,7 @@
                          "actions view note-controls"
                          ". view file-download";
     grid-template-columns: 20% 2fr 1fr;
-    grid-template-rows: 9.25em 1em 2.25em 4.25em 3.25em 3.25em 2fr 1fr 4.25em;
+    grid-template-rows: 9.25em 1em 2.25em 4.25em 3.25em 3.25em 4fr 1fr 4.25em;
 }
 
 .app .title {

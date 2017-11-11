@@ -12,9 +12,7 @@ const timeBefore = (1 / speed) * 1.2;
 const timeAfter = (1 / speed) * -0.3;
 const spacer = 0.2;
 
-const zeroPosition = (): number => {
-    return timeBefore / (timeBefore - timeAfter) * 100;
-};
+const zeroPosition = 100 * 1.2 / 1.5;
 
 @Injectable()
 export class BeatService {
@@ -40,7 +38,7 @@ export class BeatService {
         ).subscribe(() => {
             this.beatsSubject.next(this.buildBeats());
         });
-        this.zeroPositionsSubject.next(zeroPosition());
+        this.zeroPositionsSubject.next(zeroPosition);
     }
 
     get beats(): Observable<Beat[]> {

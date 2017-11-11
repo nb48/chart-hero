@@ -88,4 +88,8 @@ export class NoteControlsComponent {
     snapBackwards(): void {
         this.timeService.snapBackwardsTime();
     }
+
+    delete(): void {
+        console.log('delete note');
+    }
 }

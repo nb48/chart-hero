@@ -68,9 +68,29 @@
     width: 80%;
     height: 6%;
     margin-top: 3%;
-    margin-bottom: 3%;
+    margin-bottom: 1%;
     margin-left: 10%;
     margin-right: 10%;
     display: flex;
     justify-content: space-around;
+}
+
+.note-controls .actions {
+    order: 5;
+    width: calc(100% - 0.5em);
+    height: 10%;
+    margin-left: 0.5em;
+    display: grid;
+    grid-template-areas: ". . . delete-note"
+                         ". . . .";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.note-controls .actions .delete-note {
+    grid-area: delete-note;
+}
+
+.note-controls .actions button {
+    margin: 0.5em;
 }

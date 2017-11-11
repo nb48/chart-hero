@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 
-import { KeybindingsComponent } from './keybindings.component';
+import { KeybindingsComponent } from './keybindings/keybindings.component';
 
-import { KeybindingsService } from './keybindings.service';
+import { KeybindingsService } from './keybindings/keybindings.service';
 
 @NgModule({
     exports: [
@@ -15,5 +15,5 @@ import { KeybindingsService } from './keybindings.service';
         KeybindingsService,
     ],
 })
-export class AppKeybindingsModule {
+export class AppGlobalModule {
 }

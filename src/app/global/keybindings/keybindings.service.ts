@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { SelectedNoteService } from '../note/selected/selected.service';
+import { SelectedNoteService } from '../../note/selected/selected.service';
 
 @Injectable()
 export class KeybindingsService {

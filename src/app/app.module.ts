@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 
 import { AppFileModule } from './file/file.module';
 import { AppFretboardModule } from './fretboard/fretboard.module';
-import { AppKeybindingsModule } from './keybindings/keybindings.module';
+import { AppGlobalModule } from './global/global.module';
 import { AppModelModule } from './model/model.module';
 import { AppNoteModule } from './note/note.module';
 import { AppTimeModule } from './time/time.module';
@@ -14,7 +14,7 @@ import { AppTrackModule } from './track/track.module';
     imports: [
         AppFileModule,
         AppFretboardModule,
-        AppKeybindingsModule,
+        AppGlobalModule,
         AppModelModule,
         AppNoteModule,
         AppTimeModule,

@@ -3,7 +3,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 
 import { ActionsService } from '../../model/actions/actions.service';
 import { ModelTrackNote, ModelTrackNoteType } from '../../model/model';
-import { SelectedNoteService } from '../selected/selected.service';
+import { SelectorService } from '../selector/selector.service';
 
 @Injectable()
 export class TypeService {
@@ -12,9 +12,9 @@ export class TypeService {
 
     constructor(
         private actionsService: ActionsService,
-        private selectedNoteService: SelectedNoteService,
+        private selectorService: SelectorService,
     ) {
-        this.selectedNoteService.selectedNotes.subscribe((note) => {
+        this.selectorService.selectedNotes.subscribe((note) => {
             this.note = note;
         });
     }

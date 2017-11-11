@@ -7,7 +7,7 @@ import { Track, getTrack } from '../../track/track';
 import { TrackService } from '../../track/track.service';
 
 @Injectable()
-export class SelectedNoteService {
+export class SelectorService {
 
     private selectedNotesSubject: BehaviorSubject<ModelTrackNote>;
     private model: Model;

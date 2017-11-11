@@ -10,7 +10,7 @@ import {
     NoteOpen,
     NoteType,
 } from './note';
-import { SelectedNoteService } from '../../note/selected/selected.service';
+import { SelectorService } from '../../note/selector/selector.service';
 import { TimeService } from '../../time/time.service';
 import {
     Prepared,
@@ -32,7 +32,7 @@ export class NoteService {
     private selectedId: number;
 
     constructor(
-        private selectedNoteService: SelectedNoteService,
+        private selectorService: SelectorService,
         private timeService: TimeService,
         private preparerService: PreparerService,
         private rendererService: RendererService,
@@ -42,7 +42,7 @@ export class NoteService {
         Observable.combineLatest(
             this.preparerService.prepareds,
             this.rendererService.renders,
-            this.selectedNoteService.selectedNotes,
+            this.selectorService.selectedNotes,
             (prepared, time, selectedNote) => {
                 this.prepared = prepared;
                 this.time = time;

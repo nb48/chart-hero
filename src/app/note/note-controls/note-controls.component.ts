@@ -4,7 +4,7 @@ import { ActionsService } from '../../model/actions/actions.service';
 import { ModelTrackNoteType, ModelTrackEventType } from '../../model/model';
 import { TimeService } from '../time/time.service';
 import { TypeService } from '../type/type.service';
-import { SelectedNoteService } from '../selected/selected.service';
+import { SelectorService } from '../selector/selector.service';
 
 @Component({
     selector: 'app-note-controls',
@@ -27,10 +27,10 @@ export class NoteControlsComponent {
         private actionsService: ActionsService,
         private timeService: TimeService,
         private typeService: TypeService,
-        private selectedNoteService: SelectedNoteService,
+        private selectorService: SelectorService,
     ) {
         this.selected = false;
-        this.selectedNoteService.selectedNotes.subscribe((note) => {
+        this.selectorService.selectedNotes.subscribe((note) => {
             if (!note) {
                 this.selected = false;
                 return;
@@ -93,6 +93,6 @@ export class NoteControlsComponent {
 
     delete(): void {
         this.actionsService.deleteNote(this.id);
-        this.selectedNoteService.selectNearestNote();
+        this.selectorService.selectNearestNote();
     }
 }

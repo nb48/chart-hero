@@ -6,7 +6,7 @@ import { BeatService } from '../../fretboard/beat/beat.service';
 import { ActionsService } from '../../model/actions/actions.service';
 import { ModelTrackNote } from '../../model/model';
 import { IncrementService } from '../../time/increment/increment.service';
-import { SelectedNoteService } from '../selected/selected.service';
+import { SelectorService } from '../selector/selector.service';
 
 const defaultStep = 1;
 
@@ -22,7 +22,7 @@ export class TimeService {
         private beatsService: BeatService,
         private actionsService: ActionsService,
         private incrementService: IncrementService,
-        private selectedNoteService: SelectedNoteService,
+        private selectorService: SelectorService,
     ) {
         this.beatsService.beats.subscribe((beats) => {
             this.beats = beats;
@@ -30,7 +30,7 @@ export class TimeService {
         this.incrementService.increments.subscribe((increment) => {
             this.increment = increment;
         });
-        this.selectedNoteService.selectedNotes.subscribe((note) => {
+        this.selectorService.selectedNotes.subscribe((note) => {
             this.note = note;
         });
         this.step = defaultStep;

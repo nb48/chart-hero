@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 
-import { SelectedNoteService } from '../../note/selected/selected.service';
+import { SelectorService } from '../../note/selector/selector.service';
 
 @Injectable()
 export class KeybindingsService {
 
     private binds: Map<string, () => void>;
 
-    constructor(private selectedNoteService: SelectedNoteService) {
+    constructor(private selectorService: SelectorService) {
         this.binds = new Map<string, () => void>();
-        this.binds.set('ArrowUp', () => this.selectedNoteService.selectNextNote());
-        this.binds.set('ArrowDown', () => this.selectedNoteService.selectPreviousNote());
+        this.binds.set('ArrowUp', () => this.selectorService.selectNextNote());
+        this.binds.set('ArrowDown', () => this.selectorService.selectPreviousNote());
     }
 
     keyDown(event: KeyboardEvent) {

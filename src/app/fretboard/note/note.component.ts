@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Note, NoteType } from './note';
-import { SelectedNoteService } from '../../note/selected/selected.service';
+import { SelectorService } from '../../note/selector/selector.service';
 
 @Component({
     selector: '[app-note]',
@@ -11,11 +11,11 @@ import { SelectedNoteService } from '../../note/selected/selected.service';
 export class NoteComponent {
     @Input() note: Note;
 
-    constructor(private selectedNoteService: SelectedNoteService) {
+    constructor(private selectorService: SelectorService) {
     }
 
     select(): void {
-        this.selectedNoteService.selectNote(this.note.id);
+        this.selectorService.selectNote(this.note.id);
     }
 
     get open(): boolean {

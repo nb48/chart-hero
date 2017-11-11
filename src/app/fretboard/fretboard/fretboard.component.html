@@ -1,4 +1,4 @@
-<div class="fretboard">
+<div class="fretboard" (click)="clearSelection()">
     <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" shape-rendering="auto">
         <line x1="0" x2="100" [attr.y1]="fretboard.zeroPosition" [attr.y2]="fretboard.zeroPosition" stroke="white" stroke-width="1.5"></line>
         <svg:g app-beat *ngFor="let beat of fretboard.beats; trackBy: trackBeat" [beat]="beat"/>

@@ -1,3 +1,4 @@
+import { SelectorService } from './../../controller/selector/selector.service';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Beat } from '../beat/beat';
@@ -13,6 +14,13 @@ import { Fretboard } from './fretboard';
 })
 export class FretboardComponent {
     @Input() fretboard: Fretboard;
+
+    constructor(private selectorService: SelectorService) {
+    }
+
+    clearSelection(): void {
+        this.selectorService.clearSelection();
+    }
 
     trackBeat(index: number, item: Beat) {
         return item.id;

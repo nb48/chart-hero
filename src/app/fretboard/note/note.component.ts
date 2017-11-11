@@ -14,8 +14,9 @@ export class NoteComponent {
     constructor(private selectorService: SelectorService) {
     }
 
-    select(): void {
+    select(event: any): void {
         this.selectorService.selectNote(this.note.id);
+        event.stopPropagation();
     }
 
     get open(): boolean {

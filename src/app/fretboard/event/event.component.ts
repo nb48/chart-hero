@@ -14,8 +14,9 @@ export class EventComponent {
     constructor(private selectorService: SelectorService) {
     }
 
-    select(): void {
+    select(event: any): void {
         this.selectorService.selectEvent(this.event.id);
+        event.stopPropagation();
     }
 
     get tooltip(): string {

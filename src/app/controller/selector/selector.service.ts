@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { Model, ModelTrackEvent, ModelTrackNote } from '../../model/model';
+import { Model, ModelTrackEvent, ModelTrackEventType, ModelTrackNote } from '../../model/model';
 import { ModelService } from '../../model/model.service';
 import { Track, getTrack } from '../../track/track';
 import { TrackService } from '../../track/track.service';
@@ -38,6 +38,10 @@ export class SelectorService {
         return this.selectedNotesSubject.asObservable();
     }
 
+    get selectedEvents(): Observable<ModelTrackEvent> {
+        return this.selectedEventsSubject.asObservable();
+    }
+
     selectNote(id: number): void {
         const note = this.findNote(id);
         if (note) {
@@ -47,34 +51,6 @@ export class SelectorService {
         }
     }
 
-    selectNextNote(): void {
-        const note = this.findNextNote();
-        if (note) {
-            this.newNoteSelection(note);            
-        }
-    }
-
-    selectPreviousNote(): void {
-        const note = this.findPreviousNote();
-        if (note) {
-            this.newNoteSelection(note);            
-        }
-    }
-
-    selectNearestNote(): void {
-        const previous = this.findPreviousNote();
-        if (previous) {
-            this.newNoteSelection(previous);
-            return;
-        }
-        const next = this.findNextNote();
-        if (next) {
-            this.newNoteSelection(next);
-            return;
-        }
-        this.clearSelection();
-    }
-
     selectEvent(id: number): void {
         const event = this.findEvent(id);
         if (event) {
@@ -82,6 +58,34 @@ export class SelectorService {
         } else {
             this.clearSelection();
         }
+    }
+
+    selectNext(): void {
+        const event = this.findNext();
+        if (event) {
+            this.newSelection(event);            
+        }
+    }
+
+    selectPrevious(): void {
+        const event = this.findPrevious();
+        if (event) {
+            this.newSelection(event);            
+        }
+    }
+
+    selectNearest(): void {
+        const previous = this.findPrevious();
+        if (previous) {
+            this.newSelection(previous);
+            return;
+        }
+        const next = this.findNext();
+        if (next) {
+            this.newSelection(next);
+            return;
+        }
+        this.clearSelection();
     }
 
     clearSelection(): void {
@@ -95,27 +99,61 @@ export class SelectorService {
             .find(e => e.id === chordId) as ModelTrackNote;
     }
 
-    private findNextNote(): ModelTrackNote {
-        const currentTime = this.selectedNotesSubject.value
-            ? this.selectedNotesSubject.value.time
-            : -1;
-        return getTrack(this.model, this.track).events
-            .sort((a, b) => a.time - b.time)
-            .find(e => e.time > currentTime) as ModelTrackNote;
-    }
-
-    private findPreviousNote(): ModelTrackNote {
-        if (!this.selectedNotesSubject.value) {
-            return this.findNextNote();
-        }
-        return getTrack(this.model, this.track).events
-            .sort((a, b) => b.time - a.time)
-            .find(e => e.time < this.selectedNotesSubject.value.time) as ModelTrackNote;
-    }
-
     private findEvent(id: number): ModelTrackEvent {
         return this.model.syncTrack.events
             .find(e => e.id === id) as ModelTrackEvent;
+    }
+
+    private findNext(): ModelTrackEvent {
+        const currentId = this.currentId();
+        const sortedForwards = this.combinateEventTracks()
+            .sort((a, b) => a.time - b.time);
+        if (!currentId) {
+            return sortedForwards[0];
+        }
+        const index = sortedForwards
+            .findIndex(e => e.id === currentId);
+        return sortedForwards[index + 1];
+    }
+
+    private findPrevious(): ModelTrackEvent {
+        const currentId = this.currentId();
+        if (!currentId) {
+            return this.findNext();
+        }
+        const sortedBackwards = this.combinateEventTracks()
+            .sort((a, b) => a.time - b.time)
+            .reverse();
+        const index = sortedBackwards
+            .findIndex(e => e.id === currentId);
+        return sortedBackwards[index + 1];
+    }
+
+    private currentId(): number {
+        return this.selectedNotesSubject.value
+            ? this.selectedNotesSubject.value.id
+            : this.selectedEventsSubject.value
+            ? this.selectedEventsSubject.value.id
+            : null;
+    }
+
+    private combinateEventTracks(): ModelTrackEvent[] {
+        return this.model.syncTrack.events
+            .concat(getTrack(this.model, this.track).events);
+    }
+
+    private newSelection(event: ModelTrackEvent): void {
+        if (event.event === ModelTrackEventType.GHLNote ||
+            event.event === ModelTrackEventType.GuitarNote
+        ) {
+            this.newNoteSelection(event);
+            return;
+        }
+        if (event.event === ModelTrackEventType.BPMChange) {
+            this.newEventSelection(event);
+            return;
+        }
+        throw new Error('newSelection failed');
     }
 
     private newNoteSelection(note: ModelTrackNote): void {

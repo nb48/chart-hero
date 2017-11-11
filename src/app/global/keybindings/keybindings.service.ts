@@ -9,8 +9,8 @@ export class KeybindingsService {
 
     constructor(private selectorService: SelectorService) {
         this.binds = new Map<string, () => void>();
-        this.binds.set('ArrowUp', () => this.selectorService.selectNextNote());
-        this.binds.set('ArrowDown', () => this.selectorService.selectPreviousNote());
+        this.binds.set('ArrowUp', () => this.selectorService.selectNext());
+        this.binds.set('ArrowDown', () => this.selectorService.selectPrevious());
     }
 
     keyDown(event: KeyboardEvent) {

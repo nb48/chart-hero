@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
+import { SelectorService } from '../../controller/selector/selector.service';
 import { Prepared } from '../preparer/prepared';
 import { PreparerService } from '../preparer/preparer.service';
 import { RendererService } from '../renderer/renderer.service';
@@ -13,8 +14,10 @@ export class EventService {
     private eventsSubject = new ReplaySubject<Event[]>();
     private prepared: Prepared;
     private time: number;
+    private selectedId: number;
 
     constructor(
+        private selectorService: SelectorService,
         private preparerService: PreparerService,
         private rendererService: RendererService,
         private speedService: SpeedService,
@@ -23,9 +26,11 @@ export class EventService {
         Observable.combineLatest(
             this.preparerService.prepareds,
             this.rendererService.renders,
-            (prepared, time) => {
+            this.selectorService.selectedEvents,
+            (prepared, time, selectedEvent) => {
                 this.prepared = prepared;
                 this.time = time;
+                this.selectedId = selectedEvent ? selectedEvent.id : null;
             },
         ).subscribe(() => {
             this.eventsSubject.next(this.buildEvents());
@@ -45,6 +50,7 @@ export class EventService {
                 x: 14,
                 y: this.speedService.calculateYPos(b.time, this.time),
                 type: b.event,
+                selected: b.id === this.selectedId,
             }));
     }
 }

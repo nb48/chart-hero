@@ -93,6 +93,6 @@ export class NoteControlsComponent {
 
     delete(): void {
         this.actionsService.deleteNote(this.id);
-        this.selectorService.selectNearestNote();
+        this.selectorService.selectNearest();
     }
 }

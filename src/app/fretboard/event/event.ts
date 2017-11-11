@@ -6,4 +6,5 @@ export interface Event {
     type: ModelTrackEventType;
     x: number;
     y: number;
+    selected: boolean;
 }

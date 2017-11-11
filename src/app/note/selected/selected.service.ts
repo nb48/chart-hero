@@ -18,17 +18,15 @@ export class SelectedNoteService {
         private trackService: TrackService,
     ) {
         this.selectedNotesSubject = new BehaviorSubject<ModelTrackNote>(undefined);
-        Observable.combineLatest(
-            this.modelService.models,
-            this.trackService.tracks,
-            (model, track) => {
-                this.model = model;
-                this.track = track;
-            }).subscribe(() => {
-                if (this.selectedNotesSubject.value) {
-                    this.selectNote(this.selectedNotesSubject.value.id);
-                }
-            });
+        this.modelService.models.subscribe((model) => {
+            this.model = model;
+            if (this.selectedNotesSubject.value) {
+                this.selectNote(this.selectedNotesSubject.value.id);
+            }
+        });
+        this.trackService.tracks.subscribe((track) => {
+            this.track = track;
+        });
     }
 
     get selectedNotes(): Observable<ModelTrackNote> {

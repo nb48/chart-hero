@@ -13,7 +13,7 @@ import { ModelService } from '../../model/model.service';
 import { DurationService } from '../../time/duration/duration.service';
 import { Track, getTrack } from '../../track/track';
 import { TrackService } from '../../track/track.service';
-import { RendererService } from '../renderer.service';
+import { RendererService } from '../renderer/renderer.service';
 import {
     Prepared,
     PreparedBeat,

@@ -7,18 +7,18 @@ import { Model, ModelTrack } from '../model/model';
 @Injectable()
 export class TrackService {
 
-    private trackSubject: ReplaySubject<Track>;
+    private tracksSubject: ReplaySubject<Track>;
 
     constructor() {
-        this.trackSubject = new ReplaySubject<Track>();
+        this.tracksSubject = new ReplaySubject<Track>();
     }
 
     get tracks(): Observable<Track> {
-        return this.trackSubject.asObservable();
+        return this.tracksSubject.asObservable();
     }
 
     newTrack(track: Track) {
-        this.trackSubject.next(track);
+        this.tracksSubject.next(track);
     }
 
     defaultTrack(cs: Model): void {

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
 import { ModelTrackNote } from '../../model/model';
-import { Prepared } from '../../renderer/preparer/prepared';
-import { PreparerService } from '../../renderer/preparer/preparer.service';
-import { RendererService } from '../../renderer/renderer.service';
+import { Prepared } from '../preparer/prepared';
+import { PreparerService } from '../preparer/preparer.service';
+import { RendererService } from '../renderer/renderer.service';
 import { Beat } from './beat';
 
 const speed = 1;

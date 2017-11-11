@@ -12,6 +12,8 @@ import { NoteComponent } from './note/note.component';
 
 import { BeatService } from './beat/beat.service';
 import { NoteService } from './note/note.service';
+import { PreparerService } from './preparer/preparer.service';
+import { RendererService } from './renderer/renderer.service';
 
 @NgModule({
     imports: [
@@ -33,6 +35,8 @@ import { NoteService } from './note/note.service';
     providers: [
         BeatService,
         NoteService,
+        PreparerService,
+        RendererService,
     ],
 })
 export class AppFretboardModule {

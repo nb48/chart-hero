@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { TimeService } from '../time/time.service';
-import { PreparerService } from './preparer/preparer.service';
+import { TimeService } from '../../time/time.service';
+import { PreparerService } from '../preparer/preparer.service';
 
 @Injectable()
 export class RendererService {

@@ -11,15 +11,15 @@ import {
     NoteType,
 } from './note';
 import { SelectedNoteService } from '../../note/selected/selected.service';
-import { RendererService } from '../../renderer/renderer.service';
+import { TimeService } from '../../time/time.service';
+import { RendererService } from '../renderer/renderer.service';
 import {
     Prepared,
     PreparedNote,
     PreparedNoteGuitarColor,
     PreparedNoteGHLColor,
-} from '../../renderer/preparer/prepared';
-import { PreparerService } from '../../renderer/preparer/preparer.service';
-import { TimeService } from '../../time/time.service';
+} from '../preparer/prepared';
+import { PreparerService } from '../preparer/preparer.service';
 
 const speed = 1;
 const timeBefore = (1 / speed) * 1.2;

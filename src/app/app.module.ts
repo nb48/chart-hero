@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-
-import { PreparerService } from './renderer/preparer/preparer.service';
-import { RendererService } from './renderer/renderer.service';
 
 import { AppFretboardModule } from './fretboard/fretboard.module';
 import { AppFileModule } from './file/file.module';
@@ -24,10 +20,6 @@ import { AppTrackModule } from './track/track.module';
     ],
     declarations: [
         AppComponent,
-    ],
-    providers: [
-        RendererService,
-        PreparerService,
     ],
     bootstrap: [AppComponent],
 })

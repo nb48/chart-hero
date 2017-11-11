@@ -19,6 +19,7 @@ import {
     PreparedNote,
     PreparedNoteGuitarColor,
     PreparedNoteGHLColor,
+    PreparedEvent,
 } from './prepared';
 
 @Injectable()
@@ -58,6 +59,7 @@ export class PreparerService {
         return {
             beats: this.buildBeats(),
             notes: this.buildNotes(),
+            events: this.buildEvents(),
         };
     }
 
@@ -158,5 +160,10 @@ export class PreparerService {
             return PreparedNoteGHLColor.White;
         }
         return PreparedNoteGHLColor.None;
+    }
+
+    private buildEvents(): PreparedEvent[] {
+        return this.model.syncTrack.events
+            .filter(e => e.event === ModelTrackEventType.BPMChange);
     }
 }

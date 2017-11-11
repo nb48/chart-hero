@@ -1,7 +1,9 @@
+import { ModelTrackEvent } from './../../model/model';
 
 export interface Prepared {
     beats: PreparedBeat[];
     notes: PreparedNote[];
+    events: PreparedEvent[];
 }
 
 export interface PreparedBeat {
@@ -38,3 +40,5 @@ export enum PreparedNoteGHLColor {
     White,
     Chord,
 }
+
+export type PreparedEvent = ModelTrackEvent;

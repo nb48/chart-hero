@@ -12,6 +12,7 @@ import { NoteComponent } from './note/note.component';
 import { SpeedControlsComponent } from './speed/speed-controls.component';
 
 import { BeatService } from './beat/beat.service';
+import { EventService } from './event/event.service';
 import { NoteService } from './note/note.service';
 import { PreparerService } from './preparer/preparer.service';
 import { RendererService } from './renderer/renderer.service';
@@ -40,6 +41,7 @@ import { SpeedService } from './speed/speed.service';
     ],
     providers: [
         BeatService,
+        EventService,
         NoteService,
         PreparerService,
         RendererService,

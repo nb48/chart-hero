@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
+import { IdGeneratorService } from '../../id-generator/id-generator.service';
 import { AppModelMemoryToModelModule } from './memory-to-model.module';
 import { MemoryToModelService } from './memory-to-model.service';
 import { TEST_MEMORY, TEST_MODEL } from './test-memory-to-model';
@@ -12,6 +13,9 @@ describe('Service: MemoryToModelService', () => {
         TestBed.configureTestingModule({
             imports: [
                 AppModelMemoryToModelModule,
+            ],
+            providers: [
+                IdGeneratorService,
             ],
         });
         service = TestBed.get(MemoryToModelService);

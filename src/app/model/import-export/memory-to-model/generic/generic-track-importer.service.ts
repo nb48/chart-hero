@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
+import { IdGeneratorService } from '../../../id-generator/id-generator.service';
 import {
     ModelTrack,
     ModelTrackEventType,
@@ -8,7 +9,6 @@ import {
 } from '../../../model';
 import { MemorySyncTrack, MemoryTrack } from '../../memory';
 import { defaultSyncTrack } from '../common/sync-track-importer.service';
-import { IdGeneratorService } from '../util/id-generator.service';
 import { MidiTimeService } from '../util/midi-time.service';
 
 export type SupportedNotes = number[];

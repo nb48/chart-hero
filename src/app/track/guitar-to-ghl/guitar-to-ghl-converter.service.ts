@@ -1,8 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { IdGeneratorService }
-from '../../model/import-export/memory-to-model/util/id-generator.service';
+import { IdGeneratorService } from '../../model/id-generator/id-generator.service';
 import { Model, ModelTrackEventType, ModelTrackNote, ModelTrackNoteType } from '../../model/model';
 import { ModelService } from '../../model/model.service';
 import { Track } from '../track';

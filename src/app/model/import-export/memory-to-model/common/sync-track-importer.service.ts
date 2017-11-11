@@ -1,8 +1,8 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
+import { IdGeneratorService } from '../../../id-generator/id-generator.service';
 import { ModelTrack, ModelTrackEventType, ModelTrackBPMChange } from '../../../model';
 import { MemorySyncTrack } from '../../memory';
-import { IdGeneratorService } from '../util/id-generator.service';
 import { MidiTimeService } from '../util/midi-time.service';
 
 export const defaultSyncTrack = (): MemorySyncTrack => ({

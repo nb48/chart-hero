@@ -4,7 +4,7 @@
     height: 100%;
     margin-left: 0.5em;
     display: grid;
-    grid-template-areas: "add-note . ."
+    grid-template-areas: "add-note add-bpm-change ."
                          ". . .";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -12,6 +12,10 @@
 
 .actions .add-note {
     grid-area: add-note;
+}
+
+.actions .add-bpm-change {
+    grid-area: add-bpm-change;
 }
 
 .actions button {

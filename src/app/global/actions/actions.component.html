@@ -1,3 +1,4 @@
 <div class="actions">
-    <button class="add-note" mat-raised-button color="primary" (click)="service.addNote()">Add Note</button>        
+    <button class="add-note" mat-raised-button color="primary" (click)="service.addNote()" [matTooltip]="'Add Note'" [matTooltipClass]="'app-tooltip'" >Note</button>        
+    <button class="add-bpm-change" mat-raised-button color="primary" (click)="service.addBPMChange()" [matTooltip]="'Add BPM Change'" [matTooltipClass]="'app-tooltip'">BPM</button>        
 </div>

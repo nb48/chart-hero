@@ -8,6 +8,7 @@ import { TrackService } from '../../track/track.service';
 import { IdGeneratorService } from '../id-generator/id-generator.service';
 import {
     Model,
+    ModelTrackBPMChange,
     ModelTrackEvent,
     ModelTrackEventType,
     ModelTrackNote,
@@ -61,6 +62,17 @@ export class ActionsService {
         const track = getTrack(this.model, this.track);
         const index = track.events.findIndex(n => n.id === id);
         track.events.splice(index, 1);
+        this.modelService.model = this.model;
+    }
+
+    addBPMChange() {
+        const newBPMChange: ModelTrackBPMChange = {
+            id: this.idGenerator.id(),
+            event: ModelTrackEventType.BPMChange,
+            time: this.time,
+            bpm: 120,
+        };
+        this.model.syncTrack.events.push(newBPMChange);
         this.modelService.model = this.model;
     }
 

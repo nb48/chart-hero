@@ -79,6 +79,6 @@ export class TimeService {
             newNote.time = 0;
         }
         this.selectorService.adjustTime(newNote);
-        this.actionsService.noteChanged(newNote);
+        this.actionsService.trackEventChanged(newNote);
     }
 }

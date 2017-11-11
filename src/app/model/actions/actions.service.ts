@@ -57,7 +57,14 @@ export class ActionsService {
         this.selectorService.selectNote(newNote.id);
     }
 
-    noteChanged(note: ModelTrackNote): void {
+    deleteNote(id: number): void {
+        const track = getTrack(this.model, this.track);
+        const index = track.events.findIndex(n => n.id === id);
+        track.events.splice(index, 1);
+        this.modelService.model = this.model;
+    }
+
+    trackEventChanged(note: ModelTrackEvent): void {
         const track = getTrack(this.model, this.track);
         const modelNote = track.events.find(n => n.id === note.id);
         Object.keys(note).forEach((key) => {
@@ -66,14 +73,7 @@ export class ActionsService {
         this.modelService.model = this.model;
     }
 
-    deleteNote(id: number): void {
-        const track = getTrack(this.model, this.track);
-        const index = track.events.findIndex(n => n.id === id);
-        track.events.splice(index, 1);
-        this.modelService.model = this.model;
-    }
-
-    syncTrackChanged(event: ModelTrackEvent): void {
+    syncTrackEventChanged(event: ModelTrackEvent): void {
         const modelEvent = this.model.syncTrack.events.find(e => e.id === event.id);
         Object.keys(event).forEach((key) => {
             modelEvent[key] = event[key];

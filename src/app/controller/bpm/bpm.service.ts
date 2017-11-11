@@ -22,6 +22,6 @@ export class BPMService {
     updateBPM(bpm: number): void {
         const newEvent = JSON.parse(JSON.stringify(this.event));
         (newEvent as ModelTrackBPMChange).bpm = bpm;
-        this.actionsService.syncTrackChanged(newEvent);
+        this.actionsService.syncTrackEventChanged(newEvent);
     }
 }

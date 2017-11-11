@@ -22,6 +22,6 @@ export class TypeService {
     updateNoteType(type: ModelTrackNoteType[]): void {
         const newNote = JSON.parse(JSON.stringify(this.note));
         newNote.type = type;
-        this.actionsService.noteChanged(newNote);
+        this.actionsService.trackEventChanged(newNote);
     }
 }

@@ -67,3 +67,6 @@
     grid-area: file-download;
 }
 
+.app app-keybindings {
+    display: none;
+}

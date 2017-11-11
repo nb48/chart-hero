@@ -4,14 +4,15 @@
     width: 100vw;
     height: 100vh;
     grid-template-areas: "title title file-select"
-                         ". editor note-controls"
-                         "track-selector editor note-controls"
-                         "audio-player-controls editor note-controls"
-                         "converter editor note-controls"
-                         ". editor note-controls"
-                         ". editor file-download";
+                         ". view note-controls"
+                         "track-selector view note-controls"
+                         "audio-player-controls view note-controls"
+                         "speed-controls view note-controls"
+                         "converter view note-controls"
+                         ". view note-controls"
+                         ". view file-download";
     grid-template-columns: 20% 2fr 1fr;
-    grid-template-rows: 9.25em 1em 2.25em 4.25em 3.25em 1fr 4.25em;
+    grid-template-rows: 9.25em 1em 2.25em 4.25em 3.25em 3.25em 1fr 4.25em;
 }
 
 .app .title {
@@ -36,26 +37,30 @@
     grid-area: audio-player-controls;
 }
 
+.app app-speed-controls {
+    grid-area: speed-controls;
+}
+
 .app app-converter {
     grid-area: converter;
 }
 
-.app .editor {
-    grid-area: editor;
+.app .view {
+    grid-area: view;
     display: grid;
     width: 99%;
     height: 99.30%;
     margin-left: 1%;
-    grid-template-areas: "chart-view . scrollbar";
-    grid-template-columns: 19fr 0.5em 1em;
+    grid-template-areas: "fretboard . scrollbar";
+    grid-template-columns: 1fr 0.5em 1em;
     grid-template-rows: 99.30%;
 }
 
-.app .editor app-chart-view {
-    grid-area: chart-view;
+.app .view app-fretboard {
+    grid-area: fretboard;
 }
 
-.app .editor app-scrollbar {
+.app .view app-scrollbar {
     grid-area: scrollbar;
 }
 

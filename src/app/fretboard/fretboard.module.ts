@@ -9,6 +9,7 @@ import { NoteGHLComponent } from './note/ghl/note-ghl.component';
 import { NoteGuitarComponent } from './note/guitar/note-guitar.component';
 import { NoteOpenComponent } from './note/open/note-open.component';
 import { NoteComponent } from './note/note.component';
+import { SpeedControlsComponent } from './speed/speed-controls.component';
 
 import { BeatService } from './beat/beat.service';
 import { NoteService } from './note/note.service';
@@ -24,6 +25,7 @@ import { SpeedService } from './speed/speed.service';
     ],
     exports: [
         FretboardComponent,
+        SpeedControlsComponent,
     ],
     declarations: [
         BeatComponent,
@@ -32,6 +34,7 @@ import { SpeedService } from './speed/speed.service';
         NoteGuitarComponent,
         NoteOpenComponent,
         NoteComponent,
+        SpeedControlsComponent,
     ],
     providers: [
         BeatService,

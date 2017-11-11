@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
+import { ActionsService } from '../../model/actions/actions.service';
 import { ModelTrackNote, ModelTrackNoteType } from '../../model/model';
 import { SelectedNoteService } from '../selected/selected.service';
 
@@ -9,7 +10,10 @@ export class TypeService {
 
     private note: ModelTrackNote;
 
-    constructor(private selectedNoteService: SelectedNoteService) {
+    constructor(
+        private actionsService: ActionsService,
+        private selectedNoteService: SelectedNoteService,
+    ) {
         this.selectedNoteService.selectedNotes.subscribe((note) => {
             this.note = note;
         });
@@ -17,6 +21,6 @@ export class TypeService {
 
     updateNoteType(type: ModelTrackNoteType[]): void {
         this.note.type = type;
-        this.selectedNoteService.noteChanged(this.note);
+        this.actionsService.noteChanged(this.note);
     }
 }

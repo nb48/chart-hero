@@ -3,6 +3,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 
 import { Beat } from '../../fretboard/beat/beat';
 import { BeatService } from '../../fretboard/beat/beat.service';
+import { ActionsService } from '../../model/actions/actions.service';
 import { ModelTrackNote } from '../../model/model';
 import { IncrementService } from '../../time/increment/increment.service';
 import { SelectedNoteService } from '../selected/selected.service';
@@ -19,6 +20,7 @@ export class TimeService {
 
     constructor(
         private beatsService: BeatService,
+        private actionsService: ActionsService,
         private incrementService: IncrementService,
         private selectedNoteService: SelectedNoteService,
     ) {
@@ -75,6 +77,6 @@ export class TimeService {
         if (this.note.time < 0) {
             this.note.time = 0;
         }
-        this.selectedNoteService.noteChanged(this.note);
+        this.actionsService.noteChanged(this.note);
     }
 }

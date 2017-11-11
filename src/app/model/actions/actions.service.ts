@@ -50,4 +50,13 @@ export class ActionsService {
         this.modelService.model = this.model;
         this.selectedNoteService.selectNote(newNote.id);
     }
+
+    noteChanged(note: ModelTrackNote): void {
+        const track = getTrack(this.model, this.track);
+        const modelNote = track.events.find(n => n.id === note.id);
+        Object.keys(note).forEach((key) => {
+            modelNote[key] = note[key];
+        });
+        this.modelService.model = this.model;
+    }
 }

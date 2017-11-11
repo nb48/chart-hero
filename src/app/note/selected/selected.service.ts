@@ -51,14 +51,6 @@ export class SelectedNoteService {
         }
     }
 
-    noteChanged(note: ModelTrackNote): void {
-        const modelNote = this.findNote(note.id);
-        Object.keys(note).forEach((key) => {
-            modelNote[key] = note[key];
-        });
-        this.modelService.model = this.model;
-    }
-
     clearSelection(): void {
         this.selectedNotesSubject.next(undefined);
     }

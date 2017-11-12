@@ -95,7 +95,8 @@ export class NoteControlsComponent {
     }
 
     delete(): void {
-        this.actionsService.deleteTrackEvent(this.id);
+        const idToDelete = this.id;
         this.selectorService.selectNearest();
+        this.actionsService.deleteTrackEvent(idToDelete);
     }
 }

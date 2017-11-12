@@ -195,7 +195,6 @@ export class SelectorService {
     }
 
     private newEventSelection(event: ModelTrackEvent): void {
-        this.adjustTime(event);
         this.selectedNotesSubject.next(undefined);
         this.selectedEventsSubject.next(event);
     }

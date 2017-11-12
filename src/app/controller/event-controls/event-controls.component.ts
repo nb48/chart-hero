@@ -47,7 +47,8 @@ export class EventControlsComponent {
     }
 
     delete() {
-        this.actionsService.deleteSyncTrackEvent(this.id);
+        const idToDelete = this.id;
         this.selectorService.selectNearest();
+        this.actionsService.deleteSyncTrackEvent(idToDelete);
     }
 }

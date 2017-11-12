@@ -30,10 +30,15 @@ export class IncrementService {
         if (this.time.playing) {
             return 0;
         }
-        const currentBPM = model.syncTrack.events
+        const sortedSyncTrack = model.syncTrack.events
             .filter(e => e.event === ModelTrackEventType.BPMChange)
             .map(e => e as ModelTrackBPMChange)
-            .sort((a, b) => b.time - a.time)
+            .sort((a, b) => b.time - a.time);
+        const firstBPMChange = sortedSyncTrack[0].time;
+        if (time < firstBPMChange) {
+            return firstBPMChange / 60;
+        }
+        const currentBPM = sortedSyncTrack
             .find(e => e.time <= time + 0.005).bpm;
         return 60 / currentBPM;
     }

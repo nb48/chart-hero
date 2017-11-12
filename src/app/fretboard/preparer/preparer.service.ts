@@ -66,12 +66,13 @@ export class PreparerService {
     private buildBeats()
         : PreparedBeat[] {
         const beatTimes: PreparedBeat[] = [];
-        let timeCounter = 0;
-        let currentIncrement = 0;
-        this.model.syncTrack.events
+        const sortedSyncTrack = this.model.syncTrack.events
             .filter(e => e.event === ModelTrackEventType.BPMChange)
             .map(e => e as ModelTrackBPMChange)
-            .sort((a, b) => a.time - b.time)
+            .sort((a, b) => a.time - b.time);
+        let currentIncrement = 0;
+        let timeCounter = sortedSyncTrack[0].time;
+        sortedSyncTrack
             .forEach((e) => {
                 while (timeCounter < e.time) {
                     beatTimes.push({ id: beatTimes.length + 1, time: timeCounter });

@@ -54,7 +54,9 @@ export class TimeService {
     }
 
     stop() {
-        this.pause();
+        if (this.playing) {
+            this.pause();
+        }
         this.time = 0;
     }
 

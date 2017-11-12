@@ -1,0 +1,27 @@
+<div class="event-controls">
+    <ng-container *ngIf="selected">
+        <mat-list class="info">
+            <mat-list-item>
+                <label class="body-1">Id: </label>
+                <input [ngModel]="id" matInput [readonly]="true" type="number">
+            </mat-list-item>
+            <mat-list-item>
+                <label class="body-1">Time: </label>
+                <input [ngModel]="formattedTime" matInput [readonly]="true" type="string">
+            </mat-list-item>
+            <mat-list-item>
+                <label class="body-1">Type: </label>
+                <input [ngModel]="type" matInput [readonly]="true" type="text">
+            </mat-list-item>
+            <mat-list-item>
+                <label class="body-1">BPM: </label>
+                <mat-form-field>
+                    <input [ngModel]="bpm" (ngModelChange)="bpmChanged($event)" matInput type="number">
+                </mat-form-field>
+            </mat-list-item>
+        </mat-list>
+        <div class="actions">
+            <button [disabled]="time === 0" class="delete-event" mat-raised-button color="primary" (click)="delete()">Delete Event</button>        
+        </div>
+    </ng-container>
+</div>

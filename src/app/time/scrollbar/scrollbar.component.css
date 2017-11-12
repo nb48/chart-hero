@@ -1,0 +1,14 @@
+
+.scrollbar {
+    width: 100%;
+    height: 100%;
+}
+
+.scrollbar > svg {
+    width: 100%;
+    height: 100%;
+}
+
+.scrollbar > svg rect {
+    outline: none;
+}

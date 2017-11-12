@@ -1,0 +1,50 @@
+<div class="note-controls">
+    <ng-container *ngIf="selected">
+        <mat-list class="info">
+            <mat-list-item>
+                <label class="body-1">Id: </label>
+                <input [ngModel]="id" matInput [readonly]="true" type="number">
+            </mat-list-item>
+            <mat-list-item>
+                <label class="body-1">Time: </label>
+                <input [ngModel]="formattedTime" matInput [readonly]="true" type="text">
+            </mat-list-item>
+        </mat-list>
+        <app-note-controls-guitar *ngIf="isGuitarNote" class="note-type-guitar" [type]="type" (changed)="typeChanged($event)"></app-note-controls-guitar>
+        <app-note-controls-ghl *ngIf="isGHLNote" class="note-type-ghl" [type]="type" (changed)="typeChanged($event)"></app-note-controls-ghl>
+        <div class="step-controls">
+            <mat-radio-group class="group" [(ngModel)]="stepControl" (ngModelChange)="newStep()">
+                <mat-radio-button class="button down" [value]="'one'" color="primary">1</mat-radio-button>
+                <mat-radio-button class="button" [value]="'half'" color="primary">1<br>2</mat-radio-button>
+                <mat-radio-button class="button" [value]="'third'" color="primary">1<br>3</mat-radio-button>
+                <mat-radio-button class="button" [value]="'quarter'" color="primary">1<br>4</mat-radio-button>
+                <mat-radio-button class="button up" [value]="'custom'" color="primary">
+                    <mat-form-field>
+                        <input class="custom" [(ngModel)]="customStepTop" (ngModelChange)="newStep()" matInput type="number">
+                    </mat-form-field>
+                    <span>/</span>
+                    <mat-form-field>
+                        <input class="custom" [(ngModel)]="customStepBottom" (ngModelChange)="newStep()" matInput type="number">
+                    </mat-form-field>
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="time-controls">
+            <button (click)="snapForwards()" [matTooltip]="'Snap note to next beat'" [matTooltipClass]="'app-tooltip'" class="snap-forward" mat-icon-button color="primary">
+                <i class="fa fa-angle-double-up fa-4x" aria-hidden="true" aria-label="Snap to next beat"></i>
+            </button>
+            <button (click)="moveForwards()" [matTooltip]="'Move note forwards'" [matTooltipClass]="'app-tooltip'" class="forwawrd" mat-icon-button color="primary">
+                <i class="fa fa-angle-up fa-4x" aria-hidden="true" aria-label="Forwards"></i>
+            </button>
+            <button (click)="moveBackwards()" [matTooltip]="'Move note backwards'" [matTooltipClass]="'app-tooltip'" class="backwards" mat-icon-button color="primary">
+                <i class="fa fa-angle-down fa-4x" aria-hidden="true" aria-label="Backwards"></i>
+            </button>
+            <button (click)="snapBackwards()" [matTooltip]="'Snap note to previous beat'" [matTooltipClass]="'app-tooltip'" class="snap-backwards"mat-icon-button color="primary">
+                <i class="fa fa-angle-double-down fa-4x" aria-hidden="true" aria-label="Snap to previous beat"></i>
+            </button>
+        </div>
+        <div class="actions">
+            <button class="delete-note" mat-raised-button color="primary" (click)="delete()">Delete Note</button>        
+        </div>
+    </ng-container>
+</div>

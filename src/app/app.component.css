@@ -1,0 +1,82 @@
+
+.app {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    grid-template-areas: "title title file-select"
+                         ". view parent-controls"
+                         "track-selector view parent-controls"
+                         "audio-player-controls view parent-controls"
+                         "speed-controls view parent-controls"
+                         "converter view parent-controls"
+                         ". view parent-controls"
+                         "actions view parent-controls"
+                         ". view file-download";
+    grid-template-columns: 20% 2fr 1fr;
+    grid-template-rows: 9.25em 1em 2.25em 4.25em 4em 3.25em 4fr 1fr 4.25em;
+}
+
+.app .title {
+    grid-area: title;
+}
+
+.app .title h1 {
+    margin-left: 2%;
+    margin-top: 1%;
+    color: white;
+}
+
+.app app-file-select {
+    grid-area: file-select;
+}
+
+.app app-track-selector {
+    grid-area: track-selector;
+}
+
+.app app-audio-player-controls {
+    grid-area: audio-player-controls;
+}
+
+.app app-speed-controls {
+    grid-area: speed-controls;
+}
+
+.app app-actions {
+    grid-area: actions;
+}
+
+.app app-converter {
+    grid-area: converter;
+}
+
+.app .view {
+    grid-area: view;
+    display: grid;
+    width: 99%;
+    height: 99.30%;
+    margin-left: 1%;
+    grid-template-areas: "fretboard . scrollbar";
+    grid-template-columns: 1fr 0.5em 1em;
+    grid-template-rows: 99.30%;
+}
+
+.app .view app-fretboard {
+    grid-area: fretboard;
+}
+
+.app .view app-scrollbar {
+    grid-area: scrollbar;
+}
+
+.app app-parent-controls {
+    grid-area: parent-controls;
+}
+
+.app app-file-download {
+    grid-area: file-download;
+}
+
+.app app-keybindings {
+    display: none;
+}

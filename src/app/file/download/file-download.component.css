@@ -1,0 +1,10 @@
+
+.file-download {
+    width: 100%;
+    height: 100%;
+}
+
+.file-download button {
+    width: 100%;
+    margin-bottom: 0.25em;
+}

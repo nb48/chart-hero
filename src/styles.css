@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/font-awesome/css/font-awesome.css';
+@import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.app-tooltip {
+    font-size: 1.5em;
+}
+
+.speed-controls .mat-list-item-content {
+    padding-right: 0 !important;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}

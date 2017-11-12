@@ -1,0 +1,21 @@
+<div class="note-controls-ghl">
+    <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+        preserveAspectRatio="none" shape-rendering="geometricPrecision">
+        <rect *ngIf="black1" x="20" y="50" width="20" height="45" fill="black"></rect>
+        <rect *ngIf="black2" x="40" y="50" width="20" height="45" fill="black"></rect>
+        <rect *ngIf="black3" x="60" y="50" width="20" height="45" fill="black"></rect>
+        <rect *ngIf="white1" x="20" y="5" width="20" height="45" fill="white"></rect>
+        <rect *ngIf="white2" x="40" y="5" width="20" height="45" fill="white"></rect>
+        <rect *ngIf="white3" x="60" y="5" width="20" height="45" fill="white"></rect>
+        <rect (click)="flipBlack1()" x="20" y="50" width="20" height="45" fill="transparent" stroke="white" stroke-width="1"></rect>
+        <rect (click)="flipBlack2()" x="40" y="50" width="20" height="45" fill="transparent" stroke="white" stroke-width="1"></rect>
+        <rect (click)="flipBlack3()" x="60" y="50" width="20" height="45" fill="transparent" stroke="white" stroke-width="1"></rect>
+        <rect (click)="flipWhite1()" x="20" y="5" width="20" height="45" fill="transparent" stroke="white" stroke-width="1"></rect>
+        <rect (click)="flipWhite2()" x="40" y="5" width="20" height="45" fill="transparent" stroke="white" stroke-width="1"></rect>
+        <rect (click)="flipWhite3()" x="60" y="5" width="20" height="45" fill="transparent" stroke="white" stroke-width="1"></rect>
+        <line x1="20" y1="5" x2="80" y2="5" stroke="white" stroke-width="2.5"></line>        
+        <line x1="20" y1="50" x2="80" y2="50" stroke="white" stroke-width="2.5"></line>        
+        <line x1="20" y1="95" x2="80" y2="95" stroke="white" stroke-width="2.5"></line>        
+    </svg>
+</div>
+    

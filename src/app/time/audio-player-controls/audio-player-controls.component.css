@@ -1,0 +1,17 @@
+
+.audio-player-controls {
+    margin-right: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.audio-player-controls mat-form-field {
+    margin-left: 2%;
+    margin-top: 0.2em;
+    width: 7em;
+}
+
+.audio-player-controls input {
+    color: white;
+}

@@ -1,0 +1,11 @@
+
+.converter {
+    width: 100%;
+    height: 100%;
+}
+
+.converter button {
+    min-width: 60%;
+    margin-right: 0.5em;
+    float: right;
+}

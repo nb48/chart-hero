@@ -1,0 +1,5 @@
+<svg:g class="event" (click)=select($event) [matTooltip]="tooltip" [matTooltipClass]="'app-tooltip'">
+    <svg:circle [attr.cx]="event.x" [attr.cy]="event.y" fill="white" r="4" stroke="black" stroke-width="0.2"></svg:circle>
+    <svg:circle [attr.cx]="event.x" [attr.cy]="event.y" fill="transparent" r="3.5" stroke="black" stroke-width="0.2"></svg:circle>    
+    <svg:circle *ngIf="event.selected" [attr.cx]="event.x" [attr.cy]="event.y" r="3.85" fill="transparent" stroke="red" stroke-width="1"></svg:circle>    
+</svg:g>

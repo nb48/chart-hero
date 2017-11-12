@@ -1,0 +1,22 @@
+
+.speed-controls {
+    width: 100%;
+    height: 100%;
+}
+
+.speed-controls .slider {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.speed-controls .slider label {
+    order: 1;
+    padding-top: 0.5em;
+    margin-right: 0.5em;
+}
+
+.speed-controls .slider mat-slider {
+    order: 2;
+    width: 63%;
+}

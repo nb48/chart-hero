@@ -9,6 +9,7 @@ import { IncrementService } from '../increment/increment.service';
 
 const scrollingConstant = 0.018867924528301886;
 const lineHeightPx = 17.666;
+const scrollSpeed = 0.1;
 
 const formattedZero = showTime(0);
 
@@ -82,7 +83,7 @@ export class ScrollbarComponent implements AfterViewInit {
         }
         const delta = e.deltaMode === 1 ? e.deltaY * lineHeightPx : e.deltaY;
         const targetTime = this.currentTime +
-            (-scrollingConstant * this.increment * delta);
+            (-scrollingConstant * delta * scrollSpeed);
         const newTime = Math.min(this.duration, Math.max(0, targetTime));
         this.timeService.time = newTime;
     }
@@ -102,7 +103,7 @@ export class ScrollbarComponent implements AfterViewInit {
         }
     }
 
-    clickHandle(e: any): void {
+    clickHandle(e: any): void {       
         if (this.timeService.playing) {
             this.timeService.pause();
             this.playing = true;
@@ -111,7 +112,7 @@ export class ScrollbarComponent implements AfterViewInit {
         this.currentTimeTooltip.show();
     }
 
-    moveHandle(e: any): void {
+    moveHandle(e: any): void {       
         if (this.moving) {
             this.currentTimeTooltip.hide();
             this.currentTimeTooltip.show();
@@ -139,7 +140,7 @@ export class ScrollbarComponent implements AfterViewInit {
         const newTime = Math.min(
             this.duration,
             this.currentTime + this.increment,
-        );        
+        );
         this.timeService.time = newTime;
         e.stopPropagation();
     }

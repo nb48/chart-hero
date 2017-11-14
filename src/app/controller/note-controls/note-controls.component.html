@@ -48,6 +48,12 @@
             </button>
         </div>
         <div class="actions">
+            <button (click)="increaseSustain()" [matTooltip]="'Increase note length'" [matTooltipClass]="'app-tooltip'" class="increase-sustain" mat-icon-button color="primary">
+                <i class="fa fa-plus fa-2x" aria-hidden="true" aria-label="Increase note length"></i>
+            </button>
+            <button (click)="decreaseSustain()" [matTooltip]="'Decrease note length'" [matTooltipClass]="'app-tooltip'" class="decrease-sustain" mat-icon-button color="primary">
+                <i class="fa fa-minus fa-2x" aria-hidden="true" aria-label="Decrease note length"></i>
+            </button>
             <button class="delete-note" mat-raised-button color="primary" (click)="delete()">Delete Note</button>        
         </div>
     </ng-container>

@@ -98,6 +98,12 @@ export class NoteControlsComponent {
         this.timeService.snapBackwardsTime();
     }
 
+    increaseSustain(): void {
+    }
+
+    decreaseSustain(): void {
+    }
+
     delete(): void {
         const idToDelete = this.id;
         this.selectorService.selectNearest();

@@ -16,6 +16,8 @@ export interface NoteOpen {
     type: NoteType.Open;
     selected: boolean;
     y: number;
+    sustain: boolean;
+    endY: number;
 }
 
 export interface NoteGuitar {
@@ -26,6 +28,8 @@ export interface NoteGuitar {
     x: number;
     y: number;
     color: NoteGuitarColor;
+    sustain: boolean;
+    endY: number;
 }
 
 export enum NoteGuitarColor {
@@ -44,6 +48,8 @@ export interface NoteGHL {
     x: number;
     y: number;
     color: NoteGHLColor;
+    sustain: boolean;
+    endY: number;
 }
 
 export enum NoteGHLColor {

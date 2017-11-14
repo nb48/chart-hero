@@ -60,71 +60,74 @@ export class NoteService {
 
     private buildNotes(): Note[] {
         return [].concat.apply([], this.prepared.notes
-            .filter(n => this.speedService.timeInView(n.time, this.time))
+            .filter(n => this.speedService.timeInView(n.time, this.time) ||
+                this.speedService.timeInView(n.time + n.length, this.time))
             .filter(n => this.playing ? n.time >= this.time : true)
             .map((note): Note[] => {
                 const y = this.speedService.calculateYPos(note.time, this.time);
                 const selected = note.id === this.selectedId;
+                const sustain = note.length > 0;
+                const endY = this.speedService.calculateYPos(note.time + note.length, this.time);
                 if (note.open) {
                     const type = NoteType.Open;
                     return [{
                         type,
                         y,
                         selected,
+                        sustain,
+                        endY,
                         id: note.id + 1,
                         time: note.time,
                     }] as NoteOpen[];
                 } else {
-                    return this.splitNote(note, y, selected);
+                    return this.splitNote(note, y, selected, sustain, endY);
                 }
             }))
             .sort((a: Note, b: Note) => a.y - b.y);
     }
     
-    private splitNote(note: PreparedNote, y: number, selected: boolean): Note[] {
+    private splitNote(
+        note: PreparedNote,
+        y: number,
+        selected: boolean,
+        sustain: boolean,
+        endY: number,
+    ): Note[] {
         const notes: (NoteGuitar | NoteGHL)[] = [];
         const time = note.time;
-        let type = NoteType.Guitar;
+        const pushGuitar = (x: number, color: NoteGuitarColor) => {
+            const type = NoteType.Guitar;
+            const id = note.id + notes.length + 1;
+            notes.push({ id, time, type, selected, x, y, color, sustain, endY });
+        };
         if (note.guitarLane1 !== PreparedNoteGuitarColor.None) {
-            const x = 30.4;
-            const color = this.buildGuitarNoteColor(note.guitarLane1);
-            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
+            pushGuitar(30.4, this.buildGuitarNoteColor(note.guitarLane1));
         }
         if (note.guitarLane2 !== PreparedNoteGuitarColor.None) {
-            const x = 45.2;
-            const color = this.buildGuitarNoteColor(note.guitarLane2);
-            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
+            pushGuitar(45.2, this.buildGuitarNoteColor(note.guitarLane2));
         }
         if (note.guitarLane3 !== PreparedNoteGuitarColor.None) {
-            const x = 60;
-            const color = this.buildGuitarNoteColor(note.guitarLane3);
-            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
+            pushGuitar(60, this.buildGuitarNoteColor(note.guitarLane3));
         }
         if (note.guitarLane4 !== PreparedNoteGuitarColor.None) {
-            const x = 74.8;
-            const color = this.buildGuitarNoteColor(note.guitarLane4);
-            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
+            pushGuitar(74.8, this.buildGuitarNoteColor(note.guitarLane4));
         }
         if (note.guitarLane5 !== PreparedNoteGuitarColor.None) {
-            const x = 89.6;
-            const color = this.buildGuitarNoteColor(note.guitarLane5);
-            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
+            pushGuitar(89.6, this.buildGuitarNoteColor(note.guitarLane5));
         }
-        type = NoteType.GHL;
+        const pushGHL = (x: number, color: NoteGHLColor) => {
+            const type = NoteType.GHL;
+            const id = note.id + notes.length + 1;
+            notes.push({ id, time, type, selected, x, y, color, sustain, endY });
+        };
         if (note.ghlLane1 !== PreparedNoteGHLColor.None) {
-            const x = 40;
-            const color = this.buildGHLNoteColor(note.ghlLane1);
-            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
+            pushGHL(40, this.buildGHLNoteColor(note.ghlLane1));
         }
         if (note.ghlLane2 !== PreparedNoteGHLColor.None) {
-            const x = 60;
-            const color = this.buildGHLNoteColor(note.ghlLane2);
-            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
+            pushGHL(60, this.buildGHLNoteColor(note.ghlLane2));
         }
         if (note.ghlLane3 !== PreparedNoteGHLColor.None) {
-            const x = 80;
-            const color = this.buildGHLNoteColor(note.ghlLane3);
-            notes.push({ time, type, x, y, color, selected, id: note.id + notes.length + 1 });
+            pushGHL(80, this.buildGHLNoteColor(note.ghlLane3));
         }
         return notes;
     }

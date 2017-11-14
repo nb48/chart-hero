@@ -99,6 +99,7 @@ export class PreparerService {
 
     private buildNote(note: ModelTrackNote): PreparedNote {
         const time = note.time;
+        const length = note.length;
         const open = note.type.length === 0;
         const guitarLane1 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarGreen);
         const guitarLane2 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarRed);
@@ -113,6 +114,7 @@ export class PreparerService {
             note.type, ModelTrackNoteType.GHLBlack3, ModelTrackNoteType.GHLWhite3);
         return {
             time,
+            length,
             open,
             guitarLane1,
             guitarLane2,

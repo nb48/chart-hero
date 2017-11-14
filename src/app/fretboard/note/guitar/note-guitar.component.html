@@ -1,3 +1,4 @@
+<svg:line *ngIf="note.sustain" [attr.x1]="note.x" [attr.x2]="note.x" [attr.y1]="note.y" [attr.y2]="note.endY" [attr.stroke]="color" stroke-width="3"></svg:line>
 <svg:circle [attr.cx]="note.x" [attr.cy]="note.y" r="4.05" fill="transparent" stroke="black" stroke-width="0.5"></svg:circle>
 <svg:circle [attr.cx]="note.x" [attr.cy]="note.y" r="4" [attr.fill]="color"></svg:circle>
 <svg:circle [attr.cx]="note.x" [attr.cy]="note.y" r="1.1" fill="white"></svg:circle>

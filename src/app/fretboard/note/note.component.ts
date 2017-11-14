@@ -11,6 +11,7 @@ import { Note, NoteType } from './note';
 })
 export class NoteComponent {
     @Input() note: Note;
+    @Input() drawSustain: boolean;
 
     constructor(private selectorService: SelectorService) {
     }

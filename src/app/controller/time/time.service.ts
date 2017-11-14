@@ -72,6 +72,14 @@ export class TimeService {
         this.updateNoteTime(previousBeat.time - time);
     }
 
+    increaseSustain(): void {
+        this.updateNoteLength(this.increment * this.step);
+    }
+
+    decreaseSustain(): void {
+        this.updateNoteLength(-this.increment * this.step);
+    }
+
     private updateNoteTime(change: number): void {
         const newNote = JSON.parse(JSON.stringify(this.note));
         newNote.time += change;
@@ -79,6 +87,15 @@ export class TimeService {
             newNote.time = 0;
         }
         this.selectorService.adjustTime(newNote);
+        this.actionsService.trackEventChanged(newNote);
+    }
+
+    private updateNoteLength(change: number): void {
+        const newNote = JSON.parse(JSON.stringify(this.note));
+        newNote.length += change;
+        if (newNote.length < 0) {
+            newNote.length = 0;
+        }
         this.actionsService.trackEventChanged(newNote);
     }
 }

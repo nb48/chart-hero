@@ -99,9 +99,11 @@ export class NoteControlsComponent {
     }
 
     increaseSustain(): void {
+        this.timeService.increaseSustain();
     }
 
     decreaseSustain(): void {
+        this.timeService.decreaseSustain();
     }
 
     delete(): void {

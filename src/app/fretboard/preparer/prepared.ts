@@ -14,6 +14,7 @@ export interface PreparedBeat {
 export interface PreparedNote {
     id: number;
     time: number;
+    length: number;
     open: boolean;
     guitarLane1: PreparedNoteGuitarColor;
     guitarLane2: PreparedNoteGuitarColor;

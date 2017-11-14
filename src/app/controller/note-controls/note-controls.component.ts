@@ -18,6 +18,8 @@ export class NoteControlsComponent {
     id: number;
     time: number;
     formattedTime: string;
+    length: number;
+    formattedLength: string;
     isGuitarNote: boolean;
     isGHLNote: boolean;
     type: ModelTrackNoteType[];
@@ -41,6 +43,8 @@ export class NoteControlsComponent {
             this.id = note.id;
             this.time = note.time;
             this.formattedTime = showTime(note.time);
+            this.length = note.length;
+            this.formattedLength = showTime(note.length);
             this.isGuitarNote = note.event === ModelTrackEventType.GuitarNote;
             this.isGHLNote = note.event === ModelTrackEventType.GHLNote;
             this.type = note.type;

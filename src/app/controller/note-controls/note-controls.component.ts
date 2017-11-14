@@ -23,9 +23,9 @@ export class NoteControlsComponent {
     isGuitarNote: boolean;
     isGHLNote: boolean;
     type: ModelTrackNoteType[];
-    stepControl: string = 'one';
-    customStepTop: number = 1;
-    customStepBottom: number = 1;
+    stepControl: string;
+    customStepTop: number;
+    customStepBottom: number;
 
     constructor(
         private actionsService: ActionsService,
@@ -34,6 +34,12 @@ export class NoteControlsComponent {
         private selectorService: SelectorService,
     ) {
         this.selected = false;
+        this.stepControl =
+            this.timeService.stepControl ? this.timeService.stepControl : 'one';
+        this.customStepTop =
+            this.timeService.customStepTop ? this.timeService.customStepTop : 1;
+        this.customStepBottom =
+            this.timeService.customStepBottom ? this.timeService.customStepBottom : 1;
         this.selectorService.selectedNotes.subscribe((note) => {
             if (!note) {
                 this.selected = false;
@@ -59,16 +65,16 @@ export class NoteControlsComponent {
     newStep(): void {
         switch (this.stepControl) {
         case 'one':
-            this.timeService.newStep(1, 1);
+            this.timeService.newStep(1, 1, 'one');
             return;
         case 'half':
-            this.timeService.newStep(1, 2);
+            this.timeService.newStep(1, 2, 'half');
             return;
         case 'third':
-            this.timeService.newStep(1, 3);
+            this.timeService.newStep(1, 3, 'third');
             return;
         case 'quarter':
-            this.timeService.newStep(1, 4);
+            this.timeService.newStep(1, 4, 'quarter');
             return;
         case 'custom':
             const top = this.customStepTop !== null && this.customStepTop !== 0
@@ -77,7 +83,7 @@ export class NoteControlsComponent {
             const bottom = this.customStepBottom !== null && this.customStepBottom !== 0
                 ? this.customStepBottom
                 : 1;
-            this.timeService.newStep(top, bottom);
+            this.timeService.newStep(top, bottom, 'custom');
             return;
         }
     }

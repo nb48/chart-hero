@@ -61,7 +61,8 @@ export class NoteService {
     private buildNotes(): Note[] {
         return [].concat.apply([], this.prepared.notes
             .filter(n => this.speedService.timeInView(n.time, this.time) ||
-                this.speedService.timeInView(n.time + n.length, this.time))
+                this.speedService.timeInView(n.time + n.length, this.time) ||
+                this.time > n.time && this.time < n.time + n.length)
             .filter(n => this.playing ? n.time + n.length >= this.time : true)
             .map((note): Note[] => {
                 const y = this.playing && note.time < this.time

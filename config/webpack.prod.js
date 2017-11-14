@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var webpackMerge = require('webpack-merge');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+var BaseHrefWebpackPlugin = require('base-href-webpack-plugin').BaseHrefWebpackPlugin;
 var commonConfig = require('./webpack.common');
 var helpers = require('./helpers');
 
@@ -10,14 +11,15 @@ module.exports = webpackMerge(commonConfig, {
     devtool: 'source-map',
     output: {
         path: helpers.root('dist'),
-        publicPath: '/',
+        publicPath: '/chart-hero/',
         filename: '[name].[hash].js',
         chunkFilename: '[id].[hash].chunk.js'
     },
     plugins: [
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.optimize.UglifyJsPlugin(),
-        new ExtractTextPlugin('[name].[hash].css'),
+        new ExtractTextWebpackPlugin('[name].[hash].css'),
+        new BaseHrefWebpackPlugin({ baseHref: '/chart-hero/' }),
         new webpack.DefinePlugin({
             'process.env': {
                 'ENV': JSON.stringify(ENV)

@@ -17,6 +17,9 @@ export class TimeService {
     private increment: number;
     private beats: Beat[];
     private step: number;
+    private $stepControl: string;
+    private $customStepTop: number;
+    private $customStepBottom: number;
 
     constructor(
         private beatsService: BeatService,
@@ -36,10 +39,27 @@ export class TimeService {
         this.step = defaultStep;
     }
 
-    newStep(top: number, bottom: number): void {
+    get stepControl(): string {
+        return this.$stepControl;
+    }
+
+    get customStepTop(): number {
+        return this.$customStepTop;
+    }
+
+    get customStepBottom(): number {
+        return this.$customStepBottom;
+    }
+
+    newStep(top: number, bottom: number, stepControl: string): void {
         this.step = top / bottom;
         if (isNaN(this.step)) {
             this.step = defaultStep;
+        }
+        this.$stepControl = stepControl;
+        if (stepControl === 'custom') {
+            this.$customStepTop = top;
+            this.$customStepBottom = bottom;
         }
     }
 

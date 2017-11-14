@@ -2,7 +2,8 @@
     <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" shape-rendering="auto">
         <line x1="0" x2="100" [attr.y1]="fretboard.zeroPosition" [attr.y2]="fretboard.zeroPosition" stroke="white" stroke-width="1.5"></line>
         <svg:g app-beat *ngFor="let beat of fretboard.beats; trackBy: trackBeat" [beat]="beat"/>
-        <svg:g app-note *ngFor="let note of fretboard.notes; trackBy: trackNote" [note]="note"/>
+        <svg:g app-note *ngFor="let note of fretboard.notes; trackBy: trackNote" [note]="note" [drawSustain]="true"/>
+        <svg:g app-note *ngFor="let note of fretboard.notes; trackBy: trackNote" [note]="note" [drawSustain]="false"/>
         <svg:g app-event *ngFor="let event of fretboard.events; trackBy: trackEvent" [event]="event"/>
         <line x1="20" x2="20" y1="0" y2="100" stroke="white" stroke-width="1"></line>        
     </svg>

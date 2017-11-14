@@ -1,11 +1,11 @@
 <svg:g class="note" (click)=select($event) [matTooltip]="tooltip" [matTooltipClass]="'app-tooltip'">
     <ng-container *ngIf="open">
-        <svg:g app-note-open [note]="note"/>
+        <svg:g app-note-open [note]="note" [drawSustain]="drawSustain"/>
     </ng-container>
     <ng-container *ngIf="guitar">
-        <svg:g app-note-guitar [note]="note"/>
+        <svg:g app-note-guitar [note]="note" [drawSustain]="drawSustain"/>
     </ng-container>
     <ng-container *ngIf="ghl">
-        <svg:g app-note-ghl [note]="note"/>
+        <svg:g app-note-ghl [note]="note" [drawSustain]="drawSustain"/>
     </ng-container>
 </svg:g>

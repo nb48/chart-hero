@@ -8,6 +8,7 @@ import { NoteGuitar, NoteGuitarColor } from '../note';
 })
 export class NoteGuitarComponent {
     @Input() note: NoteGuitar;
+    @Input() drawSustain: boolean;
 
     get color(): string {
         switch (this.note.color) {

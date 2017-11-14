@@ -8,6 +8,7 @@ import { NoteGHL, NoteGHLColor } from '../note';
 })
 export class NoteGHLComponent {
     @Input() note: NoteGHL;
+    @Input() drawSustain: boolean;
 
     get black(): boolean {
         return this.note.color === NoteGHLColor.Black;

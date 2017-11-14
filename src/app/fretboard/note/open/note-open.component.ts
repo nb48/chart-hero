@@ -8,4 +8,5 @@ import { NoteOpen } from '../note';
 })
 export class NoteOpenComponent {
     @Input() note: NoteOpen;
+    @Input() drawSustain: boolean;
 }

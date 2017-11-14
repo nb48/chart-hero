@@ -62,9 +62,11 @@ export class NoteService {
         return [].concat.apply([], this.prepared.notes
             .filter(n => this.speedService.timeInView(n.time, this.time) ||
                 this.speedService.timeInView(n.time + n.length, this.time))
-            .filter(n => this.playing ? n.time >= this.time : true)
+            .filter(n => this.playing ? n.time + n.length >= this.time : true)
             .map((note): Note[] => {
-                const y = this.speedService.calculateYPos(note.time, this.time);
+                const y = this.playing && note.time < this.time
+                    ? this.speedService.calculateYPos(this.time, this.time)
+                    : this.speedService.calculateYPos(note.time, this.time);
                 const selected = note.id === this.selectedId;
                 const sustain = note.length > 0;
                 const endY = this.speedService.calculateYPos(note.time + note.length, this.time);

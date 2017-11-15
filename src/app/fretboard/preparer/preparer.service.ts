@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { IncrementService } from '../../time/increment/increment.service';
 import {
     Model,
     ModelTrack,
@@ -27,25 +26,23 @@ import {
 export class PreparerService {
     
     private preparedSubject: ReplaySubject<Prepared>;
-    private increment: number;
     private model: Model;
     private track: Track;
     private duration: number;
+    private previousNote: ModelTrackNote;
+    private currentIncrement: number;
 
     constructor(
-        private incrementService: IncrementService,
         private modelService: ModelService,
         private trackService: TrackService,
         private durationService: DurationService,
     ) {
         this.preparedSubject = new ReplaySubject<Prepared>();
         Observable.combineLatest(
-            this.incrementService.increments,
             this.modelService.models,
             this.trackService.tracks,
             this.durationService.durations,
-            (increment, model, track, duration) => {
-                this.increment = increment;
+            (model, track, duration) => {
                 this.model = model;
                 this.track = track;
                 this.duration = duration;
@@ -94,24 +91,37 @@ export class PreparerService {
     }
 
     private buildNotes(): PreparedNote[] {
+        const bpmChanges = this.model.syncTrack.events
+            .filter(e => e.event === ModelTrackEventType.BPMChange)
+            .map(e => e as ModelTrackBPMChange)
+            .sort((a, b) => a.time - b.time)
+            .entries();
+        this.previousNote = undefined;
+        this.currentIncrement = 60 / bpmChanges.next().value[1].bpm;
+        const next = bpmChanges.next();
+        let nextBPMChange = next.done ? undefined : next.value[1];
         const t: ModelTrack = getTrack(this.model, this.track);
-        let previousNote: ModelTrackNote = undefined;
         return t.events
             .filter(e => e.event === ModelTrackEventType.GuitarNote
                 || e.event === ModelTrackEventType.GHLNote)
             .map(e => e as ModelTrackNote)
             .map((e) => {
-                const note = this.buildNote(e, previousNote);
-                previousNote = e;
+                if (nextBPMChange && e.time > nextBPMChange.time) {
+                    this.currentIncrement = 60 / nextBPMChange.bpm;
+                    const next = bpmChanges.next();
+                    nextBPMChange = next.done ? undefined : next.value[1];
+                }
+                const note = this.buildNote(e);
+                this.previousNote = e;
                 return note;
             });
     }
 
-    private buildNote(note: ModelTrackNote, previousNote: ModelTrackNote): PreparedNote {
+    private buildNote(note: ModelTrackNote): PreparedNote {
         const time = note.time;
         const length = note.length;
         const open = note.type.length === 0;
-        const hopo = this.calculateHopo(note, previousNote);
+        const hopo = this.calculateHopo(note);
         const guitarLane1 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarGreen);
         const guitarLane2 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarRed);
         const guitarLane3 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarYellow);
@@ -183,12 +193,12 @@ export class PreparerService {
             .filter(e => e.event === ModelTrackEventType.BPMChange);
     }
 
-    private calculateHopo(note: ModelTrackNote, previousNote: ModelTrackNote): boolean {
-        if (!previousNote) {
+    private calculateHopo(note: ModelTrackNote): boolean {
+        if (!this.previousNote) {
             return false;
         }
-        if (note.time - previousNote.time < this.increment * 0.33855) {
-            if (JSON.stringify(note.type) === JSON.stringify(previousNote.type)) {
+        if (note.time - this.previousNote.time < this.currentIncrement * 0.33855) {
+            if (JSON.stringify(note.type) === JSON.stringify(this.previousNote.type)) {
                 return false;
             }
             if (note.type.length > 1) {

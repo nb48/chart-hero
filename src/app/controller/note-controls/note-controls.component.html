@@ -24,11 +24,11 @@
                 <mat-radio-button class="button" [value]="'quarter'" color="primary">1<br>4</mat-radio-button>
                 <mat-radio-button class="button up" [value]="'custom'" color="primary">
                     <mat-form-field>
-                        <input class="custom" [(ngModel)]="customStepTop" (ngModelChange)="newStep()" matInput type="number">
+                        <input class="custom" (click)="clickStepControl()" [(ngModel)]="customStepTop" (ngModelChange)="newStep()" matInput type="number">
                     </mat-form-field>
                     <span>/</span>
                     <mat-form-field>
-                        <input class="custom" [(ngModel)]="customStepBottom" (ngModelChange)="newStep()" matInput type="number">
+                        <input class="custom" (click)="clickStepControl()" [(ngModel)]="customStepBottom" (ngModelChange)="newStep()" matInput type="number">
                     </mat-form-field>
                 </mat-radio-button>
             </mat-radio-group>

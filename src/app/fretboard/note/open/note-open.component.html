@@ -1,10 +1,9 @@
 <ng-container *ngIf="drawSustain">
-    <svg:line *ngIf="note.sustain" [attr.y1]="note.y" [attr.y2]="note.endY" x1="23.5" x2="23.5" stroke="purple" stroke-width="2.5"></svg:line>
-    <svg:line *ngIf="note.sustain" [attr.y1]="note.y" [attr.y2]="note.endY" x1="96.5" x2="96.5" stroke="purple" stroke-width="2.5"></svg:line>
+    <svg:line *ngIf="note.sustain" [attr.y1]="note.y" [attr.y2]="note.endY" [attr.stroke]="note.hopo ? 'gold' : 'purple'" x1="23.5" x2="23.5" stroke-width="2.5"></svg:line>
+    <svg:line *ngIf="note.sustain" [attr.y1]="note.y" [attr.y2]="note.endY" [attr.stroke]="note.hopo ? 'gold' : 'purple'" x1="96.5" x2="96.5" stroke-width="2.5"></svg:line>
 </ng-container>
 <ng-container *ngIf="!drawSustain">
     <svg:line *ngIf="note.selected" [attr.y1]="note.y-1" [attr.y2]="note.y-1" x1="20" x2="100" stroke="white" stroke-width="0.5"></svg:line>        
-    <svg:line *ngIf="!note.hopo" [attr.y1]="note.y" [attr.y2]="note.y" x1="20" x2="100" stroke="purple" stroke-width="2"></svg:line>
-    <svg:line *ngIf="note.hopo" [attr.y1]="note.y" [attr.y2]="note.y" x1="20" x2="100" stroke="gold" stroke-width="2"></svg:line>
+    <svg:line [attr.y1]="note.y" [attr.y2]="note.y" [attr.stroke]="note.hopo ? 'gold' : 'purple'" x1="20" x2="100" stroke-width="2"></svg:line>
     <svg:line *ngIf="note.selected" [attr.y1]="note.y+1" [attr.y2]="note.y+1" x1="20" x2="100" stroke="white" stroke-width="0.5"></svg:line>
 </ng-container>

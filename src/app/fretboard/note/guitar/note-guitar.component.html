@@ -5,6 +5,6 @@
     <svg:circle [attr.cx]="note.x" [attr.cy]="note.y" r="4.05" fill="transparent" stroke="black" stroke-width="0.5"></svg:circle>
     <svg:circle [attr.cx]="note.x" [attr.cy]="note.y" r="4" [attr.fill]="color"></svg:circle>
     <svg:circle [attr.cx]="note.x" [attr.cy]="note.y" r="1.1" fill="white"></svg:circle>
-    <svg:circle [attr.cx]="note.x" [attr.cy]="note.y" r="1.2" fill="transparent" stroke="black" stroke-width="0.5"></svg:circle>
+    <svg:circle [attr.cx]="note.x" [attr.cy]="note.y" [attr.stroke]="note.hopo ? 'white' : 'black'" r="1.2" fill="transparent" stroke-width="0.5"></svg:circle>
     <svg:circle *ngIf="note.selected" [attr.cx]="note.x" [attr.cy]="note.y" r="4.05" fill="transparent" stroke="white" stroke-width="1"></svg:circle>
 </ng-container>

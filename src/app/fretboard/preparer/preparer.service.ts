@@ -95,20 +95,23 @@ export class PreparerService {
 
     private buildNotes(): PreparedNote[] {
         const t: ModelTrack = getTrack(this.model, this.track);
-        const notes = t.events
+        let previousNote: ModelTrackNote = undefined;
+        return t.events
             .filter(e => e.event === ModelTrackEventType.GuitarNote
                 || e.event === ModelTrackEventType.GHLNote)
             .map(e => e as ModelTrackNote)
-            .map(e => this.buildNote(e));
-        this.addHopos(notes);
-        return notes;
+            .map((e) => {
+                const note = this.buildNote(e, previousNote);
+                previousNote = e;
+                return note;
+            });
     }
 
-    private buildNote(note: ModelTrackNote): PreparedNote {
+    private buildNote(note: ModelTrackNote, previousNote: ModelTrackNote): PreparedNote {
         const time = note.time;
         const length = note.length;
         const open = note.type.length === 0;
-        const hopo = false;
+        const hopo = this.calculateHopo(note, previousNote);
         const guitarLane1 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarGreen);
         const guitarLane2 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarRed);
         const guitarLane3 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarYellow);
@@ -180,15 +183,19 @@ export class PreparerService {
             .filter(e => e.event === ModelTrackEventType.BPMChange);
     }
 
-    private addHopos(notes: PreparedNote[]): void {
-        let previousNote: PreparedNote = undefined;
-        notes.forEach((note) => {
-            if (previousNote) {
-                if (note.time - previousNote.time < this.increment * 0.33855) {
-                    note.hopo = true;
-                }
+    private calculateHopo(note: ModelTrackNote, previousNote: ModelTrackNote): boolean {
+        if (!previousNote) {
+            return false;
+        }
+        if (note.time - previousNote.time < this.increment * 0.33855) {
+            if (JSON.stringify(note.type) === JSON.stringify(previousNote.type)) {
+                return false;
             }
-            previousNote = note;
-        });
+            if (note.type.length > 1) {
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 }

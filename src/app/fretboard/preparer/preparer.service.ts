@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
+import { IncrementService } from '../../time/increment/increment.service';
 import {
     Model,
     ModelTrack,
@@ -26,21 +27,25 @@ import {
 export class PreparerService {
     
     private preparedSubject: ReplaySubject<Prepared>;
+    private increment: number;
     private model: Model;
     private track: Track;
     private duration: number;
 
     constructor(
+        private incrementService: IncrementService,
         private modelService: ModelService,
         private trackService: TrackService,
         private durationService: DurationService,
     ) {
         this.preparedSubject = new ReplaySubject<Prepared>();
         Observable.combineLatest(
+            this.incrementService.increments,
             this.modelService.models,
             this.trackService.tracks,
             this.durationService.durations,
-            (model, track, duration) => {
+            (increment, model, track, duration) => {
+                this.increment = increment;
                 this.model = model;
                 this.track = track;
                 this.duration = duration;
@@ -90,17 +95,20 @@ export class PreparerService {
 
     private buildNotes(): PreparedNote[] {
         const t: ModelTrack = getTrack(this.model, this.track);
-        return t.events
+        const notes = t.events
             .filter(e => e.event === ModelTrackEventType.GuitarNote
                 || e.event === ModelTrackEventType.GHLNote)
             .map(e => e as ModelTrackNote)
             .map(e => this.buildNote(e));
+        this.addHopos(notes);
+        return notes;
     }
 
     private buildNote(note: ModelTrackNote): PreparedNote {
         const time = note.time;
         const length = note.length;
         const open = note.type.length === 0;
+        const hopo = false;
         const guitarLane1 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarGreen);
         const guitarLane2 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarRed);
         const guitarLane3 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarYellow);
@@ -116,6 +124,7 @@ export class PreparerService {
             time,
             length,
             open,
+            hopo,
             guitarLane1,
             guitarLane2,
             guitarLane3,
@@ -169,5 +178,17 @@ export class PreparerService {
     private buildEvents(): PreparedEvent[] {
         return this.model.syncTrack.events
             .filter(e => e.event === ModelTrackEventType.BPMChange);
+    }
+
+    private addHopos(notes: PreparedNote[]): void {
+        let previousNote: PreparedNote = undefined;
+        notes.forEach((note) => {
+            if (previousNote) {
+                if (note.time - previousNote.time < this.increment * 0.33855) {
+                    note.hopo = true;
+                }
+            }
+            previousNote = note;
+        });
     }
 }

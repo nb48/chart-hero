@@ -117,4 +117,9 @@ export class NoteControlsComponent {
         this.selectorService.selectNearest();
         this.actionsService.deleteTrackEvent(idToDelete);
     }
+
+    clickStepControl(): void {
+        this.stepControl = 'custom';
+        this.timeService.newStep(this.customStepTop, this.customStepBottom, 'custom');
+    }
 }

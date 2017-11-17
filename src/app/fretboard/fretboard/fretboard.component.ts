@@ -26,6 +26,10 @@ export class FretboardComponent {
         return item.id;
     }
 
+    trackNoteSustain(index: number, item: Note) {
+        return -item.id;
+    }
+
     trackNote(index: number, item: Note) {
         return item.id;
     }

@@ -14,23 +14,30 @@ import { NoteService } from './fretboard/note/note.service';
 export class AppComponent {
 
     fretboard: Fretboard;
+    zeroPosition: number;
 
     constructor(
         private beatService: BeatService,
         private noteService: NoteService,
         private eventService: EventService,
     ) {
-        Observable.combineLatest(
+        this.beatService.zeroPositions.subscribe((zeroPosition) => {
+            this.zeroPosition = zeroPosition;
+        });
+        Observable.zip(
             this.beatService.beats,
-            this.beatService.zeroPositions,
             this.noteService.notes,
             this.eventService.events,
-            (beats, zeroPosition, notes, events) => {
-                this.fretboard = {
-                    beats, zeroPosition, notes, events,
+            (beats, notes, events) => {
+                return {
+                    beats,
+                    notes,
+                    events,
+                    zeroPosition: this.zeroPosition,
                 };
             },
-        ).subscribe(() => {
+        ).subscribe((fretboard) => {
+            this.fretboard = fretboard;
         });
     }
 }

@@ -22,6 +22,13 @@ export class TimeService {
         this.currentlyPlaying = false;
         this.lastPlayedTime = this.currentTime;
         this.audioPlayer.times.subscribe((time: number) => {
+            if (isNaN(time)) {
+                return;
+            }
+            const difference = Math.abs(time - this.timeCounter);
+            if (this.playing && (difference > 0.002 && difference < 0.33)) {
+                return;
+            }
             this.timeCounter = time;
         });
         this.audioPlayer.ended.subscribe(() => {

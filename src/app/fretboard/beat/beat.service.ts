@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
 import { ModelTrackNote } from '../../model/model';
+import { TimeService } from '../../time/time.service';
 import { Prepared } from '../preparer/prepared';
 import { PreparerService } from '../preparer/preparer.service';
-import { RendererService } from '../renderer/renderer.service';
 import { SpeedService } from '../speed/speed.service';
 import { Beat } from './beat';
 
@@ -17,16 +17,16 @@ export class BeatService {
     private time: number;
 
     constructor(
+        private timeService: TimeService,
         private preparerService: PreparerService,
-        private rendererService: RendererService,
         private speedService: SpeedService,
     ) {
         this.beatsSubject = new ReplaySubject<Beat[]>();
         this.zeroPositionsSubject = new ReplaySubject<number>();
         Observable.combineLatest(
+            this.timeService.times,
             this.preparerService.prepareds,
-            this.rendererService.renders,
-            (prepared, time) => {
+            (time, prepared) => {
                 this.prepared = prepared;
                 this.time = time;
             },

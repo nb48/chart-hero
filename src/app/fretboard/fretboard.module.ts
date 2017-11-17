@@ -16,7 +16,6 @@ import { BeatService } from './beat/beat.service';
 import { EventService } from './event/event.service';
 import { NoteService } from './note/note.service';
 import { PreparerService } from './preparer/preparer.service';
-import { RendererService } from './renderer/renderer.service';
 import { SpeedService } from './speed/speed.service';
 
 @NgModule({
@@ -46,7 +45,6 @@ import { SpeedService } from './speed/speed.service';
         EventService,
         NoteService,
         PreparerService,
-        RendererService,
         SpeedService,
     ],
 })

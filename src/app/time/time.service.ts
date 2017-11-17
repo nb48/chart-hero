@@ -3,15 +3,17 @@ import { Observable, ReplaySubject, Subscription } from 'rxjs';
 
 import { AudioPlayerService } from './audio-player/audio-player.service';
 
+const interval = 1000 / 60;
+const frame = 1 / 60;
+
 @Injectable()
 export class TimeService {
 
     private currentlyPlaying: boolean;
     private currentTime: number;
-    private lastAudioTime: number;
     private lastPlayedTime: number;
-    private lastRealTime: number;
     private subscription: Subscription;
+    private timeCounter: number;
     private timeSubject: ReplaySubject<number>;
 
     constructor(private audioPlayer: AudioPlayerService) {
@@ -20,7 +22,7 @@ export class TimeService {
         this.currentlyPlaying = false;
         this.lastPlayedTime = this.currentTime;
         this.audioPlayer.times.subscribe((time: number) => {
-            this.audioTimeUpdate(time);
+            this.timeCounter = time;
         });
         this.audioPlayer.ended.subscribe(() => {
             this.stop();
@@ -44,6 +46,13 @@ export class TimeService {
         this.audioPlayer.start(this.currentTime);
         this.currentlyPlaying = true;
         this.lastPlayedTime = this.currentTime;
+        this.timeCounter = this.lastPlayedTime;
+        const renderer = Observable.interval(interval).subscribe(() => {
+            this.timeCounter += frame;
+            this.time = this.timeCounter;
+        });
+        this.subscription = renderer;
+
     }
 
     pause() {
@@ -70,22 +79,5 @@ export class TimeService {
             this.play();
         }
         this.timeSubject.next(this.currentTime);
-    }
-
-    private audioTimeUpdate(audioTime: number): void {
-        this.lastRealTime = Date.now();
-        this.lastAudioTime = audioTime;
-        if (this.currentlyPlaying && !this.subscription) {
-            this.subscription = Observable.interval(16.666).subscribe(() => {
-                this.estimateAudioTime();
-            });
-        }
-    }
-
-    private estimateAudioTime(): void {
-        const realTime = Date.now();
-        const realTimeSinceLastUpdate = realTime - this.lastRealTime;
-        const estimate = this.lastAudioTime + (realTimeSinceLastUpdate / 1000);
-        this.time = estimate;
     }
 }

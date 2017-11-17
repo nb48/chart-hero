@@ -19,7 +19,6 @@ import {
     PreparedNoteGHLColor,
 } from '../preparer/prepared';
 import { PreparerService } from '../preparer/preparer.service';
-import { RendererService } from '../renderer/renderer.service';
 import { SpeedService } from '../speed/speed.service';
 
 @Injectable()
@@ -35,15 +34,14 @@ export class NoteService {
         private selectorService: SelectorService,
         private timeService: TimeService,
         private preparerService: PreparerService,
-        private rendererService: RendererService,
         private speedService: SpeedService,
     ) {
         this.notesSubject = new ReplaySubject<Note[]>();
         Observable.combineLatest(
+            this.timeService.times,
             this.preparerService.prepareds,
-            this.rendererService.renders,
             this.selectorService.selectedNotes,
-            (prepared, time, selectedNote) => {
+            (time, prepared, selectedNote) => {
                 this.prepared = prepared;
                 this.time = time;
                 this.playing = this.timeService.playing;

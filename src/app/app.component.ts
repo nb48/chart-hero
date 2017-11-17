@@ -24,7 +24,7 @@ export class AppComponent {
         this.beatService.zeroPositions.subscribe((zeroPosition) => {
             this.zeroPosition = zeroPosition;
         });
-        Observable.zip(
+        Observable.combineLatest(
             this.beatService.beats,
             this.noteService.notes,
             this.eventService.events,

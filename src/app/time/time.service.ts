@@ -46,13 +46,14 @@ export class TimeService {
         this.audioPlayer.start(this.currentTime);
         this.currentlyPlaying = true;
         this.lastPlayedTime = this.currentTime;
-        this.timeCounter = this.lastPlayedTime;
+        this.timeCounter = undefined;
         const renderer = Observable.interval(interval).subscribe(() => {
-            this.timeCounter += frame;
-            this.time = this.timeCounter;
+            if (this.timeCounter && this.playing) {
+                this.timeCounter += frame;
+                this.time = this.timeCounter;                
+            }
         });
         this.subscription = renderer;
-
     }
 
     pause() {
@@ -60,24 +61,25 @@ export class TimeService {
         this.subscription = undefined;
         this.audioPlayer.stop();
         this.currentlyPlaying = false;
+        this.time = this.currentTime;
     }
 
     stop() {
         if (this.playing) {
             this.pause();
         }
-        this.time = 0;
+        this.time = 0;                
     }
 
     repeat() {
-        const playing = this.playing;
-        if (playing) {
-            this.pause();
-        }
-        this.currentTime = this.lastPlayedTime;
-        if (playing) {
+        if (this.playing) {
+            this.subscription.unsubscribe();
+            this.subscription = undefined;
+            this.audioPlayer.stop();
+            this.time = this.lastPlayedTime;
             this.play();
+        } else {
+            this.time = this.lastPlayedTime;
         }
-        this.timeSubject.next(this.currentTime);
     }
 }

@@ -16,6 +16,10 @@ import {
 } from '../model';
 import { ModelService } from '../model.service';
 
+export const roundTime = (time: number): number => {
+    return Math.round(time * 1000) / 1000;
+};
+
 @Injectable()
 export class ActionsService {
 
@@ -48,7 +52,7 @@ export class ActionsService {
         const newNote: ModelTrackNote = {
             id: this.idGenerator.id(),
             event: ghl ? ModelTrackEventType.GHLNote : ModelTrackEventType.GuitarNote,
-            time: this.time,
+            time: roundTime(this.time),
             type: [],
             length: 0,
         };
@@ -65,7 +69,7 @@ export class ActionsService {
         const newBPMChange: ModelTrackBPMChange = {
             id: this.idGenerator.id(),
             event: ModelTrackEventType.BPMChange,
-            time: this.time,
+            time: roundTime(this.time),
             bpm: 120,
         };
         this.model.syncTrack.events.push(newBPMChange);
@@ -91,6 +95,7 @@ export class ActionsService {
         Object.keys(note).forEach((key) => {
             modelNote[key] = note[key];
         });
+        modelNote.time = roundTime(modelNote.time);
         this.modelService.model = this.model;
     }
 
@@ -99,6 +104,7 @@ export class ActionsService {
         Object.keys(event).forEach((key) => {
             modelEvent[key] = event[key];
         });
+        modelEvent.time = roundTime(modelEvent.time);
         this.modelService.model = this.model;
     }
 }

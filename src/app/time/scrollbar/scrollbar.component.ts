@@ -13,6 +13,8 @@ const scrollSpeed = 0.1;
 
 const formattedZero = showTime(0);
 
+const frame = 1000 / 60;
+
 @Component({
     selector: 'app-scrollbar',
     templateUrl: './scrollbar.component.html',
@@ -30,6 +32,7 @@ export class ScrollbarComponent implements AfterViewInit {
     private playing: boolean;
     private svg: any;
     private recentlyReleasedHandle: boolean;
+    private scrollThrottle: number;
 
     constructor(
         private durationService: DurationService,
@@ -37,6 +40,7 @@ export class ScrollbarComponent implements AfterViewInit {
         private scrollbarElement: ElementRef,
         private timeService: TimeService,
     ) {
+        this.scrollThrottle = performance.now();
         this.durationService.durations.subscribe((duration) => {
             this.duration = duration;
             this.formattedDuration = showTime(duration);
@@ -114,6 +118,10 @@ export class ScrollbarComponent implements AfterViewInit {
 
     moveHandle(e: any): void {       
         if (this.moving) {
+            if (performance.now() - this.scrollThrottle < frame) {
+                return;
+            }
+            this.scrollThrottle = performance.now();            
             this.currentTimeTooltip.hide();
             this.currentTimeTooltip.show();
             this.propagateTimeChange(e);

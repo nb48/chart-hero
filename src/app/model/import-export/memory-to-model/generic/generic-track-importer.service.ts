@@ -112,10 +112,10 @@ export class GenericTrackImporterService {
                     return [notes];
                 } else {
                     const forceHopoIndex = notes.findIndex(n => n.note === 5);
-                    if (forceHopoIndex) {
-                        const forceHopo = notes[forceHopoIndex];
+                    if (forceHopoIndex !== -1) {
+                        const forceHopo = JSON.stringify(notes[forceHopoIndex]);
                         notes.splice(forceHopoIndex, 1);
-                        return notes.map(note => [note, JSON.parse(JSON.stringify(forceHopo))]);
+                        return notes.map(note => [note, JSON.parse(forceHopo)]);
                     } else {
                         return notes.map(note => [note]);                        
                     }

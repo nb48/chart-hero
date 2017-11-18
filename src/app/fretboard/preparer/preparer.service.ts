@@ -132,7 +132,8 @@ export class PreparerService {
         const time = note.time;
         const length = note.length;
         const open = note.type.length === 0;
-        const hopo = this.calculateHopo(note);
+        const originalHopo = this.calculateHopo(note);
+        const hopo = note.forceHopo ? !originalHopo : originalHopo;
         const guitarLane1 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarGreen);
         const guitarLane2 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarRed);
         const guitarLane3 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarYellow);

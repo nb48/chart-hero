@@ -106,7 +106,8 @@ export class GenericTrackImporterService {
             });
         return [].concat.apply([], Array.from(times.values())
             .map((notes: MemoryTrack[]) => {
-                if (notes.every(note => note.length === notes[0].length) &&
+                if (notes.every(note => note.length === notes[0].length
+                    || note.note !== 5 || notes[0].note !== 5) &&
                     notes.every(note => note.note !== 7)) {
                     return [notes];
                 } else {

@@ -7,6 +7,7 @@ import { AudioPlayerService } from './audio-player/audio-player.service';
 export class TimeService {
 
     private currentlyPlaying: boolean;
+    private currentlyRepeating: boolean;
     private currentTime: number;
     private lastPlayedTime: number;
     private timeSubject: ReplaySubject<number>;
@@ -22,7 +23,13 @@ export class TimeService {
             }
         });
         this.audioPlayer.ended.subscribe(() => {
-            this.stop();
+            if (this.currentlyRepeating) {
+                this.currentlyRepeating = false;
+                return;
+            }
+            if (this.playing) {
+                this.stop();                
+            }
         });
     }
 
@@ -44,14 +51,14 @@ export class TimeService {
     }
 
     play() {
-        this.audioPlayer.start(this.currentTime);
         this.currentlyPlaying = true;
+        this.audioPlayer.start(this.currentTime);
         this.lastPlayedTime = this.currentTime;
     }
 
     pause() {
+        this.currentlyPlaying = false;        
         this.audioPlayer.stop();
-        this.currentlyPlaying = false;
     }
 
     stop() {
@@ -63,6 +70,7 @@ export class TimeService {
 
     repeat() {
         if (this.playing) {
+            this.currentlyRepeating = true;
             this.audioPlayer.stop();
             this.time = this.lastPlayedTime;
             this.audioPlayer.start(this.lastPlayedTime);            

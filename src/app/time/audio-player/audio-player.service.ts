@@ -1,33 +1,47 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+const frame = 1000 / 60;
 
 @Injectable()
 export class AudioPlayerService {
 
-    private $loaded: boolean;
-    private $audio: HTMLAudioElement;
+    private context: AudioContext;
+    private source: AudioBufferSourceNode;
+    private buffer: AudioBuffer;
+    private audioLoaded: boolean;
+    private startTime: number;
+    private offset: number;
     private timeEmitter: EventEmitter<number>;
     private endedEmitter: EventEmitter<void>;
 
     constructor() {
-        this.$loaded = false;
+        this.audioLoaded = false;
         this.timeEmitter = new EventEmitter<number>();
         this.endedEmitter = new EventEmitter<void>();
+        this.context = new AudioContext;
+        const timestampSupport = (this.context as any).getOutputTimestamp !== undefined;
+        Observable.interval(frame).subscribe(() => {
+            const base = this.context.currentTime - this.startTime + this.offset;
+            if (timestampSupport) {
+                const timestamp = (this.context as any).getOutputTimestamp();
+                const difference = (performance.now() - timestamp.performanceTime) / 1000;
+                const accurateTime = base + difference + (this.context as any).baseLatency;
+                this.timeEmitter.emit(accurateTime);
+            } else {
+                this.timeEmitter.emit(base);
+            }
+        });
     }
 
     get loaded(): boolean {
-        return this.$loaded;
+        return this.audioLoaded;
     }
 
-    set audio(url: string) {
-        this.$loaded = true;
-        this.$audio = new Audio();
-        this.$audio.src = url;
-        this.$audio.load();
-        this.$audio.addEventListener('timeupdate', () => {
-            this.timeEmitter.emit(this.$audio.currentTime);
-        });
-        this.$audio.addEventListener('ended', () => {
-            this.endedEmitter.emit();
+    set audio(arrayBuffer: ArrayBuffer) {
+        this.audioLoaded = true;
+        this.context.decodeAudioData(arrayBuffer).then((buffer) => {
+            this.buffer = buffer;
         });
     }
 
@@ -40,11 +54,19 @@ export class AudioPlayerService {
     }
     
     start(time: number): void {
-        this.$audio.currentTime = time;
-        this.$audio.play();
+        this.startTime = this.context.currentTime;
+        this.offset = time;
+        this.source = this.context.createBufferSource();
+        this.source.buffer = this.buffer;
+        this.source.connect(this.context.destination);
+        this.source.start(0, time);
+        this.source.onended = () => {
+            this.endedEmitter.emit();
+        };
     }
 
     stop(): void {
-        this.$audio.pause();
+        this.source.stop();
+        this.source.disconnect();
     }
 }

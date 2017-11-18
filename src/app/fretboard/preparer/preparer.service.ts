@@ -31,7 +31,9 @@ export class PreparerService {
     private duration: number;
     private currentIncrement: number;
     private typeCache: Map<number, Set<ModelTrackNoteType>>;
-    private times: Set<number>;
+    private times: number[];
+    private timeIndex: number;
+    private previousTime: number;
 
     constructor(
         private modelService: ModelService,
@@ -93,7 +95,9 @@ export class PreparerService {
 
     private buildNotes(): PreparedNote[] {
         this.typeCache = new Map<number, Set<ModelTrackNoteType>>();
-        this.times = new Set<number>();
+        this.times = [];
+        this.timeIndex = 0;
+        this.previousTime = undefined;
         const bpmChanges = this.model.syncTrack.events
             .filter(e => e.event === ModelTrackEventType.BPMChange)
             .map(e => e as ModelTrackBPMChange)
@@ -114,16 +118,24 @@ export class PreparerService {
                 } else {
                     this.typeCache.set(e.time, new Set<ModelTrackNoteType>(e.type));
                 }
-                this.times.add(e.time);
+                if (this.times[this.times.length - 1] !== e.time) {
+                    this.times.push(e.time);
+                }
                 return e;
             })
             .map((e) => {
+                this.previousTime = this.timeIndex !== 0
+                    ? this.times[this.timeIndex - 1]
+                    : undefined;
                 if (nextBPMChange && e.time > nextBPMChange.time) {
                     this.currentIncrement = 60 / nextBPMChange.bpm;
                     const next = bpmChanges.next();
                     nextBPMChange = next.done ? undefined : next.value[1];
                 }
                 const note = this.buildNote(e);
+                if (e.time !== this.previousTime) {
+                    this.timeIndex += 1;
+                }
                 return note;
             });
     }
@@ -206,15 +218,12 @@ export class PreparerService {
     }
 
     private calculateHopo(note: ModelTrackNote): boolean {
-        const timesArray = Array.from(this.times);
-        const index = timesArray.indexOf(note.time);
-        if (index === 0) {
+        if (!this.previousTime) {
             return false;
         }
-        const previousTime = timesArray[index - 1];
-        if (note.time - previousTime < this.currentIncrement * 0.33855) {
+        if (note.time - this.previousTime < this.currentIncrement * 0.33855) {
             const noteType = Array.from(this.typeCache.get(note.time));
-            const previousType = Array.from(this.typeCache.get(previousTime));
+            const previousType = Array.from(this.typeCache.get(this.previousTime));
             if (JSON.stringify(noteType) === JSON.stringify(Array.from(previousType))) {
                 return false;
             }

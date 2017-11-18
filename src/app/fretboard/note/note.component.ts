@@ -20,6 +20,10 @@ export class NoteComponent {
     ) {
     }
 
+    get playing(): boolean {
+        return this.timeService.playing;
+    }
+
     select(event: any): void {
         if (!this.timeService.playing) {
             this.selectorService.selectNote(this.note.id);            

@@ -104,6 +104,7 @@ export class PreparerService {
         return t.events
             .filter(e => e.event === ModelTrackEventType.GuitarNote
                 || e.event === ModelTrackEventType.GHLNote)
+            .sort((a, b) => a.time - b.time)
             .map(e => e as ModelTrackNote)
             .map((e) => {
                 if (nextBPMChange && e.time > nextBPMChange.time) {

@@ -6,6 +6,7 @@ import {
     MatInputModule,
     MatListModule,
     MatRadioModule,
+    MatSlideToggleModule,
     MatTooltipModule,
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
@@ -32,6 +33,7 @@ import { TypeService } from './type/type.service';
         MatInputModule,
         MatListModule,
         MatRadioModule,
+        MatSlideToggleModule,
         MatTooltipModule,
         ReactiveFormsModule,
     ],

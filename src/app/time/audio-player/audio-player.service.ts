@@ -39,9 +39,12 @@ export class AudioPlayerService {
     }
 
     set audio(arrayBuffer: ArrayBuffer) {
-        this.audioLoaded = true;
+        this.audioLoaded = false;
         this.context.decodeAudioData(arrayBuffer).then((buffer) => {
+            this.audioLoaded = true;
             this.buffer = buffer;
+        }).catch((error) => {
+            this.buffer = undefined;
         });
     }
 

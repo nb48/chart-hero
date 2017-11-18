@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { TimeService } from '../../time/time.service';
+
 const spacer = 0.2;
 
 const zeroPosition = 100 * 1.5 / 1.8;
@@ -35,7 +37,7 @@ export class SpeedService {
     private timeBefore: number;
     private timeAfter: number;
 
-    constructor() {
+    constructor(private timeService: TimeService) {
         this.speed = 5;
     }
 
@@ -48,6 +50,7 @@ export class SpeedService {
         this.currentSpeedValue = speed;
         this.timeBefore = (1 / this.currentSpeed) * 1.5;
         this.timeAfter = (1 / this.currentSpeed) * -0.3;
+        this.timeService.refresh();
     }
 
     get after(): number {

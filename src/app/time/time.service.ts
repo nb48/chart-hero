@@ -32,11 +32,15 @@ export class TimeService {
 
     set time(time: number) {
         this.currentTime = time;
-        this.timeSubject.next(time);
+        this.refresh();
     }
 
     get playing(): boolean {
         return this.currentlyPlaying;
+    }
+
+    refresh() {
+        this.timeSubject.next(this.currentTime);
     }
 
     play() {

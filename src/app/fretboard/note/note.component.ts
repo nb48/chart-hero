@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import { SelectorService } from '../../controller/selector/selector.service';
 import { showTime } from '../../time/audio-player-controls/audio-player-controls.component';
+import { TimeService } from '../../time/time.service';
 import { Note, NoteType } from './note';
 
 @Component({
@@ -13,11 +14,24 @@ export class NoteComponent {
     @Input() note: Note;
     @Input() drawSustain: boolean;
 
-    constructor(private selectorService: SelectorService) {
+    constructor(
+        private selectorService: SelectorService,
+        private timeService: TimeService,
+    ) {
     }
 
     select(event: any): void {
-        this.selectorService.selectNote(this.note.id);
+        if (!this.timeService.playing) {
+            this.selectorService.selectNote(this.note.id);            
+        }
+        event.stopPropagation();
+    }
+
+    selectAndSnap(event: any): void {
+        if (!this.timeService.playing) {
+            this.selectorService.selectNote(this.note.id);
+            this.timeService.time = this.note.time;            
+        }
         event.stopPropagation();
     }
 

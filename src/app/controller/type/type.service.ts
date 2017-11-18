@@ -24,4 +24,10 @@ export class TypeService {
         newNote.type = type;
         this.actionsService.trackEventChanged(newNote);
     }
+
+    updateNoteForceHopo(): void {
+        const newNote = JSON.parse(JSON.stringify(this.note));
+        newNote.forceHopo = !newNote.forceHopo;
+        this.actionsService.trackEventChanged(newNote);
+    }
 }

@@ -86,7 +86,8 @@ export class GenericTrackImporterService {
                     event: eventType as
                         ModelTrackEventType.GuitarNote | ModelTrackEventType.GHLNote,
                     time: time + offset,
-                    type: noteTransformer(notes.map(n => n.note)),
+                    type: noteTransformer(notes.filter(n => n.note !== 5).map(n => n.note)),
+                    forceHopo: notes.some(n => n.note === 5),
                 };
             });
     }

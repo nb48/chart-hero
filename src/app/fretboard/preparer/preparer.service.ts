@@ -29,8 +29,9 @@ export class PreparerService {
     private model: Model;
     private track: Track;
     private duration: number;
-    private previousNote: ModelTrackNote;
     private currentIncrement: number;
+    private typeCache: Map<number, Set<ModelTrackNoteType>>;
+    private times: Set<number>;
 
     constructor(
         private modelService: ModelService,
@@ -91,12 +92,13 @@ export class PreparerService {
     }
 
     private buildNotes(): PreparedNote[] {
+        this.typeCache = new Map<number, Set<ModelTrackNoteType>>();
+        this.times = new Set<number>();
         const bpmChanges = this.model.syncTrack.events
             .filter(e => e.event === ModelTrackEventType.BPMChange)
             .map(e => e as ModelTrackBPMChange)
             .sort((a, b) => a.time - b.time)
             .entries();
-        this.previousNote = undefined;
         this.currentIncrement = 60 / bpmChanges.next().value[1].bpm;
         const next = bpmChanges.next();
         let nextBPMChange = next.done ? undefined : next.value[1];
@@ -107,13 +109,21 @@ export class PreparerService {
             .sort((a, b) => a.time - b.time)
             .map(e => e as ModelTrackNote)
             .map((e) => {
+                if (this.typeCache.has(e.time)) {
+                    e.type.forEach(t => this.typeCache.get(e.time).add(t));
+                } else {
+                    this.typeCache.set(e.time, new Set<ModelTrackNoteType>(e.type));
+                }
+                this.times.add(e.time);
+                return e;
+            })
+            .map((e) => {
                 if (nextBPMChange && e.time > nextBPMChange.time) {
                     this.currentIncrement = 60 / nextBPMChange.bpm;
                     const next = bpmChanges.next();
                     nextBPMChange = next.done ? undefined : next.value[1];
                 }
                 const note = this.buildNote(e);
-                this.previousNote = e;
                 return note;
             });
     }
@@ -195,14 +205,19 @@ export class PreparerService {
     }
 
     private calculateHopo(note: ModelTrackNote): boolean {
-        if (!this.previousNote) {
+        const timesArray = Array.from(this.times);
+        const index = timesArray.indexOf(note.time);
+        if (index === 0) {
             return false;
         }
-        if (note.time - this.previousNote.time < this.currentIncrement * 0.33855) {
-            if (JSON.stringify(note.type) === JSON.stringify(this.previousNote.type)) {
+        const previousTime = timesArray[index - 1];
+        if (note.time - previousTime < this.currentIncrement * 0.33855) {
+            const noteType = Array.from(this.typeCache.get(note.time));
+            const previousType = Array.from(this.typeCache.get(previousTime));
+            if (JSON.stringify(noteType) === JSON.stringify(Array.from(previousType))) {
                 return false;
             }
-            if (note.type.length > 1) {
+            if (noteType.length > 1) {
                 return false;
             }
             return true;

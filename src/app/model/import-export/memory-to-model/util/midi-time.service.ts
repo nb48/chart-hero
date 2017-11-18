@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { roundTime } from '../../../actions/actions.service';
 import { ModelTrackBPMChange } from '../../../model';
 import { MemorySyncTrack } from '../../memory';
 
@@ -34,12 +35,12 @@ export class MidiTimeService {
                     this.calculateTime(latestChange.midiTime, resolution, earlierChanges);
             const timeAfterLatestChange =
                 (midiTime - latestChange.midiTime) / conversionFactor(bpm, resolution);
-            const result = timeUntilLatestChange + timeAfterLatestChange;
+            const result = roundTime(timeUntilLatestChange + timeAfterLatestChange);
             this.timeCache.set(midiTime, result);
             return result;
         } else {
             const bpm: number = earlierChanges.length === 1 ? earlierChanges[0].value / 1000 : 1;
-            const result = midiTime / conversionFactor(bpm, resolution);
+            const result = roundTime(midiTime / conversionFactor(bpm, resolution));
             this.timeCache.set(midiTime, result);
             return result;
         }

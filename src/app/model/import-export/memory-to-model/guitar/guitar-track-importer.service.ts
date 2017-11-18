@@ -8,7 +8,7 @@ import {
     SupportedNotes,
 } from '../generic/generic-track-importer.service';
 
-const supportedGuitarNotes: SupportedNotes = [0, 1, 2, 3, 4, 7];
+const supportedGuitarNotes: SupportedNotes = [0, 1, 2, 3, 4, 5, 7];
 
 const guitarNoteImporter: NoteImporter = (notes: number[]): ModelTrackNoteType[] => {
     if (notes[0] === 7) {

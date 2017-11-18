@@ -55,6 +55,7 @@ export class ActionsService {
             time: roundTime(this.time),
             type: [],
             length: 0,
+            forceHopo: false,
         };
         const track = getTrack(this.model, this.track);        
         track.events.push(newNote);

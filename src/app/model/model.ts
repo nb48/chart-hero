@@ -52,6 +52,7 @@ export interface ModelTrackNote {
     time: number;
     type: ModelTrackNoteType[];
     length: number;
+    forceHopo: boolean;
 }
 
 export enum ModelTrackNoteType {

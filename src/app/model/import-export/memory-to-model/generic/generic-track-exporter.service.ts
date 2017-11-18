@@ -63,13 +63,21 @@ export class GenericTrackExporterService {
                     ? this.midiTimeService.calculateMidiTime
                         (time + n.length, resolution, bpmChanges) - midiTime
                     : 0;
+                const forceHopo = n.forceHopo
+                    ? [{
+                        length,
+                        midiTime,
+                        type: 'N',
+                        note: 5,
+                    }]
+                    : [];
                 if (n.type.length === 0) {
                     return [{
                         length,
                         midiTime,
                         type: 'N',
                         note: 7,
-                    }];
+                    }].concat(forceHopo);
                 }
                 return n.type.map((type) => {
                     return {
@@ -78,7 +86,7 @@ export class GenericTrackExporterService {
                         type: 'N',
                         note: noteExporter(type),
                     };
-                });
+                }).concat(forceHopo);
             }));
     }
 }

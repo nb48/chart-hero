@@ -26,7 +26,12 @@ export class FileService {
             this.timeService.stop();
         }
         this.$audioFileName = file.name;
-        this.audioPlayer.audio = URL.createObjectURL(file);
+        const reader = new FileReader();
+        const audioPlayer = this.audioPlayer;
+        reader.onload = function () {
+            audioPlayer.audio = this.result;
+        };
+        reader.readAsArrayBuffer(file);
     }
 
     get chartFileName(): string {

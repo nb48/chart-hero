@@ -28,11 +28,10 @@ describe('Service: FileService', () => {
         expect(service.audioFileName).toEqual('testFileName');
     });
 
-    it('FileStore should pass object url to audio player after setting audio file', () => {
+    it('FileStore should pass blob to audio player after setting audio file', () => {
         service.audioFile = testFile;
-        const exampleUrl = URL.createObjectURL(testFile);
         const audioPlayer = TestBed.get(AudioPlayerService);
-        expect((audioPlayer as any).url.length).toEqual(exampleUrl.length);
+        expect((audioPlayer as any).blob).toBeDefined;
     });
 
     it('FileStore should update chart file name after setting chart file', () => {
@@ -52,14 +51,14 @@ describe('Service: FileService', () => {
 
 class MockAudioPlayerService {
 
-    private $url: string;
+    private $blob: Blob;
 
-    set audio(url: string) {
-        this.$url = url;
+    set audio(blob: Blob) {
+        this.$blob = blob;
     }
 
-    get url(): string {
-        return this.$url;
+    get blob(): Blob {
+        return this.$blob;
     }
 }
 

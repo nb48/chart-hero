@@ -3,17 +3,12 @@ import { Observable, ReplaySubject, Subscription } from 'rxjs';
 
 import { AudioPlayerService } from './audio-player/audio-player.service';
 
-const interval = 1000 / 60;
-const frame = 1 / 60;
-
 @Injectable()
 export class TimeService {
 
     private currentlyPlaying: boolean;
     private currentTime: number;
     private lastPlayedTime: number;
-    private subscription: Subscription;
-    private timeCounter: number;
     private timeSubject: ReplaySubject<number>;
 
     constructor(private audioPlayer: AudioPlayerService) {
@@ -22,14 +17,9 @@ export class TimeService {
         this.currentlyPlaying = false;
         this.lastPlayedTime = this.currentTime;
         this.audioPlayer.times.subscribe((time: number) => {
-            if (isNaN(time)) {
-                return;
+            if (this.playing) {
+                this.time = time;
             }
-            const difference = Math.abs(time - this.timeCounter);
-            if (this.playing && (difference > 0.002 && difference < 0.33)) {
-                return;
-            }
-            this.timeCounter = time;
         });
         this.audioPlayer.ended.subscribe(() => {
             this.stop();
@@ -53,22 +43,11 @@ export class TimeService {
         this.audioPlayer.start(this.currentTime);
         this.currentlyPlaying = true;
         this.lastPlayedTime = this.currentTime;
-        this.timeCounter = undefined;
-        const renderer = Observable.interval(interval).subscribe(() => {
-            if (this.timeCounter && this.playing) {
-                this.timeCounter += frame;
-                this.time = this.timeCounter;                
-            }
-        });
-        this.subscription = renderer;
     }
 
     pause() {
-        this.subscription.unsubscribe();
-        this.subscription = undefined;
         this.audioPlayer.stop();
         this.currentlyPlaying = false;
-        this.time = this.currentTime;
     }
 
     stop() {
@@ -80,11 +59,9 @@ export class TimeService {
 
     repeat() {
         if (this.playing) {
-            this.subscription.unsubscribe();
-            this.subscription = undefined;
             this.audioPlayer.stop();
             this.time = this.lastPlayedTime;
-            this.play();
+            this.audioPlayer.start(this.lastPlayedTime);            
         } else {
             this.time = this.lastPlayedTime;
         }

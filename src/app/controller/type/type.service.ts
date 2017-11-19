@@ -30,4 +30,10 @@ export class TypeService {
         newNote.forceHopo = !newNote.forceHopo;
         this.actionsService.trackEventChanged(newNote);
     }
+
+    updateNoteTap(): void {
+        const newNote = JSON.parse(JSON.stringify(this.note));
+        newNote.tap = !newNote.tap;
+        this.actionsService.trackEventChanged(newNote);
+    }
 }

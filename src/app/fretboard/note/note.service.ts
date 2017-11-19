@@ -82,9 +82,8 @@ export class NoteService {
                         hopo: note.hopo,
                         tap: note.tap,
                     }] as NoteOpen[];
-                } else {
-                    return this.splitNote(note, y, selected, sustain, endY);
                 }
+                return this.splitNote(note, y, selected, sustain, endY);
             }))
             .sort((a: Note, b: Note) => a.y - b.y);
     }

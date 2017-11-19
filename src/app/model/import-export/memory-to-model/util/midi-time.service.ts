@@ -38,12 +38,11 @@ export class MidiTimeService {
             const result = roundTime(timeUntilLatestChange + timeAfterLatestChange);
             this.timeCache.set(midiTime, result);
             return result;
-        } else {
-            const bpm: number = earlierChanges.length === 1 ? earlierChanges[0].value / 1000 : 1;
-            const result = roundTime(midiTime / conversionFactor(bpm, resolution));
-            this.timeCache.set(midiTime, result);
-            return result;
         }
+        const bpm: number = earlierChanges.length === 1 ? earlierChanges[0].value / 1000 : 1;
+        const result = roundTime(midiTime / conversionFactor(bpm, resolution));
+        this.timeCache.set(midiTime, result);
+        return result;
     }
 
     calculateMidiTime(time: number, resolution: number, bpmChanges: ModelTrackBPMChange[])
@@ -62,11 +61,10 @@ export class MidiTimeService {
             const result = midiTimeUntilLatestChange + midiTimeAfterLatestChange;
             this.midiTimeCache.set(time, result);
             return result;
-        } else {
-            const bpm: number = earlierChanges.length === 1 ? earlierChanges[0].bpm : 1;
-            const result = time * conversionFactor(bpm, resolution);
-            this.midiTimeCache.set(time, result);
-            return result;
         }
+        const bpm: number = earlierChanges.length === 1 ? earlierChanges[0].bpm : 1;
+        const result = time * conversionFactor(bpm, resolution);
+        this.midiTimeCache.set(time, result);
+        return result;
     }
 }

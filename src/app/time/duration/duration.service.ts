@@ -32,7 +32,8 @@ export class DurationService {
                 events.push(...getTrack(model, track).events);                
             });
         const lastEvent = events.sort((a, b) => b.time - a.time)[0];
-        const duration = lastEvent ? lastEvent.time : minDuration;
+        const lastLength = lastEvent && (lastEvent as any).length ? (lastEvent as any).length : 0;
+        const duration = lastEvent ? lastEvent.time + lastLength : minDuration;
         return duration < minDuration ? minDuration : duration;
     }
 }

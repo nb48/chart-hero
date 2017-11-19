@@ -113,25 +113,24 @@ export class GenericTrackImporterService {
                     || note.note === 6 || notes[0].note === 6) &&
                     notes.every(note => note.note !== 7)) {
                     return [notes];
-                } else {
-                    const forceHopoIndex = notes.findIndex(n => n.note === 5);
-                    let forceHopo: string = undefined;
-                    if (forceHopoIndex !== -1) {
-                        forceHopo = JSON.stringify(notes[forceHopoIndex]);
-                        notes.splice(forceHopoIndex, 1);
-                    }
-                    const forceHopoArray = () => forceHopo ? [JSON.parse(forceHopo)] : [];
-                    const tapNoteIndex = notes.findIndex(n => n.note === 6);
-                    let tapNote: string = undefined;
-                    if (tapNoteIndex !== -1) {
-                        tapNote = JSON.stringify(notes[tapNoteIndex]);
-                        notes.splice(tapNoteIndex, 1);
-                    }
-                    const tapNoteArray = () => tapNote ? [JSON.parse(tapNote)] : [];
-                    return notes.map(note => [note]
-                        .concat(forceHopoArray())
-                        .concat(tapNoteArray()));
                 }
+                const forceHopoIndex = notes.findIndex(n => n.note === 5);
+                let forceHopo: string = undefined;
+                if (forceHopoIndex !== -1) {
+                    forceHopo = JSON.stringify(notes[forceHopoIndex]);
+                    notes.splice(forceHopoIndex, 1);
+                }
+                const forceHopoArray = () => forceHopo ? [JSON.parse(forceHopo)] : [];
+                const tapNoteIndex = notes.findIndex(n => n.note === 6);
+                let tapNote: string = undefined;
+                if (tapNoteIndex !== -1) {
+                    tapNote = JSON.stringify(notes[tapNoteIndex]);
+                    notes.splice(tapNoteIndex, 1);
+                }
+                const tapNoteArray = () => tapNote ? [JSON.parse(tapNote)] : [];
+                return notes.map(note => [note]
+                    .concat(forceHopoArray())
+                    .concat(tapNoteArray()));
             }));
     }
 

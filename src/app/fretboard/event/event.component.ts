@@ -25,14 +25,14 @@ export class EventComponent {
 
     select(event: any): void {
         if (!this.timeService.playing) {
-            this.selectorService.selectNote(this.event.id);            
+            this.selectorService.selectEvent(this.event.id);
         }
         event.stopPropagation();
     }
 
     selectAndSnap(event: any): void {
         if (!this.timeService.playing) {
-            this.selectorService.selectNote(this.event.id);
+            this.selectorService.selectEvent(this.event.id);
             this.timeService.time = this.event.time;            
         }
         event.stopPropagation();

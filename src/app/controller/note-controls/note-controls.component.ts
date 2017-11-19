@@ -21,6 +21,7 @@ export class NoteControlsComponent {
     length: number;
     formattedLength: string;
     forceHopo: boolean;
+    tap: boolean;
     isGuitarNote: boolean;
     isGHLNote: boolean;
     type: ModelTrackNoteType[];
@@ -53,6 +54,7 @@ export class NoteControlsComponent {
             this.length = note.length;
             this.formattedLength = showTime(note.length);
             this.forceHopo = note.forceHopo;
+            this.tap = note.tap;
             this.isGuitarNote = note.event === ModelTrackEventType.GuitarNote;
             this.isGHLNote = note.event === ModelTrackEventType.GHLNote;
             this.type = note.type;
@@ -62,6 +64,10 @@ export class NoteControlsComponent {
 
     forceHopoChanged(): void {
         this.typeService.updateNoteForceHopo();
+    }
+
+    tapChanged(): void {
+        this.typeService.updateNoteTap();
     }
 
     typeChanged(type: ModelTrackNoteType[]): void {

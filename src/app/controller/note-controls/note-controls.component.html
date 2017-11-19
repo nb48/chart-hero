@@ -17,6 +17,10 @@
                 <label class="body-1">HOPO: </label>
                 <mat-slide-toggle [checked]="forceHopo" (change)="forceHopoChanged()" color="primary"></mat-slide-toggle>
             </mat-list-item>
+            <mat-list-item>
+                <label class="body-1">Tap: </label>
+                <mat-slide-toggle [checked]="tap" (change)="tapChanged()" color="primary"></mat-slide-toggle>
+            </mat-list-item>
         </mat-list>
         <app-note-controls-guitar *ngIf="isGuitarNote" class="note-type-guitar" [type]="type" (changed)="typeChanged($event)"></app-note-controls-guitar>
         <app-note-controls-ghl *ngIf="isGHLNote" class="note-type-ghl" [type]="type" (changed)="typeChanged($event)"></app-note-controls-ghl>

@@ -62,7 +62,7 @@ export class AudioPlayerService {
         this.source = this.context.createBufferSource();
         this.source.buffer = this.buffer;
         this.source.connect(this.context.destination);
-        this.source.start(0, time);
+        this.source.start(0, time, this.buffer.duration - time);
         this.source.onended = () => {
             this.endedEmitter.emit();
         };

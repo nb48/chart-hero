@@ -16,6 +16,7 @@ export interface PreparedNote {
     time: number;
     length: number;
     hopo: boolean;
+    tap: boolean;
     open: boolean;
     guitarLane1: PreparedNoteGuitarColor;
     guitarLane2: PreparedNoteGuitarColor;

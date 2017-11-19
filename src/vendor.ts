@@ -10,3 +10,6 @@ import 'rxjs';
 
 // HammerJS
 import 'hammerjs';
+
+// Howler
+import 'howler';

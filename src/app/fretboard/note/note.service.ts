@@ -80,6 +80,7 @@ export class NoteService {
                         id: note.id + 1,
                         time: note.time,
                         hopo: note.hopo,
+                        tap: note.tap,
                     }] as NoteOpen[];
                 } else {
                     return this.splitNote(note, y, selected, sustain, endY);
@@ -98,10 +99,11 @@ export class NoteService {
         const notes: (NoteGuitar | NoteGHL)[] = [];
         const time = note.time;
         const hopo = note.hopo;
+        const tap = note.tap;
         const pushGuitar = (x: number, color: NoteGuitarColor) => {
             const type = NoteType.Guitar;
             const id = note.id + notes.length + 1;
-            notes.push({ id, time, type, selected, x, y, color, sustain, endY, hopo });
+            notes.push({ id, time, type, selected, x, y, color, sustain, endY, hopo, tap });
         };
         if (note.guitarLane1 !== PreparedNoteGuitarColor.None) {
             pushGuitar(30.4, this.buildGuitarNoteColor(note.guitarLane1));
@@ -121,7 +123,7 @@ export class NoteService {
         const pushGHL = (x: number, color: NoteGHLColor) => {
             const type = NoteType.GHL;
             const id = note.id + notes.length + 1;
-            notes.push({ id, time, type, selected, x, y, color, sustain, endY, hopo });
+            notes.push({ id, time, type, selected, x, y, color, sustain, endY, hopo, tap });
         };
         if (note.ghlLane1 !== PreparedNoteGHLColor.None) {
             pushGHL(40, this.buildGHLNoteColor(note.ghlLane1));

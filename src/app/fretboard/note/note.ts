@@ -19,6 +19,7 @@ export interface NoteOpen {
     sustain: boolean;
     endY: number;
     hopo: boolean;
+    tap: boolean;
 }
 
 export interface NoteGuitar {
@@ -32,6 +33,7 @@ export interface NoteGuitar {
     sustain: boolean;
     endY: number;
     hopo: boolean;
+    tap: boolean;
 }
 
 export enum NoteGuitarColor {
@@ -53,6 +55,7 @@ export interface NoteGHL {
     sustain: boolean;
     endY: number;
     hopo: boolean;
+    tap: boolean;
 }
 
 export enum NoteGHLColor {

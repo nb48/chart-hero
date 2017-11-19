@@ -14,6 +14,11 @@ import { MidiTimeService } from '../util/midi-time.service';
 export type SupportedNotes = number[];
 export type NoteImporter = (notes: SupportedNotes) => ModelTrackNoteType[];
 
+const forceHopoModifier = 5;
+const tapModifier = 6;
+const noteModifiers = [forceHopoModifier, tapModifier];
+const openNote = 7;
+
 @Injectable()
 export class GenericTrackImporterService {
 
@@ -79,17 +84,21 @@ export class GenericTrackImporterService {
                     ? this.midiTimeService.calculateTime
                         (midiTime + notes[0].length, resolution, syncTrack) - time
                     : 0;
-                const type: ModelTrackNoteType[] = [];
+                const notesToTransform = notes
+                    .map(n => n.note) 
+                    .filter(n => noteModifiers.indexOf(n) === -1);
+                const type = noteTransformer(notesToTransform);
+                const forceHopo = notes.some(n => n.note === forceHopoModifier);
+                const tap = notes.some(n => n.note === tapModifier);
                 return {
                     length,
+                    type,
+                    forceHopo,
+                    tap,
                     id: this.idGenerator.id(),
                     event: eventType as
                         ModelTrackEventType.GuitarNote | ModelTrackEventType.GHLNote,
                     time: time + offset,
-                    type: noteTransformer(notes
-                        .filter(n => n.note !== 5 && n.note !== 6).map(n => n.note)),
-                    forceHopo: notes.some(n => n.note === 5),
-                    tap: notes.some(n => n.note === 6),
                 };
             });
     }
@@ -108,29 +117,30 @@ export class GenericTrackImporterService {
             });
         return [].concat.apply([], Array.from(times.values())
             .map((notes: MemoryTrack[]) => {
-                if (notes.every(note => note.length === notes[0].length
-                    || note.note === 5 || notes[0].note === 5
-                    || note.note === 6 || notes[0].note === 6) &&
-                    notes.every(note => note.note !== 7)) {
+                const notesHaveSameLength =
+                    notes.every(note => note.length === notes[0].length);
+                const notesContainModifier =
+                    notes.some(note => noteModifiers.indexOf(note.note) !== -1);
+                const notesDontContainOpen =
+                    notes.every(note => note.note !== openNote);
+                if ((notesHaveSameLength || notesContainModifier) && notesDontContainOpen) {
                     return [notes];
                 }
-                const forceHopoIndex = notes.findIndex(n => n.note === 5);
-                let forceHopo: string = undefined;
-                if (forceHopoIndex !== -1) {
-                    forceHopo = JSON.stringify(notes[forceHopoIndex]);
-                    notes.splice(forceHopoIndex, 1);
-                }
-                const forceHopoArray = () => forceHopo ? [JSON.parse(forceHopo)] : [];
-                const tapNoteIndex = notes.findIndex(n => n.note === 6);
-                let tapNote: string = undefined;
-                if (tapNoteIndex !== -1) {
-                    tapNote = JSON.stringify(notes[tapNoteIndex]);
-                    notes.splice(tapNoteIndex, 1);
-                }
-                const tapNoteArray = () => tapNote ? [JSON.parse(tapNote)] : [];
-                return notes.map(note => [note]
-                    .concat(forceHopoArray())
-                    .concat(tapNoteArray()));
+                const getNoteModifier = (modifier: number): () => MemoryTrack[] => {
+                    const modifierIndex = notes.findIndex(n => n.note === modifier);
+                    let noteModifier: string = undefined;
+                    if (modifierIndex !== -1) {
+                        noteModifier = JSON.stringify(notes[modifierIndex]);
+                        notes.splice(modifierIndex, 1);
+                    }
+                    return () => noteModifier ? [JSON.parse(noteModifier)] : [];
+                };
+                const modifierFunctions = noteModifiers.map(getNoteModifier);
+                return notes.map((note) => {
+                    const group = [note];
+                    modifierFunctions.forEach(f => group.concat(f()));
+                    return group;
+                });
             }));
     }
 

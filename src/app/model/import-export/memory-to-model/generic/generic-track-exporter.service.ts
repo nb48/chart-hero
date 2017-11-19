@@ -71,13 +71,21 @@ export class GenericTrackExporterService {
                         note: 5,
                     }]
                     : [];
+                const tapNote = n.tap
+                    ? [{
+                        length,
+                        midiTime,
+                        type: 'N',
+                        note: 6,
+                    }]
+                    : [];
                 if (n.type.length === 0) {
                     return [{
                         length,
                         midiTime,
                         type: 'N',
                         note: 7,
-                    }].concat(forceHopo);
+                    }].concat(forceHopo).concat(tapNote);
                 }
                 return n.type.map((type) => {
                     return {
@@ -86,7 +94,7 @@ export class GenericTrackExporterService {
                         type: 'N',
                         note: noteExporter(type),
                     };
-                }).concat(forceHopo);
+                }).concat(forceHopo).concat(tapNote);
             }));
     }
 }

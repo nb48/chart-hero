@@ -56,6 +56,7 @@ export class ActionsService {
             type: [],
             length: 0,
             forceHopo: false,
+            tap: false,
         };
         const track = getTrack(this.model, this.track);        
         track.events.push(newNote);

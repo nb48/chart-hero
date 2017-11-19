@@ -86,8 +86,10 @@ export class GenericTrackImporterService {
                     event: eventType as
                         ModelTrackEventType.GuitarNote | ModelTrackEventType.GHLNote,
                     time: time + offset,
-                    type: noteTransformer(notes.filter(n => n.note !== 5).map(n => n.note)),
+                    type: noteTransformer(notes
+                        .filter(n => n.note !== 5 && n.note !== 6).map(n => n.note)),
                     forceHopo: notes.some(n => n.note === 5),
+                    tap: notes.some(n => n.note === 6),
                 };
             });
     }
@@ -107,18 +109,28 @@ export class GenericTrackImporterService {
         return [].concat.apply([], Array.from(times.values())
             .map((notes: MemoryTrack[]) => {
                 if (notes.every(note => note.length === notes[0].length
-                    || note.note === 5 || notes[0].note === 5) &&
+                    || note.note === 5 || notes[0].note === 5
+                    || note.note === 6 || notes[0].note === 6) &&
                     notes.every(note => note.note !== 7)) {
                     return [notes];
                 } else {
                     const forceHopoIndex = notes.findIndex(n => n.note === 5);
+                    let forceHopo: string = undefined;
                     if (forceHopoIndex !== -1) {
-                        const forceHopo = JSON.stringify(notes[forceHopoIndex]);
+                        forceHopo = JSON.stringify(notes[forceHopoIndex]);
                         notes.splice(forceHopoIndex, 1);
-                        return notes.map(note => [note, JSON.parse(forceHopo)]);
-                    } else {
-                        return notes.map(note => [note]);                        
                     }
+                    const forceHopoArray = () => forceHopo ? [JSON.parse(forceHopo)] : [];
+                    const tapNoteIndex = notes.findIndex(n => n.note === 6);
+                    let tapNote: string = undefined;
+                    if (tapNoteIndex !== -1) {
+                        tapNote = JSON.stringify(notes[tapNoteIndex]);
+                        notes.splice(tapNoteIndex, 1);
+                    }
+                    const tapNoteArray = () => tapNote ? [JSON.parse(tapNote)] : [];
+                    return notes.map(note => [note]
+                        .concat(forceHopoArray())
+                        .concat(tapNoteArray()));
                 }
             }));
     }

@@ -8,7 +8,7 @@ import {
     SupportedNotes,
 } from '../generic/generic-track-importer.service';
 
-const supportedGHLNotes: SupportedNotes = [0, 1, 2, 3, 4, 5, 7, 8];
+const supportedGHLNotes: SupportedNotes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 const ghlNoteImporter: NoteImporter = (notes: number[]): ModelTrackNoteType[] => {
     if (notes[0] === 7) {

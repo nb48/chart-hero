@@ -53,6 +53,7 @@ export interface ModelTrackNote {
     type: ModelTrackNoteType[];
     length: number;
     forceHopo: boolean;
+    tap: boolean;
 }
 
 export enum ModelTrackNoteType {

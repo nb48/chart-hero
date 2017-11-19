@@ -47,6 +47,7 @@ export class GuitarToGHLConverterService {
                     type: this.convertGuitarNotesToGHLNotes(event.type),
                     length: event.length,
                     forceHopo: event.forceHopo,
+                    tap: event.tap,
                 })),
             unsupported: this.model.guitar.expert.unsupported.map((unsupported) => {
                 return JSON.parse(JSON.stringify(unsupported));

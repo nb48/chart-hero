@@ -144,7 +144,7 @@ export class PreparerService {
         const time = note.time;
         const length = note.length;
         const originalHopo = this.calculateHopo(note);
-        const hopo = note.forceHopo ? !originalHopo : originalHopo;
+        const hopo = note.tap ? false : note.forceHopo ? !originalHopo : originalHopo;
         const tap = note.tap;
         const open = note.type.length === 0;
         const guitarLane1 = this.buildGuitarColor(note.type, ModelTrackNoteType.GuitarGreen);

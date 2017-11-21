@@ -24,8 +24,10 @@ describe('Service: FileService', () => {
     });
 
     it('FileStore should update audio file name after setting audio file', () => {
+        let audioFileName;
+        service.audioFileNames.subscribe(afn => audioFileName = afn);
         service.audioFile = testFile;
-        expect(service.audioFileName).toEqual('testFileName');
+        expect(audioFileName).toEqual('testFileName');
     });
 
     it('FileStore should pass url to audio player after setting audio file', () => {
@@ -36,8 +38,10 @@ describe('Service: FileService', () => {
     });
 
     it('FileStore should update chart file name after setting chart file', () => {
+        let chartFileName;
+        service.chartFileNames.subscribe(cfn => chartFileName = cfn);
         service.chartFile = testFile;
-        expect(service.chartFileName).toEqual('testFileName');
+        expect(chartFileName).toEqual('testFileName');
     });
 
     it('FileStore should pass chart string to chart importer after setting chart file', (done) => {

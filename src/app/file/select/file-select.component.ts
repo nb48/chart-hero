@@ -9,6 +9,6 @@ import { FileService } from '../file.service';
 })
 export class FileSelectComponent {
 
-    constructor(public store: FileService) {
+    constructor(public service: FileService) {
     }
 }

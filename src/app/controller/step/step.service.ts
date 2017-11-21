@@ -43,7 +43,6 @@ export class StepService {
         this.selectorService.selectedNotes.subscribe((note) => {
             this.note = note;
         });
-        this.step = defaultStep;
         this.stepInfoSubject = new ReplaySubject<StepInfo>();
     }
 
@@ -63,21 +62,34 @@ export class StepService {
         return this.stepInfoSubject.asObservable();
     }
 
-    newStep(top: number, bottom: number, stepControl: string): void {
-        this.step = top / bottom;
-        if (isNaN(this.step)) {
-            this.step = defaultStep;
-        }
+    newStep(stepControl: string, customTop?: number, customBottom?: number): void {
         this.$stepControl = stepControl;
-        if (stepControl === 'custom') {
-            this.$customStepTop = top;
-            this.$customStepBottom = bottom;
-        }
+        this.$customStepTop = customTop;
+        this.$customStepBottom = customBottom;
         this.stepInfoSubject.next({
             stepControl: this.$stepControl,
             customStepTop: this.$customStepTop,
             customStepBottom: this.$customStepBottom,
         });
+        switch (stepControl) {
+        case 'one':
+            this.updateStep(1, 1, stepControl);
+            return;
+        case 'half':
+            this.updateStep(1, 2, stepControl);
+            return;
+        case 'third':
+            this.updateStep(1, 3, stepControl);
+            return;
+        case 'quarter':
+            this.updateStep(1, 4, stepControl);
+            return;
+        case 'custom':
+            const top = customTop && customTop !== 0 ? customTop : 1;
+            const bottom = customBottom && customBottom !== 0 ? customBottom : 1;
+            this.updateStep(customTop, customBottom, stepControl);
+            return;
+        }
     }
 
     moveForwardsTime(): void {
@@ -134,5 +146,12 @@ export class StepService {
             newNote.length = 0;
         }
         this.actionsService.trackEventChanged(newNote);
+    }
+
+    private updateStep(top: number, bottom: number, stepControl: string): void {
+        this.step = top / bottom;
+        if (isNaN(this.step)) {
+            this.step = defaultStep;
+        }
     }
 }

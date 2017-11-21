@@ -20,7 +20,7 @@ import { ParentControlsComponent } from './parent-controls/parent-controls.compo
 
 import { BPMService } from './bpm/bpm.service';
 import { SelectorService } from './selector/selector.service';
-import { TimeService } from './time/time.service';
+import { StepService } from './step/step.service';
 import { TypeService } from './type/type.service';
 
 @NgModule({
@@ -50,7 +50,7 @@ import { TypeService } from './type/type.service';
     providers: [
         BPMService,
         SelectorService,
-        TimeService,
+        StepService,
         TypeService,
     ],
 })

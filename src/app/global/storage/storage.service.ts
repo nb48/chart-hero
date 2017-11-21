@@ -41,6 +41,7 @@ export class StorageService {
         this.loadChartFileName();
         this.loadSpeed();
         this.loadModel();
+        this.loadTime();
     }
 
     private loadStepInfo(): void {
@@ -76,6 +77,14 @@ export class StorageService {
         if (modelString) {
             const model = JSON.parse(modelString) as Model;
             this.modelService.model = model;
+        }
+    }
+
+    private loadTime(): void {
+        const timeString = localStorage.getItem('time');
+        if (timeString) {
+            const time = JSON.parse(timeString) as number;
+            this.timeService.time = time;
         }
     }
 }

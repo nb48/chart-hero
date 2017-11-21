@@ -10,12 +10,14 @@ export class AudioPlayerService {
     private audioLoaded: boolean;
     private timeEmitter: EventEmitter<number>;
     private endedEmitter: EventEmitter<void>;
+    private durationEmitter: EventEmitter<number>;
     private howl: Howl;
 
     constructor() {
         this.audioLoaded = false;
         this.timeEmitter = new EventEmitter<number>();
         this.endedEmitter = new EventEmitter<void>();
+        this.durationEmitter = new EventEmitter<number>();
         Observable.interval(frame).subscribe(() => {
             if (this.audioLoaded) {
                 this.timeEmitter.emit(this.howl.seek() as number);                
@@ -35,6 +37,10 @@ export class AudioPlayerService {
         return this.endedEmitter;
     }
 
+    get durations(): EventEmitter<number> {
+        return this.durationEmitter;
+    }
+
     setAudio(url: string, extension: string) {
         this.audioLoaded = false;
         this.howl = new Howl({
@@ -43,6 +49,7 @@ export class AudioPlayerService {
         });
         this.howl.once('load', () => {
             this.audioLoaded = true;
+            this.durationEmitter.emit(this.howl.duration());
         });
         this.howl.on('end', () => {
             this.endedEmitter.emit();

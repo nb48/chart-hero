@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, ReplaySubject } from 'rxjs';
 
 import { TimeService } from '../../time/time.service';
 
@@ -36,13 +37,19 @@ export class SpeedService {
     private currentSpeedValue: number;
     private timeBefore: number;
     private timeAfter: number;
+    private speedSubject: ReplaySubject<number>;
 
     constructor(private timeService: TimeService) {
+        this.speedSubject = new ReplaySubject<number>();
         this.speed = 5;
     }
 
     get speed(): number {
         return this.currentSpeedValue;
+    }
+
+    get speeds(): Observable<number> {
+        return this.speedSubject.asObservable();
     }
 
     set speed(speed: number) {
@@ -51,6 +58,7 @@ export class SpeedService {
         this.timeBefore = (1 / this.currentSpeed) * 1.5;
         this.timeAfter = (1 / this.currentSpeed) * -0.3;
         this.timeService.refresh();
+        this.speedSubject.next(this.currentSpeedValue);
     }
 
     get after(): number {

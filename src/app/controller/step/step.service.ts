@@ -44,6 +44,7 @@ export class StepService {
             this.note = note;
         });
         this.stepInfoSubject = new ReplaySubject<StepInfo>();
+        this.newStep('one', 1, 1);
     }
 
     get stepControl(): string {

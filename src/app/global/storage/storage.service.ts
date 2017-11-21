@@ -20,9 +20,7 @@ export class StorageService {
     ) {
         this.load();
         this.stepService.stepInfos.subscribe(si => this.save('stepInfo', si));
-        this.fileService.audioFileNames.subscribe(afn => this.save('audioFileName', afn));
         this.fileService.chartFileNames.subscribe(cfn => this.save('chartFileName', cfn));
-        this.fileService.audioFiles.subscribe(af => this.save('audioFile', af));
         this.speedService.speeds.subscribe(s => this.save('speed', s));
         this.modelService.models.subscribe(m => this.save('model', m));
         this.timeService.times.subscribe((t) => {
@@ -39,7 +37,6 @@ export class StorageService {
 
     private load(): void {
         this.loadStepInfo();
-        this.loadAudioFileName();
         this.loadChartFileName();
     }
 
@@ -52,16 +49,6 @@ export class StorageService {
                 stepInfo.customStepTop,
                 stepInfo.customStepBottom,
             );
-        } else {
-            this.stepService.newStep('one', 1, 1);
-        }
-    }
-
-    private loadAudioFileName(): void {
-        const audioFileNameString = localStorage.getItem('audioFileName');
-        if (audioFileNameString) {
-            const audioFileName = JSON.parse(audioFileNameString) as string;
-            this.fileService.loadAudioFileName(audioFileName);
         }
     }
 

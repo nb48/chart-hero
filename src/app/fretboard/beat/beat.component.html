@@ -1,1 +1,2 @@
-<svg:line x1="0" x2="100" [attr.y1]="beat.y" [attr.y2]="beat.y" stroke="white" stroke-width="0.5"></svg:line>
+<svg:line class="beat" (dblclick)="selectAndSnap($event)" [matTooltip]="!playing ? tooltip : undefined" [matTooltipClass]="'app-tooltip'" x1="0" x2="100" [attr.y1]="beat.y" [attr.y2]="beat.y" stroke="white" stroke-width="0.5"></svg:line>
+    

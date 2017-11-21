@@ -4,6 +4,7 @@ import { StepService, StepInfo } from '../../controller/step/step.service';
 import { FileService } from '../../file/file.service';
 import { SpeedService } from '../../fretboard/speed/speed.service';
 import { ModelService } from '../../model/model.service';
+import { Model } from '../../model/model';
 import { TimeService } from '../../time/time.service';
 import { VolumeService } from '../../time/volume/volume.service';
 
@@ -39,6 +40,7 @@ export class StorageService {
         this.loadStepInfo();
         this.loadChartFileName();
         this.loadSpeed();
+        this.loadModel();
     }
 
     private loadStepInfo(): void {
@@ -66,6 +68,14 @@ export class StorageService {
         if (speedString) {
             const speed = JSON.parse(speedString) as number;
             this.speedService.speed = speed;
+        }
+    }
+
+    private loadModel(): void {
+        const modelString = localStorage.getItem('model');
+        if (modelString) {
+            const model = JSON.parse(modelString) as Model;
+            this.modelService.model = model;
         }
     }
 }

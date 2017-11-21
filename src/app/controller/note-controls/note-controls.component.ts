@@ -75,29 +75,7 @@ export class NoteControlsComponent {
     }
 
     newStep(): void {
-        switch (this.stepControl) {
-        case 'one':
-            this.stepService.newStep(1, 1, 'one');
-            return;
-        case 'half':
-            this.stepService.newStep(1, 2, 'half');
-            return;
-        case 'third':
-            this.stepService.newStep(1, 3, 'third');
-            return;
-        case 'quarter':
-            this.stepService.newStep(1, 4, 'quarter');
-            return;
-        case 'custom':
-            const top = this.customStepTop !== null && this.customStepTop !== 0
-                ? this.customStepTop
-                : 1;
-            const bottom = this.customStepBottom !== null && this.customStepBottom !== 0
-                ? this.customStepBottom
-                : 1;
-            this.stepService.newStep(top, bottom, 'custom');
-            return;
-        }
+        this.stepService.newStep(this.stepControl, this.customStepTop, this.customStepBottom);
     }
 
     moveForwards(): void {
@@ -132,6 +110,6 @@ export class NoteControlsComponent {
 
     clickStepControl(): void {
         this.stepControl = 'custom';
-        this.stepService.newStep(this.customStepTop, this.customStepBottom, 'custom');
+        this.newStep();
     }
 }

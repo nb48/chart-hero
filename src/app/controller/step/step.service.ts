@@ -10,6 +10,12 @@ import { SelectorService } from '../selector/selector.service';
 
 const defaultStep = 1;
 
+export interface StepInfo {
+    stepControl: string;
+    customStepTop: number;
+    customStepBottom: number;
+}
+
 @Injectable()
 export class StepService {
 
@@ -20,6 +26,7 @@ export class StepService {
     private $stepControl: string;
     private $customStepTop: number;
     private $customStepBottom: number;
+    private stepInfoSubject: ReplaySubject<StepInfo>;
 
     constructor(
         private beatsService: BeatService,
@@ -37,6 +44,7 @@ export class StepService {
             this.note = note;
         });
         this.step = defaultStep;
+        this.stepInfoSubject = new ReplaySubject<StepInfo>();
     }
 
     get stepControl(): string {
@@ -51,6 +59,10 @@ export class StepService {
         return this.$customStepBottom;
     }
 
+    get stepInfos(): Observable<StepInfo> {
+        return this.stepInfoSubject.asObservable();
+    }
+
     newStep(top: number, bottom: number, stepControl: string): void {
         this.step = top / bottom;
         if (isNaN(this.step)) {
@@ -61,6 +73,11 @@ export class StepService {
             this.$customStepTop = top;
             this.$customStepBottom = bottom;
         }
+        this.stepInfoSubject.next({
+            stepControl: this.$stepControl,
+            customStepTop: this.$customStepTop,
+            customStepBottom: this.$customStepBottom,
+        });
     }
 
     moveForwardsTime(): void {

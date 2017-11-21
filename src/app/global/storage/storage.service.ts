@@ -42,6 +42,7 @@ export class StorageService {
         this.loadSpeed();
         this.loadModel();
         this.loadTime();
+        this.loadVolume();
     }
 
     private loadStepInfo(): void {
@@ -85,6 +86,14 @@ export class StorageService {
         if (timeString) {
             const time = JSON.parse(timeString) as number;
             this.timeService.time = time;
+        }
+    }
+
+    private loadVolume(): void {
+        const volumeString = localStorage.getItem('volume');
+        if (volumeString) {
+            const volume = JSON.parse(volumeString) as number;
+            this.volumeService.newVolume(volume);
         }
     }
 }

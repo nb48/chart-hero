@@ -5,7 +5,7 @@ import { Track, getTrack } from '../../track/track';
 import { ModelService } from '../../model/model.service';
 import { Model, ModelTrackEvent } from '../../model/model';
 
-const minDuration = 1;
+const minDuration = 5;
 
 @Injectable()
 export class DurationService {

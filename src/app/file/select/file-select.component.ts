@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { ModelImporterService } from '../../model/import-export/model-importer.service';
 import { FileService } from '../file.service';
 
 @Component({
@@ -9,6 +10,14 @@ import { FileService } from '../file.service';
 })
 export class FileSelectComponent {
 
-    constructor(public service: FileService) {
+    constructor(
+        private modelImporter: ModelImporterService,
+        public service: FileService,
+    ) {
+    }
+
+    reset() {
+        this.modelImporter.import('');
+        this.service.loadChartFileName('');
     }
 }

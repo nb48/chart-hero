@@ -7,13 +7,14 @@
                          ". view parent-controls"
                          "track-selector view parent-controls"
                          "audio-player-controls view parent-controls"
+                         "volume-controls view parent-controls"
                          "speed-controls view parent-controls"
                          "converter view parent-controls"
                          ". view parent-controls"
                          "actions view parent-controls"
                          ". view file-download";
     grid-template-columns: 20% 2fr 1fr;
-    grid-template-rows: 9.25em 1em 2.25em 4.25em 4em 3.25em 4fr 1fr 4.25em;
+    grid-template-rows: 9.25em 1em 2.25em 4.25em 4.25em 4em 3.25em 4fr 1fr 4.25em;
 }
 
 .app .title {
@@ -36,6 +37,10 @@
 
 .app app-audio-player-controls {
     grid-area: audio-player-controls;
+}
+
+.app app-volume-controls {
+    grid-area: volume-controls;
 }
 
 .app app-speed-controls {

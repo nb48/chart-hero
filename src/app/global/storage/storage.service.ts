@@ -7,10 +7,11 @@ import { ModelService } from '../../model/model.service';
 import { Model } from '../../model/model';
 import { TimeService } from '../../time/time.service';
 import { VolumeService } from '../../time/volume/volume.service';
+import { TrackService } from '../../track/track.service';
 
 @Injectable()
 export class StorageService {
-
+    
     constructor(
         private stepService: StepService,
         private fileService: FileService,
@@ -18,6 +19,7 @@ export class StorageService {
         private modelService: ModelService,
         private timeService: TimeService,
         private volumeService: VolumeService,
+        private trackService: TrackService,
     ) {
         this.load();
         this.stepService.stepInfos.subscribe(si => this.save('stepInfo', si));
@@ -30,6 +32,7 @@ export class StorageService {
             }
         });
         this.volumeService.volumes.subscribe(v => this.save('volume', v));
+        this.trackService.tracks.subscribe(t => this.save('track', t));
     }
 
     private save(name: string, value: any): void {
@@ -43,6 +46,7 @@ export class StorageService {
         this.loadModel();
         this.loadTime();
         this.loadVolume();
+        this.loadTrack();
     }
 
     private loadStepInfo(): void {
@@ -94,6 +98,14 @@ export class StorageService {
         if (volumeString) {
             const volume = JSON.parse(volumeString) as number;
             this.volumeService.newVolume(volume);
+        }
+    }
+
+    private loadTrack(): void {
+        const trackString = localStorage.getItem('track');
+        if (trackString) {
+            const track = JSON.parse(trackString) as number;
+            this.trackService.newTrack(track);
         }
     }
 }

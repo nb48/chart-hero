@@ -8,6 +8,7 @@ const frame = 1000 / 60;
 export class AudioPlayerService {
 
     private audioLoaded: boolean;
+    private volume: number;
     private timeEmitter: EventEmitter<number>;
     private endedEmitter: EventEmitter<void>;
     private durationEmitter: EventEmitter<number>;
@@ -15,6 +16,7 @@ export class AudioPlayerService {
 
     constructor() {
         this.audioLoaded = false;
+        this.volume = undefined;
         this.timeEmitter = new EventEmitter<number>();
         this.endedEmitter = new EventEmitter<void>();
         this.durationEmitter = new EventEmitter<number>();
@@ -41,11 +43,19 @@ export class AudioPlayerService {
         return this.durationEmitter;
     }
 
+    setVolume(volume: number) {
+        this.volume = volume;
+        if (this.howl) {
+            this.howl.volume(this.volume);
+        }
+    }
+
     setAudio(url: string, extension: string) {
         this.audioLoaded = false;
         this.howl = new Howl({
             src: [url],
             format: [extension],
+            volume: this.volume,
         });
         this.howl.once('load', () => {
             this.audioLoaded = true;

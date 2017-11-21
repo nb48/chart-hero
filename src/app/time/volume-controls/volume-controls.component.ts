@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 
+import { AudioPlayerService } from '../audio-player/audio-player.service';
+
+const defaultVolume = 25;
+
 @Component({
     selector: 'app-volume-controls',
     templateUrl: './volume-controls.component.html',
@@ -7,17 +11,22 @@ import { Component } from '@angular/core';
 })
 export class VolumeControlsComponent {
 
-    constructor() {
+    private $volume: number;
+
+    constructor(private audioPlayer: AudioPlayerService) {
+        this.volume = defaultVolume;
+    }
+
+    get volume(): number {
+        return this.$volume;
+    }
+
+    set volume(volume: number) {
+        this.$volume = volume;
+        this.audioPlayer.setVolume(this.$volume / 100);
     }
 
     captureEvent(event: any) {
         event.stopPropagation();
-    }
-
-    get volume(): number {
-        return 50;
-    }
-
-    set volume(volume: number) {
     }
 }

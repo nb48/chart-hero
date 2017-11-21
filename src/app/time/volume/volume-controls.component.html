@@ -3,7 +3,7 @@
         <mat-list-item>
             <div class="slider">
                 <label class="body-1">Volume: </label>                                    
-                <mat-slider (keydown)="captureEvent($event)" [value]="volume" (change)="volume = $event.value" thumbLabel min="0" max="100" step="1"></mat-slider>
+                <mat-slider (keydown)="captureEvent($event)" [value]="service.volumes | async" (change)="service.newVolume($event.value)" thumbLabel min="0" max="100" step="1"></mat-slider>
             </div>
         </mat-list-item>
     </mat-list>

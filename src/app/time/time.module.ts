@@ -14,11 +14,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AudioPlayerControlsComponent }
 from './audio-player-controls/audio-player-controls.component';
 import { ScrollbarComponent } from './scrollbar/scrollbar.component';
-import { VolumeControlsComponent } from './volume-controls/volume-controls.component';
+import { VolumeControlsComponent } from './volume/volume-controls.component';
 
 import { AudioPlayerService } from './audio-player/audio-player.service';
 import { DurationService } from './duration/duration.service';
 import { IncrementService } from './increment/increment.service';
+import { VolumeService } from './volume/volume.service';
 import { TimeService } from './time.service';
 
 @NgModule({
@@ -49,6 +50,7 @@ import { TimeService } from './time.service';
         DurationService,
         IncrementService,
         TimeService,
+        VolumeService,
     ],
 })
 export class AppTimeModule {

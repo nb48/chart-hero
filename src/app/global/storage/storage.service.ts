@@ -38,6 +38,7 @@ export class StorageService {
     private load(): void {
         this.loadStepInfo();
         this.loadChartFileName();
+        this.loadSpeed();
     }
 
     private loadStepInfo(): void {
@@ -57,6 +58,14 @@ export class StorageService {
         if (chartFileNameString) {
             const chartFileName = JSON.parse(chartFileNameString) as string;
             this.fileService.loadChartFileName(chartFileName);
+        }
+    }
+
+    private loadSpeed(): void {
+        const speedString = localStorage.getItem('speed');
+        if (speedString) {
+            const speed = JSON.parse(speedString) as number;
+            this.speedService.speed = speed;
         }
     }
 }

@@ -7,6 +7,7 @@ import { ActionsComponent } from './actions/actions.component';
 import { KeybindingsComponent } from './keybindings/keybindings.component';
 
 import { KeybindingsService } from './keybindings/keybindings.service';
+import { StorageService } from './storage/storage.service';
 
 @NgModule({
     imports: [
@@ -26,6 +27,7 @@ import { KeybindingsService } from './keybindings/keybindings.service';
     ],
     providers: [
         KeybindingsService,
+        StorageService,
     ],
 })
 export class AppGlobalModule {

@@ -70,25 +70,42 @@ export class PreparerService {
 
     private buildBeats()
         : PreparedBeat[] {
-        const beatTimes: PreparedBeat[] = [];
-        const sortedSyncTrack = this.model.syncTrack.events
+        const notes = getTrack(this.model, this.track).events
+            .filter(e => e.event === ModelTrackEventType.GuitarNote
+                || e.event === ModelTrackEventType.GHLNote)
+            .sort((a, b) => a.time - b.time)
+            .map(e => e as ModelTrackNote);
+        const bpmChangesArray = this.model.syncTrack.events
             .filter(e => e.event === ModelTrackEventType.BPMChange)
             .map(e => e as ModelTrackBPMChange)
             .sort((a, b) => a.time - b.time);
-        let currentIncrement = 0;
-        let timeCounter = sortedSyncTrack[0].time;
-        sortedSyncTrack
-            .forEach((e) => {
-                while (timeCounter < e.time) {
-                    beatTimes.push({ id: beatTimes.length + 1, time: timeCounter });
+        const beatTimes: PreparedBeat[] = [];
+        const addBeat = (time: number) => {
+            beatTimes.push({ time, id: beatTimes.length + 1 });            
+        };
+        const bpmChanges = bpmChangesArray.entries();
+        let bpmChange = bpmChanges.next().value[1];
+        while (bpmChange) {
+            const nextResult = bpmChanges.next();
+            const nextBpmChange = nextResult.done ? undefined : nextResult.value[1];
+            const nextNote = notes.find(n => n.time >= bpmChange.time);
+            const startTime = beatTimes.length === 0 ? 0 : beatTimes[beatTimes.length - 1].time;
+            const endTime = nextBpmChange ? nextBpmChange.time : this.duration;
+            const baseTime = nextNote ? nextNote.time : startTime;
+            if (baseTime < endTime) {
+                const currentIncrement = 60 / bpmChange.bpm;
+                let timeCounter = baseTime - currentIncrement;
+                while (timeCounter - (currentIncrement * 0.25) > startTime) {
+                    addBeat(timeCounter);
+                    timeCounter -= currentIncrement;
+                }
+                timeCounter = baseTime;
+                while (timeCounter < endTime) {
+                    addBeat(timeCounter);
                     timeCounter += currentIncrement;
                 }
-                currentIncrement = 60 / e.bpm;
-                timeCounter = e.time;
-            });
-        while (timeCounter <= this.duration) {
-            beatTimes.push({ id: beatTimes.length + 1, time: timeCounter });
-            timeCounter += currentIncrement;
+            }
+            bpmChange = nextBpmChange;
         }
         return beatTimes;
     }

@@ -5,6 +5,7 @@ import { BeatService } from './fretboard/beat/beat.service';
 import { EventService } from './fretboard/event/event.service';
 import { Fretboard } from './fretboard/fretboard/fretboard';
 import { NoteService } from './fretboard/note/note.service';
+import { StorageService } from './global/storage/storage.service';
 
 @Component({
     selector: 'app',
@@ -20,6 +21,7 @@ export class AppComponent {
         private beatService: BeatService,
         private noteService: NoteService,
         private eventService: EventService,
+        private storageService: StorageService,
     ) {
         this.beatService.zeroPositions.subscribe((zeroPosition) => {
             this.zeroPosition = zeroPosition;
@@ -39,5 +41,6 @@ export class AppComponent {
         ).subscribe((fretboard) => {
             this.fretboard = fretboard;
         });
+        this.storageService.load();
     }
 }

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule, MatListModule } from '@angular/material';
 import { By } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
 
 import { AppFileModule } from '../file.module';
 import { FileService } from '../file.service';
@@ -46,6 +47,6 @@ describe('Component: FileSelectComponent', () => {
 
 class MockFileService {
 
-    audioFileName = 'testAudioFile';
-    chartFileName = 'testChartFile';
+    audioFileNames = Observable.of('testAudioFile');
+    chartFileNames = Observable.of('testChartFile');
 }

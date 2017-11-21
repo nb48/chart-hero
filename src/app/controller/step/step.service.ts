@@ -11,7 +11,7 @@ import { SelectorService } from '../selector/selector.service';
 const defaultStep = 1;
 
 @Injectable()
-export class TimeService {
+export class StepService {
 
     private note: ModelTrackNote;
     private increment: number;

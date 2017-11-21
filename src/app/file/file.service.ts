@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { AudioPlayerService } from '../time/audio-player/audio-player.service';
 import { ModelImporterService } from '../model/import-export/model-importer.service';
@@ -10,7 +10,6 @@ export class FileService {
 
     private audioFileNameSubject: BehaviorSubject<string>;
     private chartFileNameSubject: BehaviorSubject<string>;
-    private audioFileSubject: ReplaySubject<Blob>;
 
     constructor(
         private audioPlayer: AudioPlayerService,
@@ -19,15 +18,10 @@ export class FileService {
     ) {
         this.audioFileNameSubject = new BehaviorSubject<string>('');
         this.chartFileNameSubject = new BehaviorSubject<string>('');
-        this.audioFileSubject = new ReplaySubject<Blob>();
     }
 
     get audioFileNames(): Observable<string> {
         return this.audioFileNameSubject.asObservable();
-    }
-
-    loadAudioFileName(fileName: string): void {
-        this.audioFileNameSubject.next(fileName);
     }
 
     set audioFile(file: File) {
@@ -39,11 +33,7 @@ export class FileService {
         if (!extension) {
             return;
         }
-        this.audioPlayer.setAudio(URL.createObjectURL(file), extension)
-            .then(() => {
-                this.audioFileSubject.next(file);
-            })
-            .catch(() => undefined);
+        this.audioPlayer.setAudio(URL.createObjectURL(file), extension);
     }
 
     get chartFileNames(): Observable<string> {
@@ -66,9 +56,5 @@ export class FileService {
             this.modelImporter.import(reader.result);
         };
         reader.readAsText(file);
-    }
-
-    get audioFiles(): Observable<Blob> {
-        return this.audioFileSubject.asObservable();
     }
 }

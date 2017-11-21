@@ -50,25 +50,19 @@ export class AudioPlayerService {
         }
     }
 
-    setAudio(url: string, extension: string): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            this.audioLoaded = false;
-            this.howl = new Howl({
-                src: [url],
-                format: [extension],
-                volume: this.volume,
-            });
-            this.howl.once('load', () => {
-                this.audioLoaded = true;
-                this.durationEmitter.emit(this.howl.duration());
-                resolve();
-            });
-            this.howl.once('loaderror', () => {
-                reject();
-            });
-            this.howl.on('end', () => {
-                this.endedEmitter.emit();
-            });
+    setAudio(url: string, extension: string): void {
+        this.audioLoaded = false;
+        this.howl = new Howl({
+            src: [url],
+            format: [extension],
+            volume: this.volume,
+        });
+        this.howl.once('load', () => {
+            this.audioLoaded = true;
+            this.durationEmitter.emit(this.howl.duration());
+        });
+        this.howl.on('end', () => {
+            this.endedEmitter.emit();
         });
     }
     

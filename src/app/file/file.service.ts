@@ -30,13 +30,16 @@ export class FileService {
         if (this.timeService.playing) {
             this.timeService.stop();
         }
-        this.audioFileSubject.next(file);
         this.audioFileNameSubject.next(file.name);
         const extension = file.name.split('.')[1];
         if (!extension) {
             return;
         }
-        this.audioPlayer.setAudio(URL.createObjectURL(file), extension);
+        this.audioPlayer.setAudio(URL.createObjectURL(file), extension)
+            .then(() => {
+                this.audioFileSubject.next(file);
+            })
+            .catch(() => undefined);
     }
 
     get chartFileNames(): Observable<string> {

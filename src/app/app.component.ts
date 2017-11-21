@@ -41,6 +41,5 @@ export class AppComponent {
         ).subscribe((fretboard) => {
             this.fretboard = fretboard;
         });
-        this.storageService.load();
     }
 }

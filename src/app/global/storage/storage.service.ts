@@ -18,6 +18,7 @@ export class StorageService {
         private timeService: TimeService,
         private volumeService: VolumeService,
     ) {
+        this.load();
         this.stepService.stepInfos.subscribe(si => this.save('stepInfo', si));
         this.fileService.audioFileNames.subscribe(afn => this.save('audioFileName', afn));
         this.fileService.chartFileNames.subscribe(cfn => this.save('chartFileName', cfn));
@@ -36,5 +37,7 @@ export class StorageService {
     }
 
     private save(name: string, value: any): void {
+        console.log(name);
+        localStorage.setItem(name, JSON.stringify(value));
     }
 }

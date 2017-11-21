@@ -1,14 +1,21 @@
-<div class="file-select">
-    <mat-list>
-        <mat-list-item class="audio-input">
-            <input [hidden]='true' #audioInput type="file" (change)="service.audioFile = $event.target.files[0]" />
-            <button mat-raised-button color="primary" (click)="audioInput.click()">Select audio file</button>
-            <label class="body-1">{{service.audioFileNames | async}}</label>
-        </mat-list-item>
-        <mat-list-item class="chart-input">
-            <input [hidden]='true' #chartInput type="file" (change)="service.chartFile = $event.target.files[0]" />
-            <button mat-raised-button color="primary" (click)="chartInput.click()">Select chart file</button>
-            <label class="body-1">{{service.chartFileNames | async}}</label>
-        </mat-list-item>
-    </mat-list>
+<div class="container">
+    <div class="file-select">
+        <mat-list>
+            <mat-list-item class="audio-input">
+                <input [hidden]='true' #audioInput type="file" (change)="service.audioFile = $event.target.files[0]" />
+                <button mat-raised-button color="primary" (click)="audioInput.click()">Select audio file</button>
+                <label class="body-1">{{service.audioFileNames | async}}</label>
+            </mat-list-item>
+            <mat-list-item class="chart-input">
+                <input [hidden]='true' #chartInput type="file" (change)="service.chartFile = $event.target.files[0]" />
+                <button mat-raised-button color="primary" (click)="chartInput.click()">Select chart file</button>
+                <label class="body-1">{{service.chartFileNames | async}}</label>
+            </mat-list-item>
+        </mat-list>
+    </div>
+    <div class="reset">
+        <button class="reset" [matTooltip]="'Reset'" [matTooltipClass]="'app-tooltip'" (click)="reset()" mat-icon-button color="primary">
+            <i class="fa fa-times fa-2x" aria-hidden="true" aria-label="Reset"></i>
+        </button>
+    </div>
 </div>

@@ -26,6 +26,10 @@ export class FileService {
         return this.audioFileNameSubject.asObservable();
     }
 
+    loadAudioFileName(fileName: string): void {
+        this.audioFileNameSubject.next(fileName);
+    }
+
     set audioFile(file: File) {
         if (this.timeService.playing) {
             this.timeService.stop();
@@ -44,6 +48,10 @@ export class FileService {
 
     get chartFileNames(): Observable<string> {
         return this.chartFileNameSubject.asObservable();
+    }
+
+    loadChartFileName(fileName: string): void {
+        this.chartFileNameSubject.next(fileName);        
     }
 
     set chartFile(file: File) {

@@ -38,23 +38,38 @@ export class StorageService {
     }
 
     private load(): void {
-        const stepInfo = localStorage.getItem('stepInfo');
-        if (stepInfo) {
-            this.loadStepInfo(JSON.parse(stepInfo) as StepInfo);
+        this.loadStepInfo();
+        this.loadAudioFileName();
+        this.loadChartFileName();
+    }
+
+    private loadStepInfo(): void {
+        const stepInfoString = localStorage.getItem('stepInfo');
+        if (stepInfoString) {
+            const stepInfo = JSON.parse(stepInfoString) as StepInfo;
+            this.stepService.newStep(
+                stepInfo.stepControl,
+                stepInfo.customStepTop,
+                stepInfo.customStepBottom,
+            );
         } else {
-            this.defaultStepInfo();
+            this.stepService.newStep('one', 1, 1);
         }
     }
 
-    private loadStepInfo(stepInfo: StepInfo): void {
-        this.stepService.newStep(
-            stepInfo.stepControl,
-            stepInfo.customStepTop,
-            stepInfo.customStepBottom,
-        );
+    private loadAudioFileName(): void {
+        const audioFileNameString = localStorage.getItem('audioFileName');
+        if (audioFileNameString) {
+            const audioFileName = JSON.parse(audioFileNameString) as string;
+            this.fileService.loadAudioFileName(audioFileName);
+        }
     }
 
-    private defaultStepInfo(): void {
-        this.stepService.newStep('one', 1, 1);
+    private loadChartFileName(): void {
+        const chartFileNameString = localStorage.getItem('chartFileName');
+        if (chartFileNameString) {
+            const chartFileName = JSON.parse(chartFileNameString) as string;
+            this.fileService.loadChartFileName(chartFileName);
+        }
     }
 }

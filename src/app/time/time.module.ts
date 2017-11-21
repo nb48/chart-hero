@@ -5,6 +5,7 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    MatSliderModule,
     MatTooltipModule,
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AudioPlayerControlsComponent }
 from './audio-player-controls/audio-player-controls.component';
 import { ScrollbarComponent } from './scrollbar/scrollbar.component';
+import { VolumeControlsComponent } from './volume-controls/volume-controls.component';
 
 import { AudioPlayerService } from './audio-player/audio-player.service';
 import { DurationService } from './duration/duration.service';
@@ -28,16 +30,19 @@ import { TimeService } from './time.service';
         MatFormFieldModule,
         MatInputModule,
         MatListModule,
+        MatSliderModule,
         MatTooltipModule,
         ReactiveFormsModule,
     ],
     exports: [
         AudioPlayerControlsComponent,
         ScrollbarComponent,
+        VolumeControlsComponent,
     ],
     declarations: [
         AudioPlayerControlsComponent,
         ScrollbarComponent,
+        VolumeControlsComponent,
     ],
     providers: [
         AudioPlayerService,

@@ -10,6 +10,7 @@ html, body {
     font-size: 1.5em;
 }
 
+.volume-controls .mat-list-item-content,
 .speed-controls .mat-list-item-content {
     padding-right: 0 !important;
 }

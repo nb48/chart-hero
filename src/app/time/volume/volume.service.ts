@@ -11,7 +11,8 @@ export class VolumeService {
     private volumeSubject: BehaviorSubject<number>;
 
     constructor(private audioPlayer: AudioPlayerService) {
-        this.volumeSubject = new BehaviorSubject<number>(defaultVolume);
+        this.volumeSubject = new BehaviorSubject<number>(undefined);
+        this.newVolume(defaultVolume);
     }
 
     get volumes(): Observable<number> {

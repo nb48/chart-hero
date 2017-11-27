@@ -23,11 +23,11 @@ export class MidiTimeService {
         this.midiTimeCache = new Map<number, number>();
     }
 
-    calculateTime(midiTime: number, resolution: number, syncTrack: MemorySyncTrack[]): number {
+    calculateTime(midiTime: number, resolution: number, bpmChanges: MemorySyncTrack[]): number {
         if (this.timeCache.has(midiTime)) {
             return this.timeCache.get(midiTime);
         }
-        const earlierChanges = syncTrack.filter(st => st.midiTime < midiTime);
+        const earlierChanges = bpmChanges.filter(e => e.midiTime < midiTime);
         if (earlierChanges.length > 1) {
             const latestChange = earlierChanges.pop();
             const bpm = latestChange.value / 1000;

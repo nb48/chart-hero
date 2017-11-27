@@ -23,9 +23,17 @@ export const TEST_MEMORY: Memory = {
         type: 'B',
         value: 60000,
     }, {
+        midiTime: 0,
+        type: 'TS',
+        value: 4,
+    }, {
         midiTime: 700,
         type: 'B',
         value: 30000,
+    }, {
+        midiTime: 1000,
+        type: 'TS',
+        value: 8, 
     }, {
         midiTime: 9979,
         type: 'UNSUPPORTED',
@@ -176,9 +184,19 @@ export const TEST_MODEL: Model = {
             bpm: 60,
         }, {
             id: 20,
+            event: ModelTrackEventType.TSChange as ModelTrackEventType.TSChange,
+            time: -0.1,
+            ts: 4,
+        }, {
+            id: 30,
             event: ModelTrackEventType.BPMChange as ModelTrackEventType.BPMChange,
             time: 3.4,
             bpm: 30,
+        }, {
+            id: 40,
+            event: ModelTrackEventType.TSChange as ModelTrackEventType.TSChange,
+            time: 6.4,
+            ts: 8,
         }],
         unsupported: [{
             midiTime: 9979,
@@ -189,7 +207,7 @@ export const TEST_MODEL: Model = {
     guitar: {
         expert: {
             events: [{
-                id: 30,
+                id: 50,
                 event: ModelTrackEventType.GuitarNote as ModelTrackEventType.GuitarNote,
                 time: 0.9,
                 type: [ModelTrackNoteType.GuitarGreen],
@@ -197,7 +215,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 40,
+                id: 60,
                 event: ModelTrackEventType.GuitarNote as ModelTrackEventType.GuitarNote,
                 time: 1.9,
                 type: [ModelTrackNoteType.GuitarRed],
@@ -205,7 +223,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: true,
                 tap: false,
             }, {
-                id: 50,
+                id: 70,
                 event: ModelTrackEventType.GuitarNote as ModelTrackEventType.GuitarNote,
                 time: 2.9,
                 type: [ModelTrackNoteType.GuitarYellow],
@@ -231,7 +249,7 @@ export const TEST_MODEL: Model = {
     ghlGuitar: {
         expert: {
             events: [{
-                id: 60,
+                id: 80,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 0.9,
                 type: [ModelTrackNoteType.GHLBlack1],
@@ -239,7 +257,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 70,
+                id: 90,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 1.9,
                 type: [ModelTrackNoteType.GHLBlack2],
@@ -247,7 +265,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 80,
+                id: 100,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 2.9,
                 type: [ModelTrackNoteType.GHLBlack3],
@@ -255,7 +273,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 90,
+                id: 110,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 4.4,
                 type: [ModelTrackNoteType.GHLWhite1],
@@ -263,7 +281,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 100,
+                id: 120,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 6.4,
                 type: [ModelTrackNoteType.GHLWhite2],
@@ -271,7 +289,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 110,
+                id: 130,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 8.4,
                 type: [ModelTrackNoteType.GHLWhite3],
@@ -279,7 +297,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 120,
+                id: 140,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 10.4,
                 type: [],
@@ -287,7 +305,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 130,
+                id: 150,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 12.4,
                 type: [ModelTrackNoteType.GHLBlack1, ModelTrackNoteType.GHLWhite1],
@@ -295,7 +313,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 140,
+                id: 160,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 14.4,
                 type: [ModelTrackNoteType.GHLWhite1],
@@ -303,7 +321,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 150,
+                id: 170,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 14.4,
                 type: [ModelTrackNoteType.GHLWhite2],
@@ -311,7 +329,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 160,
+                id: 180,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 16.4,
                 type: [ModelTrackNoteType.GHLWhite3],
@@ -319,7 +337,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 170,
+                id: 190,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 16.4,
                 type: [],

@@ -31,10 +31,12 @@ export interface ModelTrack {
 
 export type ModelTrackEvent = 
     ModelTrackBPMChange |
+    ModelTrackTSChange |
     ModelTrackNote;
 
 export enum ModelTrackEventType {
     BPMChange,
+    TSChange,
     GuitarNote,
     GHLNote,
 }
@@ -44,6 +46,13 @@ export interface ModelTrackBPMChange {
     event: ModelTrackEventType.BPMChange;
     time: number;
     bpm: number;
+}
+
+export interface ModelTrackTSChange {
+    id: number;
+    event: ModelTrackEventType.TSChange;
+    time: number;
+    ts: number;
 }
 
 export interface ModelTrackNote {

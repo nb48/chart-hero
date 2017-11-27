@@ -64,6 +64,13 @@ export class FileToMemoryService {
                     value: parseInt(text, 10),
                 };
             }
+            if (type === 'TS') {
+                return {
+                    type,
+                    midiTime: parseInt(midiTime, 10),
+                    value: parseInt(text, 10),
+                };
+            }
             return {
                 text,
                 type,

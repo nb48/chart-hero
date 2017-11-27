@@ -11,6 +11,7 @@ export const TEST_FILE = `[Song]
 [SyncTrack]
 {
     0 = B 60000
+    0 = TS 4
     0 = UNSUPPORTED UNSUPPORTED
 }
 [ExpertGHLGuitar]
@@ -50,6 +51,10 @@ export const TEST_MEMORY: Memory = {
         midiTime: 0,
         type: 'B',
         value: 60000,
+    }, {
+        midiTime: 0,
+        type: 'TS',
+        value: 4, 
     }, {
         midiTime: 0,
         type: 'UNSUPPORTED',

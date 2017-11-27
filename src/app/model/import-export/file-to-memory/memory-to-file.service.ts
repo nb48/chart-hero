@@ -46,6 +46,9 @@ export class MemoryToFileService {
             if (type === 'B') {
                 return `    ${formatMidiTime(midiTime)} = ${type} ${value}\n`;
             }
+            if (type === 'TS') {
+                return `    ${formatMidiTime(midiTime)} = ${type} ${value}\n`;                
+            }
             return `    ${formatMidiTime(midiTime)} = ${type} ${text}\n`;
         }).join('');
     }

@@ -3,6 +3,7 @@ import { MatButtonModule, MatListModule } from '@angular/material';
 import { By } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 
+import { IdGeneratorService } from '../../model/id-generator/id-generator.service';
 import { ModelImporterService } from '../../model/import-export/model-importer.service';
 import { AppFileModule } from '../file.module';
 import { FileService } from '../file.service';
@@ -19,6 +20,7 @@ describe('Component: FileSelectComponent', () => {
             ],
             providers: [
                 { provide: FileService, useClass: MockFileService },
+                { provide: IdGeneratorService, useClass: MockIdGeneratorService },
                 { provide: ModelImporterService, useClass: MockModelImporterService },
             ],
         });
@@ -46,6 +48,11 @@ describe('Component: FileSelectComponent', () => {
         button.nativeElement.click();
     });
 });
+
+class MockIdGeneratorService {
+
+    reset = (): void => undefined;
+}
 
 class MockModelImporterService {
     

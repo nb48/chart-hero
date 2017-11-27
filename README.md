@@ -29,9 +29,10 @@ yarn test
 
 ```
 yarn build
+yarn serve
 ```
 
-This builds an optimized version of the application at ./dist
+This serves an optimized version of the application at http://localhost:9001
 
 ## Built With
 

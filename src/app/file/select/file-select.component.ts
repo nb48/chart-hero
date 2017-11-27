@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { IdGeneratorService } from '../../model/id-generator/id-generator.service';
 import { ModelImporterService } from '../../model/import-export/model-importer.service';
 import { FileService } from '../file.service';
 
@@ -11,12 +12,14 @@ import { FileService } from '../file.service';
 export class FileSelectComponent {
 
     constructor(
+        private idGenerator: IdGeneratorService,
         private modelImporter: ModelImporterService,
         public service: FileService,
     ) {
     }
 
     reset() {
+        this.idGenerator.reset();
         this.modelImporter.import('');
         this.service.loadChartFileName('');
     }

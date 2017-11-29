@@ -2,7 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 
 import { Memory, MemoryMetadata, MemorySyncTrack, MemoryTrack } from '../memory';
 
-const formatMidiTime = (midiTime: number): string => {
+const formatFloat = (midiTime: number): string => {
     return ('' + midiTime).split('.')[0];
 };
 
@@ -44,21 +44,21 @@ export class MemoryToFileService {
     private exportSyncTrack(syncTrack: MemorySyncTrack[]): string {
         return syncTrack.map(({ midiTime, type, value, text }) => {
             if (type === 'B') {
-                return `    ${formatMidiTime(midiTime)} = ${type} ${value}\n`;
+                return `    ${formatFloat(midiTime)} = ${type} ${formatFloat(value)}\n`;
             }
             if (type === 'TS') {
-                return `    ${formatMidiTime(midiTime)} = ${type} ${value}\n`;                
+                return `    ${formatFloat(midiTime)} = ${type} ${formatFloat(value)}\n`;
             }
-            return `    ${formatMidiTime(midiTime)} = ${type} ${text}\n`;
+            return `    ${formatFloat(midiTime)} = ${type} ${text}\n`;
         }).join('');
     }
 
     private exportTrack(track: MemoryTrack[]): string {
         return track.map(({ midiTime, type, note, length, text }) => {
             if (type === 'N') {
-                return `    ${formatMidiTime(midiTime)} = ${type} ${note} ${length}\n`;
+                return `    ${formatFloat(midiTime)} = ${type} ${note} ${formatFloat(length)}\n`;
             }
-            return `    ${formatMidiTime(midiTime)} = ${type} ${text}\n`;                
+            return `    ${formatFloat(midiTime)} = ${type} ${text}\n`;                
         }).join('');
     }
 }

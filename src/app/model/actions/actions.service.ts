@@ -47,7 +47,7 @@ export class ActionsService {
         });
     }
 
-    addNote() {
+    addNote(): void {
         const ghl = isGHLTrack(this.track);
         const newNote: ModelTrackNote = {
             id: this.idGenerator.id(),
@@ -64,7 +64,7 @@ export class ActionsService {
         this.selectorService.selectNote(newNote.id);
     }
 
-    addBPMChange() {
+    addBPMChange(): void {
         if (this.time === 0) {
             return;
         }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { StepService, StepInfo } from '../../controller/step/step.service';
 import { FileService } from '../../file/file.service';
 import { SpeedService } from '../../fretboard/speed/speed.service';
+import { IdGeneratorService } from '../../model/id-generator/id-generator.service';
 import { ModelService } from '../../model/model.service';
 import { Model } from '../../model/model';
 import { TimeService } from '../../time/time.service';
@@ -16,6 +17,7 @@ export class StorageService {
         private stepService: StepService,
         private fileService: FileService,
         private speedService: SpeedService,
+        private idGeneratorService: IdGeneratorService,
         private modelService: ModelService,
         private timeService: TimeService,
         private volumeService: VolumeService,
@@ -82,6 +84,22 @@ export class StorageService {
         if (modelString) {
             const model = JSON.parse(modelString) as Model;
             this.modelService.model = model;
+            const events = [
+                ...model.syncTrack.events,
+                ...model.guitar.expert.events,
+                ...model.guitar.hard.events,
+                ...model.guitar.medium.events,
+                ...model.guitar.easy.events,
+                ...model.ghlGuitar.expert.events,
+                ...model.ghlGuitar.hard.events,
+                ...model.ghlGuitar.medium.events,
+                ...model.ghlGuitar.easy.events,
+                ...model.events.events,
+                ...model.vocals.events,
+                ...model.venue.events,
+            ];
+            const maxId = events.sort((a, b) => b.id - a.id)[0].id;
+            this.idGeneratorService.catchUp(maxId);
         }
     }
 

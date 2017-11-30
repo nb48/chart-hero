@@ -20,4 +20,8 @@ export class IdGeneratorService {
         this.nextId += increment;
         return newId;
     }
+
+    catchUp(maxId: number): void {
+        this.nextId = maxId + increment;
+    }
 }

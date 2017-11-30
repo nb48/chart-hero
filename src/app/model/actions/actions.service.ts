@@ -76,6 +76,7 @@ export class ActionsService {
         };
         this.model.syncTrack.events.push(newBPMChange);
         this.modelService.model = this.model;
+        this.selectorService.selectEvent(newBPMChange.id);
     }
 
     deleteTrackEvent(id: number): void {

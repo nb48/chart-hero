@@ -88,22 +88,13 @@ export class PreparerService {
         while (bpmChange) {
             const nextResult = bpmChanges.next();
             const nextBpmChange = nextResult.done ? undefined : nextResult.value[1];
-            const nextNote = notes.find(n => n.time >= bpmChange.time);
             const startTime = beatTimes.length === 0 ? 0 : beatTimes[beatTimes.length - 1].time;
             const endTime = nextBpmChange ? nextBpmChange.time : this.duration;
-            const baseTime = nextNote ? nextNote.time : startTime;
-            if (baseTime < endTime) {
-                const currentIncrement = 60 / bpmChange.bpm;
-                let timeCounter = baseTime - currentIncrement;
-                while (timeCounter - (currentIncrement * 0.25) > startTime) {
-                    addBeat(timeCounter);
-                    timeCounter -= currentIncrement;
-                }
-                timeCounter = baseTime;
-                while (timeCounter < endTime) {
-                    addBeat(timeCounter);
-                    timeCounter += currentIncrement;
-                }
+            const currentIncrement = 60 / bpmChange.bpm;
+            let timeCounter = startTime + currentIncrement;
+            while (timeCounter <= endTime + 0.01) {
+                addBeat(timeCounter);
+                timeCounter += currentIncrement;
             }
             bpmChange = nextBpmChange;
         }

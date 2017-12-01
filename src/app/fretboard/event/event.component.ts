@@ -50,6 +50,16 @@ export class EventComponent {
     }
 
     get tooltip(): string {
-        return `${this.event.id}, ${showTime(this.event.time)}`;
+        const type = this.type();
+        return `${type} - ${showTime(this.event.time)}`;
+    }
+
+    private type(): string {
+        switch (this.event.type) {
+        case ModelTrackEventType.BPMChange:
+            return 'BPM';
+        case ModelTrackEventType.TSChange:
+            return 'TS';
+        }
     }
 }

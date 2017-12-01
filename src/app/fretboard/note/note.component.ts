@@ -52,6 +52,6 @@ export class NoteComponent {
     }
 
     get tooltip(): string {
-        return `${this.note.id}, ${showTime(this.note.time)}`;
+        return `Note - ${showTime(this.note.time)}`;
     }
 }

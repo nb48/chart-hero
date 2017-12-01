@@ -27,6 +27,6 @@ export class BeatComponent {
     }
 
     get tooltip(): string {
-        return `${showTime(this.beat.time)}`;
+        return `Beat - ${showTime(this.beat.time)}`;
     }
 }

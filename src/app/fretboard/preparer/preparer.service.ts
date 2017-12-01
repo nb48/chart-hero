@@ -223,8 +223,14 @@ export class PreparerService {
     }
 
     private buildEvents(): PreparedEvent[] {
-        return this.model.syncTrack.events
+        const bpmChanges = this.model.syncTrack.events
             .filter(e => e.event === ModelTrackEventType.BPMChange);
+        const tsChanges = this.model.syncTrack.events
+            .filter(e => e.event === ModelTrackEventType.TSChange);
+        return [
+            ...bpmChanges,
+            ...tsChanges,
+        ];
     }
 
     private calculateHopo(note: ModelTrackNote): boolean {

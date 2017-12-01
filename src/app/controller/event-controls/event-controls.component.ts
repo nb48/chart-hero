@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 
 import { ActionsService } from '../../model/actions/actions.service';
-import { ModelTrackBPMChange } from '../../model/model';
+import { ModelTrackEventType, ModelTrackBPMChange, ModelTrackTSChange } from '../../model/model';
 import { showTime } from '../../time/audio-player-controls/audio-player-controls.component';
 import { BPMService } from '../bpm/bpm.service';
 import { SelectorService } from '../selector/selector.service';
+import { TimeSignatureService } from '../time-signature/time-signature.service';
 
 @Component({
     selector: 'app-event-controls',
@@ -18,12 +19,13 @@ export class EventControlsComponent {
     time: number;
     formattedTime: string;
     type: string;
-    bpm: number;
+    value: number;
 
     constructor(
         private actionsService: ActionsService,
         private bpmService: BPMService,
         private selectorService: SelectorService,
+        private timeSignatureService: TimeSignatureService,
     ) {
         this.selected = false;
         this.selectorService.selectedEvents.subscribe((event) => {
@@ -35,18 +37,38 @@ export class EventControlsComponent {
             this.id = event.id;
             this.time = event.time;
             this.formattedTime = showTime(event.time);
-            this.type = 'BPM Change';
-            this.bpm = (event as ModelTrackBPMChange).bpm;
+            if (event.event === ModelTrackEventType.BPMChange) {
+                this.type = 'BPM Change';
+                this.value = (event as ModelTrackBPMChange).bpm;
+            }
+            if (event.event === ModelTrackEventType.TSChange) {
+                this.type = 'Time Signature Change';
+                this.value = (event as ModelTrackTSChange).ts;
+            }
         });
     }
 
-    bpmChanged(bpm: number) {
+    get isBPMChange(): boolean {
+        return this.type === 'BPM Change';
+    }
+
+    get isTSChange(): boolean {
+        return this.type === 'Time Signature Change';
+    }
+
+    bpmChanged(bpm: number): void {
         if (bpm && bpm > 0 && bpm <= 10000) {
             this.bpmService.updateBPM(bpm);            
         }
     }
 
-    delete() {
+    tsChanged(ts: number): void {
+        if (ts && ts > 0 && ts <= 100) {
+            this.timeSignatureService.updateTimeSignature(ts);
+        }
+    }
+
+    delete(): void {
         const idToDelete = this.id;
         this.selectorService.selectNearest();
         this.actionsService.deleteSyncTrackEvent(idToDelete);

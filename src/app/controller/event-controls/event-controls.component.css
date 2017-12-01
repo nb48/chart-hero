@@ -11,18 +11,19 @@
 }
 
 .event-controls .info label {
-    width: 15%;
+    width: 35%;
     margin-left: 5%;
 }
 
 .event-controls .info input {
-    width: 80%;
+    width: 60%;
 }
 
 .event-controls .actions {
     order: 2;
     width: calc(100% - 1em);
     height: 10%;
+    margin-top: 2%;
     margin-left: 0.5em;
     margin-right: 0.5em;
     display: grid;

@@ -181,7 +181,9 @@ export class SelectorService {
             this.newNoteSelection(event);
             return;
         }
-        if (event.event === ModelTrackEventType.BPMChange) {
+        if (event.event === ModelTrackEventType.BPMChange ||
+            event.event === ModelTrackEventType.TSChange
+        ) {
             this.newEventSelection(event);
             return;
         }
@@ -195,6 +197,7 @@ export class SelectorService {
     }
 
     private newEventSelection(event: ModelTrackEvent): void {
+        this.adjustTime(event);
         this.selectedNotesSubject.next(undefined);
         this.selectedEventsSubject.next(event);
     }

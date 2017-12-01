@@ -11,12 +11,12 @@
 }
 
 .note-controls .info label {
-    width: 15%;
+    width: 35%;
     margin-left: 5%;
 }
 
 .note-controls .info input {
-    width: 80%;
+    width: 60%;
 }
 
 .note-controls .note-type-guitar {

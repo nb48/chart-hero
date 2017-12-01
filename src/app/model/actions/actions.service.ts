@@ -9,6 +9,7 @@ import { IdGeneratorService } from '../id-generator/id-generator.service';
 import {
     Model,
     ModelTrackBPMChange,
+    ModelTrackTSChange,
     ModelTrackEvent,
     ModelTrackEventType,
     ModelTrackNote,
@@ -77,6 +78,18 @@ export class ActionsService {
         this.model.syncTrack.events.push(newBPMChange);
         this.modelService.model = this.model;
         this.selectorService.selectEvent(newBPMChange.id);
+    }
+
+    addTSChange(): void {
+        const newTSChange: ModelTrackTSChange = {
+            id: this.idGenerator.id(),
+            event: ModelTrackEventType.TSChange,
+            time: roundTime(this.time),
+            ts: 4,
+        };
+        this.model.syncTrack.events.push(newTSChange);
+        this.modelService.model = this.model;
+        this.selectorService.selectEvent(newTSChange.id);
     }
 
     deleteTrackEvent(id: number): void {

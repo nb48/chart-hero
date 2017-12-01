@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { SelectorService } from '../../controller/selector/selector.service';
+import { ModelTrackEventType } from '../../model/model';
 import { showTime } from '../../time/audio-player-controls/audio-player-controls.component';
 import { TimeService } from '../../time/time.service';
 import { Event } from './event';
@@ -17,6 +18,16 @@ export class EventComponent {
         private selectorService: SelectorService,
         private timeService: TimeService,
     ) {
+    }
+
+    get color(): string {
+        switch (this.event.type) {
+        case ModelTrackEventType.BPMChange:
+            return 'white';
+        case ModelTrackEventType.TSChange:
+            return 'gold';
+        }
+        throw new Error('Unsupported event passed to event component');
     }
 
     get playing(): boolean {

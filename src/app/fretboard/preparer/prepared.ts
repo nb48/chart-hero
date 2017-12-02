@@ -4,6 +4,7 @@ export interface Prepared {
     beats: PreparedBeat[];
     notes: PreparedNote[];
     events: PreparedEvent[];
+    eventLinks: PreparedEventLink[];
 }
 
 export interface PreparedBeat {
@@ -48,4 +49,12 @@ export interface PreparedEvent {
     id: number;
     time: number;
     type: ModelTrackEventType;
+    level: number;
+}
+
+export interface PreparedEventLink {
+    startTime: number;
+    endTime: number;
+    type: ModelTrackEventType;
+    level: number;
 }

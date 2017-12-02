@@ -12,8 +12,8 @@ import { Event } from './event';
 export class EventService {
 
     private eventsSubject = new ReplaySubject<Event[]>();
-    private prepared: Prepared;
     private time: number;
+    private prepared: Prepared;
     private selectedId: number;
 
     constructor(

@@ -18,6 +18,7 @@ export const TEST_FILE = `[Song]
 {
     200 = N 0 0
     400 = N 1 0
+    400 = S 2 300
     600 = N 2 0
     800 = N 3 0
     1000 = N 4 0
@@ -77,6 +78,11 @@ export const TEST_MEMORY: Memory = {
             type: 'N',
             note: 1,
             length: 0,
+        }, {
+            midiTime: 400,
+            type: 'S',
+            note: 2,
+            length: 300,
         }, {
             midiTime: 600,
             type: 'N',

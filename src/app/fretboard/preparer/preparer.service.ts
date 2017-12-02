@@ -20,6 +20,7 @@ import {
     PreparedNoteGuitarColor,
     PreparedNoteGHLColor,
     PreparedEvent,
+    PreparedEventLink,
 } from './prepared';
 
 @Injectable()
@@ -65,6 +66,7 @@ export class PreparerService {
             beats: this.buildBeats(),
             notes: this.buildNotes(),
             events: this.buildEvents(),
+            eventLinks: this.buildEventLinks(),
         };
     }
 
@@ -222,6 +224,24 @@ export class PreparerService {
         return PreparedNoteGHLColor.None;
     }
 
+    private calculateHopo(note: ModelTrackNote): boolean {
+        if (!this.previousTime) {
+            return false;
+        }
+        if (note.time - this.previousTime < this.currentIncrement * 0.33855) {
+            const noteType = Array.from(this.typeCache.get(note.time));
+            const previousType = Array.from(this.typeCache.get(this.previousTime));
+            if (JSON.stringify(noteType) === JSON.stringify(Array.from(previousType))) {
+                return false;
+            }
+            if (noteType.length > 1) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
     private buildEvents(): PreparedEvent[] {
         const allEvents = [
             ...this.model.syncTrack.events,
@@ -241,24 +261,11 @@ export class PreparerService {
                 id: e.id,
                 time: e.time,
                 type: e.event,
+                level: 0,
             }));
     }
 
-    private calculateHopo(note: ModelTrackNote): boolean {
-        if (!this.previousTime) {
-            return false;
-        }
-        if (note.time - this.previousTime < this.currentIncrement * 0.33855) {
-            const noteType = Array.from(this.typeCache.get(note.time));
-            const previousType = Array.from(this.typeCache.get(this.previousTime));
-            if (JSON.stringify(noteType) === JSON.stringify(Array.from(previousType))) {
-                return false;
-            }
-            if (noteType.length > 1) {
-                return false;
-            }
-            return true;
-        }
-        return false;
+    private buildEventLinks(): PreparedEventLink[] {
+        return [];
     }
 }

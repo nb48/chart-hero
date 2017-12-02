@@ -53,6 +53,7 @@ export interface PreparedEvent {
 }
 
 export interface PreparedEventLink {
+    id: number;
     startTime: number;
     endTime: number;
     type: ModelTrackEventType;

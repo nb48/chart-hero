@@ -38,13 +38,15 @@ export class EventLinkService {
 
     private buildEventLinks(): EventLink[] {
         return this.prepared.eventLinks
-            .filter(b => this.speedService.timeInView(b.startTime, this.time) ||
-                this.speedService.timeInView(b.endTime, this.time))
-            .map(b => ({
-                type: b.type,
+            .filter(el => this.speedService.timeInView(el.startTime, this.time) ||
+                this.speedService.timeInView(el.endTime, this.time) ||
+                this.time > el.startTime && this.time < el.endTime)
+            .map(el => ({
+                id: el.id,
+                type: el.type,
                 x: 14,
-                y1: this.speedService.calculateYPos(b.startTime, this.time),
-                y2: this.speedService.calculateYPos(b.endTime, this.time),
+                y1: this.speedService.calculateYPos(el.startTime, this.time),
+                y2: this.speedService.calculateYPos(el.endTime, this.time),
             }));
     }
 }

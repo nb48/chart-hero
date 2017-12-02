@@ -5,6 +5,7 @@ import { Memory, MemoryMetadata } from '../memory';
 import { MetadataService } from './common/metadata.service';
 import { SyncTrackImporterService } from './common/sync-track-importer.service';
 import { UnsupportedTrackImporterService } from './common/unsupported-track-importer.service';
+import { GenericTrackImporterService } from './generic/generic-track-importer.service';
 import { GHLTrackImporterService } from './ghl/ghl-track-importer.service';
 import { GuitarTrackImporterService } from './guitar/guitar-track-importer.service';
 
@@ -12,6 +13,7 @@ import { GuitarTrackImporterService } from './guitar/guitar-track-importer.servi
 export class MemoryToModelService {
 
     constructor(
+        private genericImporter: GenericTrackImporterService,
         private ghlImporter: GHLTrackImporterService,
         private guitarImporter: GuitarTrackImporterService,
         private metadataService: MetadataService,
@@ -47,7 +49,8 @@ export class MemoryToModelService {
                 easy: this.ghlImporter.import
                     (cf.ghlGuitar.easy, cf.syncTrack, resolution, offset),
             },
-            events: this.unsupportedTrackImporter.import(cf.events),
+            events: this.genericImporter.import
+                (cf.events, cf.syncTrack, resolution, offset, [], () => undefined, null),
             vocals: this.unsupportedTrackImporter.import(cf.vocals),
             venue: this.unsupportedTrackImporter.import(cf.venue),
         };

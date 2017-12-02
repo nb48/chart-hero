@@ -6,6 +6,7 @@ import {
     ModelTrackBPMChange,
     ModelTrackNote,
     ModelTrackNoteType,
+    ModelTrackPracticeSection,
     ModelTrackSoloToggle,
     ModelTrackStarPowerToggle,
 } from '../../../model';
@@ -34,6 +35,7 @@ export class GenericTrackExporterService {
         const bpmChanges = this.buildBPMChanges(syncTrack, offset);
         return [
             ...this.exportNotes(track, bpmChanges, resolution, offset, noteExporter),
+            ...this.exportPracticeSections(track, bpmChanges, resolution, offset),
             ...this.exportSoloToggles(track, bpmChanges, resolution, offset),
             ...this.exportStarPowerToggles(track, bpmChanges, resolution, offset),
             ...track.unsupported,
@@ -104,6 +106,27 @@ export class GenericTrackExporterService {
                     };
                 }).concat(forceHopo).concat(tapNote);
             }));
+    }
+
+    private exportPracticeSections(
+        track: ModelTrack,
+        bpmChanges: ModelTrackBPMChange[],
+        resolution: number,
+        offset: number,
+    ): MemoryTrack[] {
+        return track.events
+            .filter(e => e.event === ModelTrackEventType.PracticeSection)
+            .map(e => e as ModelTrackPracticeSection)
+            .map((p): MemoryTrack => {
+                const time = p.time - offset;
+                const midiTime = this.midiTimeService.calculateMidiTime
+                    (time, resolution, bpmChanges);
+                return {
+                    midiTime,
+                    type: 'E',
+                    text:`"section ${p.name}"`,
+                };
+            });
     }
 
     private exportSoloToggles(

@@ -6,6 +6,7 @@ import {
     ModelTrackEventType,
     ModelTrackNote,
     ModelTrackNoteType,
+    ModelTrackPracticeSection,
     ModelTrackSoloToggle,
     ModelTrackStarPowerToggle,
 } from '../../../model';
@@ -57,6 +58,12 @@ export class GenericTrackImporterService {
                     supportedNotes,
                     noteTransformer,
                     eventType,
+                ),
+                ...this.importPracticeSections(
+                    track,
+                    syncTrack,
+                    resolution,
+                    offset,
                 ),
                 ...this.importSoloToggles(
                     track,
@@ -163,6 +170,30 @@ export class GenericTrackImporterService {
             }));
     }
 
+    private importPracticeSections(
+        track: MemoryTrack[],
+        syncTrack: MemorySyncTrack[],
+        resolution: number,
+        offset: number,
+    ): ModelTrackPracticeSection[] {
+        return track
+            .filter(t => t.type === 'E')
+            .filter(t => t.text.split(' ')[0] === '"section')
+            .map((section: MemoryTrack): ModelTrackPracticeSection => {
+                const midiTime = section.midiTime;
+                const time = this.midiTimeService.calculateTime
+                    (midiTime, resolution, syncTrack);
+                const separator = section.text.indexOf(' ');
+                const name = section.text.slice(separator + 1, -1);
+                return {
+                    name,
+                    id: this.idGenerator.id(),
+                    event: ModelTrackEventType.PracticeSection,
+                    time: time + offset,
+                };
+            });
+    }
+
     private importSoloToggles(
         track: MemoryTrack[],
         syncTrack: MemorySyncTrack[],
@@ -214,6 +245,7 @@ export class GenericTrackImporterService {
         return track.filter(t => 
             !(t.type === 'N' && supportedNotes.indexOf(t.note) !== -1) &&
             !(t.type === 'S' && t.note === 2) &&
-            !(t.type === 'E' && (t.text === 'solo' || t.text === 'soloend')));
+            !(t.type === 'E' && (t.text === 'solo' || t.text === 'soloend')) &&
+            !(t.type === 'E' && (t.text.split(' ')[0] === '"section')));
     }
 }

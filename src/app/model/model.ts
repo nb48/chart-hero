@@ -83,14 +83,14 @@ export enum ModelTrackNoteType {
     GHLWhite3,
 }
 
-export interface ModelTrackStarPowerToggle {
-    id: number;
-    event: ModelTrackEventType.StarPowerToggle;
-    time: number;
-}
-
 export interface ModelTrackSoloToggle {
     id: number;
     event: ModelTrackEventType.SoloToggle;
+    time: number;
+}
+
+export interface ModelTrackStarPowerToggle {
+    id: number;
+    event: ModelTrackEventType.StarPowerToggle;
     time: number;
 }

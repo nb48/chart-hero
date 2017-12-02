@@ -183,6 +183,7 @@ export class SelectorService {
         }
         if (event.event === ModelTrackEventType.BPMChange ||
             event.event === ModelTrackEventType.TSChange ||
+            event.event === ModelTrackEventType.SoloToggle ||
             event.event === ModelTrackEventType.StarPowerToggle
         ) {
             this.newEventSelection(event);

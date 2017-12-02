@@ -47,10 +47,14 @@ export class EventService {
             .map(b => ({
                 id: b.id,
                 time: b.time,
-                x: 14,
+                x: this.buildEventX(b.level),
                 y: this.speedService.calculateYPos(b.time, this.time),
                 type: b.type,
                 selected: b.id === this.selectedId,
             }));
+    }
+
+    private buildEventX(level: number): number {
+        return 14 - (level * 2.5);
     }
 }

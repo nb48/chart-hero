@@ -26,6 +26,8 @@ export class EventComponent {
             return 'white';
         case ModelTrackEventType.TSChange:
             return 'gold';
+        case ModelTrackEventType.StarPowerToggle:
+            return 'red';
         }
         throw new Error('Unsupported event passed to event component');
     }
@@ -60,6 +62,8 @@ export class EventComponent {
             return 'BPM';
         case ModelTrackEventType.TSChange:
             return 'TS';
+        case ModelTrackEventType.StarPowerToggle:
+            return 'SP';
         }
     }
 }

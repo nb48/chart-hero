@@ -223,14 +223,22 @@ export class PreparerService {
     }
 
     private buildEvents(): PreparedEvent[] {
-        const bpmChanges = this.model.syncTrack.events
-            .filter(e => e.event === ModelTrackEventType.BPMChange);
-        const tsChanges = this.model.syncTrack.events
-            .filter(e => e.event === ModelTrackEventType.TSChange);
-        return [
-            ...bpmChanges,
-            ...tsChanges,
+        const allEvents = [
+            ...this.model.syncTrack.events,
+            ...getTrack(this.model, this.track).events,
         ];
+        const eventTypes = [
+            ModelTrackEventType.BPMChange,
+            ModelTrackEventType.TSChange,
+            ModelTrackEventType.StarPowerToggle,
+        ];
+        return allEvents
+            .filter(e => eventTypes.indexOf(e.event) !== -1)
+            .map(e => ({
+                id: e.id,
+                time: e.time,
+                type: e.event,
+            }));
     }
 
     private calculateHopo(note: ModelTrackNote): boolean {

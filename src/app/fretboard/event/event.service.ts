@@ -49,7 +49,7 @@ export class EventService {
                 time: b.time,
                 x: 14,
                 y: this.speedService.calculateYPos(b.time, this.time),
-                type: b.event,
+                type: b.type,
                 selected: b.id === this.selectedId,
             }));
     }

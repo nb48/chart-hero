@@ -1,4 +1,4 @@
-import { ModelTrackEvent } from './../../model/model';
+import { ModelTrackEventType } from '../../model/model';
 
 export interface Prepared {
     beats: PreparedBeat[];
@@ -44,4 +44,8 @@ export enum PreparedNoteGHLColor {
     Chord,
 }
 
-export type PreparedEvent = ModelTrackEvent;
+export interface PreparedEvent {
+    id: number;
+    time: number;
+    type: ModelTrackEventType;
+}

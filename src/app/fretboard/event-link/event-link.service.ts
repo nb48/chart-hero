@@ -44,9 +44,13 @@ export class EventLinkService {
             .map(el => ({
                 id: el.id,
                 type: el.type,
-                x: 14,
+                x: this.buildEventX(el.level),
                 y1: this.speedService.calculateYPos(el.startTime, this.time),
                 y2: this.speedService.calculateYPos(el.endTime, this.time),
             }));
+    }
+    
+    private buildEventX(level: number): number {
+        return 14 - (level * 2.5);
     }
 }

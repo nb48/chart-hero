@@ -14,6 +14,7 @@ import {
     ModelTrackEventType,
     ModelTrackNote,
     ModelTrackNoteType,
+    ModelTrackPracticeSection,
     ModelTrackSoloToggle,
     ModelTrackStarPowerToggle,
 } from '../model';
@@ -91,6 +92,18 @@ export class ActionsService {
         };
         this.model.syncTrack.events.push(newTSChange);
         this.selectorService.selectEvent(newTSChange.id);
+        this.modelService.model = this.model;
+    }
+
+    addPracticeSection(): void {
+        const newPracticeSection: ModelTrackPracticeSection = {
+            id: this.idGenerator.id(),
+            event: ModelTrackEventType.PracticeSection,
+            time: roundTime(this.time),
+            name: 'New Section',
+        };
+        this.model.events.events.push(newPracticeSection);
+        this.selectorService.selectEvent(newPracticeSection.id);
         this.modelService.model = this.model;
     }
 

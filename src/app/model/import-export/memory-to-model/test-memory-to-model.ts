@@ -150,6 +150,10 @@ export const TEST_MEMORY: Memory = {
             note: 7,
             length: 100,
         }, {
+            midiTime: 9996,
+            type: 'E',
+            text: 'invalid',
+        }, {
             midiTime: 9997,
             type: 'S',
             note: 1,
@@ -380,6 +384,10 @@ export const TEST_MODEL: Model = {
                 tap: false,
             }],
             unsupported: [{
+                midiTime: 9996,
+                type: 'E',
+                text: 'invalid',
+            }, {
                 midiTime: 9997,
                 type: 'S',
                 note: 1,

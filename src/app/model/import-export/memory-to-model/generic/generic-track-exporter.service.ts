@@ -7,6 +7,7 @@ import {
     ModelTrackNote,
     ModelTrackNoteType,
     ModelTrackStarPowerToggle,
+    ModelTrackSoloToggle,
 } from '../../../model';
 import { MemoryTrack } from '../../memory';
 import { MidiTimeService } from '../util/midi-time.service';
@@ -34,6 +35,7 @@ export class GenericTrackExporterService {
         return [
             ...this.exportNotes(track, bpmChanges, resolution, offset, noteExporter),
             ...this.exportStarPowerToggles(track, bpmChanges, resolution, offset),
+            ...this.exportSoloToggles(track, bpmChanges, resolution, offset),
             ...track.unsupported,
         ].sort((a, b) => a.midiTime - b.midiTime);
     }
@@ -138,5 +140,30 @@ export class GenericTrackExporterService {
             previousEvent.length = 100000;
         }
         return starPowerEvents;
+    }
+
+    private exportSoloToggles(
+        track: ModelTrack,
+        bpmChanges: ModelTrackBPMChange[],
+        resolution: number,
+        offset: number,
+    ): MemoryTrack[] {
+        const soloEvents: MemoryTrack[] = [];
+        let toggled = false;
+        track.events
+            .filter(e => e.event === ModelTrackEventType.SoloToggle)
+            .map(e => e as ModelTrackSoloToggle)
+            .forEach((t): void => {
+                const time = t.time - offset;
+                const midiTime = this.midiTimeService.calculateMidiTime
+                    (time, resolution, bpmChanges);
+                soloEvents.push({
+                    midiTime,
+                    type: 'E',
+                    text: toggled ? 'soloend' : 'solo',
+                });
+                toggled = !toggled;
+            });
+        return soloEvents;
     }
 }

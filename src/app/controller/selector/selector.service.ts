@@ -119,46 +119,32 @@ export class SelectorService {
 
     private findNote(id: number): ModelTrackNote {
         const chordId = Math.floor(id / 10) * 10;
-        return this.combinateEventTracks()
+        return this.combineAllTracks()
             .find(e => e.id === chordId) as ModelTrackNote;
     }
 
     private findEvent(id: number): ModelTrackEvent {
-        return this.combinateEventTracks()
+        return this.combineAllTracks()
             .find(e => e.id === id) as ModelTrackEvent;
     }
 
     private findNext(): ModelTrackEvent {
-        const currentId = this.currentId();
-        const sortedForwards = this.combinateEventTracks()
+        const currentTime = this.currentTime();
+        const events = this.currentIsEvent() ? this.combineEventTracks() : this.combineNoteTracks();
+        const sortedForwards = events
             .sort((a, b) => a.time - b.time);
-        if (!currentId) {
-            return sortedForwards[0];
-        }
-        const index = sortedForwards
-            .findIndex(e => e.id === currentId);
-        return sortedForwards[index + 1];
+        return sortedForwards
+            .find(e => e.time > currentTime);
     }
 
     private findPrevious(): ModelTrackEvent {
-        const currentId = this.currentId();
-        if (!currentId) {
-            return this.findNext();
-        }
-        const sortedBackwards = this.combinateEventTracks()
+        const currentTime = this.currentTime();
+        const events = this.currentIsEvent() ? this.combineEventTracks() : this.combineNoteTracks();
+        const sortedBackwards = events
             .sort((a, b) => a.time - b.time)
             .reverse();
-        const index = sortedBackwards
-            .findIndex(e => e.id === currentId);
-        return sortedBackwards[index + 1];
-    }
-
-    private currentId(): number {
-        return this.selectedNotesSubject.value
-            ? this.selectedNotesSubject.value.id
-            : this.selectedEventsSubject.value
-            ? this.selectedEventsSubject.value.id
-            : null;
+        return sortedBackwards
+            .find(e => e.time < currentTime);
     }
 
     private currentTime(): number {
@@ -166,32 +152,60 @@ export class SelectorService {
             ? this.selectedNotesSubject.value.time
             : this.selectedEventsSubject.value
             ? this.selectedEventsSubject.value.time
-            : 0;
+            : this.time;
     }
 
-    private combinateEventTracks(): ModelTrackEvent[] {
-        return this.model.syncTrack.events
-            .concat(getTrack(this.model, this.track).events)
-            .concat(this.model.events.events);
+    private combineAllTracks(): ModelTrackEvent[] {
+        return [
+            ...this.combineNoteTracks(),
+            ...this.combineEventTracks(),
+        ];
+    }
+
+    private combineNoteTracks(): ModelTrackEvent[] {
+        return getTrack(this.model, this.track).events;
+    }
+
+    private combineEventTracks(): ModelTrackEvent[] {
+        return [
+            ...this.model.syncTrack.events,
+            ...this.model.events.events,
+        ];
     }
 
     private newSelection(event: ModelTrackEvent): void {
-        if (event.event === ModelTrackEventType.GHLNote ||
-            event.event === ModelTrackEventType.GuitarNote
-        ) {
-            this.newNoteSelection(event);
+        if (this.isNote(event)) {
+            this.newNoteSelection(event as ModelTrackNote);
             return;
         }
-        if (event.event === ModelTrackEventType.BPMChange ||
-            event.event === ModelTrackEventType.TSChange ||
-            event.event === ModelTrackEventType.PracticeSection ||
-            event.event === ModelTrackEventType.SoloToggle ||
-            event.event === ModelTrackEventType.StarPowerToggle
-        ) {
+        if (this.isEvent(event)) {
             this.newEventSelection(event);
             return;
         }
         throw new Error('newSelection failed');
+    }
+
+    private isNote(event: ModelTrackEvent): boolean {
+        return event.event === ModelTrackEventType.GHLNote ||
+            event.event === ModelTrackEventType.GuitarNote;
+    }
+
+    private isEvent(event: ModelTrackEvent): boolean {
+        return event.event === ModelTrackEventType.BPMChange ||
+            event.event === ModelTrackEventType.TSChange ||
+            event.event === ModelTrackEventType.PracticeSection ||
+            event.event === ModelTrackEventType.SoloToggle ||
+            event.event === ModelTrackEventType.StarPowerToggle;
+    }
+
+    private currentIsNote(): boolean {
+        return this.selectedEventsSubject.value === undefined &&
+            this.selectedNotesSubject.value !== undefined;
+    }
+
+    private currentIsEvent(): boolean {
+        return this.selectedEventsSubject.value !== undefined &&
+            this.selectedNotesSubject.value === undefined;
     }
 
     private newNoteSelection(note: ModelTrackNote): void {

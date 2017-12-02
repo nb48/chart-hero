@@ -230,6 +230,7 @@ export class PreparerService {
         const eventTypes = [
             ModelTrackEventType.BPMChange,
             ModelTrackEventType.TSChange,
+            ModelTrackEventType.SoloToggle,
             ModelTrackEventType.StarPowerToggle,
         ];
         return allEvents

@@ -7,6 +7,11 @@ import { BPMService } from '../bpm/bpm.service';
 import { SelectorService } from '../selector/selector.service';
 import { TimeSignatureService } from '../time-signature/time-signature.service';
 
+const BPM_CHANGE = 'BPM Change';
+const TS_CHANGE = 'Time Signature Change';
+const SOLO_TOGGLE = 'Solo Toggle';
+const STAR_POWER_TOGGLE = 'Star Power Toggle';
+
 @Component({
     selector: 'app-event-controls',
     templateUrl: './event-controls.component.html',
@@ -38,25 +43,28 @@ export class EventControlsComponent {
             this.time = event.time;
             this.formattedTime = showTime(event.time);
             if (event.event === ModelTrackEventType.BPMChange) {
-                this.type = 'BPM Change';
+                this.type = BPM_CHANGE;
                 this.value = (event as ModelTrackBPMChange).bpm;
             }
             if (event.event === ModelTrackEventType.TSChange) {
-                this.type = 'Time Signature Change';
+                this.type = TS_CHANGE;
                 this.value = (event as ModelTrackTSChange).ts;
             }
+            if (event.event === ModelTrackEventType.SoloToggle) {
+                this.type = SOLO_TOGGLE;
+            }
             if (event.event === ModelTrackEventType.StarPowerToggle) {
-                this.type = 'Star Power Toggle';
+                this.type = STAR_POWER_TOGGLE;
             }
         });
     }
 
     get isBPMChange(): boolean {
-        return this.type === 'BPM Change';
+        return this.type === BPM_CHANGE;
     }
 
     get isTSChange(): boolean {
-        return this.type === 'Time Signature Change';
+        return this.type === TS_CHANGE;
     }
 
     bpmChanged(bpm: number): void {
@@ -74,10 +82,10 @@ export class EventControlsComponent {
     delete(): void {
         const idToDelete = this.id;
         this.selectorService.selectNearest();
-        if (this.type === 'BPM Change' || this.type === 'Time Signature Change') {
+        if (this.type === BPM_CHANGE || this.type === TS_CHANGE) {
             this.actionsService.deleteSyncTrackEvent(idToDelete);            
         }
-        if (this.type === 'Star Power Toggle') {
+        if (this.type === SOLO_TOGGLE || this.type === STAR_POWER_TOGGLE) {
             this.actionsService.deleteTrackEvent(idToDelete);
         }
     }

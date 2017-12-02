@@ -26,6 +26,8 @@ export class EventComponent {
             return 'white';
         case ModelTrackEventType.TSChange:
             return 'gold';
+        case ModelTrackEventType.SoloToggle:
+            return 'blue';
         case ModelTrackEventType.StarPowerToggle:
             return 'red';
         }
@@ -62,6 +64,8 @@ export class EventComponent {
             return 'BPM';
         case ModelTrackEventType.TSChange:
             return 'TS';
+        case ModelTrackEventType.SoloToggle:
+            return 'SOLO';
         case ModelTrackEventType.StarPowerToggle:
             return 'SP';
         }

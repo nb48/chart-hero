@@ -57,14 +57,14 @@ export const TEST_MEMORY: Memory = {
             length: 0,
         }, {
             midiTime: 400,
+            type: 'E',
+            text: 'solo',
+        },  {
+            midiTime: 400,
             type: 'S',
             note: 2,
             length: 100,
-        }, {
-            midiTime: 400,
-            type: 'E',
-            text: 'solo',
-        }, {
+        },{
             midiTime: 600,
             type: 'N',
             note: 2,
@@ -250,20 +250,20 @@ export const TEST_MODEL: Model = {
                 tap: true,
             }, {
                 id: 80,
-                event: ModelTrackEventType.StarPowerToggle as ModelTrackEventType.StarPowerToggle,
+                event: ModelTrackEventType.SoloToggle as ModelTrackEventType.SoloToggle,
                 time: 1.9,
             }, {
                 id: 90,
-                event: ModelTrackEventType.StarPowerToggle as ModelTrackEventType.StarPowerToggle,
-                time: 2.4,
+                event: ModelTrackEventType.SoloToggle as ModelTrackEventType.SoloToggle,
+                time: 2.9,
             }, {
                 id: 100,
-                event: ModelTrackEventType.SoloToggle as ModelTrackEventType.SoloToggle,
+                event: ModelTrackEventType.StarPowerToggle as ModelTrackEventType.StarPowerToggle,
                 time: 1.9,
             }, {
                 id: 110,
-                event: ModelTrackEventType.SoloToggle as ModelTrackEventType.SoloToggle,
-                time: 2.9,
+                event: ModelTrackEventType.StarPowerToggle as ModelTrackEventType.StarPowerToggle,
+                time: 2.4,
             }],
             unsupported: [],
         },

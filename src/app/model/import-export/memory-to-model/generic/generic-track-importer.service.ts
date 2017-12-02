@@ -6,8 +6,8 @@ import {
     ModelTrackEventType,
     ModelTrackNote,
     ModelTrackNoteType,
-    ModelTrackStarPowerToggle,
     ModelTrackSoloToggle,
+    ModelTrackStarPowerToggle,
 } from '../../../model';
 import { MemorySyncTrack, MemoryTrack } from '../../memory';
 import { defaultSyncTrack } from '../common/sync-track-importer.service';
@@ -58,13 +58,13 @@ export class GenericTrackImporterService {
                     noteTransformer,
                     eventType,
                 ),
-                ...this.importStarPowerToggles(
+                ...this.importSoloToggles(
                     track,
                     syncTrack,
                     resolution,
                     offset,
                 ),
-                ...this.importSoloToggles(
+                ...this.importStarPowerToggles(
                     track,
                     syncTrack,
                     resolution,
@@ -163,6 +163,26 @@ export class GenericTrackImporterService {
             }));
     }
 
+    private importSoloToggles(
+        track: MemoryTrack[],
+        syncTrack: MemorySyncTrack[],
+        resolution: number,
+        offset: number,
+    ): ModelTrackSoloToggle[] {
+        return track
+            .filter(t => t.type === 'E' && (t.text === 'solo' || t.text === 'soloend'))
+            .map((toggle: MemoryTrack): ModelTrackSoloToggle => {
+                const midiTime = toggle.midiTime;
+                const time = this.midiTimeService.calculateTime
+                    (midiTime, resolution, syncTrack);
+                return {
+                    id: this.idGenerator.id(),
+                    event: ModelTrackEventType.SoloToggle,
+                    time: time + offset,
+                };
+            });
+    }
+
     private importStarPowerToggles(
         track: MemoryTrack[],
         syncTrack: MemorySyncTrack[],
@@ -187,26 +207,6 @@ export class GenericTrackImporterService {
                     time: endTime + offset,
                 }];
             })));
-    }
-
-    private importSoloToggles(
-        track: MemoryTrack[],
-        syncTrack: MemorySyncTrack[],
-        resolution: number,
-        offset: number,
-    ): ModelTrackSoloToggle[] {
-        return track
-            .filter(t => t.type === 'E' && (t.text === 'solo' || t.text === 'soloend'))
-            .map((toggle: MemoryTrack): ModelTrackSoloToggle => {
-                const midiTime = toggle.midiTime;
-                const time = this.midiTimeService.calculateTime
-                    (midiTime, resolution, syncTrack);
-                return {
-                    id: this.idGenerator.id(),
-                    event: ModelTrackEventType.SoloToggle,
-                    time: time + offset,
-                };
-            });
     }
 
     private importUnsupportedTrack(track: MemoryTrack[], supportedNotes: SupportedNotes)

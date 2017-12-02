@@ -262,7 +262,6 @@ export class PreparerService {
                 id: e.id,
                 time: e.time,
                 type: e.event,
-                level: 0,
             }));
     }
 
@@ -292,7 +291,6 @@ export class PreparerService {
                     id: toggle.id + 1,
                     startTime: toggle.time,
                     endTime: this.duration,
-                    level: 0,
                 });
                 active = true;
             } else {

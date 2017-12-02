@@ -3,6 +3,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 
 import { SelectorService } from '../../controller/selector/selector.service';
 import { TimeService } from '../../time/time.service';
+import { ModelTrackEventType } from '../../model/model';
 import { Prepared } from '../preparer/prepared';
 import { PreparerService } from '../preparer/preparer.service';
 import { SpeedService } from '../speed/speed.service';
@@ -47,14 +48,25 @@ export class EventService {
             .map(b => ({
                 id: b.id,
                 time: b.time,
-                x: this.buildEventX(b.level),
+                x: this.buildEventX(b.type),
                 y: this.speedService.calculateYPos(b.time, this.time),
                 type: b.type,
                 selected: b.id === this.selectedId,
             }));
     }
 
-    private buildEventX(level: number): number {
-        return 14 - (level * 2.5);
+    private buildEventX(type: ModelTrackEventType): number {
+        switch (type) {
+        case ModelTrackEventType.BPMChange:
+            return 5;
+        case ModelTrackEventType.TSChange:
+            return 7.5;
+        case ModelTrackEventType.PracticeSection:
+            return 10;
+        case ModelTrackEventType.SoloToggle:
+            return 12.5;
+        case ModelTrackEventType.StarPowerToggle:
+            return 15;
+        }
     }
 }

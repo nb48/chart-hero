@@ -19,10 +19,16 @@
                     <input [ngModel]="value" (ngModelChange)="bpmChanged($event)" matInput type="number">
                 </mat-form-field>
             </mat-list-item>
-            <mat-list-item *ngIf="isTSChange">
+            <mat-list-item *ngIf="isTimeSignatureChange">
                 <label class="body-1">Time Signature: </label>
                 <mat-form-field>
-                    <input [ngModel]="value" (ngModelChange)="tsChanged($event)" matInput type="number">
+                    <input [ngModel]="value" (ngModelChange)="timeSignatureChanged($event)" matInput type="number">
+                </mat-form-field>
+            </mat-list-item>
+            <mat-list-item *ngIf="isPracticeSection">
+                <label class="body-1">Name: </label>
+                <mat-form-field>
+                    <input [ngModel]="text" (ngModelChange)="practiceSectionChanged($event)" matInput type="text">
                 </mat-form-field>
             </mat-list-item>
         </mat-list>

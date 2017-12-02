@@ -23,13 +23,15 @@ export class EventComponent {
     get color(): string {
         switch (this.event.type) {
         case ModelTrackEventType.BPMChange:
-            return 'white';
+            return 'green';
         case ModelTrackEventType.TSChange:
-            return 'gold';
+            return 'red';
+        case ModelTrackEventType.PracticeSection:
+            return 'yellow';
         case ModelTrackEventType.SoloToggle:
             return 'blue';
         case ModelTrackEventType.StarPowerToggle:
-            return 'red';
+            return 'orange';
         }
         throw new Error('Unsupported event passed to event component');
     }
@@ -61,13 +63,15 @@ export class EventComponent {
     private type(): string {
         switch (this.event.type) {
         case ModelTrackEventType.BPMChange:
-            return 'BPM';
+            return 'BPM Change';
         case ModelTrackEventType.TSChange:
-            return 'TS';
+            return 'Time Signature Change';
+        case ModelTrackEventType.PracticeSection:
+            return 'Practice Section';
         case ModelTrackEventType.SoloToggle:
-            return 'SOLO';
+            return 'Solo Toggle';
         case ModelTrackEventType.StarPowerToggle:
-            return 'SP';
+            return 'Star Power Toggle';
         }
     }
 }

@@ -125,9 +125,15 @@ export class ActionsService {
         this.modelService.model = this.model;
     }
 
-    deleteSyncTrackEvent(id: number) {
+    deleteSyncTrackEvent(id: number): void {
         const index = this.model.syncTrack.events.findIndex(n => n.id === id);
         this.model.syncTrack.events.splice(index, 1);
+        this.modelService.model = this.model;
+    }
+
+    deleteEventEvent(id: number): void {
+        const index = this.model.events.events.findIndex(n => n.id === id);
+        this.model.events.events.splice(index, 1);
         this.modelService.model = this.model;
     }
 
@@ -143,6 +149,15 @@ export class ActionsService {
 
     syncTrackEventChanged(event: ModelTrackEvent): void {
         const modelEvent = this.model.syncTrack.events.find(e => e.id === event.id);
+        Object.keys(event).forEach((key) => {
+            modelEvent[key] = event[key];
+        });
+        modelEvent.time = roundTime(modelEvent.time);
+        this.modelService.model = this.model;
+    }
+
+    eventEventChanged(event: ModelTrackEvent): void {
+        const modelEvent = this.model.events.events.find(e => e.id === event.id);
         Object.keys(event).forEach((key) => {
             modelEvent[key] = event[key];
         });

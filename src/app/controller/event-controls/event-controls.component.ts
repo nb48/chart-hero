@@ -1,14 +1,21 @@
 import { Component } from '@angular/core';
 
 import { ActionsService } from '../../model/actions/actions.service';
-import { ModelTrackEventType, ModelTrackBPMChange, ModelTrackTSChange } from '../../model/model';
+import {
+    ModelTrackEventType,
+    ModelTrackBPMChange,
+    ModelTrackTSChange,
+    ModelTrackPracticeSection,
+} from '../../model/model';
 import { showTime } from '../../time/audio-player-controls/audio-player-controls.component';
 import { BPMService } from '../bpm/bpm.service';
+import { PracticeSectionService } from '../practice-section/practice-section.service';
 import { SelectorService } from '../selector/selector.service';
 import { TimeSignatureService } from '../time-signature/time-signature.service';
 
 const BPM_CHANGE = 'BPM Change';
-const TS_CHANGE = 'Time Signature Change';
+const TIME_SIGNATURE_CHANGE = 'Time Signature Change';
+const PRACTICE_SECTION = 'Practice Section';
 const SOLO_TOGGLE = 'Solo Toggle';
 const STAR_POWER_TOGGLE = 'Star Power Toggle';
 
@@ -25,10 +32,12 @@ export class EventControlsComponent {
     formattedTime: string;
     type: string;
     value: number;
+    text: string;
 
     constructor(
         private actionsService: ActionsService,
         private bpmService: BPMService,
+        private practiceSectionService: PracticeSectionService,
         private selectorService: SelectorService,
         private timeSignatureService: TimeSignatureService,
     ) {
@@ -47,8 +56,12 @@ export class EventControlsComponent {
                 this.value = (event as ModelTrackBPMChange).bpm;
             }
             if (event.event === ModelTrackEventType.TSChange) {
-                this.type = TS_CHANGE;
+                this.type = TIME_SIGNATURE_CHANGE;
                 this.value = (event as ModelTrackTSChange).ts;
+            }
+            if (event.event === ModelTrackEventType.PracticeSection) {
+                this.type = PRACTICE_SECTION;
+                this.text = (event as ModelTrackPracticeSection).name; 
             }
             if (event.event === ModelTrackEventType.SoloToggle) {
                 this.type = SOLO_TOGGLE;
@@ -63,8 +76,12 @@ export class EventControlsComponent {
         return this.type === BPM_CHANGE;
     }
 
-    get isTSChange(): boolean {
-        return this.type === TS_CHANGE;
+    get isTimeSignatureChange(): boolean {
+        return this.type === TIME_SIGNATURE_CHANGE;
+    }
+
+    get isPracticeSection(): boolean {
+        return this.type === PRACTICE_SECTION;
     }
 
     bpmChanged(bpm: number): void {
@@ -73,20 +90,29 @@ export class EventControlsComponent {
         }
     }
 
-    tsChanged(ts: number): void {
+    timeSignatureChanged(ts: number): void {
         if (ts && ts > 0 && ts <= 100) {
             this.timeSignatureService.updateTimeSignature(ts);
+        }
+    }
+
+    practiceSectionChanged(name: string): void {
+        if (name && name !== '') {
+            this.practiceSectionService.updatePracticeSection(name);
         }
     }
 
     delete(): void {
         const idToDelete = this.id;
         this.selectorService.selectNearest();
-        if (this.type === BPM_CHANGE || this.type === TS_CHANGE) {
+        if (this.type === BPM_CHANGE || this.type === TIME_SIGNATURE_CHANGE) {
             this.actionsService.deleteSyncTrackEvent(idToDelete);            
         }
         if (this.type === SOLO_TOGGLE || this.type === STAR_POWER_TOGGLE) {
             this.actionsService.deleteTrackEvent(idToDelete);
+        }
+        if (this.type === PRACTICE_SECTION) {
+            this.actionsService.deleteEventEvent(idToDelete);
         }
     }
 }

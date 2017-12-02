@@ -226,10 +226,12 @@ export class PreparerService {
         const allEvents = [
             ...this.model.syncTrack.events,
             ...getTrack(this.model, this.track).events,
+            ...this.model.events.events,
         ];
         const eventTypes = [
             ModelTrackEventType.BPMChange,
             ModelTrackEventType.TSChange,
+            ModelTrackEventType.PracticeSection,
             ModelTrackEventType.SoloToggle,
             ModelTrackEventType.StarPowerToggle,
         ];

@@ -171,7 +171,8 @@ export class SelectorService {
 
     private combinateEventTracks(): ModelTrackEvent[] {
         return this.model.syncTrack.events
-            .concat(getTrack(this.model, this.track).events);
+            .concat(getTrack(this.model, this.track).events)
+            .concat(this.model.events.events);
     }
 
     private newSelection(event: ModelTrackEvent): void {
@@ -183,6 +184,7 @@ export class SelectorService {
         }
         if (event.event === ModelTrackEventType.BPMChange ||
             event.event === ModelTrackEventType.TSChange ||
+            event.event === ModelTrackEventType.PracticeSection ||
             event.event === ModelTrackEventType.SoloToggle ||
             event.event === ModelTrackEventType.StarPowerToggle
         ) {

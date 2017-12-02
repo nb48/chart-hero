@@ -19,6 +19,7 @@ import { NoteControlsComponent } from './note-controls/note-controls.component';
 import { ParentControlsComponent } from './parent-controls/parent-controls.component';
 
 import { BPMService } from './bpm/bpm.service';
+import { PracticeSectionService } from './practice-section/practice-section.service';
 import { SelectorService } from './selector/selector.service';
 import { StepService } from './step/step.service';
 import { TimeSignatureService } from './time-signature/time-signature.service';
@@ -50,6 +51,7 @@ import { TypeService } from './type/type.service';
     ],
     providers: [
         BPMService,
+        PracticeSectionService,
         SelectorService,
         StepService,
         TimeSignatureService,

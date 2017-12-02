@@ -49,7 +49,6 @@ export interface PreparedEvent {
     id: number;
     time: number;
     type: ModelTrackEventType;
-    level: number;
 }
 
 export interface PreparedEventLink {
@@ -57,5 +56,4 @@ export interface PreparedEventLink {
     startTime: number;
     endTime: number;
     type: ModelTrackEventType;
-    level: number;
 }

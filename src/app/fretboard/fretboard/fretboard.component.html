@@ -4,7 +4,7 @@
         <svg:g app-beat *ngFor="let beat of fretboard.beats; trackBy: trackBeat" [beat]="beat"/>
         <svg:g app-note *ngFor="let note of fretboard.notes; trackBy: trackNoteSustain" [note]="note" [drawSustain]="true"/>
         <svg:g app-note *ngFor="let note of fretboard.notes; trackBy: trackNote" [note]="note" [drawSustain]="false"/>
-        <svg:g app-event-link *ngFor="let eventLink of fretboard.eventLinks" [eventLink]="eventLink"/>        
+        <svg:g app-event-link *ngFor="let eventLink of fretboard.eventLinks; trackBy: trackEventLink" [eventLink]="eventLink"/>        
         <svg:g app-event *ngFor="let event of fretboard.events; trackBy: trackEvent" [event]="event"/>
         <line x1="20" x2="20" y1="0" y2="100" stroke="white" stroke-width="1"></line>        
     </svg>

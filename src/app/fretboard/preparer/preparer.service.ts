@@ -4,6 +4,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import {
     Model,
     ModelTrack,
+    ModelTrackEvent,
     ModelTrackEventType,
     ModelTrackBPMChange,
     ModelTrackNote,
@@ -266,6 +267,39 @@ export class PreparerService {
     }
 
     private buildEventLinks(): PreparedEventLink[] {
-        return [];
+        const allEvents = [
+            ...this.model.syncTrack.events,
+            ...getTrack(this.model, this.track).events,
+            ...this.model.events.events,
+        ];
+        return [
+            ...this.buildEventLinksForType(allEvents, ModelTrackEventType.SoloToggle),
+            ...this.buildEventLinksForType(allEvents, ModelTrackEventType.StarPowerToggle),
+        ];
+    }
+
+    private buildEventLinksForType(events: ModelTrackEvent[], type: ModelTrackEventType)
+        : PreparedEventLink[] {
+        const toggles = events
+            .filter(e => e.event === type)
+            .sort((a, b) => a.time - b.time);
+        let active = false;
+        const links: PreparedEventLink[] = [];
+        toggles.forEach((toggle) => {
+            if (!active) {
+                links.push({
+                    type,
+                    id: toggle.id + 1,
+                    startTime: toggle.time,
+                    endTime: this.duration,
+                    level: 0,
+                });
+                active = true;
+            } else {
+                links[links.length - 1].endTime = toggle.time;
+                active = false;
+            }
+        });
+        return links;
     }
 }

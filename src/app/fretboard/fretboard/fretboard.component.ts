@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Beat } from '../beat/beat';
 import { Event } from '../event/event';
+import { EventLink } from '../event-link/event-link';
 import { Note } from '../note/note';
 import { Fretboard } from './fretboard';
 
@@ -35,6 +36,10 @@ export class FretboardComponent {
     }
 
     trackEvent(index: number, item: Event) {
+        return item.id;
+    }
+
+    trackEventLink(index: number, item: EventLink) {
         return item.id;
     }
 }

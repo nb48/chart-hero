@@ -6,6 +6,7 @@ import {
     ModelTrackEventType,
     ModelTrackNote,
     ModelTrackNoteType,
+    ModelTrackStarPowerToggle,
 } from '../../../model';
 import { MemorySyncTrack, MemoryTrack } from '../../memory';
 import { defaultSyncTrack } from '../common/sync-track-importer.service';
@@ -55,6 +56,12 @@ export class GenericTrackImporterService {
                     noteTransformer,
                     eventType,
                 ),
+                ...this.importStarPowerToggles(
+                    track,
+                    syncTrack,
+                    resolution,
+                    offset,
+                ),
             ],
             unsupported: [
                 ...this.importUnsupportedTrack(track, supportedNotes),
@@ -77,7 +84,7 @@ export class GenericTrackImporterService {
         }
         const groupedNotes = this.groupNotes(track, supportedNotes);
         return groupedNotes
-            .map((notes: MemoryTrack[]) => {
+            .map((notes: MemoryTrack[]): ModelTrackNote => {
                 const midiTime = notes[0].midiTime;
                 const time = this.midiTimeService.calculateTime(midiTime, resolution, syncTrack);
                 const length = notes[0].length !== 0
@@ -116,7 +123,7 @@ export class GenericTrackImporterService {
                 }
             });
         return [].concat.apply([], Array.from(times.values())
-            .map((notes: MemoryTrack[]) => {
+            .map((notes: MemoryTrack[]): MemoryTrack[][] => {
                 const notesHaveSameLength =
                     notes.every(note => note.length === notes[0].length);
                 const notesContainModifier =
@@ -144,8 +151,40 @@ export class GenericTrackImporterService {
             }));
     }
 
+    private importStarPowerToggles(
+        track: MemoryTrack[],
+        st: MemorySyncTrack[],
+        resolution: number,
+        offset: number,
+    ): ModelTrackStarPowerToggle[] {
+        let syncTrack = st ? st.filter(e => e.type === 'B') : [defaultSyncTrack()];
+        if (syncTrack.length === 0) {
+            syncTrack = [defaultSyncTrack()];
+        }
+        return [].concat.apply([], Array.from(track
+            .filter(t => t.type === 'S' && t.note === 2)
+            .map((toggle: MemoryTrack): ModelTrackStarPowerToggle[] => {
+                const midiTime = toggle.midiTime;
+                const startTime = this.midiTimeService.calculateTime
+                    (midiTime, resolution, syncTrack);
+                const endTime = this.midiTimeService.calculateTime
+                    (midiTime + toggle.length, resolution, syncTrack);
+                return [{
+                    id: this.idGenerator.id(),
+                    event: ModelTrackEventType.StarPowerToggle,
+                    time: startTime + offset,
+                }, {
+                    id: this.idGenerator.id(),
+                    event: ModelTrackEventType.StarPowerToggle,
+                    time: endTime + offset,
+                }];
+            })));
+    }
+
     private importUnsupportedTrack(track: MemoryTrack[], supportedNotes: SupportedNotes)
         : MemoryTrack[] {
-        return track.filter(t => t.type !== 'N' || supportedNotes.indexOf(t.note) === -1);
+        return track.filter(t => 
+            !(t.type === 'N' && supportedNotes.indexOf(t.note) !== -1) &&
+            !(t.type === 'S' && t.note === 2));
     }
 }

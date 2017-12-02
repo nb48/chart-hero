@@ -32,13 +32,15 @@ export interface ModelTrack {
 export type ModelTrackEvent = 
     ModelTrackBPMChange |
     ModelTrackTSChange |
-    ModelTrackNote;
+    ModelTrackNote |
+    ModelTrackStarPowerToggle;
 
 export enum ModelTrackEventType {
     BPMChange,
     TSChange,
     GuitarNote,
     GHLNote,
+    StarPowerToggle,
 }
 
 export interface ModelTrackBPMChange {
@@ -77,4 +79,10 @@ export enum ModelTrackNoteType {
     GHLWhite1,
     GHLWhite2,
     GHLWhite3,
+}
+
+export interface ModelTrackStarPowerToggle {
+    id: number;
+    event: ModelTrackEventType.StarPowerToggle;
+    time: number;
 }

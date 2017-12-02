@@ -6,6 +6,7 @@ import {
     ModelTrackBPMChange,
     ModelTrackNote,
     ModelTrackNoteType,
+    ModelTrackStarPowerToggle,
 } from '../../../model';
 import { MemoryTrack } from '../../memory';
 import { MidiTimeService } from '../util/midi-time.service';
@@ -29,20 +30,16 @@ export class GenericTrackExporterService {
             return null;
         }
         this.midiTimeService.clearCache();
+        const bpmChanges = this.buildBPMChanges(syncTrack, offset);
         return [
-            ...this.exportNotes(track, syncTrack, resolution, offset, noteExporter),
+            ...this.exportNotes(track, bpmChanges, resolution, offset, noteExporter),
+            ...this.exportStarPowerToggles(track, bpmChanges, resolution, offset),
             ...track.unsupported,
         ].sort((a, b) => a.midiTime - b.midiTime);
     }
 
-    private exportNotes(
-        track: ModelTrack,
-        st: ModelTrack,
-        resolution: number,
-        offset: number,
-        noteExporter: NoteExporter,
-    ): MemoryTrack[] {
-        const bpmChanges = st.events
+    private buildBPMChanges(st: ModelTrack, offset: number): ModelTrackBPMChange[] {
+        return st.events
             .filter(e => e.event === ModelTrackEventType.BPMChange)
             .map(e => e as ModelTrackBPMChange)
             .map(e => ({
@@ -51,14 +48,23 @@ export class GenericTrackExporterService {
                 time: e.time - offset,
                 bpm: e.bpm,
             } as ModelTrackBPMChange));
+    }
+
+    private exportNotes(
+        track: ModelTrack,
+        bpmChanges: ModelTrackBPMChange[],
+        resolution: number,
+        offset: number,
+        noteExporter: NoteExporter,
+    ): MemoryTrack[] {
         return [].concat.apply([], track.events
             .filter(e => e.event === ModelTrackEventType.GuitarNote
                 || e.event === ModelTrackEventType.GHLNote)
             .map(e => e as ModelTrackNote)
-            .map((n) => {
+            .map((n): MemoryTrack[] => {
                 const time = n.time - offset;
-                const midiTime =
-                    this.midiTimeService.calculateMidiTime(time, resolution, bpmChanges);
+                const midiTime = this.midiTimeService.calculateMidiTime
+                    (time, resolution, bpmChanges);
                 const length = n.length !== 0
                     ? this.midiTimeService.calculateMidiTime
                         (time + n.length, resolution, bpmChanges) - midiTime
@@ -96,5 +102,41 @@ export class GenericTrackExporterService {
                     };
                 }).concat(forceHopo).concat(tapNote);
             }));
+    }
+
+    private exportStarPowerToggles(
+        track: ModelTrack,
+        bpmChanges: ModelTrackBPMChange[],
+        resolution: number,
+        offset: number,
+    ): MemoryTrack[] {
+        const starPowerEvents: MemoryTrack[] = [];
+        let toggled = false;
+        track.events
+            .filter(e => e.event === ModelTrackEventType.StarPowerToggle)
+            .map(e => e as ModelTrackStarPowerToggle)
+            .forEach((t): void => {
+                const time = t.time - offset;
+                const midiTime = this.midiTimeService.calculateMidiTime
+                    (time, resolution, bpmChanges);
+                if (!toggled) {
+                    starPowerEvents.push({
+                        midiTime,
+                        type: 'S',
+                        note: 2,
+                        length: 0,
+                    });
+                    toggled = true;
+                } else {
+                    const previousEvent = starPowerEvents[starPowerEvents.length - 1];
+                    previousEvent.length = midiTime - previousEvent.midiTime;
+                    toggled = false;
+                }
+            });
+        if (toggled) {
+            const previousEvent = starPowerEvents[starPowerEvents.length - 1];
+            previousEvent.length = 100000;
+        }
+        return starPowerEvents;
     }
 }

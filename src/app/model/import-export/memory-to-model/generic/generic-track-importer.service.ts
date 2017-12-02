@@ -7,6 +7,7 @@ import {
     ModelTrackNote,
     ModelTrackNoteType,
     ModelTrackStarPowerToggle,
+    ModelTrackSoloToggle,
 } from '../../../model';
 import { MemorySyncTrack, MemoryTrack } from '../../memory';
 import { defaultSyncTrack } from '../common/sync-track-importer.service';
@@ -31,7 +32,7 @@ export class GenericTrackImporterService {
 
     import(
         track: MemoryTrack[],
-        syncTrack: MemorySyncTrack[],
+        st: MemorySyncTrack[],
         resolution: number,
         offset: number,
         supportedNotes: SupportedNotes,
@@ -45,6 +46,7 @@ export class GenericTrackImporterService {
             };
         }
         this.midiTimeService.clearCache();
+        const syncTrack = this.buildSyncTrack(st);
         return {
             events: [
                 ...this.importNotes(
@@ -62,6 +64,12 @@ export class GenericTrackImporterService {
                     resolution,
                     offset,
                 ),
+                ...this.importSoloToggles(
+                    track,
+                    syncTrack,
+                    resolution,
+                    offset,
+                ),
             ],
             unsupported: [
                 ...this.importUnsupportedTrack(track, supportedNotes),
@@ -69,19 +77,23 @@ export class GenericTrackImporterService {
         };
     }
 
+    private buildSyncTrack(st: MemorySyncTrack[]): MemorySyncTrack[] {
+        let syncTrack = st ? st.filter(e => e.type === 'B') : [defaultSyncTrack()];
+        if (syncTrack.length === 0) {
+            syncTrack = [defaultSyncTrack()];
+        }
+        return syncTrack;
+    }
+
     private importNotes(
         track: MemoryTrack[],
-        st: MemorySyncTrack[],
+        syncTrack: MemorySyncTrack[],
         resolution: number,
         offset: number,
         supportedNotes: SupportedNotes,
         noteTransformer: NoteImporter,
         eventType: ModelTrackEventType,
     ): ModelTrackNote[] {
-        let syncTrack = st ? st.filter(e => e.type === 'B') : [defaultSyncTrack()];
-        if (syncTrack.length === 0) {
-            syncTrack = [defaultSyncTrack()];
-        }
         const groupedNotes = this.groupNotes(track, supportedNotes);
         return groupedNotes
             .map((notes: MemoryTrack[]): ModelTrackNote => {
@@ -153,14 +165,10 @@ export class GenericTrackImporterService {
 
     private importStarPowerToggles(
         track: MemoryTrack[],
-        st: MemorySyncTrack[],
+        syncTrack: MemorySyncTrack[],
         resolution: number,
         offset: number,
     ): ModelTrackStarPowerToggle[] {
-        let syncTrack = st ? st.filter(e => e.type === 'B') : [defaultSyncTrack()];
-        if (syncTrack.length === 0) {
-            syncTrack = [defaultSyncTrack()];
-        }
         return [].concat.apply([], Array.from(track
             .filter(t => t.type === 'S' && t.note === 2)
             .map((toggle: MemoryTrack): ModelTrackStarPowerToggle[] => {
@@ -181,10 +189,31 @@ export class GenericTrackImporterService {
             })));
     }
 
+    private importSoloToggles(
+        track: MemoryTrack[],
+        syncTrack: MemorySyncTrack[],
+        resolution: number,
+        offset: number,
+    ): ModelTrackSoloToggle[] {
+        return track
+            .filter(t => t.type === 'E' && (t.text === 'solo' || t.text === 'soloend'))
+            .map((toggle: MemoryTrack): ModelTrackSoloToggle => {
+                const midiTime = toggle.midiTime;
+                const time = this.midiTimeService.calculateTime
+                    (midiTime, resolution, syncTrack);
+                return {
+                    id: this.idGenerator.id(),
+                    event: ModelTrackEventType.SoloToggle,
+                    time: time + offset,
+                };
+            });
+    }
+
     private importUnsupportedTrack(track: MemoryTrack[], supportedNotes: SupportedNotes)
         : MemoryTrack[] {
         return track.filter(t => 
             !(t.type === 'N' && supportedNotes.indexOf(t.note) !== -1) &&
-            !(t.type === 'S' && t.note === 2));
+            !(t.type === 'S' && t.note === 2) &&
+            !(t.type === 'E' && (t.text === 'solo' || t.text === 'soloend')));
     }
 }

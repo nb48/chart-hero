@@ -61,6 +61,10 @@ export const TEST_MEMORY: Memory = {
             note: 2,
             length: 100,
         }, {
+            midiTime: 400,
+            type: 'E',
+            text: 'solo',
+        }, {
             midiTime: 600,
             type: 'N',
             note: 2,
@@ -70,6 +74,10 @@ export const TEST_MEMORY: Memory = {
             type: 'N',
             note: 6,
             length: 0,
+        }, {
+            midiTime: 600,
+            type: 'E',
+            text: 'soloend',
         }],
         hard: null,
         medium: null,
@@ -248,6 +256,14 @@ export const TEST_MODEL: Model = {
                 id: 90,
                 event: ModelTrackEventType.StarPowerToggle as ModelTrackEventType.StarPowerToggle,
                 time: 2.4,
+            }, {
+                id: 100,
+                event: ModelTrackEventType.SoloToggle as ModelTrackEventType.SoloToggle,
+                time: 1.9,
+            }, {
+                id: 110,
+                event: ModelTrackEventType.SoloToggle as ModelTrackEventType.SoloToggle,
+                time: 2.9,
             }],
             unsupported: [],
         },
@@ -267,7 +283,7 @@ export const TEST_MODEL: Model = {
     ghlGuitar: {
         expert: {
             events: [{
-                id: 100,
+                id: 120,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 0.9,
                 type: [ModelTrackNoteType.GHLBlack1],
@@ -275,7 +291,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 110,
+                id: 130,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 1.9,
                 type: [ModelTrackNoteType.GHLBlack2],
@@ -283,7 +299,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 120,
+                id: 140,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 2.9,
                 type: [ModelTrackNoteType.GHLBlack3],
@@ -291,7 +307,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 130,
+                id: 150,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 4.4,
                 type: [ModelTrackNoteType.GHLWhite1],
@@ -299,7 +315,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 140,
+                id: 160,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 6.4,
                 type: [ModelTrackNoteType.GHLWhite2],
@@ -307,7 +323,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 150,
+                id: 170,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 8.4,
                 type: [ModelTrackNoteType.GHLWhite3],
@@ -315,7 +331,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 160,
+                id: 180,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 10.4,
                 type: [],
@@ -323,7 +339,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 170,
+                id: 190,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 12.4,
                 type: [ModelTrackNoteType.GHLBlack1, ModelTrackNoteType.GHLWhite1],
@@ -331,7 +347,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 180,
+                id: 200,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 14.4,
                 type: [ModelTrackNoteType.GHLWhite1],
@@ -339,7 +355,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 190,
+                id: 210,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 14.4,
                 type: [ModelTrackNoteType.GHLWhite2],
@@ -347,7 +363,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 200,
+                id: 220,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 16.4,
                 type: [ModelTrackNoteType.GHLWhite3],
@@ -355,7 +371,7 @@ export const TEST_MODEL: Model = {
                 forceHopo: false,
                 tap: false,
             }, {
-                id: 210,
+                id: 230,
                 event: ModelTrackEventType.GHLNote as ModelTrackEventType.GHLNote,
                 time: 16.4,
                 type: [],

@@ -19,8 +19,10 @@ export const TEST_FILE = `[Song]
     200 = N 0 0
     400 = N 1 0
     400 = S 2 300
+    400 = E solo
     600 = N 2 0
     800 = N 3 0
+    800 = E soloend
     1000 = N 4 0
     1200 = N 7 0
     0 = UNSUPPORTED UNSUPPORTED
@@ -84,6 +86,10 @@ export const TEST_MEMORY: Memory = {
             note: 2,
             length: 300,
         }, {
+            midiTime: 400,
+            type: 'E',
+            text: 'solo',
+        }, {
             midiTime: 600,
             type: 'N',
             note: 2,
@@ -93,6 +99,10 @@ export const TEST_MEMORY: Memory = {
             type: 'N',
             note: 3,
             length: 0,
+        }, {
+            midiTime: 800,
+            type: 'E',
+            text: 'soloend',
         }, {
             midiTime: 1000,
             type: 'N',

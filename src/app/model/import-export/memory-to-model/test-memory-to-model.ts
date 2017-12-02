@@ -173,6 +173,14 @@ export const TEST_MEMORY: Memory = {
         easy: null,
     },
     events: [{
+        midiTime: 200,
+        type: 'E',
+        text: '"section Section 1"',
+    }, {
+        midiTime: 400,
+        type: 'E',
+        text: '"invalid Section 2"',
+    }, {
         midiTime: 9989,
         type: 'UNSUPPORTED',
         text: 'UNSUPPORTED',
@@ -417,8 +425,17 @@ export const TEST_MODEL: Model = {
         },
     },
     events: {
-        events: [],
+        events: [{
+            id: 240,
+            event: ModelTrackEventType.PracticeSection as ModelTrackEventType.PracticeSection,
+            time: 0.9,
+            name: 'Section 1',
+        }],
         unsupported: [{
+            midiTime: 400,
+            type: 'E',
+            text: '"invalid Section 2"',
+        }, {
             midiTime: 9989,
             type: 'UNSUPPORTED',
             text: 'UNSUPPORTED',

@@ -29,6 +29,7 @@ export const TEST_FILE = `[Song]
 }
 [Events]
 {
+    200 = E "section Section 1"
     0 = UNSUPPORTED UNSUPPORTED
 }
 `;
@@ -123,6 +124,10 @@ export const TEST_MEMORY: Memory = {
         easy: null,
     },
     events: [{
+        midiTime: 200,
+        type: 'E',
+        text: '"section Section 1"',
+    }, {
         midiTime: 0,
         type: 'UNSUPPORTED',
         text: 'UNSUPPORTED',

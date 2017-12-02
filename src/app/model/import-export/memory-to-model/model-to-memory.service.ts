@@ -5,6 +5,7 @@ import { Memory } from '../memory';
 import { MetadataService } from './common/metadata.service';
 import { SyncTrackExporterService } from './common/sync-track-exporter.service';
 import { UnsupportedTrackExporterService } from './common/unsupported-track-exporter.service';
+import { GenericTrackExporterService } from './generic/generic-track-exporter.service';
 import { GHLTrackExporterService } from './ghl/ghl-track-exporter.service';
 import { GuitarTrackExporterService } from './guitar/guitar-track-exporter.service';
 
@@ -12,6 +13,7 @@ import { GuitarTrackExporterService } from './guitar/guitar-track-exporter.servi
 export class ModelToMemoryService {
 
     constructor(
+        private genericExporter: GenericTrackExporterService,
         private ghlExporter: GHLTrackExporterService,
         private guitarExporter: GuitarTrackExporterService,
         private metadataService: MetadataService,
@@ -46,7 +48,8 @@ export class ModelToMemoryService {
                 easy: this.ghlExporter.export
                     (cs.ghlGuitar.easy, cs.syncTrack, resolution, offset),
             },
-            events: this.trackExporter.export(cs.events),
+            events: this.genericExporter.export
+                (cs.events, cs.syncTrack, resolution, offset, () => undefined),
             vocals: this.trackExporter.export(cs.vocals),
             venue: this.trackExporter.export(cs.venue),
         };

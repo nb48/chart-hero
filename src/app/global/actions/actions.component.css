@@ -5,7 +5,7 @@
     margin-left: 0.5em;
     display: grid;
     grid-template-areas: "add-note add-bpm-change add-ts-change"
-                         ". . .";
+                         "add-solo-toggle add-star-power-toggle .";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
 }
@@ -20,6 +20,14 @@
 
 .actions .add-ts-change {
     grid-area: add-ts-change;
+}
+
+.actions .add-solo-toggle {
+    grid-area: add-solo-toggle;
+}
+
+.actions .add-star-power-toggle {
+    grid-area: add-star-power-toggle;
 }
 
 .actions button {

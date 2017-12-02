@@ -14,6 +14,8 @@ import {
     ModelTrackEventType,
     ModelTrackNote,
     ModelTrackNoteType,
+    ModelTrackSoloToggle,
+    ModelTrackStarPowerToggle,
 } from '../model';
 import { ModelService } from '../model.service';
 
@@ -61,8 +63,8 @@ export class ActionsService {
         };
         const track = getTrack(this.model, this.track);        
         track.events.push(newNote);
-        this.modelService.model = this.model;
         this.selectorService.selectNote(newNote.id);
+        this.modelService.model = this.model;
     }
 
     addBPMChange(): void {
@@ -76,8 +78,8 @@ export class ActionsService {
             bpm: 120,
         };
         this.model.syncTrack.events.push(newBPMChange);
-        this.modelService.model = this.model;
         this.selectorService.selectEvent(newBPMChange.id);
+        this.modelService.model = this.model;
     }
 
     addTSChange(): void {
@@ -88,8 +90,32 @@ export class ActionsService {
             ts: 4,
         };
         this.model.syncTrack.events.push(newTSChange);
-        this.modelService.model = this.model;
         this.selectorService.selectEvent(newTSChange.id);
+        this.modelService.model = this.model;
+    }
+
+    addSoloToggle(): void {
+        const newSoloToggle: ModelTrackSoloToggle = {
+            id: this.idGenerator.id(),
+            event: ModelTrackEventType.SoloToggle,
+            time: roundTime(this.time),
+        };
+        const track = getTrack(this.model, this.track);        
+        track.events.push(newSoloToggle);
+        this.selectorService.selectEvent(newSoloToggle.id);
+        this.modelService.model = this.model;
+    }
+
+    addStarPowerToggle(): void {
+        const newStarPowerToggle: ModelTrackStarPowerToggle = {
+            id: this.idGenerator.id(),
+            event: ModelTrackEventType.StarPowerToggle,
+            time: roundTime(this.time),
+        };
+        const track = getTrack(this.model, this.track);        
+        track.events.push(newStarPowerToggle);
+        this.selectorService.selectEvent(newStarPowerToggle.id);
+        this.modelService.model = this.model;
     }
 
     deleteTrackEvent(id: number): void {

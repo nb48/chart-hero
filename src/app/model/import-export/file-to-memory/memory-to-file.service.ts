@@ -58,7 +58,10 @@ export class MemoryToFileService {
             if (type === 'N') {
                 return `    ${formatFloat(midiTime)} = ${type} ${note} ${formatFloat(length)}\n`;
             }
-            return `    ${formatFloat(midiTime)} = ${type} ${text}\n`;                
+            if (type === 'S') {
+                return `    ${formatFloat(midiTime)} = ${type} ${note} ${formatFloat(length)}\n`;
+            }
+            return `    ${formatFloat(midiTime)} = ${type} ${text}\n`;
         }).join('');
     }
 }

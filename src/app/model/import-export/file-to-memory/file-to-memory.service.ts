@@ -96,6 +96,15 @@ export class FileToMemoryService {
                     length: parseInt(length, 10),
                 };
             }
+            if (type === 'S') {
+                const [value, length] = text.split(' ');
+                return {
+                    type,
+                    midiTime: parseInt(midiTime, 10),
+                    note: parseInt(value, 10),
+                    length: parseInt(length, 10),
+                };
+            }
             return {
                 text,
                 type,

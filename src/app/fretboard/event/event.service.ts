@@ -52,7 +52,8 @@ export class EventService {
                 y: this.speedService.calculateYPos(b.time, this.time),
                 type: b.type,
                 selected: b.id === this.selectedId,
-            }));
+            }))
+            .sort((a, b) => a.type - b.type);
     }
 
     private buildEventX(type: ModelTrackEventType): number {

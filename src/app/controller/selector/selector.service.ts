@@ -119,12 +119,12 @@ export class SelectorService {
 
     private findNote(id: number): ModelTrackNote {
         const chordId = Math.floor(id / 10) * 10;
-        return getTrack(this.model, this.track).events
+        return this.combinateEventTracks()
             .find(e => e.id === chordId) as ModelTrackNote;
     }
 
     private findEvent(id: number): ModelTrackEvent {
-        return this.model.syncTrack.events
+        return this.combinateEventTracks()
             .find(e => e.id === id) as ModelTrackEvent;
     }
 
@@ -182,7 +182,8 @@ export class SelectorService {
             return;
         }
         if (event.event === ModelTrackEventType.BPMChange ||
-            event.event === ModelTrackEventType.TSChange
+            event.event === ModelTrackEventType.TSChange ||
+            event.event === ModelTrackEventType.StarPowerToggle
         ) {
             this.newEventSelection(event);
             return;

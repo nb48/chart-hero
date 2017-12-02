@@ -45,6 +45,9 @@ export class EventControlsComponent {
                 this.type = 'Time Signature Change';
                 this.value = (event as ModelTrackTSChange).ts;
             }
+            if (event.event === ModelTrackEventType.StarPowerToggle) {
+                this.type = 'Star Power Toggle';
+            }
         });
     }
 
@@ -71,6 +74,11 @@ export class EventControlsComponent {
     delete(): void {
         const idToDelete = this.id;
         this.selectorService.selectNearest();
-        this.actionsService.deleteSyncTrackEvent(idToDelete);
+        if (this.type === 'BPM Change' || this.type === 'Time Signature Change') {
+            this.actionsService.deleteSyncTrackEvent(idToDelete);            
+        }
+        if (this.type === 'Star Power Toggle') {
+            this.actionsService.deleteTrackEvent(idToDelete);
+        }
     }
 }

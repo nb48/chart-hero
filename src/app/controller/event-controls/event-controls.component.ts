@@ -104,14 +104,15 @@ export class EventControlsComponent {
 
     delete(): void {
         const idToDelete = this.id;
+        const typeToDelete = this.type;
         this.selectorService.selectNearest();
-        if (this.type === BPM_CHANGE || this.type === TIME_SIGNATURE_CHANGE) {
+        if (typeToDelete === BPM_CHANGE || typeToDelete === TIME_SIGNATURE_CHANGE) {
             this.actionsService.deleteSyncTrackEvent(idToDelete);            
         }
-        if (this.type === SOLO_TOGGLE || this.type === STAR_POWER_TOGGLE) {
+        if (typeToDelete === SOLO_TOGGLE || typeToDelete === STAR_POWER_TOGGLE) {
             this.actionsService.deleteTrackEvent(idToDelete);
         }
-        if (this.type === PRACTICE_SECTION) {
+        if (typeToDelete === PRACTICE_SECTION) {
             this.actionsService.deleteEventEvent(idToDelete);
         }
     }

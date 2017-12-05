@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { ActionsService } from '../../model/actions/actions.service';
 import {
@@ -24,8 +25,9 @@ const STAR_POWER_TOGGLE = 'Star Power Toggle';
     templateUrl: './event-controls.component.html',
     styleUrls: ['./event-controls.component.css'],
 })
-export class EventControlsComponent {
+export class EventControlsComponent implements OnDestroy {
 
+    subscription: Subscription;
     selected: boolean;
     id: number;
     time: number;
@@ -42,7 +44,7 @@ export class EventControlsComponent {
         private timeSignatureService: TimeSignatureService,
     ) {
         this.selected = false;
-        this.selectorService.selectedEvents.subscribe((event) => {
+        this.subscription = this.selectorService.selectedEvents.subscribe((event) => {
             if (!event) {
                 this.selected = false;
                 return;
@@ -70,6 +72,10 @@ export class EventControlsComponent {
                 this.type = STAR_POWER_TOGGLE;
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     get isBPMChange(): boolean {

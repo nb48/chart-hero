@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { ActionsService } from '../../model/actions/actions.service';
 import { ModelTrackNoteType, ModelTrackEventType } from '../../model/model';
@@ -12,8 +13,9 @@ import { SelectorService } from '../selector/selector.service';
     templateUrl: './note-controls.component.html',
     styleUrls: ['./note-controls.component.css'],
 })
-export class NoteControlsComponent {
+export class NoteControlsComponent implements OnDestroy {
 
+    subscription: Subscription;
     selected: boolean;
     id: number;
     time: number;
@@ -42,7 +44,7 @@ export class NoteControlsComponent {
             this.stepService.customStepTop ? this.stepService.customStepTop : 1;
         this.customStepBottom =
             this.stepService.customStepBottom ? this.stepService.customStepBottom : 1;
-        this.selectorService.selectedNotes.subscribe((note) => {
+        this.subscription = this.selectorService.selectedNotes.subscribe((note) => {
             if (!note) {
                 this.selected = false;
                 return;
@@ -60,6 +62,10 @@ export class NoteControlsComponent {
             this.type = note.type;
         });
         this.newStep();
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     forceHopoChanged(): void {

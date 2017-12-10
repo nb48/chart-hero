@@ -52,19 +52,17 @@ export class ActionsService {
     }
 
     addNote(): void {
-        const ghl = isGHLTrack(this.track);
-        const newNote: ModelTrackNote = {
-            id: this.idGenerator.id(),
-            event: ghl ? ModelTrackEventType.GHLNote : ModelTrackEventType.GuitarNote,
-            time: roundTime(this.time),
-            type: [],
-            length: 0,
-            forceHopo: false,
-            tap: false,
-        };
         const track = getTrack(this.model, this.track);        
+        const newNote = this.newNote(this.time);
         track.events.push(newNote);
         this.selectorService.selectNote(newNote.id);
+        this.modelService.model = this.model;
+    }
+
+    addNoteAtTimes(times: number[]): void {
+        const track = getTrack(this.model, this.track);
+        const newNotes = times.map(time => this.newNote(time));
+        newNotes.forEach(note => track.events.push(note));
         this.modelService.model = this.model;
     }
 
@@ -176,5 +174,18 @@ export class ActionsService {
         });
         modelEvent.time = roundTime(modelEvent.time);
         this.modelService.model = this.model;
+    }
+
+    private newNote(time: number): ModelTrackNote {
+        const ghl = isGHLTrack(this.track);
+        return {
+            id: this.idGenerator.id(),
+            event: ghl ? ModelTrackEventType.GHLNote : ModelTrackEventType.GuitarNote,
+            time: roundTime(time),
+            type: [],
+            length: 0,
+            forceHopo: false,
+            tap: false,
+        };
     }
 }

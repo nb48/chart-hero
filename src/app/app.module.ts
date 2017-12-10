@@ -7,6 +7,7 @@ import { AppFileModule } from './file/file.module';
 import { AppFretboardModule } from './fretboard/fretboard.module';
 import { AppGlobalModule } from './global/global.module';
 import { AppModelModule } from './model/model.module';
+import { AppTapInputModule } from './tap-input/tap-input.module';
 import { AppTimeModule } from './time/time.module';
 import { AppTrackModule } from './track/track.module';
 
@@ -17,6 +18,7 @@ import { AppTrackModule } from './track/track.module';
         AppFretboardModule,
         AppGlobalModule,
         AppModelModule,
+        AppTapInputModule,
         AppTimeModule,
         AppTrackModule,
     ],

@@ -9,6 +9,17 @@ import { TapInputService } from '../tap-input.service';
 })
 export class TapInputComponent {
 
+    text: string;
+
     constructor(private service: TapInputService) {
+        this.clearInput();
+    }
+
+    clearInput(): void {
+        this.text = '';
+    }
+
+    keyPress(): void {
+        this.service.addTime();
     }
 }

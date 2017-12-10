@@ -11,7 +11,8 @@ html, body {
 }
 
 .volume-controls .mat-list-item-content,
-.speed-controls .mat-list-item-content {
+.speed-controls .mat-list-item-content,
+.tap-input .mat-list-item-content, {
     padding-right: 0 !important;
 }
 

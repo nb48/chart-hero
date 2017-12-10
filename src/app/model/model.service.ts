@@ -1,5 +1,5 @@
-import { Observable, ReplaySubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { Observable, ReplaySubject } from 'rxjs';
 
 import { Model } from './model';
 

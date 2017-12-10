@@ -10,11 +10,12 @@
                          "volume-controls view parent-controls"
                          "speed-controls view parent-controls"
                          "converter view parent-controls"
-                         ". view parent-controls"
+                         "tap-input view parent-controls"
+                         "tap-display view parent-controls"
                          "actions view parent-controls"
                          ". view file-download";
     grid-template-columns: 20% 2fr 1fr;
-    grid-template-rows: 9.25em 1em 2.25em 4.25em 4.25em 4em 3.25em 4fr 1fr 4.25em;
+    grid-template-rows: 9.25em 1em 2.25em 4.25em 4.25em 4em 3.25em 4em 4fr 1fr 4.25em;
 }
 
 .app .title {
@@ -45,6 +46,14 @@
 
 .app app-speed-controls {
     grid-area: speed-controls;
+}
+
+.app app-tap-input {
+    grid-area: tap-input;
+}
+
+.app app-tap-display {
+    grid-area: tap-display;
 }
 
 .app app-actions {

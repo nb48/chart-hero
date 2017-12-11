@@ -35,6 +35,7 @@ export class EventControlsComponent implements OnDestroy {
     type: string;
     value: number;
     text: string;
+    disableDelete: boolean;
 
     constructor(
         private actionsService: ActionsService,
@@ -53,9 +54,13 @@ export class EventControlsComponent implements OnDestroy {
             this.id = event.id;
             this.time = event.time;
             this.formattedTime = showTime(event.time);
+            this.disableDelete = false;
             if (event.event === ModelTrackEventType.BPMChange) {
                 this.type = BPM_CHANGE;
                 this.value = (event as ModelTrackBPMChange).bpm;
+                if (this.time === 0) {
+                    this.disableDelete = true;
+                }
             }
             if (event.event === ModelTrackEventType.TSChange) {
                 this.type = TIME_SIGNATURE_CHANGE;

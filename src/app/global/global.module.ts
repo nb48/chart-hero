@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ActionsComponent } from './actions/actions.component';
 import { KeybindingsComponent } from './keybindings/keybindings.component';
+import { ModalsComponent } from './modals/modals.component';
 
 import { KeybindingsService } from './keybindings/keybindings.service';
 import { StorageService } from './storage/storage.service';
@@ -20,10 +21,12 @@ import { StorageService } from './storage/storage.service';
     exports: [
         ActionsComponent,
         KeybindingsComponent,
+        ModalsComponent,
     ],
     declarations: [
         ActionsComponent,
         KeybindingsComponent,
+        ModalsComponent,
     ],
     providers: [
         KeybindingsService,

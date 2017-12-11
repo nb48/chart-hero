@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material';
+
+import { KeybindingsModalComponent } from './keybindings/keybindings-modal.component';
 
 @Component({
     selector: 'app-modals',
@@ -7,11 +10,16 @@ import { Component } from '@angular/core';
 })
 export class ModalsComponent {
 
-    constructor() {
+    constructor(private dialog: MatDialog) {
     }
 
     keybindings(): void {
-        console.log('Keybindings unimplemented');
+        const dialogRef = this.dialog.open(KeybindingsModalComponent, {
+            width: '250px',
+        });
+        dialogRef.afterClosed().subscribe(() => {
+            console.log('Keybindings dialog closed');
+        });
     }
 
     metadata(): void {

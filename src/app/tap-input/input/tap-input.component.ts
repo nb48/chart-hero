@@ -19,7 +19,8 @@ export class TapInputComponent {
         this.text = '';
     }
 
-    keyPress(): void {
+    keyDown(e: Event): void {
+        e.stopPropagation();
         this.service.addTime();
     }
 }

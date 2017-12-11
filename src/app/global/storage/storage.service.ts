@@ -135,7 +135,9 @@ export class StorageService {
         const keybindingsString = localStorage.getItem('keybindings');
         if (keybindingsString) {
             const keybindings = JSON.parse(keybindingsString) as Keybinding[];
-            this.keybindingsService.updateBinds(keybindings);
+            keybindings.forEach((kb) => {
+                this.keybindingsService.updateBind(kb.action, kb.key);
+            });
         }
     }
 }

@@ -4,9 +4,10 @@
     height: 100%;
     display: grid;
     grid-template-areas: "title close"
+                         "message message"
                          "keybindings .";
     grid-template-columns: 1fr 2em;
-    grid-template-rows: 3em 1fr;
+    grid-template-rows: 3em 2em 1fr;
 }
 
 .keybindings-modal .title {
@@ -15,6 +16,11 @@
 
 .keybindings-modal .close {
     grid-area: close;
+}
+
+.keybindings-modal .message {
+    grid-area: message;
+    margin-left: 1em;
 }
 
 .keybindings-modal .keybindings {

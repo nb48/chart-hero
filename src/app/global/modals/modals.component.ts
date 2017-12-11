@@ -15,9 +15,6 @@ export class ModalsComponent {
 
     keybindings(): void {
         const dialogRef = this.dialog.open(KeybindingsModalComponent);
-        dialogRef.afterClosed().subscribe(() => {
-            console.log('Keybindings dialog closed');
-        });
     }
 
     metadata(): void {

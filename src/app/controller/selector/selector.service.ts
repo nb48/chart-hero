@@ -129,42 +129,25 @@ export class SelectorService {
     }
 
     private findNext(): ModelTrackEvent {
-        const currentTime = this.currentTime();
-        const currentId = this.currentId();
-        const events = this.currentIsEvent() ? this.combineEventTracks() : this.combineNoteTracks();
-        const sortedForwards = events
-            .sort((a, b) => a.time - b.time);
-        const atCurrentTime = events
-            .filter(e => e.time === currentTime)
-            .sort((a, b) => a.id - b.id);
-        if (currentId && atCurrentTime.length > 1) {
-            const currentIndex = atCurrentTime.findIndex(e => e.id === currentId);
-            if (currentIndex !== atCurrentTime.length - 1) {
-                return atCurrentTime[currentIndex + 1];
-            }
+        const sortedForwards = this.sortRelevantEvents();
+        const currentId = this.currentId();            
+        if (currentId) {
+            const index = sortedForwards.findIndex(e => e.id === currentId);
+            return sortedForwards[index + 1];
         }
-        return sortedForwards
-            .find(e => e.time > currentTime);
+        const currentTime = this.currentTime();        
+        return sortedForwards.find(e => e.time > currentTime);
     }
 
     private findPrevious(): ModelTrackEvent {
-        const currentTime = this.currentTime();
+        const sortedBackwards = this.sortRelevantEvents().reverse();
         const currentId = this.currentId();        
-        const events = this.currentIsEvent() ? this.combineEventTracks() : this.combineNoteTracks();
-        const sortedBackwards = events
-            .sort((a, b) => a.time - b.time)
-            .reverse();
-        const atCurrentTime = events
-            .filter(e => e.time === currentTime)
-            .sort((a, b) => a.id - b.id);
-        if (currentId && atCurrentTime.length > 1) {
-            const currentIndex = atCurrentTime.findIndex(e => e.id === currentId);
-            if (currentIndex !== 0) {
-                return atCurrentTime[currentIndex - 1];
-            }
+        if (currentId) {
+            const index = sortedBackwards.findIndex(e => e.id === currentId);
+            return sortedBackwards[index + 1];
         }
-        return sortedBackwards
-            .find(e => e.time < currentTime);
+        const currentTime = this.currentTime();
+        return sortedBackwards.find(e => e.time < currentTime);
     }
 
     private currentTime(): number {
@@ -183,6 +166,11 @@ export class SelectorService {
             : undefined;
     }
 
+    private sortRelevantEvents(): ModelTrackEvent[] {
+        const events = this.currentIsEvent() ? this.combineEventTracks() : this.combineNoteTracks();
+        return events.sort((a, b) => a.time === b.time ? a.id - b.id : a.time - b.time);
+    }
+
     private combineAllTracks(): ModelTrackEvent[] {
         return [
             ...this.combineNoteTracks(),
@@ -192,16 +180,20 @@ export class SelectorService {
 
     private combineNoteTracks(): ModelTrackEvent[] {
         return getTrack(this.model, this.track).events
-            .filter(e => e.event !== ModelTrackEventType.StarPowerToggle);
+            .filter(e => e.event !== ModelTrackEventType.StarPowerToggle)
+            .filter(e => e.event !== ModelTrackEventType.SoloToggle);
     }
 
     private combineEventTracks(): ModelTrackEvent[] {
         const starPowers = getTrack(this.model, this.track).events
             .filter(e => e.event === ModelTrackEventType.StarPowerToggle);
+        const soloToggles = getTrack(this.model, this.track).events
+            .filter(e => e.event === ModelTrackEventType.SoloToggle);
         return [
             ...this.model.syncTrack.events,
             ...this.model.events.events,
             ...starPowers,
+            ...soloToggles,
         ];
     }
 

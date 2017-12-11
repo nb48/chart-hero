@@ -1,3 +1,12 @@
-<div class="keybindings-modal" (click)="close()">
-    Hello from keybindings modal!
+<div class="keybindings-modal">
+    <div class="title mat-display-1">Edit Keybindings</div>
+    <button class="close" (click)="close()" [matTooltip]="'Close'" [matTooltipClass]="'app-tooltip'" mat-icon-button color="primary">
+        <i class="fa fa-times fa-3x" aria-hidden="true" aria-label="Close"></i>
+    </button>
+    <div class="keybindings">
+        <div class="keybinding" *ngFor="let keybinding of keybindings">
+            <div class="action">{{keybinding.label}}</div>
+            <div class="key">{{keybinding.key}}</div>
+        </div>
+    </div>
 </div>

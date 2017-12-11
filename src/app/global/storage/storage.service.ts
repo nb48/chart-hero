@@ -9,6 +9,7 @@ import { Model } from '../../model/model';
 import { TimeService } from '../../time/time.service';
 import { VolumeService } from '../../time/volume/volume.service';
 import { TrackService } from '../../track/track.service';
+import { KeybindingsService, Keybinding } from '../keybindings/keybindings.service';
 
 @Injectable()
 export class StorageService {
@@ -22,6 +23,7 @@ export class StorageService {
         private timeService: TimeService,
         private volumeService: VolumeService,
         private trackService: TrackService,
+        private keybindingsService: KeybindingsService,
     ) {
         this.load();
         this.stepService.stepInfos.subscribe(si => this.save('stepInfo', si));
@@ -35,6 +37,7 @@ export class StorageService {
         });
         this.volumeService.volumes.subscribe(v => this.save('volume', v));
         this.trackService.tracks.subscribe(t => this.save('track', t));
+        this.keybindingsService.keybindings.subscribe(ks => this.save('keybindings', ks));
     }
 
     private save(name: string, value: any): void {
@@ -49,6 +52,7 @@ export class StorageService {
         this.loadTime();
         this.loadVolume();
         this.loadTrack();
+        this.loadKeybindings();
     }
 
     private loadStepInfo(): void {
@@ -124,6 +128,14 @@ export class StorageService {
         if (trackString) {
             const track = JSON.parse(trackString) as number;
             this.trackService.newTrack(track);
+        }
+    }
+
+    private loadKeybindings(): void {
+        const keybindingsString = localStorage.getItem('keybindings');
+        if (keybindingsString) {
+            const keybindings = JSON.parse(keybindingsString) as Keybinding[];
+            this.keybindingsService.updateBinds(keybindings);
         }
     }
 }

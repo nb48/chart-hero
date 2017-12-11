@@ -30,6 +30,9 @@
 
 .keybindings-modal .keybindings .keybinding {
     margin-bottom: 1em;
+    border-width: 2px;
+    border-color: white;
+    border-style: solid;
 }
 
 .keybindings-modal .keybindings .action {

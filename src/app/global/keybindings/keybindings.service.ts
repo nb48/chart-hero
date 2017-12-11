@@ -13,14 +13,17 @@ type Key = string;
 export interface Keybinding {
     action: Action;
     key: Key;
+    label: string;
 }
 
 const defaultKeybindings: Keybinding[] = [{
     action: Action.SelectNext,
     key: 'ArrowUp',
+    label: 'Select next note',
 }, {
     action: Action.SelectPrevious,
     key: 'ArrowDown',
+    label: 'Select previous note',
 }];
 
 @Injectable()

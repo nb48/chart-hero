@@ -3,7 +3,7 @@
     display: grid;
     width: 100vw;
     height: 100vh;
-    grid-template-areas: "title title file-select"
+    grid-template-areas: "title-bar title-bar file-select"
                          ". view parent-controls"
                          "track-selector view parent-controls"
                          "audio-player-controls view parent-controls"
@@ -18,14 +18,24 @@
     grid-template-rows: 9.25em 1em 2.25em 4.25em 4.25em 4em 3.25em 4em 4fr 1fr 4.25em;
 }
 
-.app .title {
-    grid-area: title;
+.app .title-bar {
+    grid-area: title-bar;
+    display: flex;
 }
 
-.app .title h1 {
+.app .title-bar .title {
+    order: 1;
+    flex: 1;
+}
+
+.app .title-bar .title h1 {
     margin-left: 2%;
     margin-top: 1%;
     color: white;
+}
+
+.app .title-bar app-modals {
+    order: 2;
 }
 
 .app app-file-select {

@@ -2,6 +2,7 @@
 .tap-display {
     width: 94%;
     height: 98%;
+    max-height: 35vh;
     margin-left: 4%;
     margin-right: 2%;
     margin-bottom: 2%;

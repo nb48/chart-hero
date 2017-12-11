@@ -44,4 +44,8 @@ export class TapInputService {
         const newTimes = this.timesSubject.value.filter(time => !time.selected);
         this.timesSubject.next(newTimes);
     }
+
+    deleteTimes(): void {
+        this.timesSubject.next([]);
+    }
 }

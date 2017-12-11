@@ -37,4 +37,8 @@ export class TapDisplayComponent {
     createNotes(): void {
         this.service.createNotes();
     }
+
+    deleteTimes(): void {
+        this.service.deleteTimes();
+    }
 }

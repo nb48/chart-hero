@@ -14,6 +14,7 @@ import { KeybindingsModalComponent } from './modals/keybindings/keybindings-moda
 import { ModalsComponent } from './modals/modals.component';
 
 import { KeybindingsService } from './keybindings/keybindings.service';
+import { KeybindingsActionsService } from './keybindings/keybindings-actions.service';
 import { StorageService } from './storage/storage.service';
 
 @NgModule({
@@ -38,6 +39,7 @@ import { StorageService } from './storage/storage.service';
     ],
     providers: [
         KeybindingsService,
+        KeybindingsActionsService,
         StorageService,
     ],
     entryComponents: [

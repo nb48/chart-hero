@@ -16,7 +16,7 @@ export interface Keybinding {
     label: string;
 }
 
-const defaultKeybindings = [{
+const defaultKeybindings = () => [{
     action: Action.SelectNext,
     key: 'ArrowUp',
     label: 'Select next note',
@@ -35,11 +35,15 @@ export class KeybindingsService {
 
     constructor(private selectorService: SelectorService) {
         this.keybindingsSubject = new BehaviorSubject<Keybinding[]>(undefined);
-        this.updateBinds(defaultKeybindings);
+        this.reset();
     }
 
     get keybindings(): Observable<Keybinding[]> {
         return this.keybindingsSubject.asObservable();
+    }
+
+    reset(): void {
+        this.updateBinds(defaultKeybindings());
     }
 
     activateModal(): void {

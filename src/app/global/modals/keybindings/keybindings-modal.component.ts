@@ -56,6 +56,10 @@ export class KeybindingsModalComponent implements OnDestroy {
         this.currentAction = action;
     }
 
+    reset(): void {
+        this.keybindingsService.reset();
+    }
+
     close(): void {
         this.dialogRef.close();
     }

@@ -1,6 +1,9 @@
 <div class="keybindings-modal" (window:keydown)="keyPress($event)">
     <div class="title mat-display-1">Edit Keybindings</div>
     <div class="message">{{message}}</div>
+    <button class="reset" (click)="reset()" [matTooltip]="'Reset to defaults'" [matTooltipClass]="'app-tooltip'" mat-icon-button color="primary">
+        <i class="fa fa-repeat fa-3x" aria-hidden="true" aria-label="Reset to defaults"></i>
+    </button>
     <button class="close" (click)="close()" [matTooltip]="'Close'" [matTooltipClass]="'app-tooltip'" mat-icon-button color="primary">
         <i class="fa fa-times fa-3x" aria-hidden="true" aria-label="Close"></i>
     </button>

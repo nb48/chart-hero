@@ -22,8 +22,8 @@
                 <mat-slide-toggle [checked]="tap" (change)="tapChanged()" color="primary"></mat-slide-toggle>
             </mat-list-item>
         </mat-list>
-        <app-note-controls-guitar *ngIf="isGuitarNote" class="note-type-guitar" [type]="type" (changed)="typeChanged($event)"></app-note-controls-guitar>
-        <app-note-controls-ghl *ngIf="isGHLNote" class="note-type-ghl" [type]="type" (changed)="typeChanged($event)"></app-note-controls-ghl>
+        <app-note-controls-guitar *ngIf="isGuitarNote" class="note-type-guitar" [type]="type"></app-note-controls-guitar>
+        <app-note-controls-ghl *ngIf="isGHLNote" class="note-type-ghl" [type]="type"></app-note-controls-ghl>
         <div class="step-controls">
             <mat-radio-group class="group" [(ngModel)]="stepControl" (ngModelChange)="newStep()">
                 <mat-radio-button class="button down" [value]="'one'" color="primary">1</mat-radio-button>

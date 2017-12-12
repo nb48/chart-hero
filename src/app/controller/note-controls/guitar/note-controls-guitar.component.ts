@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { ModelTrackNoteType } from '../../../model/model';
+import { TypeService } from '../../type/type.service';
 
 @Component({
     selector: 'app-note-controls-guitar',
@@ -9,10 +10,8 @@ import { ModelTrackNoteType } from '../../../model/model';
 })
 export class NoteControlsGuitarComponent {
     @Input() type: ModelTrackNoteType[];
-    @Output() changed: EventEmitter<ModelTrackNoteType[]>;
 
-    constructor() {
-        this.changed = new EventEmitter<ModelTrackNoteType[]>();
+    constructor(private typeService: TypeService) {
     }
 
     get green(): boolean {
@@ -36,32 +35,22 @@ export class NoteControlsGuitarComponent {
     }
 
     flipGreen(): void {
-        this.flip(ModelTrackNoteType.GuitarGreen);
+        this.typeService.flip1();
     }
     
     flipRed(): void {
-        this.flip(ModelTrackNoteType.GuitarRed);
+        this.typeService.flip2();
     }
     
     flipYellow(): void {
-        this.flip(ModelTrackNoteType.GuitarYellow);
+        this.typeService.flip3();
     }
     
     flipBlue(): void {
-        this.flip(ModelTrackNoteType.GuitarBlue);
+        this.typeService.flip4();
     }
     
     flipOrange(): void {
-        this.flip(ModelTrackNoteType.GuitarOrange);
-    }
-
-    private flip(type: ModelTrackNoteType): void {
-        const index = this.type.indexOf(type);
-        if (index === -1) {
-            this.changed.emit(this.type.concat([type]));
-        } else {
-            this.type.splice(index, 1);
-            this.changed.emit(this.type);
-        }
+        this.typeService.flip5();
     }
 }

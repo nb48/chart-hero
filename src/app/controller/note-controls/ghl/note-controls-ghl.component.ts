@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { ModelTrackNoteType } from '../../../model/model';
+import { TypeService } from '../../type/type.service';
 
 @Component({
     selector: 'app-note-controls-ghl',
@@ -9,10 +10,8 @@ import { ModelTrackNoteType } from '../../../model/model';
 })
 export class NoteControlsGHLComponent {
     @Input() type: ModelTrackNoteType[];
-    @Output() changed: EventEmitter<ModelTrackNoteType[]>;
 
-    constructor() {
-        this.changed = new EventEmitter<ModelTrackNoteType[]>();
+    constructor(private typeService: TypeService) {
     }
 
     get black1(): boolean {
@@ -40,36 +39,26 @@ export class NoteControlsGHLComponent {
     }
 
     flipBlack1(): void {
-        this.flip(ModelTrackNoteType.GHLBlack1);
+        this.typeService.flip1();
     }
 
     flipBlack2(): void {
-        this.flip(ModelTrackNoteType.GHLBlack2);
+        this.typeService.flip2();
     }
 
     flipBlack3(): void {
-        this.flip(ModelTrackNoteType.GHLBlack3);
+        this.typeService.flip3();
     }
 
     flipWhite1(): void {
-        this.flip(ModelTrackNoteType.GHLWhite1);
+        this.typeService.flip4();
     }
 
     flipWhite2(): void {
-        this.flip(ModelTrackNoteType.GHLWhite2);
+        this.typeService.flip5();
     }
 
     flipWhite3(): void {
-        this.flip(ModelTrackNoteType.GHLWhite3);
-    }
-
-    private flip(type: ModelTrackNoteType): void {
-        const index = this.type.indexOf(type);
-        if (index === -1) {
-            this.changed.emit(this.type.concat([type]));
-        } else {
-            this.type.splice(index, 1);
-            this.changed.emit(this.type);
-        }
+        this.typeService.flip6();
     }
 }

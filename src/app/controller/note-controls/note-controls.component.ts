@@ -69,15 +69,11 @@ export class NoteControlsComponent implements OnDestroy {
     }
 
     forceHopoChanged(): void {
-        this.typeService.updateNoteForceHopo();
+        this.typeService.flipForceHOPO();
     }
 
     tapChanged(): void {
-        this.typeService.updateNoteTap();
-    }
-
-    typeChanged(type: ModelTrackNoteType[]): void {
-        this.typeService.updateNoteType(type);
+        this.typeService.flipTap();
     }
 
     newStep(): void {

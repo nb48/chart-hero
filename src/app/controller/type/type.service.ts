@@ -63,36 +63,43 @@ export class TypeService {
         if (!this.note) {
             return;
         }
+        if (!this.isGhl()) {
+            return;
+        }
         const type = ModelTrackNoteType.GHLWhite3;
         this.flip(type);
     }
 
-    updateNoteType(type: ModelTrackNoteType[]): void {
-        const newNote = JSON.parse(JSON.stringify(this.note));
-        newNote.type = type;
-        this.actionsService.trackEventChanged(newNote);
+    flipForceHOPO(): void {
+        if (!this.note) {
+            return;
+        }
+        this.note.forceHopo = !this.note.forceHopo;
+        this.updateNote();
     }
 
-    updateNoteForceHopo(): void {
-        const newNote = JSON.parse(JSON.stringify(this.note));
-        newNote.forceHopo = !newNote.forceHopo;
-        this.actionsService.trackEventChanged(newNote);
-    }
-
-    updateNoteTap(): void {
-        const newNote = JSON.parse(JSON.stringify(this.note));
-        newNote.tap = !newNote.tap;
-        this.actionsService.trackEventChanged(newNote);
+    flipTap(): void {
+        if (!this.note) {
+            return;
+        }
+        this.note.tap = !this.note.tap;
+        this.updateNote();
     }
 
     private flip(type: ModelTrackNoteType): void {
         const index = this.note.type.indexOf(type);
         if (index === -1) {
-            this.updateNoteType(this.note.type.concat([type]));
+            this.note.type = this.note.type.concat([type]);
+            this.updateNote();
         } else {
             this.note.type.splice(index, 1);
-            this.updateNoteType(this.note.type);
+            this.updateNote();
         }
+    }
+
+    private updateNote(): void {
+        const newNote = JSON.parse(JSON.stringify(this.note));
+        this.actionsService.trackEventChanged(newNote);
     }
 
     private isGhl(): boolean {

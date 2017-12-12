@@ -51,17 +51,26 @@ export class TimeService {
     }
 
     play() {
+        if (!this.audioPlayer.loaded) {
+            return;
+        }
         this.currentlyPlaying = true;
         this.audioPlayer.start(this.currentTime);
         this.lastPlayedTime = this.currentTime;
     }
 
     pause() {
+        if (!this.audioPlayer.loaded) {
+            return;
+        }
         this.currentlyPlaying = false;        
         this.audioPlayer.stop();
     }
 
     stop() {
+        if (!this.audioPlayer.loaded) {
+            return;
+        }
         if (this.playing) {
             this.pause();
         }
@@ -69,6 +78,9 @@ export class TimeService {
     }
 
     repeat() {
+        if (!this.audioPlayer.loaded) {
+            return;
+        }
         if (this.playing) {
             this.currentlyRepeating = true;
             this.audioPlayer.stop();

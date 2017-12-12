@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { SelectorService } from '../../controller/selector/selector.service';
+import { TimeService } from '../../time/time.service';
 import { Action } from './keybindings.service';
 
 @Injectable()
 export class KeybindingsActionsService {
 
-    constructor(private selectorService: SelectorService) {
+    constructor(
+        private selectorService: SelectorService,
+        private timeService: TimeService,
+    ) {
     }
 
     getAction(action: Action): () => void {
@@ -17,11 +21,13 @@ export class KeybindingsActionsService {
         case Action.SelectPrevious:
             return () => this.selectorService.selectPrevious();
         case Action.AudioPlayOrPause:
-            return () => undefined;
+            return () => this.timeService.playing
+                ? this.timeService.pause()
+                : this.timeService.play();
         case Action.AudioStop:
-            return () => undefined;
+            return () => this.timeService.stop();
         case Action.AudioRepeat:
-            return () => undefined;
+            return () => this.timeService.repeat();
         case Action.AddNote:
             return () => undefined;
         case Action.AddBPMChange:

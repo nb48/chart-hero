@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { SelectorService } from '../../controller/selector/selector.service';
+import { ActionsService } from '../../model/actions/actions.service';
+import { TapInputService } from '../../tap-input/tap-input.service';
 import { TimeService } from '../../time/time.service';
 import { Action } from './keybindings.service';
 
@@ -10,6 +12,8 @@ export class KeybindingsActionsService {
 
     constructor(
         private selectorService: SelectorService,
+        private actionsService: ActionsService,
+        private tapInputService: TapInputService,
         private timeService: TimeService,
     ) {
     }
@@ -29,17 +33,17 @@ export class KeybindingsActionsService {
         case Action.AudioRepeat:
             return () => this.timeService.repeat();
         case Action.AddNote:
-            return () => undefined;
+            return () => this.actionsService.addNote();
         case Action.AddBPMChange:
-            return () => undefined;
+            return () => this.actionsService.addBPMChange();
         case Action.AddTSChange:
-            return () => undefined;
+            return () => this.actionsService.addTSChange();
         case Action.AddPracticeSection:
-            return () => undefined;
+            return () => this.actionsService.addPracticeSection();
         case Action.AddSoloToggle:
-            return () => undefined;
+            return () => this.actionsService.addSoloToggle();
         case Action.AddStarPowerToggle:
-            return () => undefined;
+            return () => this.actionsService.addStarPowerToggle();
         case Action.ControlToggleNote1:
             return () => undefined;
         case Action.ControlToggleNote2:
@@ -71,15 +75,13 @@ export class KeybindingsActionsService {
         case Action.ControlDelete:
             return () => undefined;
         case Action.TapInputSelectAll:
-            return () => undefined;
+            return () => this.tapInputService.selectAll();
         case Action.TapInputDeselectAll:
-            return () => undefined;
+            return () => this.tapInputService.deselectAll();
         case Action.TapInputCreateNotes:
-            return () => undefined;
+            return () => this.tapInputService.createNotes();
         case Action.TapInputDeleteTimes:
-            return () => undefined;
-        case Action.DownloadChart:
-            return () => undefined;
+            return () => this.tapInputService.deleteTimes();
         }
     }
 }

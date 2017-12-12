@@ -105,9 +105,7 @@ export class NoteControlsComponent implements OnDestroy {
     }
 
     delete(): void {
-        const idToDelete = this.id;
-        this.selectorService.selectNearest();
-        this.actionsService.deleteTrackEvent(idToDelete);
+        this.actionsService.deleteEvent();
     }
 
     clickStepControl(): void {

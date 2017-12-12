@@ -32,10 +32,15 @@
 .keybindings-modal .keybindings {
     grid-area: keybindings;
     margin: 1em;
+    max-height: 50vh;
+    overflow: auto;
+    overflow-x: hidden;
 }
 
 .keybindings-modal .keybindings .keybinding {
+    width: 38em;
     margin-bottom: 1em;
+    padding: 1em;
     border-width: 2px;
     border-color: white;
     border-style: solid;
@@ -44,11 +49,11 @@
 
 .keybindings-modal .keybindings .action {
     display: inline-block;
-    width: 20em;
+    width: 25em;
     margin-right: 1em;
 }
 
 .keybindings-modal .keybindings .key {
     display: inline-block;
-    width: 10em;
+    width: 8em;
 }

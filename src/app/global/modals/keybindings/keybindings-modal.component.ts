@@ -63,4 +63,8 @@ export class KeybindingsModalComponent implements OnDestroy {
     close(): void {
         this.dialogRef.close();
     }
+
+    captureScroll(e: Event): void {
+        e.stopPropagation();
+    }
 }

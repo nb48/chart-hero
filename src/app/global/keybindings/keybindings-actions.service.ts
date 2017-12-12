@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { SelectorService } from '../../controller/selector/selector.service';
+import { StepService } from '../../controller/step/step.service';
 import { ActionsService } from '../../model/actions/actions.service';
 import { TapInputService } from '../../tap-input/tap-input.service';
 import { TimeService } from '../../time/time.service';
@@ -12,6 +13,7 @@ export class KeybindingsActionsService {
 
     constructor(
         private selectorService: SelectorService,
+        private stepService: StepService,
         private actionsService: ActionsService,
         private tapInputService: TapInputService,
         private timeService: TimeService,
@@ -56,18 +58,18 @@ export class KeybindingsActionsService {
             return () => undefined;
         case Action.ControlToggleNote6:
             return () => undefined;
-        case Action.ControlMoveForwards:
-            return () => undefined;
-        case Action.ControlMoveBackwards:
-            return () => undefined;
         case Action.ControlSnapForwards:
-            return () => undefined;
+            return () => this.stepService.snapForwardsTime();
+        case Action.ControlMoveForwards:
+            return () => this.stepService.moveForwardsTime();
+        case Action.ControlMoveBackwards:
+            return () => this.stepService.moveBackwardsTime();
         case Action.ControlSnapBackwards:
-            return () => undefined;
+            return () => this.stepService.snapBackwardsTime();
         case Action.ControlIncreaseLength:
-            return () => undefined;
+            return () => this.stepService.increaseSustain();
         case Action.ControlDecreaseLength:
-            return () => undefined;
+            return () => this.stepService.decreaseSustain();
         case Action.ControlToggleHOPO:
             return () => undefined;
         case Action.ControlToggleTap:

@@ -65,30 +65,6 @@ const defaultKeybindings = () => [{
     key: 'c',
     label: 'Repeat audio',
 }, {
-    action: Action.AddNote,
-    key: 'a',
-    label: 'Add note',
-}, {
-    action: Action.AddBPMChange,
-    key: 's',
-    label: 'Add BPM change',
-}, {
-    action: Action.AddTSChange,
-    key: 'd',
-    label: 'Add time signature change',
-}, {
-    action: Action.AddPracticeSection,
-    key: 'f',
-    label: 'Add practice section',
-}, {
-    action: Action.AddSoloToggle,
-    key: 'g',
-    label: 'Add solo toggle',
-}, {
-    action: Action.AddStarPowerToggle,
-    key: 'h',
-    label: 'Add star power toggle',
-}, {
     action: Action.ControlToggleNote1,
     key: '1',
     label: 'Toggle Green / Black1',
@@ -148,6 +124,30 @@ const defaultKeybindings = () => [{
     action: Action.ControlDelete,
     key: 'Delete',
     label: 'Delete note / event',
+}, {
+    action: Action.AddNote,
+    key: 'a',
+    label: 'Add note',
+}, {
+    action: Action.AddBPMChange,
+    key: 's',
+    label: 'Add BPM change',
+}, {
+    action: Action.AddTSChange,
+    key: 'd',
+    label: 'Add time signature change',
+}, {
+    action: Action.AddPracticeSection,
+    key: 'f',
+    label: 'Add practice section',
+}, {
+    action: Action.AddSoloToggle,
+    key: 'g',
+    label: 'Add solo toggle',
+}, {
+    action: Action.AddStarPowerToggle,
+    key: 'h',
+    label: 'Add star power toggle',
 }, {
     action: Action.TapInputSelectAll,
     key: 'v',

@@ -94,14 +94,23 @@ export class StepService {
     }
 
     moveForwardsTime(): void {
+        if (!this.note) {
+            return;
+        }
         this.updateNoteTime(this.increment * this.step);
     }
 
     moveBackwardsTime(): void {
+        if (!this.note) {
+            return;
+        }
         this.updateNoteTime(-this.increment * this.step);
     }
 
     snapForwardsTime(): void {
+        if (!this.note) {
+            return;
+        }
         const time = this.note.time;
         const nextBeat = this.beats
             .find(e => e.time - 0.001 > time);
@@ -112,6 +121,9 @@ export class StepService {
     }
 
     snapBackwardsTime(): void {
+        if (!this.note) {
+            return;
+        }
         const time = this.note.time;
         const previousBeat = this.beats
             .sort((a, b) => b.time - a.time)
@@ -123,10 +135,16 @@ export class StepService {
     }
 
     increaseSustain(): void {
+        if (!this.note) {
+            return;
+        }
         this.updateNoteLength(this.increment * this.step);
     }
 
     decreaseSustain(): void {
+        if (!this.note) {
+            return;
+        }
         this.updateNoteLength(-this.increment * this.step);
     }
 

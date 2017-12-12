@@ -17,5 +17,6 @@ export class KeybindingsActionsService {
         case Action.SelectPrevious:
             return () => this.selectorService.selectPrevious();
         }
+        return () => undefined; // remove later
     }
 }

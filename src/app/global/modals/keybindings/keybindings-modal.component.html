@@ -1,4 +1,4 @@
-<div class="keybindings-modal" (window:keydown)="keyPress($event)">
+<div class="keybindings-modal" (wheel)="captureScroll($event)" (window:keydown)="keyPress($event)">
     <div class="title mat-display-1">Edit Keybindings</div>
     <div class="message">{{message}}</div>
     <button class="reset" (click)="reset()" [matTooltip]="'Reset to defaults'" [matTooltipClass]="'app-tooltip'" mat-icon-button color="primary">

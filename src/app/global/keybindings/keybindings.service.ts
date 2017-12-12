@@ -6,6 +6,35 @@ import { KeybindingsActionsService } from './keybindings-actions.service';
 export enum Action {
     SelectNext,
     SelectPrevious,
+    AudioPlayOrPause,
+    AudioStop,
+    AudioRepeat,
+    AddNote,
+    AddBPMChange,
+    AddTSChange,
+    AddPracticeSection,
+    AddSoloToggle,
+    AddStarPowerToggle,
+    ControlToggleNote1,
+    ControlToggleNote2,
+    ControlToggleNote3,
+    ControlToggleNote4,
+    ControlToggleNote5,
+    ControlToggleNote6,
+    ControlMoveForwards,
+    ControlMoveBackwards,
+    ControlSnapForwards,
+    ControlSnapBackwards,
+    ControlIncreaseLength,
+    ControlDecreaseLength,
+    ControlToggleHOPO,
+    ControlToggleTap,
+    ControlDelete,
+    TapInputSelectAll,
+    TapInputDeselectAll,
+    TapInputCreateNotes,
+    TapInputDeleteTimes,
+    DownloadChart,
 }
 
 export type Key = string;
@@ -24,6 +53,122 @@ const defaultKeybindings = () => [{
     action: Action.SelectPrevious,
     key: 'ArrowDown',
     label: 'Select previous note',
+}, {
+    action: Action.AudioPlayOrPause,
+    key: 'z',
+    label: 'Play (and pause) audio',
+}, {
+    action: Action.AudioStop,
+    key: 'x',
+    label: 'Stop audio',
+}, {
+    action: Action.AudioRepeat,
+    key: 'c',
+    label: 'Repeat audio',
+}, {
+    action: Action.AddNote,
+    key: 'a',
+    label: 'Add note',
+}, {
+    action: Action.AddBPMChange,
+    key: 's',
+    label: 'Add BPM change',
+}, {
+    action: Action.AddTSChange,
+    key: 'd',
+    label: 'Add time signature change',
+}, {
+    action: Action.AddPracticeSection,
+    key: 'f',
+    label: 'Add practice section',
+}, {
+    action: Action.AddSoloToggle,
+    key: 'g',
+    label: 'Add solo toggle',
+}, {
+    action: Action.AddStarPowerToggle,
+    key: 'h',
+    label: 'Add star power toggle',
+}, {
+    action: Action.ControlToggleNote1,
+    key: '1',
+    label: 'Toggle Green / Black1',
+}, {
+    action: Action.ControlToggleNote2,
+    key: '2',
+    label: 'Toggle Red / Black2',
+}, {
+    action: Action.ControlToggleNote3,
+    key: '3',
+    label: 'Toggle Yellow / Black3',
+}, {
+    action: Action.ControlToggleNote4,
+    key: '4',
+    label: 'Toggle Blue / White1',
+}, {
+    action: Action.ControlToggleNote5,
+    key: '5',
+    label: 'Toggle Orange / White2',
+}, {
+    action: Action.ControlToggleNote6,
+    key: '6',
+    label: 'Toggle White3',
+}, {
+    action: Action.ControlSnapForwards,
+    key: 'q',
+    label: 'Snap note forwards',
+}, {
+    action: Action.ControlMoveForwards,
+    key: 'w',
+    label: 'Move note forwards',
+}, {
+    action: Action.ControlMoveBackwards,
+    key: 'e',
+    label: 'Move note backwards',
+}, {
+    action: Action.ControlSnapBackwards,
+    key: 'r',
+    label: 'Snap note backwards',
+}, {
+    action: Action.ControlIncreaseLength,
+    key: 't',
+    label: 'Increase note length',
+}, {
+    action: Action.ControlDecreaseLength,
+    key: 'y',
+    label: 'Decrease note length',
+}, {
+    action: Action.ControlToggleHOPO,
+    key: '7',
+    label: 'Toggle HOPO',
+}, {
+    action: Action.ControlToggleTap,
+    key: 'u',
+    label: 'Toggle Tap',
+}, {
+    action: Action.ControlDelete,
+    key: 'Delete',
+    label: 'Delete note / event',
+}, {
+    action: Action.TapInputSelectAll,
+    key: 'v',
+    label: 'Select all tap input times',
+}, {
+    action: Action.TapInputDeselectAll,
+    key: 'b',
+    label: 'Deselect all tap input times',
+}, {
+    action: Action.TapInputCreateNotes,
+    key: 'n',
+    label: 'Create notes from tap input times',
+}, {
+    action: Action.TapInputDeleteTimes,
+    key: 'm',
+    label: 'Delete all tap input times',
+}, {
+    action: Action.DownloadChart,
+    key: '0',
+    label: 'Download chart',
 }];
 
 @Injectable()

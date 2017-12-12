@@ -27,11 +27,11 @@ export class TapDisplayComponent {
     }
 
     selectAll(): void {
-        this.times.forEach(time => time.selected = true);
+        this.service.selectAll();
     }
 
     deselectAll(): void {
-        this.times.forEach(time => time.selected = false);        
+        this.service.deselectAll();      
     }
 
     createNotes(): void {

@@ -34,7 +34,6 @@ export enum Action {
     TapInputDeselectAll,
     TapInputCreateNotes,
     TapInputDeleteTimes,
-    DownloadChart,
 }
 
 export type Key = string;
@@ -165,10 +164,6 @@ const defaultKeybindings = () => [{
     action: Action.TapInputDeleteTimes,
     key: 'm',
     label: 'Delete all tap input times',
-}, {
-    action: Action.DownloadChart,
-    key: '0',
-    label: 'Download chart',
 }];
 
 @Injectable()

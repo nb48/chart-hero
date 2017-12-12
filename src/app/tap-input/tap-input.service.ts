@@ -36,6 +36,16 @@ export class TapInputService {
         }]);
     }
 
+    selectAll(): void {
+        this.timesSubject.value.forEach(time => time.selected = true);
+        this.timesSubject.next(this.timesSubject.value);
+    }
+
+    deselectAll(): void {
+        this.timesSubject.value.forEach(time => time.selected = false);
+        this.timesSubject.next(this.timesSubject.value);
+    }
+
     createNotes(): void {
         const newNotes = this.timesSubject.value.filter(time => time.selected);
         const newNoteTimes = newNotes.map(time => time.time);

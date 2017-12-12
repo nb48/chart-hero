@@ -114,17 +114,6 @@ export class EventControlsComponent implements OnDestroy {
     }
 
     delete(): void {
-        const idToDelete = this.id;
-        const typeToDelete = this.type;
-        this.selectorService.selectNearest();
-        if (typeToDelete === BPM_CHANGE || typeToDelete === TIME_SIGNATURE_CHANGE) {
-            this.actionsService.deleteSyncTrackEvent(idToDelete);            
-        }
-        if (typeToDelete === SOLO_TOGGLE || typeToDelete === STAR_POWER_TOGGLE) {
-            this.actionsService.deleteTrackEvent(idToDelete);
-        }
-        if (typeToDelete === PRACTICE_SECTION) {
-            this.actionsService.deleteEventEvent(idToDelete);
-        }
+        this.actionsService.deleteEvent();
     }
 }

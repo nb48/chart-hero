@@ -30,6 +30,7 @@ export class ActionsService {
     private time: number;
     private track: Track;
     private model: Model;
+    private selected: ModelTrackEvent;
 
     constructor(
         private selectorService: SelectorService,
@@ -48,6 +49,12 @@ export class ActionsService {
                 this.model = model;
             },
         ).subscribe(() => {
+        });
+        this.selectorService.selectedEvents.subscribe((e) => {
+            this.selected = e;
+        });
+        this.selectorService.selectedNotes.subscribe((n) => {
+            this.selected = n;
         });
     }
 
@@ -129,22 +136,27 @@ export class ActionsService {
         this.modelService.model = this.model;
     }
 
-    deleteTrackEvent(id: number): void {
+    deleteEvent(): void {
+        if (!this.selected) {
+            return;
+        }
+        const idToDelete = this.selected.id;
+        this.selectorService.selectNearest();
         const track = getTrack(this.model, this.track);
-        const index = track.events.findIndex(n => n.id === id);
-        track.events.splice(index, 1);
-        this.modelService.model = this.model;
-    }
-
-    deleteSyncTrackEvent(id: number): void {
-        const index = this.model.syncTrack.events.findIndex(n => n.id === id);
-        this.model.syncTrack.events.splice(index, 1);
-        this.modelService.model = this.model;
-    }
-
-    deleteEventEvent(id: number): void {
-        const index = this.model.events.events.findIndex(n => n.id === id);
-        this.model.events.events.splice(index, 1);
+        const trackIndex = track.events.findIndex(n => n.id === idToDelete);
+        if (trackIndex !== -1) {
+            track.events.splice(trackIndex, 1);            
+        }
+        const syncTrack = this.model.syncTrack;
+        const syncTrackIndex = syncTrack.events.findIndex(n => n.id === idToDelete);
+        if (syncTrackIndex !== -1) {
+            syncTrack.events.splice(syncTrackIndex, 1);
+        }
+        const events = this.model.events;
+        const eventsIndex = events.events.findIndex(n => n.id === idToDelete);
+        if (eventsIndex !== -1) {
+            events.events.splice(eventsIndex, 1);
+        }
         this.modelService.model = this.model;
     }
 

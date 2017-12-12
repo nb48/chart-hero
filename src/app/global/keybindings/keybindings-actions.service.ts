@@ -77,7 +77,7 @@ export class KeybindingsActionsService {
         case Action.ControlToggleTap:
             return () => this.typeService.flipTap();
         case Action.ControlDelete:
-            return () => undefined;
+            return () => this.actionsService.deleteEvent();
         case Action.TapInputSelectAll:
             return () => this.tapInputService.selectAll();
         case Action.TapInputDeselectAll:

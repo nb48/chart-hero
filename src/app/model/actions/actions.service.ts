@@ -140,6 +140,9 @@ export class ActionsService {
         if (!this.selected) {
             return;
         }
+        if (this.selected.event === ModelTrackEventType.BPMChange && this.selected.time === 0) {
+            return;
+        }
         const idToDelete = this.selected.id;
         this.selectorService.selectNearest();
         const track = getTrack(this.model, this.track);

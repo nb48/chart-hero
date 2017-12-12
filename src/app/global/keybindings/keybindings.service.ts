@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { SelectorService } from '../../controller/selector/selector.service';
+import { KeybindingsActionsService } from './keybindings-actions.service';
 
 export enum Action {
     SelectNext,
@@ -33,7 +33,7 @@ export class KeybindingsService {
     private binds: Map<Key, () => void>;
     private modalActive: boolean;
 
-    constructor(private selectorService: SelectorService) {
+    constructor(private actionsService: KeybindingsActionsService) {
         this.keybindingsSubject = new BehaviorSubject<Keybinding[]>(undefined);
         this.reset();
     }
@@ -81,17 +81,8 @@ export class KeybindingsService {
         this.binds = new Map<Key, () => void>();
         keybindings.forEach((keybinding) => {
             if (keybinding.key !== null) {
-                this.binds.set(keybinding.key, this.getAction(keybinding.action));                
+                this.binds.set(keybinding.key, this.actionsService.getAction(keybinding.action));
             }
         });
-    }
-
-    private getAction(action: Action): () => void {
-        switch (action) {
-        case Action.SelectNext:
-            return () => this.selectorService.selectNext();
-        case Action.SelectPrevious:
-            return () => this.selectorService.selectPrevious();
-        }
     }
 }

@@ -16,7 +16,7 @@
             <mat-list-item *ngIf="isBPMChange">
                 <label class="body-1">BPM: </label>
                 <mat-form-field>
-                    <input [ngModel]="value" (ngModelChange)="bpmChanged($event)" matInput type="number">
+                    <input [ngModel]="value" (ngModelChange)="bpmChanged($event)" matInput type="number" step="0.1">
                 </mat-form-field>
             </mat-list-item>
             <mat-list-item *ngIf="isTimeSignatureChange">

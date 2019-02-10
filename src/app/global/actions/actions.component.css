@@ -5,9 +5,10 @@
     margin-left: 0.5em;
     display: grid;
     grid-template-areas: "add-note add-bpm-change add-ts-change"
-                         "add-practice-section add-solo-toggle add-star-power-toggle";
+                         "add-practice-section add-solo-toggle add-star-power-toggle"
+                         "add-phrase add-lyric .";
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
 }
 
 .actions .add-note {
@@ -32,6 +33,14 @@
 
 .actions .add-star-power-toggle {
     grid-area: add-star-power-toggle;
+}
+
+.actions .add-phrase {
+    grid-area: add-phrase;
+}
+
+.actions .add-lyric {
+    grid-area: add-lyric;
 }
 
 .actions button {

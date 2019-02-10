@@ -16,6 +16,8 @@ import {
     ModelTrackPracticeSection,
     ModelTrackSoloToggle,
     ModelTrackStarPowerToggle,
+    ModelTrackLyricToggle,
+    ModelTrackLyric,
 } from '../model';
 import { ModelService } from '../model.service';
 
@@ -132,6 +134,30 @@ export class ActionsService {
         const track = getTrack(this.model, this.track);
         track.events.push(newStarPowerToggle);
         this.selectorService.selectEvent(newStarPowerToggle.id);
+        this.modelService.model = this.model;
+    }
+
+    addLyricToggle(): void {
+        const newLyricToggle: ModelTrackLyricToggle = {
+            id: this.idGenerator.id(),
+            event: ModelTrackEventType.LyricToggle,
+            time: roundTime(this.time),
+        };
+        this.model.events.events.push(newLyricToggle);
+        this.selectorService.selectEvent(newLyricToggle.id);
+        this.modelService.model = this.model;
+    }
+
+    addLyric(): void {
+        const newLyric: ModelTrackLyric = {
+            id: this.idGenerator.id(),
+            event: ModelTrackEventType.Lyric,
+            time: roundTime(this.time),
+            word: '',
+            multiSyllable: false,
+        };
+        this.model.events.events.push(newLyric);
+        this.selectorService.selectEvent(newLyric.id);
         this.modelService.model = this.model;
     }
 

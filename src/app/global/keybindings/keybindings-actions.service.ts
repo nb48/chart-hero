@@ -48,6 +48,10 @@ export class KeybindingsActionsService {
             return () => this.actionsService.addSoloToggle();
         case Action.AddStarPowerToggle:
             return () => this.actionsService.addStarPowerToggle();
+        case Action.AddPhrase:
+            return () => this.actionsService.addLyricToggle();
+        case Action.AddLyric:
+            return () => this.actionsService.addLyric();
         case Action.ControlToggleNote1:
             return () => this.typeService.flip1();
         case Action.ControlToggleNote2:

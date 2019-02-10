@@ -1,10 +1,6 @@
 
 # Version 1.1.0
 
-## Features
-* Add lyrics support
-* Add keybindings for new lyrics buttons
-
 ## Documentation
 * Add link to Google Drive prominently on README 
 * Add gif of the app in action to the README (Soulless 4 - Machinations A - 4m2s)

@@ -15,6 +15,8 @@ export enum Action {
     AddPracticeSection,
     AddSoloToggle,
     AddStarPowerToggle,
+    AddPhrase,
+    AddLyric,
     ControlToggleNote1,
     ControlToggleNote2,
     ControlToggleNote3,
@@ -149,6 +151,14 @@ const defaultKeybindings = () => [{
     action: Action.AddStarPowerToggle,
     key: 'h',
     label: 'Add star power toggle',
+}, {
+    action: Action.AddPhrase,
+    key: 'j',
+    label: 'Add phrase',
+}, {
+    action: Action.AddLyric,
+    key: 'k',
+    label: 'Add lyric',
 }, {
     action: Action.TapInputSelectAll,
     key: 'v',

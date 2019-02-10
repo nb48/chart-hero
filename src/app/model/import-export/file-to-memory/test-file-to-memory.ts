@@ -30,6 +30,11 @@ export const TEST_FILE = `[Song]
 [Events]
 {
     200 = E "section Section 1"
+    400 = E "phrase_start"
+    400 = E "lyric A"
+    600 = E "lyric B="
+    800 = E "lyric C"
+    1000 = E "phrase_end"
     0 = UNSUPPORTED UNSUPPORTED
 }
 `;
@@ -127,6 +132,26 @@ export const TEST_MEMORY: Memory = {
         midiTime: 200,
         type: 'E',
         text: '"section Section 1"',
+    }, {
+        midiTime: 400,
+        type: 'E',
+        text: '"phrase_start"',
+    }, {
+        midiTime: 400,
+        type: 'E',
+        text: '"lyric A"',
+    }, {
+        midiTime: 600,
+        type: 'E',
+        text: '"lyric B="',
+    }, {
+        midiTime: 800,
+        type: 'E',
+        text: '"lyric C"',
+    }, {
+        midiTime: 1000,
+        type: 'E',
+        text: '"phrase_end"',
     }, {
         midiTime: 0,
         type: 'UNSUPPORTED',

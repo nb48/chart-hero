@@ -122,6 +122,11 @@ export class FileToMemoryService {
         const section = fromHeader.substring(fromHeader.indexOf('{') + 1, fromHeader.indexOf('}'));
         return section.split('\n')
             .filter(s => s.trim() !== '')
-            .map(s => s.split('=').map(s => s.trim()));
+            .map((s) => {
+                const array = s.split('=');
+                const result = array.splice(0, 1);
+                result.push(array.join('='));
+                return result.map(s => s.trim());
+            });
     }
 }

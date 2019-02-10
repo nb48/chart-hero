@@ -52,11 +52,14 @@ export class EventLinkService {
     }
 
     private buildEventX(type: ModelTrackEventType): number {
+        const x = (n: number) => 5 + 10 * n / 6;
         switch (type) {
         case ModelTrackEventType.SoloToggle:
-            return 12.5;
+            return x(4);
         case ModelTrackEventType.StarPowerToggle:
-            return 15;
+            return x(5);
+        case ModelTrackEventType.LyricToggle:
+            return x(6);
         }
     }
 }

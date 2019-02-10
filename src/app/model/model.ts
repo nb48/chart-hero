@@ -45,10 +45,10 @@ export enum ModelTrackEventType {
     GuitarNote,
     GHLNote,
     PracticeSection,
+    Lyric,
     StarPowerToggle,
     SoloToggle,
     LyricToggle,
-    Lyric,
 }
 
 export interface ModelTrackBPMChange {

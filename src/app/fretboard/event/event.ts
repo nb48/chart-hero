@@ -7,4 +7,5 @@ export interface Event {
     x: number;
     y: number;
     selected: boolean;
+    word?: string;
 }

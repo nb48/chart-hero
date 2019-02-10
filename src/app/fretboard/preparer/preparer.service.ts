@@ -73,11 +73,6 @@ export class PreparerService {
 
     private buildBeats()
         : PreparedBeat[] {
-        const notes = getTrack(this.model, this.track).events
-            .filter(e => e.event === ModelTrackEventType.GuitarNote
-                || e.event === ModelTrackEventType.GHLNote)
-            .sort((a, b) => a.time - b.time)
-            .map(e => e as ModelTrackNote);
         const bpmChangesArray = this.model.syncTrack.events
             .filter(e => e.event === ModelTrackEventType.BPMChange)
             .map(e => e as ModelTrackBPMChange)
@@ -255,6 +250,8 @@ export class PreparerService {
             ModelTrackEventType.PracticeSection,
             ModelTrackEventType.SoloToggle,
             ModelTrackEventType.StarPowerToggle,
+            ModelTrackEventType.LyricToggle,
+            ModelTrackEventType.Lyric,
         ];
         return allEvents
             .filter(e => eventTypes.indexOf(e.event) !== -1)
@@ -262,6 +259,7 @@ export class PreparerService {
                 id: e.id,
                 time: e.time,
                 type: e.event,
+                word: e.event === ModelTrackEventType.Lyric ? e.word : undefined,
             }));
     }
 
@@ -274,6 +272,7 @@ export class PreparerService {
         return [
             ...this.buildEventLinksForType(allEvents, ModelTrackEventType.SoloToggle),
             ...this.buildEventLinksForType(allEvents, ModelTrackEventType.StarPowerToggle),
+            ...this.buildEventLinksForType(allEvents, ModelTrackEventType.LyricToggle),
         ];
     }
 

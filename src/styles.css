@@ -8,6 +8,7 @@ html, body {
 
 .app-tooltip {
     font-size: 1.5em;
+    max-width: 100% !important;
 }
 
 .volume-controls .mat-list-item-content,

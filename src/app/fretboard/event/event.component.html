@@ -1,5 +1,5 @@
 <svg:g class="event" (click)=select($event) (dblclick)="selectAndSnap($event)" [matTooltip]="!playing ? tooltip : undefined" [matTooltipClass]="'app-tooltip'">
-    <svg:circle [attr.cx]="event.x" [attr.cy]="event.y" [attr.fill]="color" r="4" stroke="black" stroke-width="0.2"></svg:circle>
-    <svg:circle [attr.cx]="event.x" [attr.cy]="event.y" fill="transparent" r="3.5" stroke="black" stroke-width="0.2"></svg:circle>    
-    <svg:circle *ngIf="event.selected" [attr.cx]="event.x" [attr.cy]="event.y" r="3.85" fill="transparent" stroke="white" stroke-width="1"></svg:circle>    
+    <svg:circle [attr.cx]="event.x" [attr.cy]="event.y" [attr.fill]="color" r="3.8" [attr.stroke]="stroke" stroke-width="0.2"></svg:circle>
+    <svg:circle [attr.cx]="event.x" [attr.cy]="event.y" fill="transparent" r="3.325" [attr.stroke]="stroke" stroke-width="0.2"></svg:circle>    
+    <svg:circle *ngIf="event.selected" [attr.cx]="event.x" [attr.cy]="event.y" r="3.6575" fill="transparent" [attr.stroke]="stroke" stroke-width="1"></svg:circle>    
 </svg:g>

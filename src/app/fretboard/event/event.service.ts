@@ -52,22 +52,28 @@ export class EventService {
                 y: this.speedService.calculateYPos(b.time, this.time),
                 type: b.type,
                 selected: b.id === this.selectedId,
+                word: b.word,
             }))
             .sort((a, b) => a.type - b.type);
     }
 
     private buildEventX(type: ModelTrackEventType): number {
+        const x = (n: number) => 5 + 10 * n / 6;
         switch (type) {
         case ModelTrackEventType.BPMChange:
-            return 5;
+            return x(0);
         case ModelTrackEventType.TSChange:
-            return 7.5;
+            return x(1);
         case ModelTrackEventType.PracticeSection:
-            return 10;
+            return x(2);
+        case ModelTrackEventType.Lyric:
+            return x(3);
         case ModelTrackEventType.SoloToggle:
-            return 12.5;
+            return x(4);
         case ModelTrackEventType.StarPowerToggle:
-            return 15;
+            return x(5);
+        case ModelTrackEventType.LyricToggle:
+            return x(6);
         }
     }
 }

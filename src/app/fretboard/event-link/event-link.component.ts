@@ -17,6 +17,8 @@ export class EventLinkComponent {
             return 'blue';
         case ModelTrackEventType.StarPowerToggle:
             return 'orange';
+        case ModelTrackEventType.LyricToggle:
+            return 'black';
         }
         throw new Error('Unsupported event link passed to event link component');
     }

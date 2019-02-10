@@ -28,12 +28,20 @@ export class EventComponent {
             return 'red';
         case ModelTrackEventType.PracticeSection:
             return 'yellow';
+        case ModelTrackEventType.Lyric:
+            return 'white';
         case ModelTrackEventType.SoloToggle:
             return 'blue';
         case ModelTrackEventType.StarPowerToggle:
             return 'orange';
+        case ModelTrackEventType.LyricToggle:
+            return 'black';
         }
         throw new Error('Unsupported event passed to event component');
+    }
+
+    get stroke(): string {
+        return this.event.type === ModelTrackEventType.LyricToggle ? 'white' : 'black';
     }
 
     get playing(): boolean {
@@ -57,7 +65,11 @@ export class EventComponent {
 
     get tooltip(): string {
         const type = this.type();
-        return `${type} - ${showTime(this.event.time)}`;
+        const defaultTitle = `${type} - ${showTime(this.event.time)}`;
+        if (this.event.type === ModelTrackEventType.Lyric) {
+            return `${defaultTitle} - ${this.event.word}`;
+        }
+        return defaultTitle;
     }
 
     private type(): string {
@@ -68,10 +80,14 @@ export class EventComponent {
             return 'Time Signature Change';
         case ModelTrackEventType.PracticeSection:
             return 'Practice Section';
+        case ModelTrackEventType.Lyric:
+            return 'Lyric';
         case ModelTrackEventType.SoloToggle:
             return 'Solo Toggle';
         case ModelTrackEventType.StarPowerToggle:
             return 'Star Power Toggle';
+        case ModelTrackEventType.LyricToggle:
+            return 'Lyric Toggle';
         }
     }
 }

@@ -49,6 +49,7 @@ export interface PreparedEvent {
     id: number;
     time: number;
     type: ModelTrackEventType;
+    word?: string;
 }
 
 export interface PreparedEventLink {

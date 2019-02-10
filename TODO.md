@@ -7,8 +7,6 @@
 * Add keybindings for new lyrics buttons
 
 ## Bugs
-* Text boxes in note panel don't contain their events
-* Delete event shouldn't select next event
 * Note control doesn't update after change to tap note
 
 ## Documentation

@@ -143,7 +143,13 @@ export class ActionsService {
             return;
         }
         const idToDelete = this.selected.id;
-        this.selectorService.selectNearest();
+        const noteTypes = [ModelTrackEventType.GuitarNote, ModelTrackEventType.GHLNote];
+        const isNote = noteTypes.includes(this.selected.event);
+        if (isNote) {
+            this.selectorService.selectNearest();
+        } else {
+            this.selectorService.clearSelection();
+        }
         const track = getTrack(this.model, this.track);
         const trackIndex = track.events.findIndex(n => n.id === idToDelete);
         if (trackIndex !== -1) {

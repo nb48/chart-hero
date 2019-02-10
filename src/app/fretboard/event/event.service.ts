@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, combineLatest } from 'rxjs';
 
 import { SelectorService } from '../../controller/selector/selector.service';
 import { TimeService } from '../../time/time.service';
@@ -24,7 +24,7 @@ export class EventService {
         private speedService: SpeedService,
     ) {
         this.eventsSubject = new ReplaySubject<Event[]>();
-        Observable.combineLatest(
+        combineLatest(
             this.timeService.times,
             this.preparerService.prepareds,
             this.selectorService.selectedEvents,

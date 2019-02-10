@@ -31,7 +31,7 @@ export class TapDisplayComponent {
     }
 
     deselectAll(): void {
-        this.service.deselectAll();      
+        this.service.deselectAll();
     }
 
     createNotes(): void {

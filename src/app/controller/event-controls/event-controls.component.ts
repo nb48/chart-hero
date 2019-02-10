@@ -68,7 +68,7 @@ export class EventControlsComponent implements OnDestroy {
             }
             if (event.event === ModelTrackEventType.PracticeSection) {
                 this.type = PRACTICE_SECTION;
-                this.text = (event as ModelTrackPracticeSection).name; 
+                this.text = (event as ModelTrackPracticeSection).name;
             }
             if (event.event === ModelTrackEventType.SoloToggle) {
                 this.type = SOLO_TOGGLE;
@@ -97,7 +97,7 @@ export class EventControlsComponent implements OnDestroy {
 
     bpmChanged(bpm: number): void {
         if (bpm && bpm > 0 && bpm <= 10000) {
-            this.bpmService.updateBPM(bpm);            
+            this.bpmService.updateBPM(bpm);
         }
     }
 

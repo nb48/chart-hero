@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { combineLatest } from 'rxjs';
 
 import { BeatService } from './fretboard/beat/beat.service';
 import { EventService } from './fretboard/event/event.service';
@@ -28,7 +28,7 @@ export class AppComponent {
         this.beatService.zeroPositions.subscribe((zeroPosition) => {
             this.zeroPosition = zeroPosition;
         });
-        Observable.combineLatest(
+        combineLatest(
             this.beatService.beats,
             this.noteService.notes,
             this.eventService.events,

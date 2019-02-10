@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, combineLatest } from 'rxjs';
 
-import { ModelTrackNote } from '../../model/model';
 import { TimeService } from '../../time/time.service';
 import { Prepared } from '../preparer/prepared';
 import { PreparerService } from '../preparer/preparer.service';
@@ -23,7 +22,7 @@ export class BeatService {
     ) {
         this.beatsSubject = new ReplaySubject<Beat[]>();
         this.zeroPositionsSubject = new ReplaySubject<number>();
-        Observable.combineLatest(
+        combineLatest(
             this.timeService.times,
             this.preparerService.prepareds,
             (time, prepared) => {

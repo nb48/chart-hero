@@ -1,5 +1,5 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, ReplaySubject, combineLatest } from 'rxjs';
 
 import { IdGeneratorService } from '../../model/id-generator/id-generator.service';
 import { Model, ModelTrackEventType, ModelTrackNote, ModelTrackNoteType } from '../../model/model';
@@ -20,7 +20,7 @@ export class GuitarToGHLConverterService {
         private idGenerator: IdGeneratorService,
     ) {
         this.shouldConvertsSubject = new ReplaySubject<boolean>();
-        Observable.combineLatest(
+        combineLatest(
             this.modelService.models,
             this.trackService.tracks,
             (model, track) => {

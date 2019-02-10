@@ -29,7 +29,7 @@ export interface ModelTrack {
     unsupported: any[];
 }
 
-export type ModelTrackEvent = 
+export type ModelTrackEvent =
     ModelTrackBPMChange |
     ModelTrackTSChange |
     ModelTrackNote |

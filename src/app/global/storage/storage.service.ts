@@ -13,7 +13,7 @@ import { KeybindingsService, Keybinding } from '../keybindings/keybindings.servi
 
 @Injectable()
 export class StorageService {
-    
+
     constructor(
         private stepService: StepService,
         private fileService: FileService,

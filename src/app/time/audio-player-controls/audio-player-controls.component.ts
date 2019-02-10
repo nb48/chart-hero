@@ -59,7 +59,7 @@ export class AudioPlayerControlsComponent {
     changeTime(): void {
         const time = readTime(this.text);
         if (!isNaN(time)) {
-            this.timeService.time = time;        
+            this.timeService.time = time;
         }
     }
 

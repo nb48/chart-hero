@@ -69,6 +69,6 @@ export class NoteGHLComponent {
                 l 0 ${0.5 * y}
                 s 0 ${0.5 * y} ${-0.7 * x} ${0.5 * y}
                 l ${-0.3 * x} 0
-                l 0 ${-y}`;     
+                l 0 ${-y}`;
     }
 }

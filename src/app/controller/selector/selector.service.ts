@@ -53,7 +53,7 @@ export class SelectorService {
     selectNote(id: number): void {
         const note = this.findNote(id);
         if (note) {
-            this.newNoteSelection(note);            
+            this.newNoteSelection(note);
         } else {
             this.clearSelection();
         }
@@ -62,7 +62,7 @@ export class SelectorService {
     selectEvent(id: number): void {
         const event = this.findEvent(id);
         if (event) {
-            this.newEventSelection(event);            
+            this.newEventSelection(event);
         } else {
             this.clearSelection();
         }
@@ -71,14 +71,14 @@ export class SelectorService {
     selectNext(): void {
         const event = this.findNext();
         if (event) {
-            this.newSelection(event);            
+            this.newSelection(event);
         }
     }
 
     selectPrevious(): void {
         const event = this.findPrevious();
         if (event) {
-            this.newSelection(event);            
+            this.newSelection(event);
         }
     }
 
@@ -130,18 +130,18 @@ export class SelectorService {
 
     private findNext(): ModelTrackEvent {
         const sortedForwards = this.sortRelevantEvents();
-        const currentId = this.currentId();            
+        const currentId = this.currentId();
         if (currentId) {
             const index = sortedForwards.findIndex(e => e.id === currentId);
             return sortedForwards[index + 1];
         }
-        const currentTime = this.currentTime();        
+        const currentTime = this.currentTime();
         return sortedForwards.find(e => e.time > currentTime);
     }
 
     private findPrevious(): ModelTrackEvent {
         const sortedBackwards = this.sortRelevantEvents().reverse();
-        const currentId = this.currentId();        
+        const currentId = this.currentId();
         if (currentId) {
             const index = sortedBackwards.findIndex(e => e.id === currentId);
             return sortedBackwards[index + 1];

@@ -107,11 +107,11 @@ export class GenericTrackImporterService {
                 const midiTime = notes[0].midiTime;
                 const time = this.midiTimeService.calculateTime(midiTime, resolution, syncTrack);
                 const length = notes[0].length !== 0
-                    ? this.midiTimeService.calculateTime
-                        (midiTime + notes[0].length, resolution, syncTrack) - time
+                    ? this.midiTimeService
+                        .calculateTime(midiTime + notes[0].length, resolution, syncTrack) - time
                     : 0;
                 const notesToTransform = notes
-                    .map(n => n.note) 
+                    .map(n => n.note)
                     .filter(n => noteModifiers.indexOf(n) === -1);
                 const type = noteTransformer(notesToTransform);
                 const forceHopo = notes.some(n => n.note === forceHopoModifier);
@@ -181,8 +181,7 @@ export class GenericTrackImporterService {
             .filter(t => t.text.split(' ')[0] === '"section')
             .map((section: MemoryTrack): ModelTrackPracticeSection => {
                 const midiTime = section.midiTime;
-                const time = this.midiTimeService.calculateTime
-                    (midiTime, resolution, syncTrack);
+                const time = this.midiTimeService.calculateTime(midiTime, resolution, syncTrack);
                 const separator = section.text.indexOf(' ');
                 const name = section.text.slice(separator + 1, -1);
                 return {
@@ -204,8 +203,7 @@ export class GenericTrackImporterService {
             .filter(t => t.type === 'E' && (t.text === 'solo' || t.text === 'soloend'))
             .map((toggle: MemoryTrack): ModelTrackSoloToggle => {
                 const midiTime = toggle.midiTime;
-                const time = this.midiTimeService.calculateTime
-                    (midiTime, resolution, syncTrack);
+                const time = this.midiTimeService.calculateTime(midiTime, resolution, syncTrack);
                 return {
                     id: this.idGenerator.id(),
                     event: ModelTrackEventType.SoloToggle,
@@ -224,10 +222,10 @@ export class GenericTrackImporterService {
             .filter(t => t.type === 'S' && t.note === 2)
             .map((toggle: MemoryTrack): ModelTrackStarPowerToggle[] => {
                 const midiTime = toggle.midiTime;
-                const startTime = this.midiTimeService.calculateTime
-                    (midiTime, resolution, syncTrack);
-                const endTime = this.midiTimeService.calculateTime
-                    (midiTime + toggle.length, resolution, syncTrack);
+                const startTime = this.midiTimeService
+                    .calculateTime(midiTime, resolution, syncTrack);
+                const endTime = this.midiTimeService
+                    .calculateTime(midiTime + toggle.length, resolution, syncTrack);
                 return [{
                     id: this.idGenerator.id(),
                     event: ModelTrackEventType.StarPowerToggle,
@@ -242,7 +240,7 @@ export class GenericTrackImporterService {
 
     private importUnsupportedTrack(track: MemoryTrack[], supportedNotes: SupportedNotes)
         : MemoryTrack[] {
-        return track.filter(t => 
+        return track.filter(t =>
             !(t.type === 'N' && supportedNotes.indexOf(t.note) !== -1) &&
             !(t.type === 'S' && t.note === 2) &&
             !(t.type === 'E' && (t.text === 'solo' || t.text === 'soloend')) &&

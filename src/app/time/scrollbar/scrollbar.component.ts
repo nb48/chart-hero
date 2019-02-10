@@ -107,7 +107,7 @@ export class ScrollbarComponent implements AfterViewInit {
         }
     }
 
-    clickHandle(e: any): void {       
+    clickHandle(e: any): void {
         if (this.timeService.playing) {
             this.timeService.pause();
             this.playing = true;
@@ -116,12 +116,12 @@ export class ScrollbarComponent implements AfterViewInit {
         this.currentTimeTooltip.show();
     }
 
-    moveHandle(e: any): void {       
+    moveHandle(e: any): void {
         if (this.moving) {
             if (performance.now() - this.scrollThrottle < frame) {
                 return;
             }
-            this.scrollThrottle = performance.now();            
+            this.scrollThrottle = performance.now();
             this.currentTimeTooltip.hide();
             this.currentTimeTooltip.show();
             this.propagateTimeChange(e);
@@ -157,8 +157,7 @@ export class ScrollbarComponent implements AfterViewInit {
         if (this.timeService.playing) {
             return;
         }
-        const newTime = Math.max
-            (0, this.currentTime - this.increment);
+        const newTime = Math.max(0, this.currentTime - this.increment);
         this.timeService.time = newTime;
         e.stopPropagation();
     }

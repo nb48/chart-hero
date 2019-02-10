@@ -1,5 +1,5 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { Observable, ReplaySubject, Subscription } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, ReplaySubject } from 'rxjs';
 
 import { AudioPlayerService } from './audio-player/audio-player.service';
 
@@ -28,7 +28,7 @@ export class TimeService {
                 return;
             }
             if (this.playing) {
-                this.stop();                
+                this.stop();
             }
         });
     }
@@ -63,7 +63,7 @@ export class TimeService {
         if (!this.audioPlayer.loaded) {
             return;
         }
-        this.currentlyPlaying = false;        
+        this.currentlyPlaying = false;
         this.audioPlayer.stop();
     }
 
@@ -74,7 +74,7 @@ export class TimeService {
         if (this.playing) {
             this.pause();
         }
-        this.time = 0;                
+        this.time = 0;
     }
 
     repeat() {
@@ -85,7 +85,7 @@ export class TimeService {
             this.currentlyRepeating = true;
             this.audioPlayer.stop();
             this.time = this.lastPlayedTime;
-            this.audioPlayer.start(this.lastPlayedTime);            
+            this.audioPlayer.start(this.lastPlayedTime);
         } else {
             this.time = this.lastPlayedTime;
         }

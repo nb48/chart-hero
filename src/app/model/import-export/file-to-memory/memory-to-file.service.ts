@@ -3,7 +3,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Memory, MemoryMetadata, MemorySyncTrack, MemoryTrack } from '../memory';
 
 const formatFloat = (midiTime: number): string => {
-    return ('' + midiTime).split('.')[0];
+    return `${midiTime}`.split('.')[0];
 };
 
 @Injectable()
@@ -14,8 +14,8 @@ export class MemoryToFileService {
     }
 
     private exportChart(chart: Memory): string {
-        let file = `[Song]\n{\n${this.exportMetadata(chart.metadata)}}\n`
-        + `[SyncTrack]\n{\n${this.exportSyncTrack(chart.syncTrack)}}\n`;
+        let file = `[Song]\n{\n${this.exportMetadata(chart.metadata)}}
+[SyncTrack]\n{\n${this.exportSyncTrack(chart.syncTrack)}}\n`;
         const maybeAddTrack = (name: string, track: MemoryTrack[]) => {
             if (track) {
                 file += `[${name}]\n{\n${this.exportTrack(track)}}\n`;

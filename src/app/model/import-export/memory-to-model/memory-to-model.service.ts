@@ -28,31 +28,34 @@ export class MemoryToModelService {
         const offset = this.metadataService.getOffset(metadata);
         return {
             metadata,
-            syncTrack: this.syncTrackImporter.import(cf.syncTrack, resolution, offset),
+            syncTrack: this.syncTrackImporter
+                .import(cf.syncTrack, resolution, offset),
             guitar: {
-                expert: this.guitarImporter.import
-                    (cf.guitar.expert, cf.syncTrack, resolution, offset),
-                hard: this.guitarImporter.import
-                    (cf.guitar.hard, cf.syncTrack, resolution, offset),
-                medium: this.guitarImporter.import
-                    (cf.guitar.medium, cf.syncTrack, resolution, offset),
-                easy: this.guitarImporter.import
-                    (cf.guitar.easy, cf.syncTrack, resolution, offset),
+                expert: this.guitarImporter
+                    .import(cf.guitar.expert, cf.syncTrack, resolution, offset),
+                hard: this.guitarImporter
+                    .import(cf.guitar.hard, cf.syncTrack, resolution, offset),
+                medium: this.guitarImporter
+                    .import(cf.guitar.medium, cf.syncTrack, resolution, offset),
+                easy: this.guitarImporter
+                    .import(cf.guitar.easy, cf.syncTrack, resolution, offset),
             },
             ghlGuitar: {
-                expert: this.ghlImporter.import
-                    (cf.ghlGuitar.expert, cf.syncTrack, resolution, offset),
-                hard: this.ghlImporter.import
-                    (cf.ghlGuitar.hard, cf.syncTrack, resolution, offset),
-                medium: this.ghlImporter.import
-                    (cf.ghlGuitar.medium, cf.syncTrack, resolution, offset),
-                easy: this.ghlImporter.import
-                    (cf.ghlGuitar.easy, cf.syncTrack, resolution, offset),
+                expert: this.ghlImporter
+                    .import(cf.ghlGuitar.expert, cf.syncTrack, resolution, offset),
+                hard: this.ghlImporter
+                    .import(cf.ghlGuitar.hard, cf.syncTrack, resolution, offset),
+                medium: this.ghlImporter
+                    .import(cf.ghlGuitar.medium, cf.syncTrack, resolution, offset),
+                easy: this.ghlImporter
+                    .import(cf.ghlGuitar.easy, cf.syncTrack, resolution, offset),
             },
-            events: this.genericImporter.import
-                (cf.events, cf.syncTrack, resolution, offset, [], () => undefined, null),
-            vocals: this.unsupportedTrackImporter.import(cf.vocals),
-            venue: this.unsupportedTrackImporter.import(cf.venue),
+            events: this.genericImporter
+                .import(cf.events, cf.syncTrack, resolution, offset, [], () => undefined, null),
+            vocals: this.unsupportedTrackImporter
+                .import(cf.vocals),
+            venue: this.unsupportedTrackImporter
+                .import(cf.venue),
         };
     }
 }

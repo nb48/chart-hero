@@ -7,7 +7,7 @@ import { Beat } from './beat';
 @Component({
     selector: '[app-beat]',
     templateUrl: './beat.component.html',
-    styleUrls: ['./beat.component.css'],    
+    styleUrls: ['./beat.component.css'],
 })
 export class BeatComponent {
     @Input() beat: Beat;
@@ -21,7 +21,7 @@ export class BeatComponent {
 
     selectAndSnap(event: any): void {
         if (!this.timeService.playing) {
-            this.timeService.time = this.beat.time;            
+            this.timeService.time = this.beat.time;
         }
         event.stopPropagation();
     }

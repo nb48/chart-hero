@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject, Observable } from 'rxjs';
+import { ReplaySubject, Observable, combineLatest } from 'rxjs';
 
 import { ModelService } from '../../model/model.service';
 import {
@@ -16,9 +16,9 @@ export class IncrementService {
 
     constructor(private model: ModelService, private time: TimeService) {
         this.incrementSubject = new ReplaySubject<number>();
-        Observable.combineLatest(this.model.models, this.time.times, ((model, time) => {
-            this.incrementSubject.next(this.buildCurrentIncrement(model, time));            
-        })).subscribe(() => {  
+        combineLatest(this.model.models, this.time.times, ((model, time) => {
+            this.incrementSubject.next(this.buildCurrentIncrement(model, time));
+        })).subscribe(() => {
         });
     }
 

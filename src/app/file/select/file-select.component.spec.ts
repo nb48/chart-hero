@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatButtonModule, MatListModule } from '@angular/material';
 import { By } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 
 import { IdGeneratorService } from '../../model/id-generator/id-generator.service';
 import { ModelImporterService } from '../../model/import-export/model-importer.service';
@@ -61,7 +60,7 @@ class MockModelImporterService {
 
 class MockFileService {
 
-    audioFileNames = Observable.of('testAudioFile');
-    chartFileNames = Observable.of('testChartFile');
+    audioFileNames = of('testAudioFile');
+    chartFileNames = of('testChartFile');
 }
 

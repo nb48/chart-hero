@@ -50,7 +50,7 @@ export class EventComponent {
     selectAndSnap(event: any): void {
         if (!this.timeService.playing) {
             this.selectorService.selectEvent(this.event.id);
-            this.timeService.time = this.event.time;            
+            this.timeService.time = this.event.time;
         }
         event.stopPropagation();
     }

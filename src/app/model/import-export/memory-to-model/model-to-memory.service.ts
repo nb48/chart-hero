@@ -26,32 +26,36 @@ export class ModelToMemoryService {
         const resolution = this.metadataService.getResolution(cs.metadata);
         const offset = this.metadataService.getOffset(cs.metadata);
         return {
-            metadata: this.metadataService.export(cs.metadata),
-            syncTrack: this.syncTrackExporter.export(cs.syncTrack, resolution, offset),
+            metadata: this.metadataService
+                .export(cs.metadata),
+            syncTrack: this.syncTrackExporter
+                .export(cs.syncTrack, resolution, offset),
             guitar: {
-                expert: this.guitarExporter.export
-                    (cs.guitar.expert, cs.syncTrack, resolution, offset),
-                hard: this.guitarExporter.export
-                    (cs.guitar.hard, cs.syncTrack, resolution, offset),
-                medium: this.guitarExporter.export
-                    (cs.guitar.medium, cs.syncTrack, resolution, offset),
-                easy: this.guitarExporter.export
-                    (cs.guitar.easy, cs.syncTrack, resolution, offset),
+                expert: this.guitarExporter
+                    .export(cs.guitar.expert, cs.syncTrack, resolution, offset),
+                hard: this.guitarExporter
+                    .export(cs.guitar.hard, cs.syncTrack, resolution, offset),
+                medium: this.guitarExporter
+                    .export(cs.guitar.medium, cs.syncTrack, resolution, offset),
+                easy: this.guitarExporter
+                    .export(cs.guitar.easy, cs.syncTrack, resolution, offset),
             },
             ghlGuitar: {
-                expert: this.ghlExporter.export
-                    (cs.ghlGuitar.expert, cs.syncTrack, resolution, offset),
-                hard: this.ghlExporter.export
-                    (cs.ghlGuitar.hard, cs.syncTrack, resolution, offset),
-                medium: this.ghlExporter.export
-                    (cs.ghlGuitar.medium, cs.syncTrack, resolution, offset),
-                easy: this.ghlExporter.export
-                    (cs.ghlGuitar.easy, cs.syncTrack, resolution, offset),
+                expert: this.ghlExporter
+                    .export(cs.ghlGuitar.expert, cs.syncTrack, resolution, offset),
+                hard: this.ghlExporter
+                    .export(cs.ghlGuitar.hard, cs.syncTrack, resolution, offset),
+                medium: this.ghlExporter
+                    .export(cs.ghlGuitar.medium, cs.syncTrack, resolution, offset),
+                easy: this.ghlExporter
+                    .export(cs.ghlGuitar.easy, cs.syncTrack, resolution, offset),
             },
-            events: this.genericExporter.export
-                (cs.events, cs.syncTrack, resolution, offset, () => undefined),
-            vocals: this.trackExporter.export(cs.vocals),
-            venue: this.trackExporter.export(cs.venue),
+            events: this.genericExporter
+                .export(cs.events, cs.syncTrack, resolution, offset, () => undefined),
+            vocals: this.trackExporter
+                .export(cs.vocals),
+            venue: this.trackExporter
+                .export(cs.venue),
         };
     }
 }

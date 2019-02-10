@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, combineLatest } from 'rxjs';
 
 import {
     Model,
@@ -26,7 +26,7 @@ import {
 
 @Injectable()
 export class PreparerService {
-    
+
     private preparedSubject: ReplaySubject<Prepared>;
     private model: Model;
     private track: Track;
@@ -43,7 +43,7 @@ export class PreparerService {
         private durationService: DurationService,
     ) {
         this.preparedSubject = new ReplaySubject<Prepared>();
-        Observable.combineLatest(
+        combineLatest(
             this.modelService.models,
             this.trackService.tracks,
             this.durationService.durations,
@@ -84,7 +84,7 @@ export class PreparerService {
             .sort((a, b) => a.time - b.time);
         const beatTimes: PreparedBeat[] = [];
         const addBeat = (time: number) => {
-            beatTimes.push({ time, id: beatTimes.length + 1 });            
+            beatTimes.push({ time, id: beatTimes.length + 1 });
         };
         const bpmChanges = bpmChangesArray.entries();
         let bpmChange = bpmChanges.next().value[1];

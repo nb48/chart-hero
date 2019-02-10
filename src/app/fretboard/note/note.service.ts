@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject, Observable } from 'rxjs';
+import { ReplaySubject, Observable, combineLatest } from 'rxjs';
 
 import {
     Note,
@@ -37,7 +37,7 @@ export class NoteService {
         private speedService: SpeedService,
     ) {
         this.notesSubject = new ReplaySubject<Note[]>();
-        Observable.combineLatest(
+        combineLatest(
             this.timeService.times,
             this.preparerService.prepareds,
             this.selectorService.selectedNotes,
@@ -87,7 +87,7 @@ export class NoteService {
             }))
             .sort((a: Note, b: Note) => a.y - b.y);
     }
-    
+
     private splitNote(
         note: PreparedNote,
         y: number,

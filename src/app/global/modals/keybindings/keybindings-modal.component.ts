@@ -43,7 +43,7 @@ export class KeybindingsModalComponent implements OnDestroy {
             return;
         }
         if (e.key !== 'Escape') {
-            this.keybindingsService.updateBind(this.currentAction, e.key);            
+            this.keybindingsService.updateBind(this.currentAction, e.key);
         }
         this.currentAction = undefined;
     }

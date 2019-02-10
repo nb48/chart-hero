@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { combineLatest } from 'rxjs';
 
 import { SelectorService } from '../../controller/selector/selector.service';
 import { TimeService } from '../../time/time.service';
@@ -13,7 +13,6 @@ import {
     ModelTrackEvent,
     ModelTrackEventType,
     ModelTrackNote,
-    ModelTrackNoteType,
     ModelTrackPracticeSection,
     ModelTrackSoloToggle,
     ModelTrackStarPowerToggle,
@@ -39,7 +38,7 @@ export class ActionsService {
         private idGenerator: IdGeneratorService,
         private modelService: ModelService,
     ) {
-        Observable.combineLatest(
+        combineLatest(
             this.timeService.times,
             this.trackService.tracks,
             this.modelService.models,
@@ -59,7 +58,7 @@ export class ActionsService {
     }
 
     addNote(): void {
-        const track = getTrack(this.model, this.track);        
+        const track = getTrack(this.model, this.track);
         const newNote = this.newNote(this.time);
         track.events.push(newNote);
         this.selectorService.selectNote(newNote.id);
@@ -118,7 +117,7 @@ export class ActionsService {
             event: ModelTrackEventType.SoloToggle,
             time: roundTime(this.time),
         };
-        const track = getTrack(this.model, this.track);        
+        const track = getTrack(this.model, this.track);
         track.events.push(newSoloToggle);
         this.selectorService.selectEvent(newSoloToggle.id);
         this.modelService.model = this.model;
@@ -130,7 +129,7 @@ export class ActionsService {
             event: ModelTrackEventType.StarPowerToggle,
             time: roundTime(this.time),
         };
-        const track = getTrack(this.model, this.track);        
+        const track = getTrack(this.model, this.track);
         track.events.push(newStarPowerToggle);
         this.selectorService.selectEvent(newStarPowerToggle.id);
         this.modelService.model = this.model;
@@ -148,7 +147,7 @@ export class ActionsService {
         const track = getTrack(this.model, this.track);
         const trackIndex = track.events.findIndex(n => n.id === idToDelete);
         if (trackIndex !== -1) {
-            track.events.splice(trackIndex, 1);            
+            track.events.splice(trackIndex, 1);
         }
         const syncTrack = this.model.syncTrack;
         const syncTrackIndex = syncTrack.events.findIndex(n => n.id === idToDelete);

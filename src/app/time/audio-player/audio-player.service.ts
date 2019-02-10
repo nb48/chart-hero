@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Howl } from 'howler';
-import { Observable } from 'rxjs';
+import { interval } from 'rxjs';
 
 const frame = 1000 / 60;
 
@@ -20,9 +20,9 @@ export class AudioPlayerService {
         this.timeEmitter = new EventEmitter<number>();
         this.endedEmitter = new EventEmitter<void>();
         this.durationEmitter = new EventEmitter<number>();
-        Observable.interval(frame).subscribe(() => {
+        interval(frame).subscribe(() => {
             if (this.audioLoaded) {
-                this.timeEmitter.emit(this.howl.seek() as number);                
+                this.timeEmitter.emit(this.howl.seek() as number);
             }
         });
     }
@@ -65,7 +65,7 @@ export class AudioPlayerService {
             this.endedEmitter.emit();
         });
     }
-    
+
     start(time: number): void {
         this.howl.seek(time);
         this.howl.play();

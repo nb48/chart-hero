@@ -41,7 +41,7 @@ export class FileService {
     }
 
     loadChartFileName(fileName: string): void {
-        this.chartFileNameSubject.next(fileName);        
+        this.chartFileNameSubject.next(fileName);
     }
 
     set chartFile(file: File) {
@@ -53,7 +53,7 @@ export class FileService {
         this.chartFileNameSubject.next(file.name);
         const reader = new FileReader();
         reader.onload = () => {
-            this.modelImporter.import(reader.result);
+            this.modelImporter.import(reader.result.toString());
         };
         reader.readAsText(file);
     }

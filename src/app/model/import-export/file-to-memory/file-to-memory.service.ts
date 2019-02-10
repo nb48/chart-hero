@@ -7,10 +7,10 @@ export class FileToMemoryService {
 
     import(file: string): Memory {
         try {
-            return this.importFile(file);            
+            return this.importFile(file);
         } catch (error) {
             console.warn('Invalid chart file. Loading empty chart instead');
-            return this.importFile('');                        
+            return this.importFile('');
         }
     }
 
@@ -37,7 +37,7 @@ export class FileToMemoryService {
     }
 
     private importMetadata(file: string): MemoryMetadata[] {
-        const section = this.findSection(`[Song]`, file);
+        const section = this.findSection('[Song]', file);
         if (!section) {
             return null;
         }
@@ -50,7 +50,7 @@ export class FileToMemoryService {
     }
 
     private importSyncTrack(file: string): MemorySyncTrack[] {
-        const section = this.findSection(`[SyncTrack]`, file);
+        const section = this.findSection('[SyncTrack]', file);
         if (!section) {
             return null;
         }

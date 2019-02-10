@@ -17,11 +17,11 @@ export class NoteControlsGHLComponent {
     get black1(): boolean {
         return this.type.indexOf(ModelTrackNoteType.GHLBlack1) !== -1;
     }
-    
+
     get black2(): boolean {
         return this.type.indexOf(ModelTrackNoteType.GHLBlack2) !== -1;
     }
-        
+
     get black3(): boolean {
         return this.type.indexOf(ModelTrackNoteType.GHLBlack3) !== -1;
     }
@@ -29,11 +29,11 @@ export class NoteControlsGHLComponent {
     get white1(): boolean {
         return this.type.indexOf(ModelTrackNoteType.GHLWhite1) !== -1;
     }
-    
+
     get white2(): boolean {
         return this.type.indexOf(ModelTrackNoteType.GHLWhite2) !== -1;
     }
-        
+
     get white3(): boolean {
         return this.type.indexOf(ModelTrackNoteType.GHLWhite3) !== -1;
     }

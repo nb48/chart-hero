@@ -61,11 +61,13 @@ module.exports = {
             /angular(\\|\/)core(\\|\/)/,
             helpers.root('src')
         ),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: ['app', 'vendor', 'polyfills']
-        }),
         new HtmlWebpackPlugin({
             template: helpers.root('src', 'index.html')
         })
-    ]
+    ],
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    }
 }

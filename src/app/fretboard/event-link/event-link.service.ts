@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, combineLatest } from 'rxjs';
 
 import { TimeService } from '../../time/time.service';
 import { Prepared } from '../preparer/prepared';
@@ -21,7 +21,7 @@ export class EventLinkService {
         private speedService: SpeedService,
     ) {
         this.eventLinksSubject = new ReplaySubject<EventLink[]>();
-        Observable.combineLatest(
+        combineLatest(
             this.timeService.times,
             this.preparerService.prepareds,
             (time, prepared) => {
@@ -50,7 +50,7 @@ export class EventLinkService {
                 y2: this.speedService.calculateYPos(el.endTime, this.time),
             }));
     }
-    
+
     private buildEventX(type: ModelTrackEventType): number {
         switch (type) {
         case ModelTrackEventType.SoloToggle:

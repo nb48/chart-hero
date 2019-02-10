@@ -34,7 +34,7 @@ export class GuitarTrackExporterService {
         resolution: number,
         offset: number,
     ): MemoryTrack[] {
-        return this.genericExporter.export
-            (track, syncTrack, resolution, offset, guitarNoteExporter);
+        return this.genericExporter
+            .export(track, syncTrack, resolution, offset, guitarNoteExporter);
     }
 }

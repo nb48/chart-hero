@@ -67,11 +67,11 @@ export class GenericTrackExporterService {
             .map(e => e as ModelTrackNote)
             .map((n): MemoryTrack[] => {
                 const time = n.time - offset;
-                const midiTime = this.midiTimeService.calculateMidiTime
-                    (time, resolution, bpmChanges);
+                const midiTime = this.midiTimeService
+                    .calculateMidiTime(time, resolution, bpmChanges);
                 const length = n.length !== 0
-                    ? this.midiTimeService.calculateMidiTime
-                        (time + n.length, resolution, bpmChanges) - midiTime
+                    ? this.midiTimeService
+                        .calculateMidiTime(time + n.length, resolution, bpmChanges) - midiTime
                     : 0;
                 const forceHopo = n.forceHopo
                     ? [{
@@ -119,8 +119,8 @@ export class GenericTrackExporterService {
             .map(e => e as ModelTrackPracticeSection)
             .map((p): MemoryTrack => {
                 const time = p.time - offset;
-                const midiTime = this.midiTimeService.calculateMidiTime
-                    (time, resolution, bpmChanges);
+                const midiTime = this.midiTimeService
+                    .calculateMidiTime(time, resolution, bpmChanges);
                 return {
                     midiTime,
                     type: 'E',
@@ -142,8 +142,8 @@ export class GenericTrackExporterService {
             .map(e => e as ModelTrackSoloToggle)
             .forEach((t): void => {
                 const time = t.time - offset;
-                const midiTime = this.midiTimeService.calculateMidiTime
-                    (time, resolution, bpmChanges);
+                const midiTime = this.midiTimeService
+                    .calculateMidiTime(time, resolution, bpmChanges);
                 soloEvents.push({
                     midiTime,
                     type: 'E',
@@ -167,8 +167,8 @@ export class GenericTrackExporterService {
             .map(e => e as ModelTrackStarPowerToggle)
             .forEach((t): void => {
                 const time = t.time - offset;
-                const midiTime = this.midiTimeService.calculateMidiTime
-                    (time, resolution, bpmChanges);
+                const midiTime = this.midiTimeService
+                    .calculateMidiTime(time, resolution, bpmChanges);
                 if (!toggled) {
                     starPowerEvents.push({
                         midiTime,

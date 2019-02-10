@@ -24,11 +24,11 @@ export class MetadataService {
     }
 
     getResolution(metadata: ModelMetadata[]): number {
-        return parseFloat(metadata.find(m => m.name === 'Resolution').value);         
+        return parseFloat(metadata.find(m => m.name === 'Resolution').value);
     }
-    
+
     getOffset(metadata: ModelMetadata[]): number {
-        return parseFloat(metadata.find(m => m.name === 'Offset').value);     
+        return parseFloat(metadata.find(m => m.name === 'Offset').value);
     }
 
     private defaultResolution(): ModelMetadata {

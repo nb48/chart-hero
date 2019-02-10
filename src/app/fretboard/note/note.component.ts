@@ -26,7 +26,7 @@ export class NoteComponent {
 
     select(event: any): void {
         if (!this.timeService.playing) {
-            this.selectorService.selectNote(this.note.id);            
+            this.selectorService.selectNote(this.note.id);
         }
         event.stopPropagation();
     }
@@ -34,7 +34,7 @@ export class NoteComponent {
     selectAndSnap(event: any): void {
         if (!this.timeService.playing) {
             this.selectorService.selectNote(this.note.id);
-            this.timeService.time = this.note.time;            
+            this.timeService.time = this.note.time;
         }
         event.stopPropagation();
     }

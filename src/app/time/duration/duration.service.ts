@@ -47,7 +47,7 @@ export class DurationService {
             .map(k => Track[k])
             .filter(v => typeof v === 'number')
             .forEach((track: Track) => {
-                events.push(...(getTrack(model, track).events));                
+                events.push(...(getTrack(model, track).events));
             });
         const lastEvent = events.length === 0
             ? undefined

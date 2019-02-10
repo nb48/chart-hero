@@ -35,7 +35,7 @@ export enum PreparedNoteGuitarColor {
    Red,
    Yellow,
    Blue,
-   Orange, 
+   Orange,
 }
 
 export enum PreparedNoteGHLColor {

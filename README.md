@@ -19,7 +19,7 @@ yarn install
 yarn start
 ```
 
-This starts the application at http://localhost:9000
+This starts the application at http://localhost:8080
 
 ## Testing
 
@@ -31,10 +31,7 @@ yarn test
 
 ```
 yarn build
-yarn serve
 ```
-
-This serves an optimized version of the application at http://localhost:9001
 
 ## Built With
 

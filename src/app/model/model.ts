@@ -45,6 +45,8 @@ export enum ModelTrackEventType {
     PracticeSection,
     StarPowerToggle,
     SoloToggle,
+    LyricToggle,
+    Lyric,
 }
 
 export interface ModelTrackBPMChange {
@@ -102,4 +104,18 @@ export interface ModelTrackStarPowerToggle {
     id: number;
     event: ModelTrackEventType.StarPowerToggle;
     time: number;
+}
+
+export interface ModelTrackLyricToggle {
+    id: number;
+    event: ModelTrackEventType.LyricToggle;
+    time: number;
+}
+
+export interface ModelTrackLyric {
+    id: number;
+    event: ModelTrackEventType.Lyric;
+    time: number;
+    word: string;
+    multiSyllable: boolean;
 }

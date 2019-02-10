@@ -196,6 +196,13 @@ export class ActionsService {
         this.modelService.model = this.model;
     }
 
+    snapToSelected(): void {
+        if (!this.selected) {
+            return;
+        }
+        this.timeService.time = this.selected.time;
+    }
+
     private newNote(time: number): ModelTrackNote {
         const ghl = isGHLTrack(this.track);
         return {

@@ -34,6 +34,7 @@ export enum Action {
     TapInputDeselectAll,
     TapInputCreateNotes,
     TapInputDeleteTimes,
+    SnapToSelected,
 }
 
 export type Key = string;
@@ -164,6 +165,10 @@ const defaultKeybindings = () => [{
     action: Action.TapInputDeleteTimes,
     key: 'm',
     label: 'Delete all tap input times',
+}, {
+    action: Action.SnapToSelected,
+    key: ' ',
+    label: 'Snap to time of currently selected note or event',
 }];
 
 @Injectable()

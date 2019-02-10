@@ -3,11 +3,7 @@
 
 ## Features
 * Add lyrics support
-* Add a snap to current selected time keybind
 * Add keybindings for new lyrics buttons
-
-## Bugs
-* Note control doesn't update after change to tap note
 
 ## Documentation
 * Add link to Google Drive prominently on README 

@@ -40,6 +40,7 @@
 .keybindings-modal .keybindings .keybinding {
     width: 38em;
     margin-bottom: 1em;
+    margin-right: 2em;
     padding: 1em;
     border-width: 2px;
     border-color: white;

@@ -86,6 +86,8 @@ export class KeybindingsActionsService {
             return () => this.tapInputService.createNotes();
         case Action.TapInputDeleteTimes:
             return () => this.tapInputService.deleteTimes();
+        case Action.SnapToSelected:
+            return () => this.actionsService.snapToSelected();
         }
     }
 }

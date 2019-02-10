@@ -8,7 +8,7 @@ There are some examples here - https://drive.google.com/open?id=1T5JM1XR1tfY1WS6
 
 If you have any questions, join us on [Discord!](https://discord.gg/UJNFxhM)
 
-<img src="./asets/chart-hero-demo.gif" width="1522" height="821" />
+<img src="./assets/chart-hero-demo.gif" width="1522" height="821" />
 
 ## Running
 

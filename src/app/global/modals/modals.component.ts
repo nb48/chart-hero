@@ -14,10 +14,9 @@ export class ModalsComponent {
     }
 
     keybindings(): void {
-        const dialogRef = this.dialog.open(KeybindingsModalComponent);
+        this.dialog.open(KeybindingsModalComponent);
     }
 
     metadata(): void {
-        console.log('Metadata unimplemented');
     }
 }

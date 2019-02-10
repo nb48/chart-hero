@@ -1,1 +1,0 @@
-webpackJsonp([2],{923:function(n,c){}},[923]);

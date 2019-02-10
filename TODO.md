@@ -13,6 +13,3 @@
 ## Documentation
 * Add link to Google Drive prominently on README
 * Add image of the app in action to the README
-
-## Refactoring
-* Use jsconfig file and fix imports

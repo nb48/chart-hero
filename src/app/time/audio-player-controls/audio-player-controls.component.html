@@ -12,6 +12,6 @@
         <i class="fa fa-repeat fa-2x" aria-hidden="true" aria-label="Repeat"></i>
     </button>
     <mat-form-field>
-        <input [ngModel]="currentTime" (ngModelChange)="saveTime($event)" (blur)="changeTime()" [readOnly]="playing" matInput type="text">
+        <input [ngModel]="currentTime" (ngModelChange)="saveTime($event)" (blur)="changeTime()" (keydown)="keyDown($event)" [readOnly]="playing" matInput type="text">
     </mat-form-field>
 </div>

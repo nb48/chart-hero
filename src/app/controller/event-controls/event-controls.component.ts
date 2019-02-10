@@ -116,4 +116,8 @@ export class EventControlsComponent implements OnDestroy {
     delete(): void {
         this.actionsService.deleteEvent();
     }
+
+    keyDown(event: Event) {
+        event.stopPropagation();
+    }
 }

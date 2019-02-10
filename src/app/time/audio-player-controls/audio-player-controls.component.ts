@@ -78,4 +78,8 @@ export class AudioPlayerControlsComponent {
     repeat(): void {
         this.timeService.repeat();
     }
+
+    keyDown(event: Event) {
+        event.stopPropagation();
+    }
 }

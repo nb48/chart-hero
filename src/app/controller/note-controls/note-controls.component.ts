@@ -112,4 +112,8 @@ export class NoteControlsComponent implements OnDestroy {
         this.stepControl = 'custom';
         this.newStep();
     }
+
+    keyDown(event: Event) {
+        event.stopPropagation();
+    }
 }

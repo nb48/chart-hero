@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
 
 import { ActionsService } from '../../model/actions/actions.service';
 import { ModelTrackEvent, ModelTrackPracticeSection } from '../../model/model';

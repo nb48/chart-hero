@@ -19,6 +19,7 @@ import { NoteControlsComponent } from './note-controls/note-controls.component';
 import { ParentControlsComponent } from './parent-controls/parent-controls.component';
 
 import { BPMService } from './bpm/bpm.service';
+import { LyricService } from './lyric/lyric.service';
 import { PracticeSectionService } from './practice-section/practice-section.service';
 import { SelectorService } from './selector/selector.service';
 import { StepService } from './step/step.service';
@@ -51,6 +52,7 @@ import { TypeService } from './type/type.service';
     ],
     providers: [
         BPMService,
+        LyricService,
         PracticeSectionService,
         SelectorService,
         StepService,

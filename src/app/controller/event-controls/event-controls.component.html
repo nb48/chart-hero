@@ -31,6 +31,18 @@
                     <input [ngModel]="text" (ngModelChange)="practiceSectionChanged($event)" (keydown)="keyDown($event)" matInput type="text">
                 </mat-form-field>
             </mat-list-item>
+            <ng-container *ngIf="isLyric">
+                <mat-list-item>
+                    <label class="body-1">Word: </label>
+                    <mat-form-field>
+                        <input [ngModel]="word" (ngModelChange)="wordChanged($event)" (keydown)="keyDown($event)" matInput type="text">
+                    </mat-form-field>
+                </mat-list-item>
+                <mat-list-item>
+                    <label class="body-1">MultiSyllable: </label>
+                    <mat-slide-toggle [checked]="multiSyllable" (change)="flipMultiSyllable()" color="primary"></mat-slide-toggle>
+                </mat-list-item>
+            </ng-container>
         </mat-list>
         <div class="actions">
             <button [disabled]="disableDelete" class="delete-event" mat-raised-button color="primary" (click)="delete()">Delete Event</button>        

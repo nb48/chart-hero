@@ -181,6 +181,26 @@ export const TEST_MEMORY: Memory = {
         type: 'E',
         text: '"invalid Section 2"',
     }, {
+        midiTime: 600,
+        type: 'E',
+        text: '"phrase_start"'
+    }, {
+        midiTime: 800,
+        type: 'E',
+        text: '"lyric A"'
+    }, {
+        midiTime: 1000,
+        type: 'E',
+        text: '"lyric B="'
+    }, {
+        midiTime: 1200,
+        type: 'E',
+        text: '"lyric C"'
+    }, {
+        midiTime: 1400,
+        type: 'E',
+        text: '"phrase_end"'
+    }, {
         midiTime: 9989,
         type: 'UNSUPPORTED',
         text: 'UNSUPPORTED',
@@ -430,6 +450,32 @@ export const TEST_MODEL: Model = {
             event: ModelTrackEventType.PracticeSection as ModelTrackEventType.PracticeSection,
             time: 0.9,
             name: 'Section 1',
+        }, {
+            id: 250,
+            event: ModelTrackEventType.LyricToggle as ModelTrackEventType.LyricToggle,
+            time: 2.9,
+        }, {
+            id: 260,
+            event: ModelTrackEventType.LyricToggle as ModelTrackEventType.LyricToggle,
+            time: 10.4,
+        }, {
+            id: 270,
+            event: ModelTrackEventType.Lyric as ModelTrackEventType.Lyric,
+            time: 4.4,
+            word: 'A',
+            multiSyllable: false,
+        }, {
+            id: 280,
+            event: ModelTrackEventType.Lyric as ModelTrackEventType.Lyric,
+            time: 6.4,
+            word: 'B',
+            multiSyllable: true,
+        }, {
+            id: 290,
+            event: ModelTrackEventType.Lyric as ModelTrackEventType.Lyric,
+            time: 8.4,
+            word: 'C',
+            multiSyllable: false,
         }],
         unsupported: [{
             midiTime: 400,

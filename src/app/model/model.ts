@@ -35,7 +35,9 @@ export type ModelTrackEvent =
     ModelTrackNote |
     ModelTrackPracticeSection |
     ModelTrackStarPowerToggle |
-    ModelTrackSoloToggle;
+    ModelTrackSoloToggle |
+    ModelTrackLyricToggle |
+    ModelTrackLyric;
 
 export enum ModelTrackEventType {
     BPMChange,

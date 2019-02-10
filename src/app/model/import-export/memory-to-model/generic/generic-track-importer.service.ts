@@ -9,6 +9,8 @@ import {
     ModelTrackPracticeSection,
     ModelTrackSoloToggle,
     ModelTrackStarPowerToggle,
+    ModelTrackLyricToggle,
+    ModelTrackLyric,
 } from '../../../model';
 import { MemorySyncTrack, MemoryTrack } from '../../memory';
 import { defaultSyncTrack } from '../common/sync-track-importer.service';
@@ -72,6 +74,18 @@ export class GenericTrackImporterService {
                     offset,
                 ),
                 ...this.importStarPowerToggles(
+                    track,
+                    syncTrack,
+                    resolution,
+                    offset,
+                ),
+                ...this.importLyricToggles(
+                    track,
+                    syncTrack,
+                    resolution,
+                    offset,
+                ),
+                ...this.importLyrics(
                     track,
                     syncTrack,
                     resolution,
@@ -238,12 +252,56 @@ export class GenericTrackImporterService {
             })));
     }
 
+    private importLyricToggles(
+        track: MemoryTrack[],
+        syncTrack: MemorySyncTrack[],
+        resolution: number,
+        offset: number,
+    ): ModelTrackLyricToggle[] {
+        return track
+            .filter(t => t.type === 'E' &&
+                (t.text === '"phrase_start"' || t.text === '"phrase_end"'))
+            .map((toggle: MemoryTrack): ModelTrackLyricToggle => {
+                const midiTime = toggle.midiTime;
+                const time = this.midiTimeService.calculateTime(midiTime, resolution, syncTrack);
+                return {
+                    id: this.idGenerator.id(),
+                    event: ModelTrackEventType.LyricToggle,
+                    time: time + offset,
+                };
+            });
+    }
+
+    private importLyrics(
+        track: MemoryTrack[],
+        syncTrack: MemorySyncTrack[],
+        resolution: number,
+        offset: number,
+    ): ModelTrackLyric[] {
+        return track
+            .filter(t => t.type === 'E' && t.text.startsWith('"lyric '))
+            .map((toggle: MemoryTrack): ModelTrackLyric => {
+                const midiTime = toggle.midiTime;
+                const time = this.midiTimeService.calculateTime(midiTime, resolution, syncTrack);
+                const isMultiSyllable = toggle.text.includes('="');
+                return {
+                    id: this.idGenerator.id(),
+                    event: ModelTrackEventType.Lyric,
+                    time: time + offset,
+                    word: toggle.text.slice(7).slice(0, isMultiSyllable ? -2 : -1),
+                    multiSyllable: isMultiSyllable,
+                };
+            });
+    }
+
     private importUnsupportedTrack(track: MemoryTrack[], supportedNotes: SupportedNotes)
         : MemoryTrack[] {
         return track.filter(t =>
             !(t.type === 'N' && supportedNotes.indexOf(t.note) !== -1) &&
             !(t.type === 'S' && t.note === 2) &&
             !(t.type === 'E' && (t.text === 'solo' || t.text === 'soloend')) &&
-            !(t.type === 'E' && (t.text.split(' ')[0] === '"section')));
+            !(t.type === 'E' && (t.text.split(' ')[0] === '"section')) &&
+            !(t.type === 'E' && (t.text === '"phrase_start"' || t.text === '"phrase_end"')) &&
+            !(t.type === 'E' && (t.text.startsWith('"lyric '))));
     }
 }

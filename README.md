@@ -6,8 +6,6 @@ Head to https://nb48.github.io/chart-hero/ to check out the application. All you
 
 There are some examples here - https://drive.google.com/open?id=1T5JM1XR1tfY1WS6N4kgyKyeFU94zLd5Z
 
-If you have any questions, join us on [Discord!](https://discord.gg/UJNFxhM)
-
 <img src="./assets/chart-hero-demo.gif" width="900" height="520"/>
 
 ## Running
